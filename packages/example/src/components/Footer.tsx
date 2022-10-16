@@ -11,7 +11,7 @@ const Footer = () => {
 			<div>
 				Source code of this demo{' '}
 				<Link
-					href='https://github.com/marsidev/react.turnstile/blob/main/packages/example/README.md'
+					href='https://github.com/marsidev/react.turnstile/tree/main/packages/example'
 					label='here'
 				/>
 			</div>
