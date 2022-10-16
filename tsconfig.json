@@ -1,0 +1,24 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"lib": ["DOM", "DOM.Iterable", "ESNext"],
+		"moduleResolution": "Node",
+		"esModuleInterop": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"jsx": "react-jsx",
+		"strictNullChecks": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"skipDefaultLibCheck": true,
+		"isolatedModules": true,
+		"rootDir": ".",
+		"baseUrl": ".",
+		"paths": {
+			"~/*": ["./*"]
+		}
+	},
+	"include": ["build.config.ts", "src", "packages"],
+	"exclude": ["node_modules"]
+}

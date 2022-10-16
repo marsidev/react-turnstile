@@ -1,0 +1,80 @@
+{
+	"name": "react.turnstile",
+	"version": "0.0.1",
+	"packageManager": "pnpm@7.12.1",
+	"description": "Cloudflare Turnstile integration for React.",
+	"author": "Luis Marsiglia <marsiglia.business@gmail.com>",
+	"license": "MIT",
+	"type": "module",
+	"private": false,
+	"homepage": "https://github.com/marsidev/react.turnstile",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/marsidev/react.turnstile.git"
+	},
+	"bugs": "https://github.com/marsidev/react.turnstile/issues",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"require": "./dist/index.cjs",
+			"import": "./dist/index.mjs"
+		}
+	},
+	"main": "./dist/index.mjs",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"types",
+		"*.d.ts"
+	],
+	"scripts": {
+		"build": "unbuild",
+		"dev": "unbuild --stub",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
+		"prepublishOnly": "nr build",
+		"release": "bumpp && npm publish",
+		"start": "esno src/index.ts",
+		"test": "vitest",
+		"typecheck": "tsc --noEmit",
+		"example:dev": "pnpm build && pnpm run --filter=example dev",
+		"example:build": "pnpm build && pnpm run --filter=example build",
+		"example:preview": "pnpm build && pnpm run --filter=example preview",
+		"example:deploy": "pnpm build && npx vercel deploy",
+		"example:deploy:prod": "pnpm build && npx vercel deploy --prod"
+	},
+	"peerDependencies": {
+		"react": ">=16.8.0",
+		"react-dom": ">=16.8.0"
+	},
+	"devDependencies": {
+		"@antfu/ni": "0.17.2",
+		"@antfu/utils": "0.5.2",
+		"@types/react": "18.0.21",
+		"@types/react-dom": "18.0.6",
+		"bumpp": "8.2.1",
+		"eslint-config-marsi": "workspace:*",
+		"esno": "0.16.3",
+		"pnpm": "7.12.1",
+		"rimraf": "3.0.2",
+		"typescript": "4.8.4",
+		"unbuild": "0.8.8",
+		"vitest": "0.22.1"
+	},
+	"keywords": [
+		"turnstile",
+		"cloudflare turnstile",
+		"react",
+		"typescript"
+	],
+	"sideEffects": false,
+	"pnpm": {
+		"peerDependencyRules": {
+			"ignoreMissing": []
+		}
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

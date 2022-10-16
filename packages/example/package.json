@@ -1,0 +1,32 @@
+{
+	"name": "example",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"preview": "next start",
+		"lint": "next lint",
+		"lint:fix": "next lint --fix"
+	},
+	"dependencies": {
+		"classnames": "2.3.2",
+		"next": "12.3.1",
+		"react": "18.2.0",
+		"react-dom": "18.2.0"
+	},
+	"devDependencies": {
+		"@types/node": "18.11.0",
+		"@types/react": "18.0.21",
+		"@types/react-dom": "18.0.6",
+		"autoprefixer": "10.4.12",
+		"eslint": "8.23.0",
+		"eslint-config-marsi": "workspace:*",
+		"eslint-config-next": "12.3.1",
+		"postcss": "8.4.18",
+		"react.turnstile": "workspace:*",
+		"tailwindcss": "3.1.8",
+		"typescript": "4.8.4"
+	}
+}

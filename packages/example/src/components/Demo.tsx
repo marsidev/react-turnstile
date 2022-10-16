@@ -1,0 +1,98 @@
+import { useEffect, useRef, useState } from 'react'
+import { Turnstile, type TurnstileInstance } from 'react.turnstile'
+import ConfigForm from './ConfigForm'
+import StateLabels from './StateLabels'
+import WidgetMethods from './WidgetMethods'
+import TokenValidation from './TokenValidation'
+import Footer from './Footer'
+
+/** testing demo siteKeys */
+enum DEMO_SITEKEY {
+	pass = '1x00000000000000000000AA',
+	fail = '2x00000000000000000000AB',
+	interactive = '3x00000000000000000000FF'
+}
+
+type Theme = 'light' | 'dark' | 'auto'
+export type WidgetStatus = 'solved' | 'error' | 'expired' | null
+type SiteKeyType = keyof typeof DEMO_SITEKEY
+
+const Demo = () => {
+	const [mounted, setMounted] = useState(false)
+	const [theme, setTheme] = useState<Theme>('auto')
+	const [siteKeyType, setSiteKeyType] = useState<SiteKeyType>('pass')
+	const [status, setStatus] = useState<WidgetStatus>(null)
+	const [token, setToken] = useState<string>()
+	const [rerenderCount, setRerenderCount] = useState(0)
+	const configFormRef = useRef<HTMLFormElement>(null)
+	const turnstileRef = useRef<TurnstileInstance>(null)
+	const testingSiteKey = DEMO_SITEKEY[siteKeyType]
+
+	useEffect(() => setMounted(true), [])
+	const incrementRerender = () => setRerenderCount(prev => prev + 1)
+
+	const onRestartStates = () => {
+		setStatus(null)
+		incrementRerender()
+	}
+
+	const onChangeTheme = (value: string) => {
+		setTheme(value as Theme)
+		onRestartStates()
+	}
+
+	const onChangeSiteKeyType = (value: string) => {
+		setSiteKeyType(value as SiteKeyType)
+		onRestartStates()
+	}
+
+	const onSuccess = (token: string) => {
+		setToken(token)
+		setStatus('solved')
+	}
+
+	return (
+		<div className='flex flex-col items-center justify-center w-full min-h-screen py-24'>
+			<main className='w-full max-w-[740px] flex justify-center flex-col text-white p-4 gap-2'>
+				<h1 className='font-semibold text-4xl mb-4'>React Turnstile Demo</h1>
+
+				{mounted && (
+					<>
+						<Turnstile
+							ref={turnstileRef}
+							options={{ theme }}
+							siteKey={testingSiteKey}
+							onError={() => setStatus('error')}
+							onExpire={() => setStatus('expired')}
+							onSuccess={onSuccess}
+						/>
+					</>
+				)}
+
+				<h2 className='font-semibold text-2xl mt-8'>Configuration</h2>
+				<ConfigForm
+					ref={configFormRef}
+					onChangeSiteKeyType={onChangeSiteKeyType}
+					onChangeTheme={onChangeTheme}
+				/>
+
+				<h2 className='font-semibold text-2xl mt-8'>Challenge States</h2>
+				<StateLabels status={status} />
+
+				<h2 className='font-semibold text-2xl mt-8'>Widget Methods</h2>
+				<WidgetMethods turnstile={turnstileRef} onRestartStates={onRestartStates} />
+
+				<h2 className='font-semibold text-2xl mt-8'>Token validation (server-side)</h2>
+				<TokenValidation
+					challengeSolved={status === 'solved'}
+					token={token}
+					widgetRerenderCount={rerenderCount}
+				/>
+			</main>
+
+			<Footer />
+		</div>
+	)
+}
+
+export default Demo
