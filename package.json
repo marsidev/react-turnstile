@@ -35,7 +35,6 @@
 		"lint:fix": "eslint . --fix",
 		"prepublishOnly": "nr build",
 		"release": "bumpp && npm publish",
-		"start": "esno src/index.ts",
 		"test": "vitest",
 		"typecheck": "tsc --noEmit",
 		"example:dev": "pnpm build && pnpm run --filter=example dev",
@@ -55,7 +54,6 @@
 		"@types/react-dom": "18.0.6",
 		"bumpp": "8.2.1",
 		"eslint-config-marsi": "workspace:*",
-		"esno": "0.16.3",
 		"pnpm": "7.12.1",
 		"rimraf": "3.0.2",
 		"typescript": "4.8.4",
@@ -64,9 +62,8 @@
 	},
 	"keywords": [
 		"turnstile",
-		"cloudflare turnstile",
-		"react",
-		"typescript"
+		"cloudflare",
+		"react"
 	],
 	"sideEffects": false,
 	"pnpm": {
