@@ -85,12 +85,6 @@ interface ComponentOptions extends TurnstileBaseOptions {
 	 * @default 0
 	 */
 	tabIndex?: number
-	/**
-	 * Container ID or container node that will wrap the widget iframe.
-	 * @default `cf-turnstile`
-	 *
-	 */
-	container?: string | HTMLElement
 }
 
 /** Props needed for the `.render()` function */

@@ -19,7 +19,7 @@
 https://react-turnstile.vercel.app/
 
 ## Install
-1. First, [follow these steps](https://developers.cloudflare.com/turnstile/get-started/) to obtain a free site key and secret key from Cloudflare.
+1. [Follow these steps](https://developers.cloudflare.com/turnstile/get-started/) to obtain a free site key and secret key from Cloudflare.
 2. Install `@marsidev/react-turnstile` into your React application.
 
 	```bash
@@ -54,13 +54,12 @@ function Widget() {
 
 
 ### Render options
-| **Option** | **Type**                  | **Default**      | **Description**                                                                                                                                                                                                            |
-| ---------- | ------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| container  | `string` or `HTMLElement` | `'cf-turnstile'` | Container ID or container node that will wrap the widget iframe.                                                                                                                                                           |
-| theme      | `string`                  | `'auto'`         | The widget theme. You can choose between `light`, `dark` or `auto`.                                                                                                                                                        |
-| tabIndex   | `number`                  | `0`              | The `tabindex` of Turnstile’s iframe for accessibility purposes.                                                                                                                                                           |
-| action     | `string`                  | `undefined`      | A customer value that can be used to differentiate widgets under the same `sitekey` in analytics and which is returned upon validation. This can only contain up to 32 alphanumeric characters including `_` and `-`.      |
-| cData      | `string`                  | `undefined`      | A customer payload that can be used to attach customer data to the challenge throughout its issuance and which is returned upon validation. This can only contain up to 255 alphanumeric characters including `_` and `-`. |
+| **Option** | **Type** | **Default** | **Description**                                                                                                                                                                                                            |
+| ---------- | -------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| theme      | `string` | `'auto'`    | The widget theme. You can choose between `light`, `dark` or `auto`.                                                                                                                                                        |
+| tabIndex   | `number` | `0`         | The `tabindex` of Turnstile’s iframe for accessibility purposes.                                                                                                                                                           |
+| action     | `string` | `undefined` | A customer value that can be used to differentiate widgets under the same `sitekey` in analytics and which is returned upon validation. This can only contain up to 32 alphanumeric characters including `_` and `-`.      |
+| cData      | `string` | `undefined` | A customer payload that can be used to attach customer data to the challenge throughout its issuance and which is returned upon validation. This can only contain up to 255 alphanumeric characters including `_` and `-`. |
 
 > Read [the docs](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#configurations) to get more info about this options.
 
@@ -275,9 +274,9 @@ Any contributions are greatly appreciated. If you have a suggestion that would m
 
 ## 💻 Development
 
-- [Fork](https://github.com/marsidev/react-turnstile/fork) or clone the repo
-- Install dependencies with `pnpm install`
-- You can use `pnpm dev` to stub the library, `pnpm build` to build the library, `pnpm example:dev` to start the demo page in dev mode.
+- [Fork](https://github.com/marsidev/react-turnstile/fork) or clone this [repository](https://github.com/marsidev/react-turnstile).
+- Install dependencies with `pnpm install`.
+- You can use `pnpm dev` to stub the library, `pnpm build` to build the library or `pnpm example:dev` to start the demo page in development mode.
 
 ## Credits
 

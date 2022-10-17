@@ -3,15 +3,15 @@ import { DEFAULT_CONTAINER_ID, DEFAULT_ONLOAD_NAME, injectTurnstileScript } from
 import { RenderParameters, TurnstileInstance, TurnstileProps } from './types'
 
 export const Turnstile = forwardRef<TurnstileInstance, TurnstileProps>((props, ref) => {
-	const { scriptOptions, options, siteKey, onSuccess, onExpire, onError, ...divProps } = props
-	const { container, ...config } = options ?? {}
+	const { scriptOptions, options, siteKey, onSuccess, onExpire, onError, id, ...divProps } = props
+	const config = options ?? {}
 
 	const [widgetId, setWidgetId] = useState<string | undefined | null>()
 	const [scriptLoaded, setScriptLoaded] = useState(false)
 	const containerRef = useRef<HTMLDivElement | null>(null)
 	const firstRendered = useRef(false)
 
-	const containerId = typeof container === 'string' ? container : DEFAULT_CONTAINER_ID
+	const containerId = id ?? DEFAULT_CONTAINER_ID
 	const onLoadCallbackName = scriptOptions?.onLoadCallbackName || DEFAULT_ONLOAD_NAME
 	const scriptOptionsJson = JSON.stringify(scriptOptions)
 	const configJson = JSON.stringify(config)
@@ -121,7 +121,7 @@ export const Turnstile = forwardRef<TurnstileInstance, TurnstileProps>((props, r
 		return () => {
 			clearInterval(timerId)
 		}
-	}, [configJson, scriptOptionsJson, container])
+	}, [configJson, scriptOptionsJson])
 
 	useEffect(
 		function rerenderWidget() {
