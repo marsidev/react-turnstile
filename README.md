@@ -46,7 +46,7 @@ function Widget() {
 | **Prop**    | **Type**   | **Description**                                                                                                                                                                                                                                                 | **Required** |
 | ----------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
 | siteKey     | `string`   | Your sitekey key, get one from [here](https://developers.cloudflare.com/turnstile/get-started/).                                                                                                                                                                | ✅            |
-| options     | `object`   | Widget render options. More info about this options [below](https://github.com/marsidev/react.turnstile/#render-options).                                                                                                                                       |              |
+| options     | `object`   | Widget render options. More info about this options [below](https://github.com/marsidev/react-turnstile/#render-options).                                                                                                                                       |              |
 | scriptProps | `object`   | You can customize the injected `script` tag with this prop. It allows you to add `async`, `defer`, `nonce` attributes to the script tag. You can also control whether the injected script will be added to the document body or head with `appendTo` attribute. |              |
 | onSuccess   | `function` | Callback that is invoked upon success of the challenge. The callback is passed a token that can be validated.                                                                                                                                                   |              |
 | onExpire    | `function` | Callback that is invoked when a challenge expires.                                                                                                                                                                                                              |              |
@@ -271,11 +271,11 @@ export default async function handler(request, response) {
 
 ## Contributing
 
-Any contributions are greatly appreciated. If you have a suggestion that would make this project better, please fork the repo and create a Pull Request. You can also [open an issue](https://github.com/marsidev/react.turnstile/issues/new).
+Any contributions are greatly appreciated. If you have a suggestion that would make this project better, please fork the repo and create a Pull Request. You can also [open an issue](https://github.com/marsidev/react-turnstile/issues/new).
 
 ## 💻 Development
 
-- [Fork](https://github.com/marsidev/react.turnstile/fork) or clone the repo
+- [Fork](https://github.com/marsidev/react-turnstile/fork) or clone the repo
 - Install dependencies with `pnpm install`
 - You can use `pnpm dev` to stub the library, `pnpm build` to build the library, `pnpm example:dev` to start the demo page in dev mode.
 

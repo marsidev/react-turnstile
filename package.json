@@ -7,12 +7,12 @@
 	"license": "MIT",
 	"type": "module",
 	"private": false,
-	"homepage": "https://github.com/marsidev/react.turnstile",
+	"homepage": "https://github.com/marsidev/react-turnstile",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/marsidev/react.turnstile.git"
+		"url": "git+https://github.com/marsidev/react-turnstile.git"
 	},
-	"bugs": "https://github.com/marsidev/react.turnstile/issues",
+	"bugs": "https://github.com/marsidev/react-turnstile/issues",
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",

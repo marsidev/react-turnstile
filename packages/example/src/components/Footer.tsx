@@ -5,13 +5,13 @@ const Footer = () => {
 		<footer className='text-white flex items-center flex-col'>
 			<div>
 				<code>react-turnstile</code> source code{' '}
-				<Link href='https://github.com/marsidev/react.turnstile' label='here' />
+				<Link href='https://github.com/marsidev/react-turnstile' label='here' />
 			</div>
 
 			<div>
 				Source code of this demo{' '}
 				<Link
-					href='https://github.com/marsidev/react.turnstile/tree/main/packages/example'
+					href='https://github.com/marsidev/react-turnstile/tree/main/packages/example'
 					label='here'
 				/>
 			</div>
