@@ -1,13 +1,28 @@
-# React Turnstile
+<h1 align="center">
+  React Turnstile
+</h1>
 
-[![npm version][npm-version-src]][npm-version-href]
-[![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![install size][packagephobia-src]][packagephobia-href]
-[![bundle size][bundlephobia-src]][bundlephobia-href]
-![tests missing][tests-src]
-![PRs welcome][prs-src]
+<p align="center">
+	<a href="https://npm.im/@marsidev/react-turnstile">
+		<img src="https://badgen.net/npm/v/@marsidev/react-turnstile?style=flat-square" alt="npm version" />
+	</a>
+	<!-- <a href="https://npm.im/@marsidev/react-turnstile">
+		<img src="https://badgen.net/npm/dm/@marsidev/react-turnstile?style=flat-square" alt="npm downloads" />
+	</a> -->
+	<a href="https://packagephobia.com/result?p=@marsidev/react-turnstile">
+		<img src="https://badgen.net/packagephobia/install/@marsidev/react-turnstile?style=square-flat" alt="install size" />
+	</a>
+	<a href="https://bundlephobia.com/package/@marsidev/react-turnstile">
+		<img src="https://badgen.net/bundlephobia/minzip/@marsidev/react-turnstile?style=square-flat" alt="bundle size" />
+	</a>
+	<a href="https://github.com/marsidev/react-turnstile/actions/workflows/ci.yml"><img src="https://badgen.net/github/checks/marsidev/react-turnstile/main?style=flat-square" alt="CI status"></a>
+	<img src="https://img.shields.io/badge/Tests-missing-red.svg?style=flat-square" alt="tests missing" />
+	<img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs are welcome" />
+</p>
 
 > [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) integration for React.
+
+# React Turnstile
 
 ## Features
 
@@ -292,26 +307,3 @@ Inspired by
 ## License
 
 Published under the [MIT License](./LICENCE).
-
-
-<!-- Badges -->
-
-[npm-version-src]: https://badgen.net/npm/v/@marsidev/react-turnstile?style=flat-square
-[npm-version-href]: https://npm.im/@marsidev/react-turnstile
-
-[npm-downloads-src]: https://badgen.net/npm/dm/@marsidev/react-turnstile?style=flat-square
-[npm-downloads-href]: https://npm.im/@marsidev/react-turnstile
-
-<!-- [github-actions-src]: https://img.shields.io/github/workflow/status/danielroe/nuxt-turnstile/ci/main?style=flat-square -->
-<!-- [github-actions-href]: https://github.com/danielroe/nuxt-turnstile/actions?query=workflow%3Aci -->
-<!-- [codecov-src]: https://img.shields.io/codecov/c/gh/danielroe/nuxt-turnstile/main?style=flat-square -->
-<!-- [codecov-href]: https://codecov.io/gh/danielroe/nuxt-turnstile -->
-
-[packagephobia-src]: https://badgen.net/packagephobia/install/@marsidev/react-turnstile?style=square-flat
-[packagephobia-href]: https://packagephobia.com/result?p=@marsidev/react-turnstile
-
-[bundlephobia-src]: https://badgen.net/bundlephobia/minzip/@marsidev/react-turnstile?style=square-flat
-[bundlephobia-href]: https://bundlephobia.com/package/@marsidev/react-turnstile
-
-[prs-src]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
-[tests-src]: https://img.shields.io/badge/Tests-missing-red.svg?style=flat-square
