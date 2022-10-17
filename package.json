@@ -24,9 +24,7 @@
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
 	"files": [
-		"dist",
-		"types",
-		"*.d.ts"
+		"dist"
 	],
 	"scripts": {
 		"build": "unbuild",
@@ -38,10 +36,10 @@
 		"test": "vitest",
 		"typecheck": "tsc --noEmit",
 		"example:dev": "pnpm build && pnpm run --filter=example dev",
-		"example:build": "pnpm build && pnpm run --filter=example build",
-		"example:preview": "pnpm build && pnpm run --filter=example preview",
-		"example:deploy": "pnpm build && npx vercel deploy",
-		"example:deploy:prod": "pnpm build && npx vercel deploy --prod"
+		"example:build": "pnpm run --filter=example build",
+		"example:preview": "pnpm run --filter=example preview",
+		"example:deploy": "npx vercel deploy",
+		"example:deploy:prod": "npx vercel deploy --prod"
 	},
 	"peerDependencies": {
 		"react": ">=16.8.0",
