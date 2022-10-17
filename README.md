@@ -20,13 +20,13 @@ https://react-turnstile.vercel.app/
 
 ## Install
 1. First, [follow these steps](https://developers.cloudflare.com/turnstile/get-started/) to obtain a free site key and secret key from Cloudflare.
-2. Install `react.turnstile` into your React application.
+2. Install `@marsidev/react-turnstile` into your React application.
 
 	```bash
 	# Whichever matches your package manager
-	pnpm add react.turnstile
-	npm install react.turnstile
-	yarn add react.turnstile
+	pnpm add @marsidev/react-turnstile
+	npm install @marsidev/react-turnstile
+	yarn add @marsidev/react-turnstile
 	```
 
 ## Usage
@@ -34,9 +34,9 @@ https://react-turnstile.vercel.app/
 The only required prop is the `siteKey`.
 
 ```jsx
-import { Turnstile } from 'react.turnstile'
+import { Turnstile } from '@marsidev/react-turnstile'
 
-function TurnstileWidget() {
+function Widget() {
   return <Turnstile siteKey='1x00000000000000000000AA' />
 }
 ```
@@ -81,18 +81,18 @@ function TurnstileWidget() {
 
 ### Rendering the widget:
 ```jsx
-import { Turnstile } from 'react.turnstile'
+import { Turnstile } from '@marsidev/react-turnstile'
 
-function TurnstileWidget() {
+function Widget() {
   return <Turnstile siteKey='1x00000000000000000000AA' />
 }
 ```
 
 ### Rendering the widget with custom props:
 ```jsx
-import { Turnstile } from 'react.turnstile'
+import { Turnstile } from '@marsidev/react-turnstile'
 
-function TurnstileWidget() {
+function Widget() {
   return (
     <Turnstile
       siteKey='1x00000000000000000000AA'
@@ -112,9 +112,9 @@ function TurnstileWidget() {
 ### Managing widget rendering status:
 ```jsx
 import { useState } from 'react'
-import { Turnstile } from 'react.turnstile'
+import { Turnstile } from '@marsidev/react-turnstile'
 
-function TurnstileWidget() {
+function Widget() {
   const [status, setStatus] = useState()
 
   return (
@@ -131,9 +131,9 @@ function TurnstileWidget() {
 ### Getting the token after solving the challenge:
 ```jsx
 import { useState } from 'react'
-import { Turnstile } from 'react.turnstile'
+import { Turnstile } from '@marsidev/react-turnstile'
 
-function TurnstileWidget() {
+function Widget() {
   const [token, setToken] = useState()
 
   return (
@@ -148,9 +148,9 @@ function TurnstileWidget() {
 ### Interacting with the widget:
 ```jsx
 import { useRef } from 'react'
-import { Turnstile } from 'react.turnstile'
+import { Turnstile } from '@marsidev/react-turnstile'
 
-function TurnstileWidget() {
+function Widget() {
   const ref = useRef(null)
 
   return (
@@ -180,9 +180,9 @@ function TurnstileWidget() {
 ### Interacting with the widget (using TypeScript):
 ```jsx
 import { useRef } from 'react'
-import { Turnstile, type TurnstileInstance } from 'react.turnstile'
+import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 
-function TurnstileWidget() {
+function Widget() {
   const ref = useRef<TurnstileInstance>(null)
 
   return (
@@ -201,7 +201,7 @@ function TurnstileWidget() {
 ```jsx
 // LoginForm.jsx
 import { useRef, useState } from 'react'
-import { Turnstile } from 'react.turnstile'
+import { Turnstile } from '@marsidev/react-turnstile'
 
 export default function LoginForm() {
   const formRef = useRef(null)
@@ -295,15 +295,15 @@ Published under the [MIT License](./LICENCE).
 
 <!-- Badges -->
 
-[npm-version-src]: https://badgen.net/npm/v/react.turnstile?style=flat-square
-[npm-version-href]: https://npm.im/react.turnstile
-[npm-downloads-src]: https://badgen.net/npm/dm/react.turnstile?style=flat-square
-[npm-downloads-href]: https://npm.im/react.turnstile
+[npm-version-src]: https://badgen.net/npm/v/@marsidev/react-turnstile?style=flat-square
+[npm-version-href]: https://npm.im/@marsidev/react-turnstile
+[npm-downloads-src]: https://badgen.net/npm/dm/@marsidev/react-turnstile?style=flat-square
+[npm-downloads-href]: https://npm.im/@marsidev/react-turnstile
 <!-- [github-actions-src]: https://img.shields.io/github/workflow/status/danielroe/nuxt-turnstile/ci/main?style=flat-square -->
 <!-- [github-actions-href]: https://github.com/danielroe/nuxt-turnstile/actions?query=workflow%3Aci -->
 <!-- [codecov-src]: https://img.shields.io/codecov/c/gh/danielroe/nuxt-turnstile/main?style=flat-square -->
 <!-- [codecov-href]: https://codecov.io/gh/danielroe/nuxt-turnstile -->
-[packagephobia-src]: https://packagephobia.com/badge?p=react.turnstile
-[packagephobia-href]: https://packagephobia.com/result?p=react.turnstile
+[packagephobia-src]: https://packagephobia.com/badge?p=@marsidev/react-turnstile
+[packagephobia-href]: https://packagephobia.com/result?p=@marsidev/react-turnstile
 [prs-src]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [tests-src]: https://img.shields.io/badge/Tests-missing-red.svg?style=flat-square

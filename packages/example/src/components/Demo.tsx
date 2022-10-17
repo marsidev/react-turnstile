@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Turnstile, type TurnstileInstance } from 'react.turnstile'
+import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 import ConfigForm from './ConfigForm'
 import StateLabels from './StateLabels'
 import WidgetMethods from './WidgetMethods'

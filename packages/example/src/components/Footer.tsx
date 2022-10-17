@@ -4,7 +4,7 @@ const Footer = () => {
 	return (
 		<footer className='text-white flex items-center flex-col'>
 			<div>
-				<code>react.turnstile</code> source code{' '}
+				<code>react-turnstile</code> source code{' '}
 				<Link href='https://github.com/marsidev/react.turnstile' label='here' />
 			</div>
 

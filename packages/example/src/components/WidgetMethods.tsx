@@ -1,4 +1,4 @@
-import type { TurnstileInstance } from 'react.turnstile'
+import type { TurnstileInstance } from '@marsidev/react-turnstile'
 
 interface StateLabelsProps {
 	turnstile: React.MutableRefObject<TurnstileInstance | null>
