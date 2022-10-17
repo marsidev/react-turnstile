@@ -1,8 +1,8 @@
-<h1 align="center">
-  React Turnstile
-</h1>
-
-<p align="center">
+<div align="center">
+	<h1>React Turnstile</h1>
+	<img src="preview.png" width="300" />
+	<h3><a href="https://developers.cloudflare.com/turnstile/">Cloudflare Turnstile</a> integration for React.</h3>
+	<br />
 	<a href="https://npm.im/@marsidev/react-turnstile">
 		<img src="https://badgen.net/npm/v/@marsidev/react-turnstile?style=flat-square" alt="npm version" />
 	</a>
@@ -18,11 +18,8 @@
 	<a href="https://github.com/marsidev/react-turnstile/actions/workflows/ci.yml"><img src="https://badgen.net/github/checks/marsidev/react-turnstile/main?style=flat-square" alt="CI status"></a>
 	<img src="https://img.shields.io/badge/Tests-missing-red.svg?style=flat-square" alt="tests missing" />
 	<img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs are welcome" />
-</p>
+</div>
 
-> [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) integration for React.
-
-# React Turnstile
 
 ## Features
 
