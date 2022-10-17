@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } f
 import { DEFAULT_CONTAINER_ID, DEFAULT_ONLOAD_NAME, injectTurnstileScript } from './utils'
 import { RenderParameters, TurnstileInstance, TurnstileProps } from './types'
 
-export const Turnstile = forwardRef<TurnstileInstance, TurnstileProps>((props, ref) => {
+export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProps>((props, ref) => {
 	const { scriptOptions, options, siteKey, onSuccess, onExpire, onError, id, ...divProps } = props
 	const config = options ?? {}
 
@@ -19,6 +19,8 @@ export const Turnstile = forwardRef<TurnstileInstance, TurnstileProps>((props, r
 	useImperativeHandle(
 		ref,
 		() => {
+			if (typeof window === 'undefined') return
+
 			const { turnstile } = window
 			return {
 				getResponse() {
@@ -68,7 +70,7 @@ export const Turnstile = forwardRef<TurnstileInstance, TurnstileProps>((props, r
 				}
 			}
 		},
-		[scriptLoaded, window.turnstile, widgetId]
+		[scriptLoaded, typeof window, widgetId]
 	)
 
 	const renderConfig: RenderParameters = {

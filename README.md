@@ -14,6 +14,7 @@
 - 💪 smart verification with minimal user interaction
 - 🕵️‍♀️ privacy-focused approach
 - 💉 automatic script injection
+- ⚡️ ssr ready
 
 ## Demo
 
