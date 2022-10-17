@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 import ConfigForm from './ConfigForm'
 import StateLabels from './StateLabels'
@@ -18,7 +18,6 @@ export type WidgetStatus = 'solved' | 'error' | 'expired' | null
 type SiteKeyType = keyof typeof DEMO_SITEKEY
 
 const Demo = () => {
-	const [mounted, setMounted] = useState(false)
 	const [theme, setTheme] = useState<Theme>('auto')
 	const [siteKeyType, setSiteKeyType] = useState<SiteKeyType>('pass')
 	const [status, setStatus] = useState<WidgetStatus>(null)
@@ -28,7 +27,6 @@ const Demo = () => {
 	const turnstileRef = useRef<TurnstileInstance>(null)
 	const testingSiteKey = DEMO_SITEKEY[siteKeyType]
 
-	useEffect(() => setMounted(true), [])
 	const incrementRerender = () => setRerenderCount(prev => prev + 1)
 
 	const onRestartStates = () => {
@@ -56,18 +54,14 @@ const Demo = () => {
 			<main className='w-full max-w-[740px] flex justify-center flex-col text-white p-4 gap-2'>
 				<h1 className='font-semibold text-4xl mb-4'>React Turnstile Demo</h1>
 
-				{mounted && (
-					<>
-						<Turnstile
-							ref={turnstileRef}
-							options={{ theme }}
-							siteKey={testingSiteKey}
-							onError={() => setStatus('error')}
-							onExpire={() => setStatus('expired')}
-							onSuccess={onSuccess}
-						/>
-					</>
-				)}
+				<Turnstile
+					ref={turnstileRef}
+					options={{ theme }}
+					siteKey={testingSiteKey}
+					onError={() => setStatus('error')}
+					onExpire={() => setStatus('expired')}
+					onSuccess={onSuccess}
+				/>
 
 				<h2 className='font-semibold text-2xl mt-8'>Configuration</h2>
 				<ConfigForm
