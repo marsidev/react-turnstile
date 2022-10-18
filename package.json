@@ -33,7 +33,8 @@
 		"lint:fix": "eslint . --fix",
 		"prepublishOnly": "nr build",
 		"release": "bumpp && npm publish",
-		"test": "vitest",
+		"test": "pnpm test:e2e",
+		"test:e2e": "npx playwright test",
 		"typecheck": "tsc --noEmit",
 		"example:dev": "pnpm build && pnpm run --filter=example dev",
 		"example:build": "pnpm run --filter=example build",
@@ -48,6 +49,7 @@
 	"devDependencies": {
 		"@antfu/ni": "0.17.2",
 		"@antfu/utils": "0.5.2",
+		"@playwright/test": "1.27.1",
 		"@types/react": "18.0.21",
 		"@types/react-dom": "18.0.6",
 		"bumpp": "8.2.1",
@@ -55,8 +57,7 @@
 		"pnpm": "7.12.1",
 		"rimraf": "3.0.2",
 		"typescript": "4.8.4",
-		"unbuild": "0.8.8",
-		"vitest": "0.22.1"
+		"unbuild": "0.8.8"
 	},
 	"keywords": [
 		"turnstile",

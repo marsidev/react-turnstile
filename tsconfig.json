@@ -19,6 +19,13 @@
 			"~/*": ["./*"]
 		}
 	},
-	"include": ["src", "packages", "build.config.ts", "vitest.config.ts"],
+	"include": [
+		"src",
+		"packages",
+		"test",
+		"build.config.ts",
+		"vitest.config.ts",
+		"playwright.config.ts"
+	],
 	"exclude": ["node_modules"]
 }
