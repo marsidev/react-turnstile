@@ -62,12 +62,12 @@ jobs:
       - name: Typecheck
         run: nr typecheck
 
-  test:
+  e2e-test:
     runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
-        node: [14.x, 16.x, 18.x]
+        node: [16.x, 18.x]
         os: [ubuntu-latest, windows-latest, macos-latest]
       fail-fast: false
 
@@ -89,8 +89,11 @@ jobs:
       - name: Install
         run: nci
 
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium webkit
+
       - name: Build
         run: nr build
 
       - name: Test
-        run: nr test
+        run: npx playwright test

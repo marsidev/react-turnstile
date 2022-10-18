@@ -34,13 +34,11 @@
 		"prepublishOnly": "nr build",
 		"release": "bumpp && npm publish",
 		"test": "pnpm test:e2e",
-		"test:e2e": "npx playwright test",
+		"test:e2e": "playwright test",
 		"typecheck": "tsc --noEmit",
 		"example:dev": "pnpm build && pnpm run --filter=example dev",
 		"example:build": "pnpm run --filter=example build",
-		"example:preview": "pnpm run --filter=example preview",
-		"example:deploy": "npx vercel deploy",
-		"example:deploy:prod": "npx vercel deploy --prod"
+		"example:preview": "pnpm run --filter=example preview"
 	},
 	"peerDependencies": {
 		"react": ">=16.8.0",
@@ -50,10 +48,12 @@
 		"@antfu/ni": "0.17.2",
 		"@antfu/utils": "0.5.2",
 		"@playwright/test": "1.27.1",
+		"@types/node": "18.11.0",
 		"@types/react": "18.0.21",
 		"@types/react-dom": "18.0.6",
 		"bumpp": "8.2.1",
 		"eslint-config-marsi": "workspace:*",
+		"playwright": "1.27.1",
 		"pnpm": "7.12.1",
 		"rimraf": "3.0.2",
 		"typescript": "4.8.4",

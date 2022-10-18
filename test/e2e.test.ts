@@ -6,6 +6,7 @@ import { chromium, expect, test } from '@playwright/test'
 const scriptId = 'cf-turnstile-script'
 const containerId = 'cf-turnstile'
 const demoToken = 'XXXX.DUMMY.TOKEN.XXXX'
+const isCI = process.env.CI
 let browser: Browser
 let page: Page
 
@@ -41,11 +42,11 @@ test.use({
 })
 
 test.beforeAll(async () => {
-	await deleteScreenshots(ssPath)
+	!isCI && (await deleteScreenshots(ssPath))
 	browser = await chromium.launch()
 	page = await browser.newPage()
 	await page.goto('/')
-	await page.screenshot({ path: `${ssPath}/0-before-all.png` })
+	!isCI && (await page.screenshot({ path: `${ssPath}/0-before-all.png` }))
 })
 
 test.afterAll(async () => {
@@ -68,32 +69,32 @@ test('widget iframe is visible', async () => {
 	await ensureFrameVisible()
 	const iframe = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
 	await expect(iframe.locator('body')).toContainText('Testing only.')
-	await page.screenshot({ path: `${ssPath}/1-widget-visible.png` })
+	!isCI && (await page.screenshot({ path: `${ssPath}/1-widget-visible.png` }))
 })
 
 test('challenge has been solved', async () => {
 	await ensureChallengeSolved()
-	await page.screenshot({ path: `${ssPath}/2-challenge-solved.png` })
+	!isCI && (await page.screenshot({ path: `${ssPath}/2-challenge-solved.png` }))
 })
 
 test('widget can be removed', async () => {
 	await page.locator('button', { hasText: 'Remove' }).click()
 	await ensureFrameHidden()
-	await page.screenshot({ path: `${ssPath}/3-widget-removed.png` })
+	!isCI && (await page.screenshot({ path: `${ssPath}/3-widget-removed.png` }))
 })
 
 test('widget can be explicity rendered', async () => {
 	await page.locator('button', { hasText: 'Render' }).click()
 	await ensureFrameVisible()
 	await ensureChallengeSolved()
-	await page.screenshot({ path: `${ssPath}/4-widget-rendered.png` })
+	!isCI && (await page.screenshot({ path: `${ssPath}/4-widget-rendered.png` }))
 })
 
 test('widget can be reset', async () => {
 	await page.locator('button', { hasText: 'Reset' }).click()
 	await ensureChallengeNotSolved()
 	await ensureChallengeSolved()
-	await page.screenshot({ path: `${ssPath}/7-widget-reset.png` })
+	!isCI && (await page.screenshot({ path: `${ssPath}/7-widget-reset.png` }))
 })
 
 test('can get the token', async () => {

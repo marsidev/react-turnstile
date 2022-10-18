@@ -7,10 +7,12 @@ importers:
       '@antfu/ni': 0.17.2
       '@antfu/utils': 0.5.2
       '@playwright/test': 1.27.1
+      '@types/node': 18.11.0
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
       bumpp: 8.2.1
       eslint-config-marsi: workspace:*
+      playwright: 1.27.1
       pnpm: 7.12.1
       rimraf: 3.0.2
       typescript: 4.8.4
@@ -19,10 +21,12 @@ importers:
       '@antfu/ni': 0.17.2
       '@antfu/utils': 0.5.2
       '@playwright/test': 1.27.1
+      '@types/node': 18.11.0
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
       bumpp: 8.2.1
       eslint-config-marsi: link:packages/eslint-config-marsi
+      playwright: 1.27.1
       pnpm: 7.12.1
       rimraf: 3.0.2
       typescript: 4.8.4
@@ -3203,6 +3207,15 @@ packages:
     resolution: {integrity: sha512-9EmeXDncC2Pmp/z+teoVYlvmPWUC6ejSSYZUln7YaP89Z6lpAaiaAnqroUt/BoLo8tn7WYShcfaCh+xofZa44Q==}
     engines: {node: '>=14'}
     hasBin: true
+    dev: true
+
+  /playwright/1.27.1:
+    resolution: {integrity: sha512-xXYZ7m36yTtC+oFgqH0eTgullGztKSRMb4yuwLPl8IYSmgBM88QiB+3IWb1mRIC9/NNwcgbG0RwtFlg+EAFQHQ==}
+    engines: {node: '>=14'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      playwright-core: 1.27.1
     dev: true
 
   /pnpm/7.12.1:
