@@ -92,7 +92,7 @@ jobs:
         run: nci
 
       - name: Install Playwright
-        run: npx playwright install --with-deps chromium safari
+        run: npx playwright install --with-deps chromium webkit
 
       - name: Build
         run: nr build
