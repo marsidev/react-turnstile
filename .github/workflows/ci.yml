@@ -69,7 +69,7 @@ jobs:
 
     strategy:
       matrix:
-        node: [14.x, 16.x, 18.x]
+        node: [14.x]
         os: [ubuntu-latest, windows-latest, macos-latest]
       fail-fast: false
 
@@ -98,4 +98,4 @@ jobs:
         run: nr build
 
       - name: Test
-        run: nr test:e2e
+        run: npx playwright test
