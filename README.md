@@ -16,7 +16,7 @@
 		<img src="https://badgen.net/bundlephobia/minzip/@marsidev/react-turnstile?style=square-flat" alt="bundle size" />
 	</a>
 	<a href="https://github.com/marsidev/react-turnstile/actions/workflows/ci.yml"><img src="https://badgen.net/github/checks/marsidev/react-turnstile/main?style=flat-square" alt="CI status"></a>
-	<img src="https://img.shields.io/badge/Tests-missing-red.svg?style=flat-square" alt="tests missing" />
+	<img src="https://img.shields.io/badge/tested_with-playwright-3ea744.svg?style=flat-square" alt="tests missing" />
 	<img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs are welcome" />
 </div>
 
