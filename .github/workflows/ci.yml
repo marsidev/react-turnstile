@@ -62,35 +62,35 @@ jobs:
       - name: Typecheck
         run: nr typecheck
 
-  # test:
-  #   runs-on: ${{ matrix.os }}
+  test:
+    runs-on: ${{ matrix.os }}
 
-  #   strategy:
-  #     matrix:
-  #       node: [14.x, 16.x, 18.x]
-  #       os: [ubuntu-latest, windows-latest, macos-latest]
-  #     fail-fast: false
+    strategy:
+      matrix:
+        node: [14.x, 16.x, 18.x]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+      fail-fast: false
 
-  #   steps:
-  #     - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Install pnpm
-  #       uses: pnpm/action-setup@v2
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
 
-  #     - name: Set node ${{ matrix.node }}
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: ${{ matrix.node }}
-  #         cache: pnpm
+      - name: Set node ${{ matrix.node }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
 
-  #     - name: Setup
-  #       run: npm i -g @antfu/ni
+      - name: Setup
+        run: npm i -g @antfu/ni
 
-  #     - name: Install
-  #       run: nci
+      - name: Install
+        run: nci
 
-  #     - name: Build
-  #       run: nr build
+      - name: Build
+        run: nr build
 
-  #     - name: Test
-  #       run: nr test
+      - name: Test
+        run: nr test
