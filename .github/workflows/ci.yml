@@ -69,7 +69,7 @@ jobs:
 
     strategy:
       matrix:
-        node: [14.x]
+        node: [16.x, 18.x]
         os: [ubuntu-latest, windows-latest, macos-latest]
       fail-fast: false
 
@@ -92,7 +92,7 @@ jobs:
         run: nci
 
       - name: Install Playwright
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps chromium safari
 
       - name: Build
         run: nr build
