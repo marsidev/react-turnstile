@@ -4,25 +4,17 @@ const Footer = () => {
 	return (
 		<footer className='text-white flex items-center flex-col'>
 			<div>
-				<code>react-turnstile</code> source code{' '}
-				<Link href='https://github.com/marsidev/react-turnstile' label='here' />
-			</div>
-
-			<div>
-				Source code of this demo{' '}
-				<Link
-					href='https://github.com/marsidev/react-turnstile/tree/main/packages/example'
-					label='here'
-				/>
+				<code>react-turnstile</code>{' '}
+				<Link href='https://github.com/marsidev/react-turnstile'>source code</Link>
 			</div>
 
 			<div>
 				Cloudflare Turnstile{' '}
-				<Link href='https://developers.cloudflare.com/turnstile/get-started/' label='docs' />
+				<Link href='https://developers.cloudflare.com/turnstile/get-started'>docs</Link>
 			</div>
 
 			<div>
-				Built by <Link href='https://github.com/marsidev' label='Luis Marsiglia' />
+				Built by <Link href='https://github.com/marsidev'>Luis Marsiglia</Link>
 			</div>
 		</footer>
 	)

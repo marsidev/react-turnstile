@@ -14,11 +14,13 @@ enum DEMO_SITEKEY {
 }
 
 type Theme = 'light' | 'dark' | 'auto'
+type Size = 'normal' | 'compact'
 export type WidgetStatus = 'solved' | 'error' | 'expired' | null
 type SiteKeyType = keyof typeof DEMO_SITEKEY
 
 const Demo = () => {
 	const [theme, setTheme] = useState<Theme>('auto')
+	const [size, setSize] = useState<Size>('normal')
 	const [siteKeyType, setSiteKeyType] = useState<SiteKeyType>('pass')
 	const [status, setStatus] = useState<WidgetStatus>(null)
 	const [token, setToken] = useState<string>()
@@ -39,6 +41,11 @@ const Demo = () => {
 		onRestartStates()
 	}
 
+	const onChangeSize = (value: string) => {
+		setSize(value as Size)
+		onRestartStates()
+	}
+
 	const onChangeSiteKeyType = (value: string) => {
 		setSiteKeyType(value as SiteKeyType)
 		onRestartStates()
@@ -56,7 +63,7 @@ const Demo = () => {
 
 				<Turnstile
 					ref={turnstileRef}
-					options={{ theme }}
+					options={{ theme, size }}
 					siteKey={testingSiteKey}
 					onError={() => setStatus('error')}
 					onExpire={() => setStatus('expired')}
@@ -67,6 +74,7 @@ const Demo = () => {
 				<ConfigForm
 					ref={configFormRef}
 					onChangeSiteKeyType={onChangeSiteKeyType}
+					onChangeSize={onChangeSize}
 					onChangeTheme={onChangeTheme}
 				/>
 

@@ -1,9 +1,9 @@
 interface LinkProps extends React.ComponentProps<'a'> {
 	href: string
-	label: string
+	children: React.ReactNode
 }
 
-const Link: React.FC<LinkProps> = ({ href, label, ...rest }) => {
+const Link: React.FC<LinkProps> = ({ href, children, ...rest }) => {
 	return (
 		<a
 			className='underline text-[#f4a15d] hover:text-[#e06d10]'
@@ -12,7 +12,7 @@ const Link: React.FC<LinkProps> = ({ href, label, ...rest }) => {
 			target='_blank'
 			{...rest}
 		>
-			{label}
+			{children}
 		</a>
 	)
 }

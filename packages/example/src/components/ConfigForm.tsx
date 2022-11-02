@@ -4,6 +4,7 @@ import Options from './Options'
 interface FormProps {
 	onChangeTheme: (value: string) => void
 	onChangeSiteKeyType: (value: string) => void
+	onChangeSize: (value: string) => void
 }
 
 const ConfigForm = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
@@ -19,6 +20,16 @@ const ConfigForm = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
 					]}
 					title='Theme'
 					onChange={props.onChangeTheme}
+				/>
+
+				<Options
+					name='size'
+					options={[
+						{ label: 'Normal', value: 'normal' },
+						{ label: 'Compact', value: 'compact' }
+					]}
+					title='Size'
+					onChange={props.onChangeSize}
 				/>
 
 				<Options
