@@ -6,9 +6,9 @@
 	<a href="https://npm.im/@marsidev/react-turnstile">
 		<img src="https://badgen.net/npm/v/@marsidev/react-turnstile?style=flat-square" alt="npm version" />
 	</a>
-	<!-- <a href="https://npm.im/@marsidev/react-turnstile">
+	<a href="https://npm.im/@marsidev/react-turnstile">
 		<img src="https://badgen.net/npm/dm/@marsidev/react-turnstile?style=flat-square" alt="npm downloads" />
-	</a> -->
+	</a>
 	<a href="https://packagephobia.com/result?p=@marsidev/react-turnstile">
 		<img src="https://badgen.net/packagephobia/install/@marsidev/react-turnstile?style=square-flat" alt="install size" />
 	</a>
@@ -41,6 +41,7 @@ https://react-turnstile.vercel.app/
 	pnpm add @marsidev/react-turnstile
 	npm install @marsidev/react-turnstile
 	yarn add @marsidev/react-turnstile
+	ultra install @marsidev/react-turnstile
 	```
 
 ## Usage
