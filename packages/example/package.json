@@ -11,11 +11,11 @@
 		"lint:fix": "next lint --fix"
 	},
 	"dependencies": {
+		"@marsidev/react-turnstile": "workspace:*",
 		"classnames": "2.3.2",
 		"next": "12.3.1",
 		"react": "18.2.0",
-		"react-dom": "18.2.0",
-		"@marsidev/react-turnstile": "workspace:*"
+		"react-dom": "18.2.0"
 	},
 	"devDependencies": {
 		"@types/node": "18.11.0",
