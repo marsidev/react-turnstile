@@ -105,3 +105,21 @@ test('can get the token', async () => {
 
 	await page.locator('button', { hasText: 'Get response' }).click()
 })
+
+test('widget can be sized', async () => {
+	// check default width
+	const iframe = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
+	const box = await iframe.locator('body').boundingBox()
+	expect(box).toBeDefined()
+	expect(box!.width).toBe(300)
+
+	// change size
+	await page.getByLabel('Size').selectOption('compact')
+	await ensureFrameVisible()
+
+	// check new width
+	const iframeAfter = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
+	const boxAfter = await iframeAfter.locator('body').boundingBox()
+	expect(boxAfter).toBeDefined()
+	expect(boxAfter!.width).toBe(130)
+})

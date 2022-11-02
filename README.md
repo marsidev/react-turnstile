@@ -69,12 +69,17 @@ function Widget() {
 
 
 ### Render options
-| **Option** | **Type** | **Default** | **Description**                                                                                                                                                                                                            |
-| ---------- | -------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| theme      | `string` | `'auto'`    | The widget theme. You can choose between `light`, `dark` or `auto`.                                                                                                                                                        |
-| tabIndex   | `number` | `0`         | The `tabindex` of Turnstile’s iframe for accessibility purposes.                                                                                                                                                           |
-| action     | `string` | `undefined` | A customer value that can be used to differentiate widgets under the same `sitekey` in analytics and which is returned upon validation. This can only contain up to 32 alphanumeric characters including `_` and `-`.      |
-| cData      | `string` | `undefined` | A customer payload that can be used to attach customer data to the challenge throughout its issuance and which is returned upon validation. This can only contain up to 255 alphanumeric characters including `_` and `-`. |
+| **Option**        | **Type**  | **Default**               | **Description**                                                                                                                                                                                                            |
+| ----------------- | --------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| theme             | `string`  | `'auto'`                  | The widget theme. You can choose between `light`, `dark` or `auto`.                                                                                                                                                        |
+| tabIndex          | `number`  | `0`                       | The `tabindex` of Turnstile’s iframe for accessibility purposes.                                                                                                                                                           |
+| action            | `string`  | `undefined`               | A customer value that can be used to differentiate widgets under the same `sitekey` in analytics and which is returned upon validation. This can only contain up to 32 alphanumeric characters including `_` and `-`.      |
+| cData             | `string`  | `undefined`               | A customer payload that can be used to attach customer data to the challenge throughout its issuance and which is returned upon validation. This can only contain up to 255 alphanumeric characters including `_` and `-`. |
+| responseField     | `boolean` | `true`                    | A boolean that controls if an input element with the response token is created.                                                                                                                                            |
+| responseFieldName | `string`  | `'cf-turnstile-response'` | Name of the input element.                                                                                                                                                                                                 |
+| size              | `string`  | `'normal'`                | The widget size. Can take the following values: `'normal'`, `'compact'`. The normal size is 300x65px, the compact size is 130x120px.                                                                                       |
+
+> All this options are optional.
 
 > Read [the docs](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#configurations) to get more info about this options.
 
@@ -113,7 +118,8 @@ function Widget() {
       className='fixed bottom-4 right-4'
       options={{
         action: 'submit-form',
-        theme: 'light'
+        theme: 'light',
+        size: 'compact'
       }}
       scriptOptions={{
         appendTo: 'body'
@@ -280,7 +286,7 @@ export default async function handler(request, response) {
 > As you might noted, there is three ways to get the token response from a solved challenge:
 > - by catching it from the `onSuccess` callback.
 > - by calling the `.getResponse()` method.
-> - by reading the widget response input with name `cf-turnstile-response`.
+> - by reading the widget response input with name `cf-turnstile-response`. This one is not an option if you set `options.fieldResponse` to `false`.
 
 
 ## Contributing

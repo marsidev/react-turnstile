@@ -76,6 +76,11 @@ interface TurnstileBaseOptions {
 	 * @default `auto`
 	 */
 	theme?: 'light' | 'dark' | 'auto'
+	/**
+	 * The widget size. Can take the following values: `normal`, `compact`. The normal size is 300x65px, the compact size is 130x120px.
+	 * @default `normal`
+	 */
+	size?: 'normal' | 'compact'
 }
 
 /** Props needed for the `options` prop in the `<Turnstile />` component */
@@ -85,6 +90,16 @@ interface ComponentOptions extends TurnstileBaseOptions {
 	 * @default 0
 	 */
 	tabIndex?: number
+	/**
+	 * A boolean that controls if an input element with the response token is created.
+	 * @default true
+	 */
+	responseField?: boolean
+	/**
+	 * Name of the input element.
+	 * @default `cf-turnstile-response`
+	 */
+	responseFieldName?: string
 }
 
 /** Props needed for the `.render()` function */
@@ -111,6 +126,16 @@ interface RenderParameters extends TurnstileBaseOptions {
 	 * JavaScript callback that is invoked when there is a network error.
 	 */
 	'error-callback'?: () => void
+	/**
+	 * A boolean that controls if an input element with the response token is created.
+	 * @default true
+	 */
+	'response-field'?: boolean
+	/**
+	 * Name of the input element.
+	 * @default `cf-turnstile-response`
+	 */
+	'response-field-name'?: string
 }
 
 interface ScriptOptions {

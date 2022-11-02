@@ -81,7 +81,10 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		tabindex: config.tabIndex,
 		callback: onSuccess,
 		'expired-callback': onExpire,
-		'error-callback': onError
+		'error-callback': onError,
+		size: config.size ?? 'normal',
+		'response-field': config.responseField,
+		'response-field-name': config.responseFieldName
 	}
 
 	const onLoadScript = () => {
@@ -108,7 +111,6 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			}
 		}
 
-		// inject turnstile script
 		injectTurnstileScript({
 			render: 'explicit',
 			onLoadCallbackName,
