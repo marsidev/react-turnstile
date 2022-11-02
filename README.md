@@ -286,11 +286,13 @@ export default async function handler(request, response) {
 
 Any contributions are greatly appreciated. If you have a suggestion that would make this project better, please fork the repo and create a Pull Request. You can also [open an issue](https://github.com/marsidev/react-turnstile/issues/new).
 
-## 💻 Development
+## Development
 
-- [Fork](https://github.com/marsidev/react-turnstile/fork) or clone this [repository](https://github.com/marsidev/react-turnstile).
+- [Fork](https://github.com/marsidev/react-turnstile/fork) or clone this repository.
+- Install [pnpm](https://pnpm.io/installation).
 - Install dependencies with `pnpm install`.
-- You can use `pnpm dev` to stub the library, `pnpm build` to build the library or `pnpm example:dev` to start the demo page in development mode.
+- You can use `pnpm dev` to start the demo page in development mode, which also rebuild the library when file changes are detected in the `src` folder.
+- You also can use `pnpm stub`, which run `unbuild --stub`, a [passive watcher](https://github.com/unjs/unbuild#-passive-watcher) to use the library while developing without needing to watch and rebuild. However, this option [can't be used in an esm context](https://github.com/unjs/jiti/issues/32).
 
 ## Credits
 

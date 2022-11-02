@@ -29,7 +29,8 @@
 	"scripts": {
 		"build": "unbuild",
 		"build:watch": "nodemon --ext .ts,.tsx --watch src --exec unbuild",
-		"dev": "concurrently \"npm:build:watch\" \"npm:example:dev\" -c auto,cyan",
+		"stub": "unbuild --stub",
+		"dev": "concurrently \"npm:build:watch\" \"npm:example\" -c auto,cyan",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
 		"prepublishOnly": "nr build",
@@ -37,7 +38,7 @@
 		"test": "nr test:e2e",
 		"test:e2e": "playwright test",
 		"typecheck": "tsc --noEmit",
-		"example:dev": "pnpm run --filter=example dev",
+		"example": "pnpm run --filter=example dev",
 		"example:build": "pnpm run --filter=example build",
 		"example:preview": "pnpm run --filter=example preview"
 	},
