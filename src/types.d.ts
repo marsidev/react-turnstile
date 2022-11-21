@@ -59,7 +59,7 @@ interface TurnstileInstance {
 }
 
 /** Common options for the `.render()` function and the `options` prop in the `<Turnstile />` component */
-interface TurnstileBaseOptions {
+interface CommonRenderOptions {
 	/**
 	 * A customer value that can be used to differentiate widgets under the same sitekey in analytics and which is returned upon validation. This can only contain up to 32 alphanumeric characters including _ and -.
 	 * @default undefined
@@ -81,10 +81,15 @@ interface TurnstileBaseOptions {
 	 * @default `normal`
 	 */
 	size?: 'normal' | 'compact'
+	/**
+	 * Controls whether the widget should automatically retry to obtain a token if it did not succeed. The default is `'auto'`, which will retry automatically. This can be set to `'never'` to disable retry upon failure.
+	 * @default `auto`
+	 */
+	retry?: 'auto' | 'never'
 }
 
 /** Props needed for the `options` prop in the `<Turnstile />` component */
-interface ComponentRenderOptions extends TurnstileBaseOptions {
+interface ComponentRenderOptions extends CommonRenderOptions {
 	/**
 	 * The tabindex of Turnstile’s iframe for accessibility purposes.
 	 * @default 0
@@ -100,10 +105,15 @@ interface ComponentRenderOptions extends TurnstileBaseOptions {
 	 * @default `cf-turnstile-response`
 	 */
 	responseFieldName?: string
+	/**
+	 * When `retry` is set to `'auto'`, `retryInterval` controls the time between retry attempts in milliseconds. The value must be a positive integer less than `900000`. When `retry` is set to `'never'`, this parameter has no effect.
+	 * @default 8000
+	 */
+	retryInterval?: number
 }
 
 /** Props needed for the `.render()` function */
-interface RenderParameters extends TurnstileBaseOptions {
+interface RenderParameters extends CommonRenderOptions {
 	/**
 	 * Every widget has a sitekey. This sitekey is associated with the corresponding widget configuration and is created upon the widget creation.
 	 */
@@ -136,6 +146,11 @@ interface RenderParameters extends TurnstileBaseOptions {
 	 * @default `cf-turnstile-response`
 	 */
 	'response-field-name'?: string
+	/**
+	 * When `retry` is set to `'auto'`, `retry-interval` controls the time between retry attempts in milliseconds. The value must be a positive integer less than `900000`. When `retry` is set to `'never'`, this parameter has no effect.
+	 * @default 8000
+	 */
+	'retry-interval'?: number
 }
 
 interface ScriptOptions {

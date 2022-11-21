@@ -94,7 +94,9 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		'error-callback': onError,
 		size: config.size ?? 'normal',
 		'response-field': config.responseField,
-		'response-field-name': config.responseFieldName
+		'response-field-name': config.responseFieldName,
+		retry: config.retry ?? 'auto',
+		'retry-interval': config.retryInterval ?? 8000
 	}
 
 	const onLoadScript = () => {
@@ -132,10 +134,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		if (autoResetOnExpire) {
 			// expire time it's documented as 300 seconds but can happen in around 290 seconds.
 			const timerId = setInterval(() => window.turnstile?.reset(), 290 * 1000)
-
-			return () => {
-				clearInterval(timerId)
-			}
+			return () => clearInterval(timerId)
 		}
 	}, [configJson, scriptOptionsJson])
 
