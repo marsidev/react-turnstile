@@ -1,0 +1,4 @@
+{
+	"eslint.packageManager": "pnpm",
+	"eslint.workingDirectories": ["./packages/example"]
+}

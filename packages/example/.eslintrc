@@ -1,3 +1,6 @@
 {
-	"extends": ["next/core-web-vitals", "marsi"]
+	"extends": ["next/core-web-vitals", "marsi"],
+	"rules": {
+		"@next/next/no-html-link-for-pages": ["error", "packages/example/src/pages/"]
+	}
 }
