@@ -58,14 +58,15 @@ function Widget() {
 
 ## Props
 
-| **Prop**    | **Type**   | **Description**                                                                                                                                                                                                                                                 | **Required** |
-| ----------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| siteKey     | `string`   | Your sitekey key, get one from [here](https://developers.cloudflare.com/turnstile/get-started/).                                                                                                                                                                | ✅            |
-| options     | `object`   | Widget render options. More info about this options [below](https://github.com/marsidev/react-turnstile/#render-options).                                                                                                                                       |              |
-| scriptProps | `object`   | You can customize the injected `script` tag with this prop. It allows you to add `async`, `defer`, `nonce` attributes to the script tag. You can also control whether the injected script will be added to the document body or head with `appendTo` attribute. |              |
-| onSuccess   | `function` | Callback that is invoked upon success of the challenge. The callback is passed a token that can be validated.                                                                                                                                                   |              |
-| onExpire    | `function` | Callback that is invoked when a challenge expires.                                                                                                                                                                                                              |              |
-| onError     | `function` | Callback that is invoked when there is a network error.                                                                                                                                                                                                         |              |
+| **Prop**          | **Type**   | **Description**                                                                                                                                                                                                                                                 | **Required** |
+| ----------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| siteKey           | `string`   | Your sitekey key, get one from [here](https://developers.cloudflare.com/turnstile/get-started/).                                                                                                                                                                | ✅            |
+| options           | `object`   | Widget render options. More info about this options [below](https://github.com/marsidev/react-turnstile/#render-options).                                                                                                                                       |              |
+| scriptProps       | `object`   | You can customize the injected `script` tag with this prop. It allows you to add `async`, `defer`, `nonce` attributes to the script tag. You can also control whether the injected script will be added to the document body or head with `appendTo` attribute. |              |
+| onSuccess         | `function` | Callback that is invoked upon success of the challenge. The callback is passed a token that can be validated.                                                                                                                                                   |              |
+| onExpire          | `function` | Callback that is invoked when a challenge expires.                                                                                                                                                                                                              |              |
+| onError           | `function` | Callback that is invoked when there is a network error.                                                                                                                                                                                                         |              |
+| autoResetOnExpire | `boolean`  | Controls whether the widget should automatically reset when it expires. If is set to `true`, you don't need to use the `onExpire` callback. Default to `true`.                                                                                                  |              |
 
 
 ### Render options
@@ -148,6 +149,8 @@ function Widget() {
 }
 ```
 
+> `onExpire` does not take effect unless you set `autoResetOnExpire` to `false`.
+
 ### Getting the token after solving the challenge:
 ```jsx
 import { useState } from 'react'
@@ -220,7 +223,7 @@ function Widget() {
 ### Validating a token:
 ```jsx
 // LoginForm.jsx
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { Turnstile } from '@marsidev/react-turnstile'
 
 export default function LoginForm() {
@@ -288,6 +291,27 @@ export default async function handler(request, response) {
 > - by calling the `.getResponse()` method.
 > - by reading the widget response input with name `cf-turnstile-response`. This one is not an option if you set `options.fieldResponse` to `false`.
 
+### Handling widget expiring:
+
+> By default, you don't need to handle the widget expiring, unless you set `autoResetOnExpire` to `false`.
+
+```jsx
+import { useRef } from 'react'
+import { Turnstile } from '@marsidev/react-turnstile'
+
+function Widget() {
+  const ref = useRef(null)
+
+  return (
+    <Turnstile
+      ref={ref}
+      autoResetOnExpire={false}
+      siteKey='1x00000000000000000000AA'
+      onExpire={() => ref.current?.reset()}
+    />
+  )
+}
+```
 
 ## Contributing
 

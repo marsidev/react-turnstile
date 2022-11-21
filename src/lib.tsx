@@ -3,7 +3,17 @@ import { DEFAULT_CONTAINER_ID, DEFAULT_ONLOAD_NAME, injectTurnstileScript } from
 import { RenderParameters, TurnstileInstance, TurnstileProps } from './types'
 
 export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProps>((props, ref) => {
-	const { scriptOptions, options, siteKey, onSuccess, onExpire, onError, id, ...divProps } = props
+	const {
+		scriptOptions,
+		options,
+		siteKey,
+		onSuccess,
+		onExpire,
+		onError,
+		id,
+		autoResetOnExpire = true,
+		...divProps
+	} = props
 	const config = options ?? {}
 
 	const [widgetId, setWidgetId] = useState<string | undefined | null>()
@@ -119,11 +129,13 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			onError: onLoadScriptError
 		})
 
-		/** Once a token has been issued, it can be validated within the next 300 seconds. After 300 seconds, the token is no longer valid and another challenge needs to be solved. */
-		const timerId = setInterval(() => window.turnstile?.reset(), 250 * 250)
+		if (autoResetOnExpire) {
+			// expire time it's documented as 300 seconds but can happen in around 290 seconds.
+			const timerId = setInterval(() => window.turnstile?.reset(), 290 * 1000)
 
-		return () => {
-			clearInterval(timerId)
+			return () => {
+				clearInterval(timerId)
+			}
 		}
 	}, [configJson, scriptOptionsJson])
 
@@ -144,4 +156,5 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 })
 
 Turnstile.displayName = 'Turnstile'
+
 export default Turnstile

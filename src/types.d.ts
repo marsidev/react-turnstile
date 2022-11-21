@@ -84,7 +84,7 @@ interface TurnstileBaseOptions {
 }
 
 /** Props needed for the `options` prop in the `<Turnstile />` component */
-interface ComponentOptions extends TurnstileBaseOptions {
+interface ComponentRenderOptions extends TurnstileBaseOptions {
 	/**
 	 * The tabindex of Turnstile’s iframe for accessibility purposes.
 	 * @default 0
@@ -194,11 +194,16 @@ interface TurnstileProps extends React.HTMLAttributes<HTMLDivElement> {
 	/**
 	 * Custom widget render options. See {@link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#configurations the docs} for more info about this options.
 	 */
-	options?: ComponentOptions
+	options?: ComponentRenderOptions
 	/**
 	 * Custom injected script options.
 	 */
 	scriptOptions?: ScriptOptions
+	/**
+	 * Controls whether the widget should automatically reset when it expires.
+	 * @default true
+	 */
+	autoResetOnExpire?: boolean
 }
 
 interface InjectTurnstileScriptParams {

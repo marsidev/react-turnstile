@@ -56,6 +56,11 @@ const Demo = () => {
 		setStatus('solved')
 	}
 
+	const onExpire = () => {
+		setStatus('expired')
+		turnstileRef.current?.reset()
+	}
+
 	return (
 		<div className='flex flex-col items-center justify-center w-full min-h-screen py-24'>
 			<main className='w-full max-w-[740px] flex justify-center flex-col text-white p-4 gap-2'>
@@ -63,10 +68,11 @@ const Demo = () => {
 
 				<Turnstile
 					ref={turnstileRef}
+					autoResetOnExpire={false}
 					options={{ theme, size }}
 					siteKey={testingSiteKey}
 					onError={() => setStatus('error')}
-					onExpire={() => setStatus('expired')}
+					onExpire={onExpire}
 					onSuccess={onSuccess}
 				/>
 
