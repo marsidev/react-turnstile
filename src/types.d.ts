@@ -17,7 +17,7 @@ interface _Turnstile {
 	 * @param params -  Optional. Render parameter options. See {@link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#configurations the docs} for more info about this options.
 	 * @returns The rendered widget ID.
 	 */
-	render: (container?: string | HTMLElement, params?: RenderParameters) => string | undefined
+	render: (container?: string | HTMLElement, params?: RenderOptions) => string | undefined
 	/**
 	 * Method to reset a widget.
 	 * @param id -  Optional. ID of the widget to reset, if not provided will target the last rendered widget.
@@ -58,8 +58,11 @@ interface TurnstileInstance {
 	getResponse: () => string | undefined
 }
 
-/** Common options for the `.render()` function and the `options` prop in the `<Turnstile />` component */
-interface CommonRenderOptions {
+interface RenderOptions {
+	/**
+	 * The sitekey of your widget. This sitekey is created upon the widget creation.
+	 */
+	sitekey: string
 	/**
 	 * A customer value that can be used to differentiate widgets under the same sitekey in analytics and which is returned upon validation. This can only contain up to 32 alphanumeric characters including _ and -.
 	 * @default undefined
@@ -71,71 +74,29 @@ interface CommonRenderOptions {
 	 */
 	cData?: string
 	/**
+	 * Callback that is invoked upon success of the challenge. The callback is passed a token that can be validated.
+	 * @param token - Token response.
+	 */
+	callback?: (token: string) => void
+	/**
+	 * Callback that is invoked when a challenge expires.
+	 */
+	'expired-callback'?: () => void
+	/**
+	 * Callback that is invoked when there is a network error.
+	 */
+	'error-callback'?: () => void
+	/**
 	 * The widget theme. This can be forced to light or dark by setting the theme accordingly.
 	 *
 	 * @default `auto`
 	 */
 	theme?: 'light' | 'dark' | 'auto'
 	/**
-	 * The widget size. Can take the following values: `normal`, `compact`. The normal size is 300x65px, the compact size is 130x120px.
-	 * @default `normal`
-	 */
-	size?: 'normal' | 'compact'
-	/**
-	 * Controls whether the widget should automatically retry to obtain a token if it did not succeed. The default is `'auto'`, which will retry automatically. This can be set to `'never'` to disable retry upon failure.
-	 * @default `auto`
-	 */
-	retry?: 'auto' | 'never'
-}
-
-/** Props needed for the `options` prop in the `<Turnstile />` component */
-interface ComponentRenderOptions extends CommonRenderOptions {
-	/**
-	 * The tabindex of Turnstile’s iframe for accessibility purposes.
-	 * @default 0
-	 */
-	tabIndex?: number
-	/**
-	 * A boolean that controls if an input element with the response token is created.
-	 * @default true
-	 */
-	responseField?: boolean
-	/**
-	 * Name of the input element.
-	 * @default `cf-turnstile-response`
-	 */
-	responseFieldName?: string
-	/**
-	 * When `retry` is set to `'auto'`, `retryInterval` controls the time between retry attempts in milliseconds. The value must be a positive integer less than `900000`. When `retry` is set to `'never'`, this parameter has no effect.
-	 * @default 8000
-	 */
-	retryInterval?: number
-}
-
-/** Props needed for the `.render()` function */
-interface RenderParameters extends CommonRenderOptions {
-	/**
-	 * Every widget has a sitekey. This sitekey is associated with the corresponding widget configuration and is created upon the widget creation.
-	 */
-	sitekey: string
-	/**
 	 * The tabindex of Turnstile’s iframe for accessibility purposes.
 	 * @default 0
 	 */
 	tabindex?: number
-	/**
-	 * JavaScript callback that is invoked upon success of the challenge. The callback is passed a token that can be validated.
-	 * @param token - Token response.
-	 */
-	callback?: (token: string) => void
-	/**
-	 * JavaScript callback that is invoked when a challenge expires.
-	 */
-	'expired-callback'?: () => void
-	/**
-	 * JavaScript callback that is invoked when there is a network error.
-	 */
-	'error-callback'?: () => void
 	/**
 	 * A boolean that controls if an input element with the response token is created.
 	 * @default true
@@ -147,12 +108,48 @@ interface RenderParameters extends CommonRenderOptions {
 	 */
 	'response-field-name'?: string
 	/**
+	 * The widget size. Can take the following values: `normal`, `compact`. The normal size is 300x65px, the compact size is 130x120px.
+	 * @default `normal`
+	 */
+	size?: 'normal' | 'compact'
+	/**
+	 * Controls whether the widget should automatically retry to obtain a token if it did not succeed. The default is `'auto'`, which will retry automatically. This can be set to `'never'` to disable retry upon failure.
+	 * @default `auto`
+	 */
+	retry?: 'auto' | 'never'
+	/**
 	 * When `retry` is set to `'auto'`, `retry-interval` controls the time between retry attempts in milliseconds. The value must be a positive integer less than `900000`. When `retry` is set to `'never'`, this parameter has no effect.
 	 * @default 8000
 	 */
 	'retry-interval'?: number
 }
 
+/** Props needed for the `options` prop in the `<Turnstile />` component. */
+interface ComponentRenderOptions
+	extends Pick<RenderOptions, 'action' | 'cData' | 'theme' | 'retry' | 'size'> {
+	/**
+	 * The tabindex of Turnstile’s iframe for accessibility purposes.
+	 * @default 0
+	 */
+	tabIndex?: RenderOptions['tabindex']
+	/**
+	 * A boolean that controls if an input element with the response token is created.
+	 * @default true
+	 */
+	responseField?: RenderOptions['response-field']
+	/**
+	 * Name of the input element.
+	 * @default `cf-turnstile-response`
+	 */
+	responseFieldName?: RenderOptions['response-field-name']
+	/**
+	 * When `retry` is set to `'auto'`, `retryInterval` controls the time between retry attempts in milliseconds. The value must be a positive integer less than `900000`. When `retry` is set to `'never'`, this parameter has no effect.
+	 * @default 8000
+	 */
+	retryInterval?: RenderOptions['retry-interval']
+}
+
+/** Custom options for the injected script. */
 interface ScriptOptions {
 	/**
 	 * Custom nonce for the injected script.
@@ -188,24 +185,23 @@ interface ScriptOptions {
 
 /** `<Turnstile />` component props */
 interface TurnstileProps extends React.HTMLAttributes<HTMLDivElement> {
-	// instance: React.RefObject<TurnstileInstance>
 	/**
-	 * Every widget has a sitekey. This sitekey is associated with the corresponding widget configuration and is created upon the widget creation.
+	 * The sitekey of your widget. This sitekey is created upon the widget creation.
 	 */
-	siteKey: string
+	siteKey: RenderOptions['sitekey']
 	/**
 	 * Callback that is invoked upon success of the challenge. The callback is passed a token that can be validated.
 	 * @param token - Token response.
 	 */
-	onSuccess?: (token: string) => void
+	onSuccess?: RenderOptions['callback']
 	/**
 	 * Callback that is invoked when a challenge expires.
 	 */
-	onExpire?: () => void
+	onExpire?: RenderOptions['expired-callback']
 	/**
 	 * Callback that is invoked when there is a network error.
 	 */
-	onError?: () => void
+	onError?: RenderOptions['error-callback']
 	/**
 	 * Custom widget render options. See {@link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#configurations the docs} for more info about this options.
 	 */
@@ -229,4 +225,4 @@ interface InjectTurnstileScriptParams {
 	scriptOptions?: Omit<ScriptOptions, 'onLoadCallbackName'>
 }
 
-export type { TurnstileInstance, RenderParameters, TurnstileProps, InjectTurnstileScriptParams }
+export type { TurnstileInstance, RenderOptions, TurnstileProps, InjectTurnstileScriptParams }

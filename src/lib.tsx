@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { DEFAULT_CONTAINER_ID, DEFAULT_ONLOAD_NAME, injectTurnstileScript } from './utils'
-import { RenderParameters, TurnstileInstance, TurnstileProps } from './types'
+import { RenderOptions, TurnstileInstance, TurnstileProps } from './types'
 
 export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProps>((props, ref) => {
 	const {
@@ -83,7 +83,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		[scriptLoaded, typeof window, widgetId]
 	)
 
-	const renderConfig: RenderParameters = {
+	const renderConfig: RenderOptions = {
 		action: config.action,
 		cData: config.cData,
 		theme: config.theme ?? 'auto',

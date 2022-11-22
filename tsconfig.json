@@ -15,6 +15,7 @@
 		"isolatedModules": true,
 		"rootDir": ".",
 		"baseUrl": ".",
+		"noEmit": true,
 		"paths": {
 			"~/*": ["./*"]
 		}
