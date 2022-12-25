@@ -34,14 +34,28 @@ https://react-turnstile.vercel.app/
 
 ## Install
 1. [Follow these steps](https://developers.cloudflare.com/turnstile/get-started/) to obtain a free site key and secret key from Cloudflare.
-2. Install `@marsidev/react-turnstile` into your React application.
+2. Install `@marsidev/react-turnstile` into your React project.
 
 	```bash
-	# Whichever matches your package manager
+	npm i @marsidev/react-turnstile
+	```
+
+	Or using any custom package manager:
+
+	```bash
 	pnpm add @marsidev/react-turnstile
-	npm install @marsidev/react-turnstile
+	```
+
+	```bash
 	yarn add @marsidev/react-turnstile
-	ultra install @marsidev/react-turnstile
+	```
+
+	```bash
+	bun add @marsidev/react-turnstile
+	```
+
+	```bash
+	ni @marsidev/react-turnstile
 	```
 
 ## Usage
