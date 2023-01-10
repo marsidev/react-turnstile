@@ -12,6 +12,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		onError,
 		id,
 		autoResetOnExpire = true,
+		style,
 		...divProps
 	} = props
 	const config = options ?? {}
@@ -99,6 +100,9 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		'retry-interval': config.retryInterval ?? 8000
 	}
 
+	const containerWidth = config.size === 'compact' ? '130px' : '300px'
+	const containerHeight = config.size === 'compact' ? '120px' : '65px'
+
 	const onLoadScript = () => {
 		setScriptLoaded(true)
 	}
@@ -151,7 +155,14 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		[configJson, siteKey]
 	)
 
-	return <div ref={containerRef} id={containerId} {...divProps} />
+	return (
+		<div
+			ref={containerRef}
+			id={containerId}
+			style={{ width: containerWidth, height: containerHeight, ...style }}
+			{...divProps}
+		/>
+	)
 })
 
 Turnstile.displayName = 'Turnstile'
