@@ -157,7 +157,7 @@ export const CONTAINER_STYLE_SET: ContainerSizeSet = {
 	invisible: {
 		width: 0,
 		height: 0,
-		overflow: "hidden"
+		overflow: 'hidden'
 	}
 }
 
