@@ -40,7 +40,9 @@ const ConfigForm = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
 
 	function onChangeSizeProxy(val: string) {
 		if (val === 'invisible' && siteKeyType === 'interactive') {
-			// Change the siteKey type to `pass` when this is the invisible key type.
+			// Change the siteKey type to `pass` when the user choose the invisible
+			// widget type. Will prevent interactive challenge being choosen on
+			// invisible widget.
 			onChangeSiteKeyTypeProxy('pass')
 		}
 		setSizeType(val as SizeType)
@@ -69,8 +71,8 @@ const ConfigForm = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
 					name='siteKey'
 					options={SiteKeyOptions.map(option => ({
 						...option,
-						// Option will be disabled on Invisibile widget type, and requesting
-						// the widget to be interactive.
+						// Option will be disabled when requesting interactive challenge on
+						// invisible widget type
 						disabled: (option.value === 'interactive' && isInvisibleType)
 					})
 					)}

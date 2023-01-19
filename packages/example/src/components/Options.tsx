@@ -16,7 +16,7 @@ interface OptionsProps {
 const Options: React.FC<OptionsProps> = props => {
 	let defaultValue: string | undefined
 
-	// Sets the defaultValue only if the value is not defined.
+	// Sets the defaultValue only when the value property is not filled.
 	if (!props.value) {
 		defaultValue = props.options[0].value
 	}
