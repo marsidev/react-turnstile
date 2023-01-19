@@ -126,7 +126,7 @@ interface RenderOptions {
 
 /** Props needed for the `options` prop in the `<Turnstile />` component. */
 interface ComponentRenderOptions
-	extends Pick<RenderOptions, 'action' | 'cData' | 'theme' | 'retry' | 'size'> {
+	extends Pick<RenderOptions, 'action' | 'cData' | 'theme' | 'retry'> {
 	/**
 	 * The tabindex of Turnstile’s iframe for accessibility purposes.
 	 * @default 0
@@ -147,6 +147,11 @@ interface ComponentRenderOptions
 	 * @default 8000
 	 */
 	retryInterval?: RenderOptions['retry-interval']
+	/**
+	 * The widget size. Can take the following values: `normal`, `compact`, and `invisible`. The normal size is 300x65px, the compact size is 130x120px, invisible will show no widget.
+	 * @default `normal`
+	 */
+	size?: RenderOptions['size'] | 'invisible'
 }
 
 /** Custom options for the injected script. */
@@ -225,4 +230,8 @@ interface InjectTurnstileScriptParams {
 	scriptOptions?: Omit<ScriptOptions, 'onLoadCallbackName'>
 }
 
-export type { TurnstileInstance, RenderOptions, TurnstileProps, InjectTurnstileScriptParams }
+type ContainerSizeSet = {
+	[size in NonNullable<ComponentRenderOptions['size']>]: React.CSSProperties
+}
+
+export type { TurnstileInstance, RenderOptions, TurnstileProps, InjectTurnstileScriptParams, ContainerSizeSet }

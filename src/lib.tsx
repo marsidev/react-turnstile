@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
-import { DEFAULT_CONTAINER_ID, DEFAULT_ONLOAD_NAME, injectTurnstileScript } from './utils'
+import { CONTAINER_STYLE_SET, DEFAULT_CONTAINER_ID, DEFAULT_ONLOAD_NAME, getTurnstileSizeOpts, injectTurnstileScript } from './utils'
 import { RenderOptions, TurnstileInstance, TurnstileProps } from './types'
 
 export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProps>((props, ref) => {
@@ -23,6 +23,8 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 	const firstRendered = useRef(false)
 
 	const containerId = id ?? DEFAULT_CONTAINER_ID
+	const containerSize = config.size ?? 'normal'
+	const containerStyle = CONTAINER_STYLE_SET[containerSize]
 	const onLoadCallbackName = scriptOptions?.onLoadCallbackName || DEFAULT_ONLOAD_NAME
 	const scriptOptionsJson = JSON.stringify(scriptOptions)
 	const configJson = JSON.stringify(config)
@@ -93,15 +95,12 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		callback: onSuccess,
 		'expired-callback': onExpire,
 		'error-callback': onError,
-		size: config.size ?? 'normal',
+		size: getTurnstileSizeOpts(containerSize),
 		'response-field': config.responseField,
 		'response-field-name': config.responseFieldName,
 		retry: config.retry ?? 'auto',
 		'retry-interval': config.retryInterval ?? 8000
 	}
-
-	const containerWidth = config.size === 'compact' ? '130px' : '300px'
-	const containerHeight = config.size === 'compact' ? '120px' : '65px'
 
 	const onLoadScript = () => {
 		setScriptLoaded(true)
@@ -159,7 +158,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		<div
 			ref={containerRef}
 			id={containerId}
-			style={{ width: containerWidth, height: containerHeight, ...style }}
+			style={{ ...containerStyle, ...style }}
 			{...divProps}
 		/>
 	)
