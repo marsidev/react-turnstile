@@ -1,4 +1,4 @@
-import type { WidgetStatus } from './Demo'
+import type { WidgetStatus } from '../types'
 import cn from 'classnames'
 
 interface StateLabelsProps {

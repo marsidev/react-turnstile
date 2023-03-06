@@ -1,5 +1,6 @@
-import type { TurnstileValidationResponse } from '../types'
+import type { SecretKeyType, TurnstileValidationResponse } from '../types'
 import { type FC, useEffect, useRef, useState } from 'react'
+import { DEMO_SECRET, secretOptions } from '../constants'
 import Options from './Options'
 
 interface TokenValidationProps {
@@ -7,15 +8,6 @@ interface TokenValidationProps {
 	widgetRerenderCount: number
 	challengeSolved: boolean | null
 }
-
-/** testing demo secretKeys */
-enum DEMO_SECRET {
-	pass = '1x0000000000000000000000000000000AA',
-	fail = '2x0000000000000000000000000000000AA',
-	spent = '3x0000000000000000000000000000000AA'
-}
-
-type SecretKeyType = keyof typeof DEMO_SECRET
 
 const TokenValidation: FC<TokenValidationProps> = ({
 	token,
@@ -26,7 +18,7 @@ const TokenValidation: FC<TokenValidationProps> = ({
 	const [loading, setLoading] = useState(false)
 	const submitFormRef = useRef<HTMLFormElement>(null)
 
-	// reset response when widget rerenders
+	// reset response when widget  rerenders
 	useEffect(() => {
 		setResponse(null)
 	}, [widgetRerenderCount])
@@ -71,11 +63,7 @@ const TokenValidation: FC<TokenValidationProps> = ({
 				<Options
 					helperUrl='https://developers.cloudflare.com/turnstile/frequently-asked-questions/#are-there-sitekeys-and-secret-keys-that-can-be-used-for-testing'
 					name='secret'
-					options={[
-						{ label: 'Always pass', value: 'pass' },
-						{ label: 'Always fail', value: 'fail' },
-						{ label: '"Token already spent" error', value: 'spent' }
-					]}
+					options={[...secretOptions]}
 					title='Demo Secret Key Type'
 				/>
 

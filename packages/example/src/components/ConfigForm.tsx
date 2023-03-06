@@ -1,5 +1,6 @@
 import { forwardRef, useState } from 'react'
-import { LangOptions } from '../constants'
+import { langOptions, siteKeyOptions, sizeOptions, themeOptions } from '../constants'
+import { SiteKeyType, WidgetSize } from '../types'
 import Options from './Options'
 
 interface FormProps {
@@ -9,29 +10,8 @@ interface FormProps {
 	onChangeLang: (value: string) => void
 }
 
-const ThemeOptions = [
-	{ label: 'Auto', value: 'auto' },
-	{ label: 'Light', value: 'light' },
-	{ label: 'Dark', value: 'dark' }
-] as const
-
-const SizeOptions = [
-	{ label: 'Normal', value: 'normal' },
-	{ label: 'Compact', value: 'compact' },
-	{ label: 'Invisible', value: 'invisible' }
-] as const
-
-const SiteKeyOptions = [
-	{ label: 'Always pass', value: 'pass' },
-	{ label: 'Always fail', value: 'fail' },
-	{ label: 'Force interactive challenge', value: 'interactive' }
-] as const
-
-type SizeType = (typeof SizeOptions)[number]['value']
-type SiteKeyType = (typeof SiteKeyOptions)[number]['value']
-
 const ConfigForm = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
-	const [sizeType, setSizeType] = useState<SizeType>('normal')
+	const [sizeType, setSizeType] = useState<WidgetSize>('normal')
 	const [siteKeyType, setSiteKeyType] = useState<SiteKeyType>('pass')
 
 	const isInvisibleType = sizeType === 'invisible'
@@ -48,7 +28,7 @@ const ConfigForm = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
 			// invisible widget.
 			onChangeSiteKeyTypeProxy('pass')
 		}
-		setSizeType(val as SizeType)
+		setSizeType(val as WidgetSize)
 		props.onChangeSize(val)
 	}
 
@@ -57,17 +37,17 @@ const ConfigForm = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
 			<div className='flex gap-16'>
 				<Options
 					name='theme'
-					options={[...ThemeOptions]}
+					options={[...themeOptions]}
 					title='Theme'
 					onChange={props.onChangeTheme}
 				/>
 
-				<Options name='size' options={[...SizeOptions]} title='Size' onChange={onChangeSizeProxy} />
+				<Options name='size' options={[...sizeOptions]} title='Size' onChange={onChangeSizeProxy} />
 
 				<Options
 					helperUrl='https://developers.cloudflare.com/turnstile/frequently-asked-questions/#are-there-sitekeys-and-secret-keys-that-can-be-used-for-testing'
 					name='siteKey'
-					options={SiteKeyOptions.map(option => ({
+					options={siteKeyOptions.map(option => ({
 						...option,
 						// Option will be disabled when requesting interactive challenge on
 						// invisible widget type
@@ -80,7 +60,7 @@ const ConfigForm = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
 
 				<Options
 					name='lang'
-					options={[...LangOptions]}
+					options={[...langOptions]}
 					title='Language'
 					onChange={props.onChangeLang}
 				/>

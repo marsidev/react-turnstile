@@ -1,31 +1,19 @@
 import { useRef, useState } from 'react'
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
-import { LangOptions } from '../constants'
+import { Lang, SiteKeyType, Theme, WidgetSize, WidgetStatus } from '../types'
+import { DEMO_SITEKEY } from '../constants'
 import ConfigForm from './ConfigForm'
 import StateLabels from './StateLabels'
 import WidgetMethods from './WidgetMethods'
 import TokenValidation from './TokenValidation'
 import Footer from './Footer'
 
-/** testing demo siteKeys */
-enum DEMO_SITEKEY {
-	pass = '1x00000000000000000000AA',
-	fail = '2x00000000000000000000AB',
-	interactive = '3x00000000000000000000FF'
-}
-
-type Theme = 'light' | 'dark' | 'auto'
-type Size = 'normal' | 'compact'
-export type WidgetStatus = 'solved' | 'error' | 'expired' | null
-type SiteKeyType = keyof typeof DEMO_SITEKEY
-type LangType = (typeof LangOptions)[number]['value']
-
 const Demo = () => {
 	const [theme, setTheme] = useState<Theme>('auto')
-	const [size, setSize] = useState<Size>('normal')
+	const [size, setSize] = useState<WidgetSize>('normal')
 	const [siteKeyType, setSiteKeyType] = useState<SiteKeyType>('pass')
 	const [status, setStatus] = useState<WidgetStatus>(null)
-	const [lang, setLang] = useState<LangType>('auto')
+	const [lang, setLang] = useState<Lang>('auto')
 	const [token, setToken] = useState<string>()
 	const [rerenderCount, setRerenderCount] = useState(0)
 
@@ -46,7 +34,7 @@ const Demo = () => {
 	}
 
 	const onChangeSize = (value: string) => {
-		setSize(value as Size)
+		setSize(value as WidgetSize)
 		onRestartStates()
 	}
 
@@ -56,7 +44,7 @@ const Demo = () => {
 	}
 
 	const onChangeLang = (value: string) => {
-		setLang(value as LangType)
+		setLang(value as Lang)
 		onRestartStates()
 	}
 
