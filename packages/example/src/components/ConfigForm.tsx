@@ -27,8 +27,8 @@ const SiteKeyOptions = [
 	{ label: 'Force interactive challenge', value: 'interactive' }
 ] as const
 
-type SizeType = typeof SizeOptions[number]['value']
-type SiteKeyType = typeof SiteKeyOptions[number]['value']
+type SizeType = (typeof SizeOptions)[number]['value']
+type SiteKeyType = (typeof SiteKeyOptions)[number]['value']
 
 const ConfigForm = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
 	const [sizeType, setSizeType] = useState<SizeType>('normal')

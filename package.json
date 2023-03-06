@@ -33,6 +33,7 @@
 		"dev": "concurrently \"npm:build:watch\" \"npm:example\" -c auto,cyan",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
+		"format": "npx prettier **/*.{js,mjs,cjs,ts,tsx,json} --write .",
 		"prepublishOnly": "nr build",
 		"release": "bumpp && npm publish",
 		"test": "nr test:e2e",
@@ -56,10 +57,12 @@
 		"bumpp": "9.0.0",
 		"concurrently": "7.6.0",
 		"eslint-config-marsi": "workspace:*",
+		"lint-staged": "13.1.2",
 		"nodemon": "2.0.21",
 		"playwright": "1.31.2",
 		"pnpm": "7.29.0",
 		"rimraf": "4.3.1",
+		"simple-git-hooks": "2.8.1",
 		"typescript": "4.9.5",
 		"unbuild": "0.8.9"
 	},
@@ -76,5 +79,14 @@
 	},
 	"publishConfig": {
 		"access": "public"
+	},
+	"simple-git-hooks": {
+		"pre-commit": "pnpm lint-staged"
+	},
+	"lint-staged": {
+		"**/*.{js,mjs,cjs,ts,tsx,json}": [
+			"npx eslint . --fix",
+			"npx prettier --write ."
+		]
 	}
 }

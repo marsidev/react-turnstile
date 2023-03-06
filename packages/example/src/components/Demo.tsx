@@ -18,7 +18,7 @@ type Theme = 'light' | 'dark' | 'auto'
 type Size = 'normal' | 'compact'
 export type WidgetStatus = 'solved' | 'error' | 'expired' | null
 type SiteKeyType = keyof typeof DEMO_SITEKEY
-type LangType = typeof LangOptions[number]['value']
+type LangType = (typeof LangOptions)[number]['value']
 
 const Demo = () => {
 	const [theme, setTheme] = useState<Theme>('auto')

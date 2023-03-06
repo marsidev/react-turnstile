@@ -1,4 +1,19 @@
 {
 	"eslint.packageManager": "pnpm",
-	"eslint.workingDirectories": ["./packages/example"]
+	"eslint.workingDirectories": ["./packages/example"],
+	"editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+	"editor.formatOnSave": true,
+  "eslint.options": {
+    "extensions": [".js", ".ts", ".tsx"]
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+	"editor.insertSpaces": false,
+  "editor.detectIndentation": false
 }

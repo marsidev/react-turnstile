@@ -53,7 +53,8 @@ export const removeWidget = (container?: HTMLElement | string) => {
 		return
 	}
 
-	const customWidget = typeof container === 'string' ? document.getElementById(container) : container
+	const customWidget =
+		typeof container === 'string' ? document.getElementById(container) : container
 
 	removeCustomWidget(customWidget)
 }
@@ -125,7 +126,8 @@ export const injectTurnstileScript = ({
 	js.onload = onLoad
 
 	// Append it to the body|head
-	const elementToInjectScript = appendTo === 'body' ? document.body : document.getElementsByTagName('head')[0]
+	const elementToInjectScript =
+		appendTo === 'body' ? document.body : document.getElementsByTagName('head')[0]
 
 	elementToInjectScript!.appendChild(js)
 }
