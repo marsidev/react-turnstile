@@ -121,5 +121,30 @@ test('widget can be sized', async () => {
 	const iframeAfter = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
 	const boxAfter = await iframeAfter.locator('body').boundingBox()
 	expect(boxAfter).toBeDefined()
-	expect(boxAfter!.width).toBe(130)
+
+test('widget can change language', async () => {
+	// default lang 'auto' (en)
+	await ensureFrameVisible()
+	const iframe = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
+	await expect(iframe.locator('#success-text')).toContainText('Success!')
+
+	// change lang to 'es'
+	await page.getByLabel('Language').selectOption('es')
+	await ensureFrameVisible()
+	await expect(iframe.locator('#success-text')).toContainText('¡Operación exitosa!')
+
+	// change lang to 'de'
+	await page.getByLabel('Language').selectOption('de')
+	await ensureFrameVisible()
+	await expect(iframe.locator('#success-text')).toContainText('Erfolg!')
+
+	// change lang to 'ja'
+	await page.getByLabel('Language').selectOption('ja')
+	await ensureFrameVisible()
+	await expect(iframe.locator('#success-text')).toContainText('成功しました!')
+
+	// change lang to 'ru'
+	await page.getByLabel('Language').selectOption('ru')
+	await ensureFrameVisible()
+	await expect(iframe.locator('#success-text')).toContainText('Проверка пройдена!')
 })

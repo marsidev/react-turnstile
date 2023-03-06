@@ -1,5 +1,11 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
-import { CONTAINER_STYLE_SET, DEFAULT_CONTAINER_ID, DEFAULT_ONLOAD_NAME, getTurnstileSizeOpts, injectTurnstileScript } from './utils'
+import {
+	CONTAINER_STYLE_SET,
+	DEFAULT_CONTAINER_ID,
+	DEFAULT_ONLOAD_NAME,
+	getTurnstileSizeOpts,
+	injectTurnstileScript
+} from './utils'
 import { RenderOptions, TurnstileInstance, TurnstileProps } from './types'
 
 export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProps>((props, ref) => {
@@ -68,7 +74,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 					}
 
 					if (!containerRef.current) {
-						console.warn('Container has not rendered')
+						console.warn('The container has not been rendered yet')
 						return
 					}
 
@@ -99,7 +105,8 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		'response-field': config.responseField,
 		'response-field-name': config.responseFieldName,
 		retry: config.retry ?? 'auto',
-		'retry-interval': config.retryInterval ?? 8000
+		'retry-interval': config.retryInterval ?? 8000,
+		language: config.language ?? 'auto'
 	}
 
 	const onLoadScript = () => {

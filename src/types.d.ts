@@ -122,11 +122,16 @@ interface RenderOptions {
 	 * @default 8000
 	 */
 	'retry-interval'?: number
+	/**
+	 * Language to display, must be either: `auto` (default) to use the language that the visitor has chosen, or an ISO 639-1 two-letter language code (e.g. `en`).
+	 * @default `auto`
+	 */
+	language?: 'auto' | LangCode
 }
 
 /** Props needed for the `options` prop in the `<Turnstile />` component. */
 interface ComponentRenderOptions
-	extends Pick<RenderOptions, 'action' | 'cData' | 'theme' | 'retry'> {
+	extends Pick<RenderOptions, 'action' | 'cData' | 'theme' | 'retry' | 'language'> {
 	/**
 	 * The tabindex of Turnstile’s iframe for accessibility purposes.
 	 * @default 0
@@ -234,4 +239,31 @@ type ContainerSizeSet = {
 	[size in NonNullable<ComponentRenderOptions['size']>]: React.CSSProperties
 }
 
-export type { TurnstileInstance, RenderOptions, TurnstileProps, InjectTurnstileScriptParams, ContainerSizeSet }
+type LangCode =
+	| 'ar'
+	| 'ar-EG'
+	| 'de'
+	| 'en'
+	| 'es'
+	| 'fa'
+	| 'fr'
+	| 'id'
+	| 'it'
+	| 'ja'
+	| 'ko'
+	| 'nl'
+	| 'pl'
+	| 'pt'
+	| 'pt-BR'
+	| 'ru'
+	| 'tr'
+	| 'zh-CN'
+	| 'zh-TW'
+
+export type {
+	TurnstileInstance,
+	RenderOptions,
+	TurnstileProps,
+	InjectTurnstileScriptParams,
+	ContainerSizeSet
+}

@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
+import { LangOptions } from '../constants'
 import ConfigForm from './ConfigForm'
 import StateLabels from './StateLabels'
 import WidgetMethods from './WidgetMethods'
@@ -17,14 +18,17 @@ type Theme = 'light' | 'dark' | 'auto'
 type Size = 'normal' | 'compact'
 export type WidgetStatus = 'solved' | 'error' | 'expired' | null
 type SiteKeyType = keyof typeof DEMO_SITEKEY
+type LangType = typeof LangOptions[number]['value']
 
 const Demo = () => {
 	const [theme, setTheme] = useState<Theme>('auto')
 	const [size, setSize] = useState<Size>('normal')
 	const [siteKeyType, setSiteKeyType] = useState<SiteKeyType>('pass')
 	const [status, setStatus] = useState<WidgetStatus>(null)
+	const [lang, setLang] = useState<LangType>('auto')
 	const [token, setToken] = useState<string>()
 	const [rerenderCount, setRerenderCount] = useState(0)
+
 	const configFormRef = useRef<HTMLFormElement>(null)
 	const turnstileRef = useRef<TurnstileInstance>(null)
 	const testingSiteKey = DEMO_SITEKEY[siteKeyType]
@@ -51,6 +55,11 @@ const Demo = () => {
 		onRestartStates()
 	}
 
+	const onChangeLang = (value: string) => {
+		setLang(value as LangType)
+		onRestartStates()
+	}
+
 	const onSuccess = (token: string) => {
 		setToken(token)
 		setStatus('solved')
@@ -69,7 +78,11 @@ const Demo = () => {
 				<Turnstile
 					ref={turnstileRef}
 					autoResetOnExpire={false}
-					options={{ theme, size }}
+					options={{
+						theme,
+						size,
+						language: lang
+					}}
 					siteKey={testingSiteKey}
 					onError={() => setStatus('error')}
 					onExpire={onExpire}
@@ -79,6 +92,7 @@ const Demo = () => {
 				<h2 className='font-semibold text-2xl mt-8'>Configuration</h2>
 				<ConfigForm
 					ref={configFormRef}
+					onChangeLang={onChangeLang}
 					onChangeSiteKeyType={onChangeSiteKeyType}
 					onChangeSize={onChangeSize}
 					onChangeTheme={onChangeTheme}

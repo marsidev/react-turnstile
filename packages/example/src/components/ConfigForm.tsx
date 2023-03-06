@@ -1,10 +1,12 @@
 import { forwardRef, useState } from 'react'
+import { LangOptions } from '../constants'
 import Options from './Options'
 
 interface FormProps {
 	onChangeTheme: (value: string) => void
 	onChangeSiteKeyType: (value: string) => void
 	onChangeSize: (value: string) => void
+	onChangeLang: (value: string) => void
 }
 
 const ThemeOptions = [
@@ -31,7 +33,8 @@ type SiteKeyType = typeof SiteKeyOptions[number]['value']
 const ConfigForm = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
 	const [sizeType, setSizeType] = useState<SizeType>('normal')
 	const [siteKeyType, setSiteKeyType] = useState<SiteKeyType>('pass')
-	const isInvisibleType = (sizeType === 'invisible')
+
+	const isInvisibleType = sizeType === 'invisible'
 
 	function onChangeSiteKeyTypeProxy(val: string) {
 		setSiteKeyType(val as SiteKeyType)
@@ -41,7 +44,7 @@ const ConfigForm = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
 	function onChangeSizeProxy(val: string) {
 		if (val === 'invisible' && siteKeyType === 'interactive') {
 			// Change the siteKey type to `pass` when the user choose the invisible
-			// widget type. Will prevent interactive challenge being choosen on
+			// widget type. Will prevent interactive challenge being chosen on
 			// invisible widget.
 			onChangeSiteKeyTypeProxy('pass')
 		}
@@ -59,12 +62,7 @@ const ConfigForm = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
 					onChange={props.onChangeTheme}
 				/>
 
-				<Options
-					name='size'
-					options={[...SizeOptions]}
-					title='Size'
-					onChange={onChangeSizeProxy}
-				/>
+				<Options name='size' options={[...SizeOptions]} title='Size' onChange={onChangeSizeProxy} />
 
 				<Options
 					helperUrl='https://developers.cloudflare.com/turnstile/frequently-asked-questions/#are-there-sitekeys-and-secret-keys-that-can-be-used-for-testing'
@@ -73,12 +71,18 @@ const ConfigForm = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
 						...option,
 						// Option will be disabled when requesting interactive challenge on
 						// invisible widget type
-						disabled: (option.value === 'interactive' && isInvisibleType)
-					})
-					)}
+						disabled: option.value === 'interactive' && isInvisibleType
+					}))}
 					title='Demo Site Key Type'
 					value={siteKeyType}
 					onChange={onChangeSiteKeyTypeProxy}
+				/>
+
+				<Options
+					name='lang'
+					options={[...LangOptions]}
+					title='Language'
+					onChange={props.onChangeLang}
 				/>
 			</div>
 		</form>

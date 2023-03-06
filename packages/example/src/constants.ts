@@ -1,0 +1,22 @@
+export const LangOptions = [
+	{ label: 'Auto', value: 'auto' },
+	{ label: 'العربية', value: 'ar' },
+	{ label: 'العربية (مصر)', value: 'ar-EG' },
+	{ label: 'Deutsch', value: 'de' },
+	{ label: 'English', value: 'en' },
+	{ label: 'Español', value: 'es' },
+	{ label: 'فارسی', value: 'fa' },
+	{ label: 'Français', value: 'fr' },
+	{ label: 'Bahasa Indonesia', value: 'id' },
+	{ label: 'Italiano', value: 'it' },
+	{ label: '日本語', value: 'ja' },
+	{ label: '한국어', value: 'ko' },
+	{ label: 'Nederlands', value: 'nl' },
+	{ label: 'Polski', value: 'pl' },
+	{ label: 'Português', value: 'pt' },
+	{ label: 'Português (Brasil)', value: 'pt-BR' },
+	{ label: 'Русский', value: 'ru' },
+	{ label: 'Türkçe', value: 'tr' },
+	{ label: '中文（简体）', value: 'zh-CN' },
+	{ label: '繁體中文', value: 'zh-TW' }
+] as const

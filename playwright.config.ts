@@ -24,7 +24,8 @@ const config: PlaywrightTestConfig = {
 	use: {
 		trace: 'retry-with-trace',
 		headless: true,
-		baseURL
+		baseURL,
+		locale: 'en-US'
 	},
 
 	projects: [
