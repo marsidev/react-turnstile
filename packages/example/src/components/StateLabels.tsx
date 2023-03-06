@@ -1,5 +1,5 @@
 import type { WidgetStatus } from './Demo'
-import cx from 'classnames'
+import cn from 'classnames'
 
 interface StateLabelsProps {
 	status: WidgetStatus
@@ -13,7 +13,7 @@ interface LabelProps {
 const Label: React.FC<LabelProps> = props => {
 	return (
 		<div
-			className={`py-1 px-2 rounded-sm text-sm ${cx({
+			className={`py-1 px-2 rounded-sm text-sm ${cn({
 				'bg-blue-600': props.value,
 				'bg-gray-600': !props.value
 			})}`}

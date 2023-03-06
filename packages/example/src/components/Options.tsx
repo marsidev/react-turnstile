@@ -1,3 +1,5 @@
+import Link from './Link'
+
 interface Option {
 	label: string
 	value: string
@@ -27,14 +29,9 @@ const Options: React.FC<OptionsProps> = props => {
 				{props.title}
 				{props.helperUrl && (
 					<span>
-						<a
-							className='text-[#f4a15d] ml-2'
-							href={props.helperUrl}
-							rel='noreferrer'
-							target='_blank'
-						>
+						<Link className='ml-2' href={props.helperUrl}>
 							?
-						</a>
+						</Link>
 					</span>
 				)}
 			</span>
@@ -52,7 +49,7 @@ const Options: React.FC<OptionsProps> = props => {
 			>
 				{props.options.map(option => {
 					return (
-						<option key={option.value} disabled={(option.disabled === true)} value={option.value}>
+						<option key={option.value} disabled={option.disabled === true} value={option.value}>
 							{option.label}
 						</option>
 					)

@@ -1,19 +1,20 @@
-interface LinkProps extends React.ComponentProps<'a'> {
-	href: string
-	children: React.ReactNode
-}
+import type { LinkProps as NextLinkProps } from 'next/link'
+import NextLink from 'next/link'
+import cn from 'classnames'
 
-const Link: React.FC<LinkProps> = ({ href, children, ...rest }) => {
+interface LinkProps extends NextLinkProps, React.HTMLAttributes<HTMLAnchorElement> {}
+
+const Link: React.FC<LinkProps> = ({ href, children, className, ...rest }) => {
 	return (
-		<a
-			className='underline text-[#f4a15d] hover:text-[#e06d10]'
+		<NextLink
+			className={cn(className, 'underline text-[#f4a15d] hover:text-[#e06d10]')}
 			href={href}
 			rel='noreferrer'
 			target='_blank'
 			{...rest}
 		>
 			{children}
-		</a>
+		</NextLink>
 	)
 }
 
