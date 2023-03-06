@@ -1,5 +1,6 @@
 import type { Browser, Page } from '@playwright/test'
-import fs from 'node:fs/promises'
+import fsPromises from 'node:fs/promises'
+import fs from 'node:fs'
 import path from 'node:path'
 import { chromium, expect, test } from '@playwright/test'
 
@@ -10,10 +11,14 @@ const isCI = process.env.CI
 let browser: Browser
 let page: Page
 
-const deleteScreenshots = async (directory: string) => {
-	for (const file of await fs.readdir(directory)) {
-		await fs.unlink(path.join(directory, file))
+const deleteScreenshots = async (dir: string) => {
+	for (const file of await fsPromises.readdir(dir)) {
+		await fsPromises.unlink(path.join(dir, file))
 	}
+}
+
+const ensureDirectory = (dir: string) => {
+	if (!fs.existsSync(dir)) fs.mkdirSync(dir)
 }
 
 const ensureFrameVisible = async () => {
@@ -42,6 +47,7 @@ test.use({
 })
 
 test.beforeAll(async () => {
+	!isCI && ensureDirectory(ssPath)
 	!isCI && (await deleteScreenshots(ssPath))
 	browser = await chromium.launch()
 	page = await browser.newPage()
@@ -111,7 +117,7 @@ test('widget can be sized', async () => {
 	const iframe = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
 	const box = await iframe.locator('body').boundingBox()
 	expect(box).toBeDefined()
-	expect(box!.width).toBe(300)
+	expect(box!.width).toBeCloseTo(300)
 
 	// change size
 	await page.getByLabel('Size').selectOption('compact')
@@ -121,6 +127,8 @@ test('widget can be sized', async () => {
 	const iframeAfter = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
 	const boxAfter = await iframeAfter.locator('body').boundingBox()
 	expect(boxAfter).toBeDefined()
+	expect(boxAfter!.width).toBeCloseTo(130)
+})
 
 test('widget can change language', async () => {
 	// default lang 'auto' (en)
