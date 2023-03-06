@@ -1,18 +1,16 @@
-import type { PlaywrightTestConfig } from '@playwright/test'
-import { devices } from '@playwright/test'
+import { defineConfig, devices } from '@playwright/test'
 
 const PORT = process.env.PORT || 3000
 const baseURL = `http://localhost:${PORT}`
 
 // Reference: https://playwright.dev/docs/test-configuration
-const config: PlaywrightTestConfig = {
+export default defineConfig({
 	timeout: 30 * 1000,
 	testDir: 'test',
 	testMatch: 'test/e2e.test.ts',
 	forbidOnly: Boolean(process.env.CI),
 	retries: process.env.CI ? 2 : 0,
 
-	// Run your local dev server before starting the tests:
 	// https://playwright.dev/docs/test-advanced#launching-a-development-web-server-during-the-tests
 	webServer: {
 		command: 'pnpm run --filter=example dev',
@@ -25,7 +23,8 @@ const config: PlaywrightTestConfig = {
 		trace: 'retry-with-trace',
 		headless: true,
 		baseURL,
-		locale: 'en-US'
+		locale: 'en-US',
+		colorScheme: 'dark'
 	},
 
 	projects: [
@@ -40,5 +39,4 @@ const config: PlaywrightTestConfig = {
 			use: devices['iPhone 13']
 		}
 	]
-}
-export default config
+})

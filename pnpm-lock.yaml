@@ -6,7 +6,7 @@ importers:
     specifiers:
       '@antfu/ni': 0.17.2
       '@antfu/utils': 0.5.2
-      '@playwright/test': 1.27.1
+      '@playwright/test': 1.31.2
       '@types/node': 18.11.0
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
@@ -14,7 +14,7 @@ importers:
       concurrently: 7.5.0
       eslint-config-marsi: workspace:*
       nodemon: 2.0.20
-      playwright: 1.27.1
+      playwright: 1.31.2
       pnpm: 7.12.1
       rimraf: 3.0.2
       typescript: 4.8.4
@@ -22,7 +22,7 @@ importers:
     devDependencies:
       '@antfu/ni': 0.17.2
       '@antfu/utils': 0.5.2
-      '@playwright/test': 1.27.1
+      '@playwright/test': 1.31.2
       '@types/node': 18.11.0
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
@@ -30,7 +30,7 @@ importers:
       concurrently: 7.5.0
       eslint-config-marsi: link:packages/eslint-config-marsi
       nodemon: 2.0.20
-      playwright: 1.27.1
+      playwright: 1.31.2
       pnpm: 7.12.1
       rimraf: 3.0.2
       typescript: 4.8.4
@@ -42,6 +42,7 @@ importers:
       '@typescript-eslint/parser': 5.33.0
       eslint: 8.23.0
       eslint-config-marsi: 1.1.1
+      eslint-config-prettier: 8.7.0
       eslint-config-standard: 17.0.0
       eslint-import-resolver-typescript: 3.5.1
       eslint-plugin-import: 2.26.0
@@ -54,6 +55,7 @@ importers:
       '@typescript-eslint/parser': 5.33.0_nwctkcr5uyxf47tw7zkgamxmfq
       eslint: 8.23.0
       eslint-config-marsi: 1.1.1_kb2myct7nql33wo5w5joxhrvne
+      eslint-config-prettier: 8.7.0_eslint@8.23.0
       eslint-config-standard: 17.0.0_ci7jzfiysajw25w4iodapaa2cq
       eslint-import-resolver-typescript: 3.5.1_faomjyrlgqmwswvqymymzkxcqi
       eslint-plugin-import: 2.26.0_n3vuqekxdnz5jksjarhunx5rzi
@@ -596,13 +598,15 @@ packages:
       tslib: 2.4.0
     dev: true
 
-  /@playwright/test/1.27.1:
-    resolution: {integrity: sha512-mrL2q0an/7tVqniQQF6RBL2saskjljXzqNcCOVMUjRIgE6Y38nCNaP+Dc2FBW06bcpD3tqIws/HT9qiMHbNU0A==}
+  /@playwright/test/1.31.2:
+    resolution: {integrity: sha512-BYVutxDI4JeZKV1+ups6dt5WiqKhjBtIYowyZIJ3kBDmJgsuPKsqqKNIMFbUePLSCmp2cZu+BDL427RcNKTRYw==}
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
       '@types/node': 18.11.0
-      playwright-core: 1.27.1
+      playwright-core: 1.31.2
+    optionalDependencies:
+      fsevents: 2.3.2
     dev: true
 
   /@rollup/plugin-alias/3.1.9_rollup@2.78.1:
@@ -1913,6 +1917,15 @@ packages:
     transitivePeerDependencies:
       - eslint-import-resolver-webpack
       - supports-color
+    dev: true
+
+  /eslint-config-prettier/8.7.0_eslint@8.23.0:
+    resolution: {integrity: sha512-HHVXLSlVUhMSmyW4ZzEuvjpwqamgmlfkutD53cYXLikh4pt/modINRcCIApJ84czDxM4GZInwUrromsDdTImTA==}
+    hasBin: true
+    peerDependencies:
+      eslint: '>=7.0.0'
+    dependencies:
+      eslint: 8.23.0
     dev: true
 
   /eslint-config-standard/17.0.0_ci7jzfiysajw25w4iodapaa2cq:
@@ -3299,19 +3312,19 @@ packages:
       pathe: 0.3.4
     dev: true
 
-  /playwright-core/1.27.1:
-    resolution: {integrity: sha512-9EmeXDncC2Pmp/z+teoVYlvmPWUC6ejSSYZUln7YaP89Z6lpAaiaAnqroUt/BoLo8tn7WYShcfaCh+xofZa44Q==}
+  /playwright-core/1.31.2:
+    resolution: {integrity: sha512-a1dFgCNQw4vCsG7bnojZjDnPewZcw7tZUNFN0ZkcLYKj+mPmXvg4MpaaKZ5SgqPsOmqIf2YsVRkgqiRDxD+fDQ==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
 
-  /playwright/1.27.1:
-    resolution: {integrity: sha512-xXYZ7m36yTtC+oFgqH0eTgullGztKSRMb4yuwLPl8IYSmgBM88QiB+3IWb1mRIC9/NNwcgbG0RwtFlg+EAFQHQ==}
+  /playwright/1.31.2:
+    resolution: {integrity: sha512-jpC47n2PKQNtzB7clmBuWh6ftBRS/Bt5EGLigJ9k2QAKcNeYXZkEaDH5gmvb6+AbcE0DO6GnXdbl9ogG6Eh+og==}
     engines: {node: '>=14'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      playwright-core: 1.27.1
+      playwright-core: 1.31.2
     dev: true
 
   /pnpm/7.12.1:

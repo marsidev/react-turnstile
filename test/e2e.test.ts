@@ -39,12 +39,7 @@ const ensureChallengeNotSolved = async () => {
 	await expect(page.locator('[name="cf-turnstile-response"]')).toHaveValue('')
 }
 
-test.describe.configure({ mode: 'serial' })
 const ssPath = './test/output'
-
-test.use({
-	colorScheme: 'dark'
-})
 
 test.beforeAll(async () => {
 	!isCI && ensureDirectory(ssPath)
