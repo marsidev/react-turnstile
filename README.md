@@ -19,48 +19,41 @@
  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs are welcome" />
 </div>
 
-<!-- vscode-markdown-toc -->
 # Table of contents
 
-* 1. [Features](#Features)
-* 2. [Demo](#Demo)
-* 3. [Install](#Install)
-* 4. [Usage](#Usage)
-* 5. [Props](#Props)
-  * 5.1. [Render options](#Renderoptions)
-  * 5.2. [Script options](#Scriptoptions)
-* 6. [Examples](#Examples)
-  * 6.1. [Rendering the widget](#Renderingthewidget)
-  * 6.2. [Rendering the widget with custom props](#Renderingthewidgetwithcustomprops)
-  * 6.3. [Managing widget rendering status](#Managingwidgetrenderingstatus)
-  * 6.4. [Getting the token after solving the challenge](#Gettingthetokenaftersolvingthechallenge)
-  * 6.5. [Interacting with the widget](#Interactingwiththewidget)
-  * 6.6. [Interacting with the widget (using TypeScript)](#InteractingwiththewidgetusingTypeScript)
-  * 6.7. [Validating a token](#Validatingatoken)
-  * 6.8. [Handling widget expiring](#Handlingwidgetexpiring)
-* 7. [Contributing](#Contributing)
-* 8. [Development](#Development)
-* 9. [Credits](#Credits)
-* 10. [License](#License)
+* 1. [Features](#features)
+* 2. [Demo](#demo)
+* 3. [Install](#install)
+* 4. [Usage](#usage)
+* 5. [Props](#props)
+  * 5.1. [Render options](#render-options)
+  * 5.2. [Script options](#script-options)
+* 6. [Examples](#examples)
+  * 6.1. [Rendering the widget](#rendering-the-widget)
+  * 6.2. [Rendering the widget with custom props](#rendering-the-widget-with-custom-props)
+  * 6.3. [Managing widget rendering status](#managing-widget-rendering-status)
+  * 6.4. [Getting the token after solving the challenge](#getting-the-token-after-solving-the-challenge)
+  * 6.5. [Interacting with the widget](#interacting-with-the-widget)
+  * 6.6. [Interacting with the widget (using TypeScript)](#interacting-with-the-widget-using-typescript)
+  * 6.7. [Validating a token](#validating-a-token)
+  * 6.8. [Handling widget expiring](#handling-widget-expiring)
+* 7. [Contributing](#contributing)
+* 8. [Development](#development)
+* 9. [Credits](#credits)
+* 10. [License](#license)
 
-<!-- vscode-markdown-toc-config
-	numbering=true
-	autoSave=true
-	/vscode-markdown-toc-config -->
-<!-- /vscode-markdown-toc -->
-
-## <a name='Features'></a>Features
+## Features
 
 * 💪 smart verification with minimal user interaction
 * 🕵️‍♀️ privacy-focused approach
 * 💉 automatic script injection
 * ⚡️ ssr ready
 
-## <a name='Demo'></a>Demo
+## Demo
 
 <https://react-turnstile.vercel.app/>
 
-## <a name='Install'></a>Install
+## Install
 
 1. [Follow these steps](https://developers.cloudflare.com/turnstile/get-started/) to obtain a free site key and secret key from Cloudflare.
 2. Install `@marsidev/react-turnstile` into your React project.
@@ -87,7 +80,7 @@
  ni @marsidev/react-turnstile
  ```
 
-## <a name='Usage'></a>Usage
+## Usage
 
 The only required prop is the `siteKey`.
 
@@ -99,7 +92,7 @@ function Widget() {
 }
 ```
 
-## <a name='Props'></a>Props
+## Props
 
 | **Prop**          | **Type**   | **Description**                                                                                                                                                                                                                                                 | **Required** |
 |-------------------|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
@@ -111,7 +104,7 @@ function Widget() {
 | onError           | `function` | Callback that is invoked when there is a network error.                                                                                                                                                                                                         |              |
 | autoResetOnExpire | `boolean`  | Controls whether the widget should automatically reset when it expires. If is set to `true`, you don't need to use the `onExpire` callback. Default to `true`.                                                                                                  |              |
 
-### <a name='Renderoptions'></a>Render options
+### Render options
 
 | **Option**        | **Type**  | **Default**               | **Description**                                                                                                                                                                                                                                                                                                                                                                |
 |-------------------|-----------|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -130,7 +123,7 @@ function Widget() {
 > * Read [the docs](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#configurations) to get more info about this options.
 > * The widget is wrapped in a `div`, so you can pass any valid `div` prop such as `className`, `id`, or `style`.
 
-### <a name='Scriptoptions'></a>Script options
+### Script options
 
 | **Option**         | **Type**  | **Default**                 | **Description**                                         |
 |--------------------|-----------|-----------------------------|---------------------------------------------------------|
@@ -141,9 +134,9 @@ function Widget() {
 | id                 | `string`  | `'cf-turnstile-script'`     | Custom ID of the injected script.                       |
 | onLoadCallbackName | `string`  | `'onloadTurnstileCallback'` | Custom name of the onload callback.                     |
 
-## <a name='Examples'></a>Examples
+## Examples
 
-### <a name='Renderingthewidget'></a>Rendering the widget
+### Rendering the widget
 
 ```jsx
 import { Turnstile } from '@marsidev/react-turnstile'
@@ -153,7 +146,7 @@ function Widget() {
 }
 ```
 
-### <a name='Renderingthewidgetwithcustomprops'></a>Rendering the widget with custom props
+### Rendering the widget with custom props
 
 ```jsx
 import { Turnstile } from '@marsidev/react-turnstile'
@@ -176,7 +169,7 @@ function Widget() {
 }
 ```
 
-### <a name='Managingwidgetrenderingstatus'></a>Managing widget rendering status
+### Managing widget rendering status
 
 ```jsx
 import { useState } from 'react'
@@ -198,7 +191,7 @@ function Widget() {
 
 > `onExpire` does not take effect unless you set `autoResetOnExpire` to `false`.
 
-### <a name='Gettingthetokenaftersolvingthechallenge'></a>Getting the token after solving the challenge
+### Getting the token after solving the challenge
 
 ```jsx
 import { useState } from 'react'
@@ -216,7 +209,7 @@ function Widget() {
 }
 ```
 
-### <a name='Interactingwiththewidget'></a>Interacting with the widget
+### Interacting with the widget
 
 ```jsx
 import { useRef } from 'react'
@@ -249,7 +242,7 @@ function Widget() {
 }
 ```
 
-### <a name='InteractingwiththewidgetusingTypeScript'></a>Interacting with the widget (using TypeScript)
+### Interacting with the widget (using TypeScript)
 
 ```jsx
 import { useRef } from 'react'
@@ -270,7 +263,7 @@ function Widget() {
 }
 ```
 
-### <a name='Validatingatoken'></a>Validating a token
+### Validating a token
 
 ```jsx
 // LoginForm.jsx
@@ -341,7 +334,7 @@ export default async function handler(request, response) {
 > * by calling the `.getResponse()` method.
 > * by reading the widget response input with name `cf-turnstile-response`. This one is not an option if you set `options.fieldResponse` to `false`.
 
-### <a name='Handlingwidgetexpiring'></a>Handling widget expiring
+### Handling widget expiring
 
 > By default, you don't need to handle the widget expiring, unless you set `autoResetOnExpire` to `false`.
 
@@ -363,11 +356,11 @@ function Widget() {
 }
 ```
 
-## <a name='Contributing'></a>Contributing
+## Contributing
 
 Any contributions are greatly appreciated. If you have a suggestion that would make this project better, please fork the repo and create a Pull Request. You can also [open an issue](https://github.com/marsidev/react-turnstile/issues/new).
 
-## <a name='Development'></a>Development
+## Development
 
 * [Fork](https://github.com/marsidev/react-turnstile/fork) or clone this repository.
 * Install [pnpm](https://pnpm.io/installation).
@@ -375,7 +368,7 @@ Any contributions are greatly appreciated. If you have a suggestion that would m
 * You can use `pnpm dev` to start the demo page in development mode, which also rebuild the library when file changes are detected in the `src` folder.
 * You also can use `pnpm stub`, which run `unbuild --stub`, a [passive watcher](https://github.com/unjs/unbuild#-passive-watcher) to use the library while developing without needing to watch and rebuild. However, this option [can't be used in an esm context](https://github.com/unjs/jiti/issues/32).
 
-## <a name='Credits'></a>Credits
+## Credits
 
 Inspired by
 
@@ -384,6 +377,6 @@ Inspired by
 * [react-google-recaptcha-v3](https://github.com/t49tran/react-google-recaptcha-v3)
 * [reaptcha](https://github.com/sarneeh/reaptcha)
 
-## <a name='License'></a>License
+## License
 
 Published under the [MIT License](./LICENCE).
