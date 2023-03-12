@@ -48,16 +48,6 @@ const Demo = () => {
 		onRestartStates()
 	}
 
-	const onSuccess = (token: string) => {
-		setToken(token)
-		setStatus('solved')
-	}
-
-	const onExpire = () => {
-		setStatus('expired')
-		turnstileRef.current?.reset()
-	}
-
 	return (
 		<div className='flex flex-col items-center justify-center w-full min-h-screen py-24'>
 			<main className='w-full max-w-[740px] flex justify-center flex-col text-white p-4 gap-2'>
@@ -65,7 +55,6 @@ const Demo = () => {
 
 				<Turnstile
 					ref={turnstileRef}
-					autoResetOnExpire={false}
 					options={{
 						theme,
 						size,
@@ -73,8 +62,11 @@ const Demo = () => {
 					}}
 					siteKey={testingSiteKey}
 					onError={() => setStatus('error')}
-					onExpire={onExpire}
-					onSuccess={onSuccess}
+					onExpire={() => setStatus('expired')}
+					onSuccess={token => {
+						setToken(token)
+						setStatus('solved')
+					}}
 				/>
 
 				<h2 className='font-semibold text-2xl mt-8'>Configuration</h2>

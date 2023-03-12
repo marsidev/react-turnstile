@@ -9,18 +9,8 @@ import {
 import { RenderOptions, TurnstileInstance, TurnstileProps } from './types'
 
 export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProps>((props, ref) => {
-	const {
-		scriptOptions,
-		options,
-		siteKey,
-		onSuccess,
-		onExpire,
-		onError,
-		id,
-		autoResetOnExpire = true,
-		style,
-		...divProps
-	} = props
+	const { scriptOptions, options, siteKey, onSuccess, onExpire, onError, id, style, ...divProps } =
+		props
 	const config = options ?? {}
 
 	const [widgetId, setWidgetId] = useState<string | undefined | null>()
@@ -93,20 +83,21 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 	)
 
 	const renderConfig: RenderOptions = {
+		sitekey: siteKey,
 		action: config.action,
 		cData: config.cData,
-		theme: config.theme ?? 'auto',
-		sitekey: siteKey,
-		tabindex: config.tabIndex,
 		callback: onSuccess,
-		'expired-callback': onExpire,
 		'error-callback': onError,
-		size: getTurnstileSizeOpts(containerSize),
+		'expired-callback': onExpire,
+		theme: config.theme ?? 'auto',
+		language: config.language ?? 'auto',
+		tabindex: config.tabIndex,
 		'response-field': config.responseField,
 		'response-field-name': config.responseFieldName,
+		size: getTurnstileSizeOpts(containerSize),
 		retry: config.retry ?? 'auto',
 		'retry-interval': config.retryInterval ?? 8000,
-		language: config.language ?? 'auto'
+		'refresh-expired': config.refreshExpired ?? 'auto'
 	}
 
 	const onLoadScript = () => {
@@ -140,12 +131,6 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			onLoad: onLoadScript,
 			onError: onLoadScriptError
 		})
-
-		if (autoResetOnExpire) {
-			// expire time it's documented as 300 seconds but can happen in around 290 seconds.
-			const timerId = setInterval(() => window.turnstile?.reset(), 290 * 1000)
-			return () => clearInterval(timerId)
-		}
 	}, [configJson, scriptOptionsJson])
 
 	useEffect(

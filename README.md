@@ -97,27 +97,27 @@ function Widget() {
 | **Prop**          | **Type**   | **Description**                                                                                                                                                                                                                                                 | **Required** |
 |-------------------|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
 | siteKey           | `string`   | Your sitekey key, get one from [here](https://developers.cloudflare.com/turnstile/get-started/).                                                                                                                                                                | ✅            |
-| options           | `object`   | Widget render options. More info about this options [below](https://github.com/marsidev/react-turnstile/#render-options).                                                                                                                                       |              |
+| options           | `object`   | Widget render options. More info about this options [below](#render-options).                                                                                                                                       |              |
 | scriptOptions     | `object`   | You can customize the injected `script` tag with this prop. It allows you to add `async`, `defer`, `nonce` attributes to the script tag. You can also control whether the injected script will be added to the document body or head with `appendTo` attribute. |              |
 | onSuccess         | `function` | Callback that is invoked upon success of the challenge. The callback is passed a token that can be validated.                                                                                                                                                   |              |
-| onExpire          | `function` | Callback that is invoked when a challenge expires.                                                                                                                                                                                                              |              |
+| onExpire          | `function` | Callback that is invoked when a challenge expires. Read [the docs](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#refreshing-a-widget) for more info about handling expired widgets.                                                                                                                                                                                                                        |              |
 | onError           | `function` | Callback that is invoked when there is a network error.                                                                                                                                                                                                         |              |
-| autoResetOnExpire | `boolean`  | Controls whether the widget should automatically reset when it expires. If is set to `true`, you don't need to use the `onExpire` callback. Default to `true`.                                                                                                  |              |
 
 ### Render options
 
 | **Option**        | **Type**  | **Default**               | **Description**                                                                                                                                                                                                                                                                                                                                                                |
 |-------------------|-----------|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| action            | `string`  | `undefined`               | A customer value that can be used to differentiate widgets under the same `sitekey` in analytics and which is returned upon validation. This can only contain up to 32 alphanumeric characters including `_` and `-`.                                                                                                                                                          |
+| cData             | `string`  | `undefined`               | A customer payload that can be used to attach customer data to the challenge throughout its issuance and which is returned upon validation. This can only contain up to 255 alphanumeric characters including `_` and `-`.                                                                                                                                                     |
 | theme             | `string`  | `'auto'`                  | The widget theme. You can choose between `light`, `dark` or `auto`.                                                                                                                                                                                                                                                                                                            |
 | language          | `string`  | `'auto'`                  | Language to display, must be either: `auto` (default) to use the language that the visitor has chosen, or an ISO 639-1 two-letter language code (e.g. `en`) or language and country code (e.g. `pt-BR`). The following languages are currently supported: `ar-EG`, `de`, `en`, `es`, `fa`, `fr`, `id`, `it`, `ja`, `ko`, `nl`, `pl`, `pt-BR`, `ru`, `tr`, `zh-CN` and `zh-TW`. |
 | tabIndex          | `number`  | `0`                       | The `tabindex` of Turnstile’s iframe for accessibility purposes.                                                                                                                                                                                                                                                                                                               |
-| action            | `string`  | `undefined`               | A customer value that can be used to differentiate widgets under the same `sitekey` in analytics and which is returned upon validation. This can only contain up to 32 alphanumeric characters including `_` and `-`.                                                                                                                                                          |
-| cData             | `string`  | `undefined`               | A customer payload that can be used to attach customer data to the challenge throughout its issuance and which is returned upon validation. This can only contain up to 255 alphanumeric characters including `_` and `-`.                                                                                                                                                     |
 | responseField     | `boolean` | `true`                    | A boolean that controls if an input element with the response token is created.                                                                                                                                                                                                                                                                                                |
 | responseFieldName | `string`  | `'cf-turnstile-response'` | Name of the input element.                                                                                                                                                                                                                                                                                                                                                     |
 | size              | `string`  | `'normal'`                | The widget size. Can take the following values: `'normal'`, `'compact'`, or `'invisible'`. The normal size is 300x65px, the compact size is 130x120px. Use `invisible` if your key type is `invisible`, this option will prevent creating placeholder for the widget.                                                                                                          |
 | retry             | `string`  | `'auto'`                  | Controls whether the widget should automatically retry to obtain a token if it did not succeed. The default is `'auto'`, which will retry automatically. This can be set to `'never'` to disable retry upon failure.                                                                                                                                                           |
 | retryInterval     | `number`  | `8000`                    | When `retry` is set to `'auto'`, `retryInterval` controls the time between retry attempts in milliseconds. The value must be a positive integer less than `900000`. When `retry` is set to `'never'`, this parameter has no effect.                                                                                                                                            |
+| refreshExpired     | `string`  | `auto`                    | Automatically refreshes the token when it expires. Can take `auto`, `manual` or `never`. Read [the docs](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#refreshing-a-widget) for more info about handling expired widgets.                                                                                                                                            |
 
 > * All this options are optional.
 > * Read [the docs](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#configurations) to get more info about this options.
@@ -159,7 +159,8 @@ function Widget() {
       options={{
         action: 'submit-form',
         theme: 'light',
-        size: 'compact'
+        size: 'compact',
+        language: 'fr',
       }}
       scriptOptions={{
         appendTo: 'body'
@@ -188,8 +189,6 @@ function Widget() {
   )
 }
 ```
-
-> `onExpire` does not take effect unless you set `autoResetOnExpire` to `false`.
 
 ### Getting the token after solving the challenge
 
@@ -336,7 +335,7 @@ export default async function handler(request, response) {
 
 ### Handling widget expiring
 
-> By default, you don't need to handle the widget expiring, unless you set `autoResetOnExpire` to `false`.
+> By default, you don't need to handle the widget expiring, unless you set `options.refreshExpired` to `'manual'` or `'never'`.
 
 ```jsx
 import { useRef } from 'react'
@@ -348,7 +347,7 @@ function Widget() {
   return (
     <Turnstile
       ref={ref}
-      autoResetOnExpire={false}
+      options={{ refreshExpired: 'manual' }}
       siteKey='1x00000000000000000000AA'
       onExpire={() => ref.current?.reset()}
     />
