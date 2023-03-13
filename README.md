@@ -28,19 +28,20 @@
 * 5. [Props](#props)
   * 5.1. [Render options](#render-options)
   * 5.2. [Script options](#script-options)
-* 6. [Examples](#examples)
-  * 6.1. [Rendering the widget](#rendering-the-widget)
-  * 6.2. [Rendering the widget with custom props](#rendering-the-widget-with-custom-props)
-  * 6.3. [Managing widget rendering status](#managing-widget-rendering-status)
-  * 6.4. [Getting the token after solving the challenge](#getting-the-token-after-solving-the-challenge)
-  * 6.5. [Interacting with the widget](#interacting-with-the-widget)
-  * 6.6. [Interacting with the widget (using TypeScript)](#interacting-with-the-widget-using-typescript)
-  * 6.7. [Validating a token](#validating-a-token)
-  * 6.8. [Handling widget expiring](#handling-widget-expiring)
-* 7. [Contributing](#contributing)
-* 8. [Development](#development)
-* 9. [Credits](#credits)
-* 10. [License](#license)
+* 6. [Exposed methods](#exposed-methods)
+* 7. [Examples](#examples)
+  * 7.1. [Rendering the widget](#rendering-the-widget)
+  * 7.2. [Rendering the widget with custom props](#rendering-the-widget-with-custom-props)
+  * 7.3. [Managing widget rendering status](#managing-widget-rendering-status)
+  * 7.4. [Getting the token after solving the challenge](#getting-the-token-after-solving-the-challenge)
+  * 7.5. [Interacting with the widget](#interacting-with-the-widget)
+  * 7.6. [Interacting with the widget (using TypeScript)](#interacting-with-the-widget-using-typescript)
+  * 7.7. [Validating a token](#validating-a-token)
+  * 7.8. [Handling widget expiring](#handling-widget-expiring)
+* 8. [Contributing](#contributing)
+* 9. [Development](#development)
+* 10. [Credits](#credits)
+* 11. [License](#license)
 
 ## Features
 
@@ -379,7 +380,6 @@ Any contributions are greatly appreciated. If you have a suggestion that would m
 * Install [pnpm](https://pnpm.io/installation).
 * Install dependencies with `pnpm install`.
 * You can use `pnpm dev` to start the demo page in development mode, which also rebuild the library when file changes are detected in the `src` folder.
-* You also can use `pnpm stub`, which run `unbuild --stub`, a [passive watcher](https://github.com/unjs/unbuild#-passive-watcher) to use the library while developing without needing to watch and rebuild. However, this option [can't be used in an esm context](https://github.com/unjs/jiti/issues/32).
 
 ## Credits
 
