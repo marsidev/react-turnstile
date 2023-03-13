@@ -17,16 +17,26 @@ interface _Turnstile {
 	 * @returns The rendered widget ID.
 	 */
 	render: (container?: string | HTMLElement, params?: RenderOptions) => string | undefined
+
+	/**
+	 * Method to render a widget when `execution` is set to `'execute'`. This method should be called after the `.render()` method. If `execution` is set to `'render'` this method has no effect.
+	 * @param container -  Element ID or HTML node element.
+	 * @param params -  Optional. Render parameter options. See {@link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#configurations the docs} for more info about this options.
+	 */
+	execute: (container?: string | HTMLElement, params?: RenderOptions) => void
+
 	/**
 	 * Method to reset a widget.
 	 * @param id -  Optional. ID of the widget to reset, if not provided will target the last rendered widget.
 	 */
 	reset: (id?: string) => void
+
 	/**
 	 * Method to remove a widget.
 	 * @param id -  Optional. ID of the widget to remove, if not provided will target the last rendered widget.
 	 */
 	remove: (id?: string) => void
+
 	/**
 	 * Method to get the token of a widget.
 	 * @param id -  Optional. ID of the widget to get the token from, if not provided will target the last rendered widget.
@@ -42,14 +52,22 @@ interface TurnstileInstance {
 	 * @returns The rendered widget ID.
 	 */
 	render: () => string | undefined
+
+	/**
+	 * Method to render a widget when `options.execution` is set to `'execute'`. This method should be called after the `.render()` method. If `options.execution` is set to `'render'` this method has no effect.
+	 */
+	execute: () => void
+
 	/**
 	 * Method to reset the current rendered widget.
 	 */
 	reset: () => void
+
 	/**
 	 * Method to remove the current rendered widget.
 	 */
 	remove: () => void
+
 	/**
 	 * Method to get the token of the current rendered widget.
 	 * @returns The token response.
@@ -85,6 +103,11 @@ interface RenderOptions {
 	 * Callback that is invoked when there is a network error.
 	 */
 	'error-callback'?: () => void
+
+	/**
+	 * Execution controls when to obtain the token of the widget and can be on `'render'` (default) or on `'execute'`. See {@link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#execution-modes the docs} for more info.
+	 */
+	execution?: 'render' | 'execute'
 
 	/**
 	 * Callback that is invoked when a challenge expires and does not reset the widget.
@@ -145,11 +168,19 @@ interface RenderOptions {
 	 * @default `auto`
 	 */
 	'refresh-expired'?: 'auto' | 'manual' | 'never'
+
+	/**
+	 * Appearance controls when the widget is visible. It can be `'always'` (default), `'execute'`, or `'interaction-only'`. See {@link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#appearance-modes the docs} for more info.
+	 */
+	appearance?: 'always' | 'execute' | 'interaction-only'
 }
 
 /** Props needed for the `options` prop in the `<Turnstile />` component. */
 interface ComponentRenderOptions
-	extends Pick<RenderOptions, 'action' | 'cData' | 'theme' | 'retry' | 'language'> {
+	extends Pick<
+		RenderOptions,
+		'action' | 'cData' | 'theme' | 'retry' | 'language' | 'execution' | 'appearance'
+	> {
 	/**
 	 * The tabindex of Turnstile’s iframe for accessibility purposes.
 	 * @default 0
