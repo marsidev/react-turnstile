@@ -157,7 +157,8 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		}
 
 		// define onLoad function
-		window[onLoadCallbackName] = () => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		;(window as any)[onLoadCallbackName] = () => {
 			if (!firstRendered.current) {
 				const id = window.turnstile?.render(containerRef.current!, renderConfig)
 				setWidgetId(id)

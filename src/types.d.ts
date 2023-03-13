@@ -1,11 +1,7 @@
 declare global {
-	interface Window extends OnLoadFn {
+	interface Window {
 		turnstile?: _Turnstile
 	}
-}
-
-interface OnLoadFn {
-	[key: string]: () => void
 }
 
 /** Available methods in the turnstile instance. */
