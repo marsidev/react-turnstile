@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
 import {
 	CONTAINER_STYLE_SET,
 	DEFAULT_CONTAINER_ID,
@@ -186,10 +186,9 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 	useEffect(
 		function rerenderWidget() {
 			if (containerRef.current && window.turnstile) {
-				const { turnstile } = window
-				turnstile.remove(widgetId!)
-				const id = turnstile.render(containerRef.current, renderConfig)
-				setWidgetId(id)
+				window.turnstile.remove(widgetId!)
+				const newWidgetId = window.turnstile.render(containerRef.current, renderConfig)
+				setWidgetId(newWidgetId)
 				firstRendered.current = true
 			}
 		},
