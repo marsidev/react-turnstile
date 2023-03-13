@@ -11,8 +11,11 @@
  <a href="https://packagephobia.com/result?p=@marsidev/react-turnstile">
   <img src="https://badgen.net/packagephobia/install/@marsidev/react-turnstile?style=square-flat" alt="install size" />
  </a>
- <a href="https://bundlephobia.com/package/@marsidev/react-turnstile">
+ <!-- <a href="https://bundlephobia.com/package/@marsidev/react-turnstile">
   <img src="https://badgen.net/bundlephobia/minzip/@marsidev/react-turnstile?style=square-flat" alt="bundle size" />
+ </a> -->
+ <a href="https://bundlejs.com">
+  <img src="https://edge.bundlejs.com/?q=@marsidev/react-turnstile&badge&badge-style=flat-square" alt="bundle size powered by bundlejs.com" />
  </a>
  <a href="https://github.com/marsidev/react-turnstile/actions/workflows/ci.yml"><img src="https://badgen.net/github/checks/marsidev/react-turnstile/main?style=flat-square" alt="CI status"></a>
  <img src="https://img.shields.io/badge/tested_with-playwright-3ea744.svg?style=flat-square" alt="tested with playwright" />
