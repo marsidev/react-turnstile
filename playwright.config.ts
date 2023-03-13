@@ -13,7 +13,7 @@ export default defineConfig({
 
 	// https://playwright.dev/docs/test-advanced#launching-a-development-web-server-during-the-tests
 	webServer: {
-		command: 'pnpm run --filter=example dev',
+		command: 'pnpm run --filter=nextjs-demo dev',
 		url: baseURL,
 		timeout: 120 * 1000,
 		reuseExistingServer: !process.env.CI

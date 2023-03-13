@@ -7,6 +7,7 @@
 		"esModuleInterop": true,
 		"strict": true,
 		"forceConsistentCasingInFileNames": true,
+		"jsx": "react-jsx",
 		"strictNullChecks": true,
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
@@ -19,6 +20,6 @@
 			"~/*": ["./*"]
 		}
 	},
-	"include": ["packages", "demos", "test", "playwright.config.ts"],
+	"include": ["src", "build.config.ts"],
 	"exclude": ["node_modules"]
 }

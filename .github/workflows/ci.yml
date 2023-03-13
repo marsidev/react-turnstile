@@ -42,7 +42,7 @@ jobs:
       - name: Lint
         run: nr lint
 
-  typecheck:
+  type-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -65,8 +65,8 @@ jobs:
       - name: Build
         run: nr build
 
-      - name: Typecheck
-        run: nr typecheck
+      - name: Type check
+        run: nr type-check
 
   e2e-test:
     runs-on: ${{ matrix.os }}

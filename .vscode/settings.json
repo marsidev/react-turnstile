@@ -1,6 +1,6 @@
 {
 	"eslint.packageManager": "pnpm",
-	"eslint.workingDirectories": ["./packages/example"],
+	"eslint.workingDirectories": ["./demos/nextjs", "./packages/lib"],
 	"editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },

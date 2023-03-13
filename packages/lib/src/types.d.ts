@@ -4,7 +4,7 @@ declare global {
 	}
 }
 
-/** Available methods in the turnstile instance. */
+/* Available methods in the turnstile instance. */
 interface _Turnstile {
 	/**
 	 * Method to explicit render a widget.
@@ -41,7 +41,7 @@ interface _Turnstile {
 	getResponse: (id?: string) => string | undefined
 }
 
-/** Same as _Turnstile but without custom widget IDs. */
+/* Same as _Turnstile but without custom widget IDs. */
 interface TurnstileInstance {
 	/**
 	 * Method to explicit render a widget.
