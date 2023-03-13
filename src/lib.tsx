@@ -105,6 +105,11 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 
 					const id = window.turnstile!.render(containerRef.current, renderConfig)
 					setWidgetId(id)
+
+					if (config.execution !== 'execute') {
+						setContainerStyle(CONTAINER_STYLE_SET[widgetSize])
+					}
+
 					return id
 				},
 
