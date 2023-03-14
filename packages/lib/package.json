@@ -59,5 +59,8 @@
 	},
 	"publishConfig": {
 		"access": "public"
+	},
+	"eslintConfig": {
+		"extends": "marsi"
 	}
 }

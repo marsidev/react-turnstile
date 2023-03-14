@@ -27,6 +27,7 @@
 		"lint-staged": "13.1.2",
 		"playwright": "1.31.2",
 		"pnpm": "7.29.0",
+		"prettier": "2.8.4",
 		"simple-git-hooks": "2.8.1",
 		"typescript": "4.9.5"
 	},
@@ -36,7 +37,16 @@
 	"lint-staged": {
 		"**/*.{js,mjs,cjs,ts,tsx,json}": [
 			"eslint --cache --fix",
-			"npx prettier --write --cache --ignore-unknown"
+			"prettier --write --cache --ignore-unknown"
 		]
+	},
+	"pnpm": {
+		"peerDependencyRules": {
+			"ignoreMissing": [
+				"typescript",
+				"eslint",
+				"prettier"
+			]
+		}
 	}
 }

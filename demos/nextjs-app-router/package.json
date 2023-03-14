@@ -1,9 +1,9 @@
 {
-	"name": "nextjs-demo",
+	"name": "nextjs-app-router-demo",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "next dev -p 3000",
+		"dev": "next dev -p 3001",
 		"build": "pnpm run --filter=@marsidev/react-turnstile build && next build",
 		"start": "next start",
 		"lint": "next lint",
@@ -13,14 +13,14 @@
 	"dependencies": {
 		"@marsidev/react-turnstile": "workspace:*",
 		"classnames": "2.3.2",
-		"next": "13.2.3",
+		"next": "latest",
 		"react": "18.2.0",
 		"react-dom": "18.2.0"
 	},
 	"devDependencies": {
 		"autoprefixer": "10.4.13",
 		"eslint-config-marsi": "workspace:*",
-		"eslint-config-next": "13.2.3",
+		"eslint-config-next": "latest",
 		"postcss": "8.4.21",
 		"prettier-plugin-tailwindcss": "0.2.4",
 		"tailwindcss": "3.2.7"
