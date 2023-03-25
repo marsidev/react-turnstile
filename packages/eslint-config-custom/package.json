@@ -1,5 +1,5 @@
 {
-	"name": "eslint-config-marsi",
+	"name": "eslint-config-custom",
 	"version": "0.0.0",
 	"private": true,
 	"main": "index.js",

@@ -19,7 +19,7 @@
 	},
 	"devDependencies": {
 		"autoprefixer": "10.4.13",
-		"eslint-config-marsi": "workspace:*",
+		"eslint-config-custom": "workspace:*",
 		"eslint-config-next": "13.2.3",
 		"postcss": "8.4.21",
 		"prettier-plugin-tailwindcss": "0.2.4",
@@ -28,7 +28,7 @@
 	"eslintConfig": {
 		"extends": [
 			"next/core-web-vitals",
-			"marsi"
+			"custom"
 		]
 	}
 }
