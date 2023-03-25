@@ -3,9 +3,10 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"demo:nextjs": "pnpm run --filter=nextjs-demo dev",
-		"dev": "concurrently \"npm:lib:build:watch\" \"npm:demo:nextjs\" -c auto,cyan",
+		"demo": "pnpm run --filter=nextjs-demo dev",
+		"dev": "concurrently \"npm:lib:build:watch\" \"npm:demo\" -c auto,cyan",
 		"format": "npx prettier **/*.{js,mjs,cjs,ts,tsx,json} --write .",
+		"format:check": "npx prettier **/*.{js,mjs,cjs,ts,tsx,json} --check .",
 		"lib:build": "pnpm run --filter=@marsidev/react-turnstile build",
 		"lib:build:watch": "pnpm run --filter=@marsidev/react-turnstile build:watch",
 		"lint": "pnpm run -r lint",

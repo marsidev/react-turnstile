@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "next dev -p 3001",
+		"dev": "next dev",
 		"build": "pnpm run --filter=@marsidev/react-turnstile build && next build",
 		"start": "next start",
 		"lint": "next lint",
