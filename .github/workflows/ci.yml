@@ -43,6 +43,9 @@ jobs:
       - name: Lint
         run: nr lint
 
+      - name: Format
+        run: nr format
+
   type-check:
     runs-on: ubuntu-latest
     steps:
