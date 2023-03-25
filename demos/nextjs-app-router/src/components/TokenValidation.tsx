@@ -1,6 +1,6 @@
 import type { SecretKeyType, TurnstileValidationResponse } from '../types'
 import { type FC, useEffect, useRef, useState } from 'react'
-import { DEMO_SECRET, secretOptions } from '../constants'
+import { DEMO_SECRET, secretOptions } from '~/constants'
 import Options from './Options'
 
 interface TokenValidationProps {
