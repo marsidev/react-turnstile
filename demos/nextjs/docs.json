@@ -1,0 +1,10 @@
+{
+	"name": "React Turnstile Docs",
+	"description": "TBD",
+	"theme": "#36B9B9",
+	"sidebar": [
+		["Home", "/"],
+		["Another Page", "/another-page"]
+	],
+	"twitter": "https://twitter.com/marsigliacr"
+}
