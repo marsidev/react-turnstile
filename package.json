@@ -2,6 +2,7 @@
 	"name": "root",
 	"version": "0.0.1",
 	"private": true,
+	"packageManager": "pnpm@7.30.3",
 	"scripts": {
 		"demo": "pnpm run --filter=nextjs-demo dev",
 		"dev": "concurrently \"npm:lib:build:watch\" \"npm:demo\" -c auto,cyan",
