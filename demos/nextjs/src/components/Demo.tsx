@@ -49,9 +49,9 @@ const Demo = () => {
 	}
 
 	return (
-		<div className='flex flex-col items-center justify-center w-full min-h-screen py-24'>
-			<main className='w-full max-w-[740px] flex justify-center flex-col text-white p-4 gap-2'>
-				<h1 className='font-semibold text-4xl mb-4'>React Turnstile Demo</h1>
+		<div className="flex min-h-screen w-full flex-col items-center justify-center py-24">
+			<main className="flex w-full max-w-[740px] flex-col justify-center gap-2 p-4 text-white">
+				<h1 className="mb-4 text-4xl font-semibold">React Turnstile Demo</h1>
 
 				<Turnstile
 					ref={turnstileRef}
@@ -69,7 +69,7 @@ const Demo = () => {
 					}}
 				/>
 
-				<h2 className='font-semibold text-2xl mt-8'>Configuration</h2>
+				<h2 className="mt-8 text-2xl font-semibold">Configuration</h2>
 				<ConfigForm
 					ref={configFormRef}
 					onChangeLang={onChangeLang}
@@ -78,13 +78,13 @@ const Demo = () => {
 					onChangeTheme={onChangeTheme}
 				/>
 
-				<h2 className='font-semibold text-2xl mt-8'>Challenge States</h2>
+				<h2 className="mt-8 text-2xl font-semibold">Challenge States</h2>
 				<StateLabels status={status} />
 
-				<h2 className='font-semibold text-2xl mt-8'>Widget Methods</h2>
+				<h2 className="mt-8 text-2xl font-semibold">Widget Methods</h2>
 				<WidgetMethods turnstile={turnstileRef} onRestartStates={onRestartStates} />
 
-				<h2 className='font-semibold text-2xl mt-8'>Token validation (server-side)</h2>
+				<h2 className="mt-8 text-2xl font-semibold">Token validation (server-side)</h2>
 				<TokenValidation
 					challengeSolved={status === 'solved'}
 					token={token}

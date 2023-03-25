@@ -54,23 +54,23 @@ const TokenValidation: FC<TokenValidationProps> = ({
 	}
 
 	return (
-		<div className='flex flex-col gap-2'>
+		<div className="flex flex-col gap-2">
 			<form
 				ref={submitFormRef}
-				className='text-left accent-[#f4a15d] flex flex-col gap-2'
+				className="flex flex-col gap-2 text-left accent-[#f4a15d]"
 				onSubmit={onSubmitForm}
 			>
 				<Options
-					helperUrl='https://developers.cloudflare.com/turnstile/frequently-asked-questions/#are-there-sitekeys-and-secret-keys-that-can-be-used-for-testing'
-					name='secret'
+					helperUrl="https://developers.cloudflare.com/turnstile/frequently-asked-questions/#are-there-sitekeys-and-secret-keys-that-can-be-used-for-testing"
+					name="secret"
 					options={[...secretOptions]}
-					title='Demo Secret Key Type'
+					title="Demo Secret Key Type"
 				/>
 
 				<button
-					className='bg-[#f4a15d] hover:bg-[#e06d10] text-black px-4 py-2 rounded-lg shadow-md mt-2 max-w-fit'
+					className="mt-2 max-w-fit rounded-lg bg-[#f4a15d] px-4 py-2 text-black shadow-md hover:bg-[#e06d10]"
 					disabled={loading}
-					type='submit'
+					type="submit"
 				>
 					Validate
 				</button>

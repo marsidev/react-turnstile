@@ -33,35 +33,35 @@ const ConfigForm = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
 	}
 
 	return (
-		<form ref={ref} className='text-left accent-[#f4a15d]'>
-			<div className='flex gap-16'>
+		<form ref={ref} className="text-left accent-[#f4a15d]">
+			<div className="flex gap-16">
 				<Options
-					name='theme'
+					name="theme"
 					options={[...themeOptions]}
-					title='Theme'
+					title="Theme"
 					onChange={props.onChangeTheme}
 				/>
 
-				<Options name='size' options={[...sizeOptions]} title='Size' onChange={onChangeSizeProxy} />
+				<Options name="size" options={[...sizeOptions]} title="Size" onChange={onChangeSizeProxy} />
 
 				<Options
-					helperUrl='https://developers.cloudflare.com/turnstile/frequently-asked-questions/#are-there-sitekeys-and-secret-keys-that-can-be-used-for-testing'
-					name='siteKey'
+					helperUrl="https://developers.cloudflare.com/turnstile/frequently-asked-questions/#are-there-sitekeys-and-secret-keys-that-can-be-used-for-testing"
+					name="siteKey"
 					options={siteKeyOptions.map(option => ({
 						...option,
 						// Option will be disabled when requesting interactive challenge on
 						// invisible widget type
 						disabled: option.value === 'interactive' && isInvisibleType
 					}))}
-					title='Demo Site Key Type'
+					title="Demo Site Key Type"
 					value={siteKeyType}
 					onChange={onChangeSiteKeyTypeProxy}
 				/>
 
 				<Options
-					name='lang'
+					name="lang"
 					options={[...langOptions]}
-					title='Language'
+					title="Language"
 					onChange={props.onChangeLang}
 				/>
 			</div>

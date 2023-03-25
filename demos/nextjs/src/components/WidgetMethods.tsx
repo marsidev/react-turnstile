@@ -25,31 +25,31 @@ const WidgetMethods: React.FC<StateLabelsProps> = ({ turnstile, onRestartStates 
 	}
 
 	return (
-		<div className='flex gap-2'>
+		<div className="flex gap-2">
 			<button
-				className='bg-[#f4a15d] hover:bg-[#e06d10] text-black px-4 py-2 rounded-lg shadow-md mt-2'
-				type='button'
+				className="mt-2 rounded-lg bg-[#f4a15d] px-4 py-2 text-black shadow-md hover:bg-[#e06d10]"
+				type="button"
 				onClick={onGetResponse}
 			>
 				Get response
 			</button>
 
 			<button
-				className='bg-[#f4a15d] hover:bg-[#e06d10] text-black px-4 py-2 rounded-lg shadow-md mt-2'
+				className="mt-2 rounded-lg bg-[#f4a15d] px-4 py-2 text-black shadow-md hover:bg-[#e06d10]"
 				onClick={onReset}
 			>
 				Reset
 			</button>
 
 			<button
-				className='bg-[#f4a15d] hover:bg-[#e06d10] text-black px-4 py-2 rounded-lg shadow-md mt-2'
+				className="mt-2 rounded-lg bg-[#f4a15d] px-4 py-2 text-black shadow-md hover:bg-[#e06d10]"
 				onClick={onRemove}
 			>
 				Remove
 			</button>
 
 			<button
-				className='bg-[#f4a15d] hover:bg-[#e06d10] text-black px-4 py-2 rounded-lg shadow-md mt-2'
+				className="mt-2 rounded-lg bg-[#f4a15d] px-4 py-2 text-black shadow-md hover:bg-[#e06d10]"
 				onClick={onRender}
 			>
 				Render

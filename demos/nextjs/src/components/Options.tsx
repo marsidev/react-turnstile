@@ -24,12 +24,12 @@ const Options: React.FC<OptionsProps> = props => {
 	}
 
 	return (
-		<label className='flex flex-col max-w-fit min-w-[80px]'>
-			<span className='font-medium'>
+		<label className="flex min-w-[80px] max-w-fit flex-col">
+			<span className="font-medium">
 				{props.title}
 				{props.helperUrl && (
 					<span>
-						<Link className='ml-2' href={props.helperUrl}>
+						<Link className="ml-2" href={props.helperUrl}>
 							?
 						</Link>
 					</span>
@@ -37,7 +37,7 @@ const Options: React.FC<OptionsProps> = props => {
 			</span>
 
 			<select
-				className='rounded-md px-2 py-2'
+				className="rounded-md px-2 py-2"
 				defaultValue={defaultValue}
 				name={props.name}
 				value={props.value}

@@ -13,7 +13,7 @@ interface LabelProps {
 const Label: React.FC<LabelProps> = props => {
 	return (
 		<div
-			className={`py-1 px-2 rounded-sm text-sm ${cn({
+			className={`rounded-sm py-1 px-2 text-sm ${cn({
 				'bg-blue-600': props.value,
 				'bg-gray-600': !props.value
 			})}`}
@@ -25,10 +25,10 @@ const Label: React.FC<LabelProps> = props => {
 
 const StateLabels: React.FC<StateLabelsProps> = props => {
 	return (
-		<div className='flex gap-2'>
-			<Label label='Solved' value={props.status === 'solved'} />
-			<Label label='Error' value={props.status === 'error'} />
-			<Label label='Expired' value={props.status === 'expired'} />
+		<div className="flex gap-2">
+			<Label label="Solved" value={props.status === 'solved'} />
+			<Label label="Error" value={props.status === 'error'} />
+			<Label label="Expired" value={props.status === 'expired'} />
 		</div>
 	)
 }
