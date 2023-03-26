@@ -114,7 +114,7 @@ You can get the widget token by three ways:
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
       event.preventDefault()
-      const formData = new FormData(formRef.current)
+      const formData = new FormData(formRef.current!)
       const token = formData.get('cf-turnstile-response')
       // ...
     }
