@@ -8,44 +8,45 @@ title: React Turnstile - Custom props
   ```jsx
 	import { Turnstile } from '@marsidev/react-turnstile'
 
-	export default function Widget() {
-		return (
-			<Turnstile
-				siteKey='{{ sitekey }}'
-				className='fixed bottom-4 right-4'
-				options={{
-					action: 'submit-form',
-					theme: 'light',
-					size: 'compact',
-					language: 'fr',
-				}}
-				scriptOptions={{
-					appendTo: 'body'
-				}}
-			/>
-		)
-	}
-	```
+    export default function Widget() {
+    	return (
+    		<Turnstile
+    			siteKey='{{ sitekey }}'
+    			className='fixed bottom-4 right-4'
+    			options={{
+    				action: 'submit-form',
+    				theme: 'light',
+    				size: 'compact',
+    				language: 'fr',
+    			}}
+    			scriptOptions={{
+    				appendTo: 'body'
+    			}}
+    		/>
+    	)
+    }
+    ```
 
-	```tsx
-	import { Turnstile } from '@marsidev/react-turnstile'
+    ```tsx
+    import { Turnstile } from '@marsidev/react-turnstile'
 
-	export default function Widget() {
-		return (
-			<Turnstile
-				siteKey='{{ sitekey }}'
-				className='fixed bottom-4 right-4'
-				options={{
-					action: 'submit-form',
-					theme: 'light',
-					size: 'compact',
-					language: 'fr',
-				}}
-				scriptOptions={{
-					appendTo: 'body'
-				}}
-			/>
-		)
-	}
-	```
+    export default function Widget() {
+    	return (
+    		<Turnstile
+    			siteKey='{{ sitekey }}'
+    			className='fixed bottom-4 right-4'
+    			options={{
+    				action: 'submit-form',
+    				theme: 'light',
+    				size: 'compact',
+    				language: 'fr',
+    			}}
+    			scriptOptions={{
+    				appendTo: 'body'
+    			}}
+    		/>
+    	)
+    }
+    ```
+
 </CodeGroup>

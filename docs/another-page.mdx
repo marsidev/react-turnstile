@@ -6,14 +6,13 @@
 import { Turnstile } from '@marsidev/react-turnstile'
 
 function Widget() {
-  return <Turnstile siteKey={{ sitekey }} />
+	return <Turnstile siteKey={{ sitekey }} />
 }
 ```
 
 <Accordion defaultOpen title="Open by default">
-  This is collapsible content!
+	This is collapsible content!
 </Accordion>
-
 
 Inline code: `print("Hello World")`.
 
@@ -21,7 +20,7 @@ Inline code: `print("Hello World")`.
 import { Turnstile } from '@marsidev/react-turnstile'
 
 function Widget() {
-  return <Turnstile siteKey='1x00000000000000000000AA' />
+	return <Turnstile siteKey="1x00000000000000000000AA" />
 }
 ```
 
@@ -42,11 +41,11 @@ function Widget() {
 <Tweet id="1513662173796605958" cards conversation />
 
 <Tabs
-  values={[
-    { label: 'First Tab', value: 'first' },
-    { label: 'Second Tab', value: 'second' },
-  ]}
+	values={[
+		{ label: 'First Tab', value: 'first' },
+		{ label: 'Second Tab', value: 'second' }
+	]}
 >
-  <TabItem value="first">👋 This is the content for the first tab.</TabItem>
-  <TabItem value="second">...and this is the content for the second tab!</TabItem>
+	<TabItem value="first">👋 This is the content for the first tab.</TabItem>
+	<TabItem value="second">...and this is the content for the second tab!</TabItem>
 </Tabs>

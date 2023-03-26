@@ -4,5 +4,4 @@ dist
 *.yaml
 *.yml
 *.css
-*.md
-*.mdx
+README.md
