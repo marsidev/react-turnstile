@@ -1,7 +1,7 @@
 {
 	"name": "React Turnstile Docs",
 	"description": "React Turnstile is an unofficial integration of Cloudflare Turnstile for React.",
-	"theme": "#36B9B9",
+	"theme": "#f4a15d",
 	"sidebar": [
 		["Getting Started", "/"],
 		["Another Page", "/another-page"],
