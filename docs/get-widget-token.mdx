@@ -6,9 +6,9 @@ title: React Turnstile - Get widget token
 
 You can get the widget token by three ways:
 
-- [`onSuccess` callback](#onsuccess-callback).
-- [`ref.current.getResponse()` method](#refcurrentgetresponse-method).
-- [`cf-turnstile-response` HTML input](#cf-turnstile-response-html-input).
+- [`onSuccess` callback](/get-widget-token#onsuccess-callback).
+- [`ref.current.getResponse()` method](/get-widget-token#refcurrentgetresponse-method).
+- [`cf-turnstile-response` HTML input](/get-widget-token#cf-turnstile-response-html-input).
 
 ## `onSuccess` callback
 
@@ -20,7 +20,7 @@ You can get the widget token by three ways:
     const [token, setToken] = React.useState()
 
     return (
-      <Turnstile siteKey='{{ sitekey }}' onSuccess={setToken} />
+      <Turnstile siteKey='{{ siteKey }}' onSuccess={setToken} />
     )
   }
   ```
@@ -32,7 +32,7 @@ You can get the widget token by three ways:
     const [token, setToken] = React.useState<string | null>(null)
 
     return (
-      <Turnstile siteKey='{{ sitekey }}' onSuccess={setToken} />
+      <Turnstile siteKey='{{ siteKey }}' onSuccess={setToken} />
     )
   }
   ```
