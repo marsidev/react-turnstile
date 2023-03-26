@@ -4,11 +4,11 @@ import { useRef, useState } from 'react'
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 import { Lang, SiteKeyType, Theme, WidgetSize, WidgetStatus } from '~/types'
 import { DEMO_SITEKEY } from '~/constants'
-import ConfigForm from './ConfigForm'
-import StateLabels from './StateLabels'
-import WidgetMethods from './WidgetMethods'
-import TokenValidation from './TokenValidation'
-import Footer from './Footer'
+import ConfigForm from './config-form'
+import StateLabels from './state-labels'
+import WidgetMethods from './widget-methods'
+import TokenValidation from './token-validation'
+import Footer from './footer'
 
 export default function Demo() {
 	const [theme, setTheme] = useState<Theme>('auto')

@@ -1,4 +1,4 @@
-import Demo from '~/components/Demo'
+import Demo from '~/components/demo'
 
 export default function Page() {
 	return (
