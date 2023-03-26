@@ -1,0 +1,159 @@
+---
+title: React Turnstile - Get widget token
+---
+
+# Get widget token
+
+You can get the widget token by three ways:
+
+- By catching it from the `onSuccess` callback.
+- By calling the `ref.current.getResponse()` method.
+- By reading the HTML input named `cf-turnstile-response`.
+
+## Catching it from the `onSuccess` callback
+
+<Tabs
+  values={[
+    { label: 'JavaScript', value: 'jsx' },
+    { label: 'TypeScript', value: 'tsx' },
+  ]}
+>
+  <TabItem value="jsx">
+		```jsx
+		import { Turnstile } from '@marsidev/react-turnstile'
+
+		function Widget() {
+			const [token, setToken] = React.useState()
+
+			return (
+				<Turnstile
+					siteKey={{ siteKey }}
+					onSuccess={(token) => setToken(token)}
+				/>
+			)
+		}
+		```
+	</TabItem>
+
+	<TabItem value="tsx">
+		```tsx
+		import { Turnstile } from '@marsidev/react-turnstile'
+
+		function Widget() {
+			const [token, setToken] = React.useState<string | null>(null)
+
+			return <Turnstile siteKey={{ siteKey }} onSuccess={setToken} />
+		}
+		```
+	</TabItem>
+</Tabs>
+
+## Calling the `ref.current.getResponse()` method
+
+<Tabs
+  values={[
+    { label: 'JavaScript', value: 'jsx' },
+    { label: 'TypeScript', value: 'tsx' },
+  ]}
+>
+  <TabItem value="jsx">
+		```jsx
+		import { Turnstile } from '@marsidev/react-turnstile'
+
+		function Widget() {
+			const ref = React.useRef()
+
+			return (
+				<>
+					<Turnstile ref={ref} siteKey={{ siteKey }} />
+
+					<button onClick={() => alert(ref.current?.getResponse())}>
+						Get response
+					</button>
+				</>
+			)
+		}
+		```
+	</TabItem>
+
+	<TabItem value="tsx">
+		```tsx
+		import { Turnstile } from '@marsidev/react-turnstile'
+		import type { TurnstileInstance } from '@marsidev/react-turnstile'
+
+		function Widget() {
+			const ref = React.useRef<TurnstileInstance>(null)
+
+			return (
+				<>
+					<Turnstile ref={ref} siteKey={{ siteKey }} />
+
+					<button onClick={() => alert(ref.current?.getResponse())}>
+						Get response
+					</button>
+				</>
+			)
+		}
+		```
+	</TabItem>
+</Tabs>
+
+## Reading the HTML input named `cf-turnstile-response`
+
+<Tabs
+	values={[
+		{ label: 'JavaScript', value: 'jsx' },
+		{ label: 'TypeScript', value: 'tsx' },
+	]}
+>
+	<TabItem value="jsx">
+		```jsx
+		import { Turnstile } from '@marsidev/react-turnstile'
+
+		function Widget() {
+			const formRef = useRef(null)
+
+			async function handleSubmit(event) {
+				event.preventDefault()
+				const formData = new FormData(formRef.current)
+				const token = formData.get('cf-turnstile-response')
+				// ...
+			}
+
+			return (
+				<form ref={formRef} onSubmit={handleSubmit}>
+					<input type="text" placeholder="username" />
+					<input type="password" placeholder="password" />
+					<Turnstile siteKey={{ siteKey }} />
+					<button type='submit'>Login</button>
+				</form>
+			)
+		}
+		```
+	</TabItem>
+
+	<TabItem value="tsx">
+		```tsx
+		import { Turnstile } from '@marsidev/react-turnstile'
+
+		function Widget() {
+			const formRef = useRef<HTMLFormElement>(null)
+
+			async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+				event.preventDefault()
+				const formData = new FormData(formRef.current)
+				const token = formData.get('cf-turnstile-response')
+				// ...
+			}
+
+			return (
+				<form ref={formRef} onSubmit={handleSubmit}>
+					<input type="text" placeholder="username" />
+					<input type="password" placeholder="password" />
+					<Turnstile siteKey={{ siteKey }} />
+					<button type='submit'>Login</button>
+				</form>
+			)
+		}
+		```
+	</TabItem>

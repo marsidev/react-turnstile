@@ -3,9 +3,17 @@
 	"description": "React Turnstile is an unofficial integration of Cloudflare Turnstile for React.",
 	"theme": "#f4a15d",
 	"sidebar": [
-		["Getting Started", "/"],
-		["Another Page", "/another-page"],
-		["Examples", [["Basic usage", "/basic-usage"]]]
+		["Getting started", "/"],
+		["Another page", "/another-page"],
+		[
+			"Examples",
+			[
+				["Basic usage", "/basic-usage"],
+				["Custom props", "/custom-props"],
+				["Managing widget status", "/managing-widget-status"],
+				["Get widget token", "/get-widget-token"]
+			]
+		]
 	],
 	"twitter": "marsigliacr",
 	"variables": {
