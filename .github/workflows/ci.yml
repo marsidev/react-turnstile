@@ -7,7 +7,9 @@ on:
       # - path-setup
 
     paths-ignore:
+      - 'docs/**'
       - '**.md'
+      - '**.mdx'
 
   pull_request:
     branches:

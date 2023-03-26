@@ -4,19 +4,40 @@ title: React Turnstile - Managing widget status
 
 # Managing widget status
 
-```tsx
-import { Turnstile } from '@marsidev/react-turnstile'
+<CodeGroup>
+  ```JavaScript
+	import { Turnstile } from '@marsidev/react-turnstile'
 
-export default function Widget() {
-  const [status, setStatus] = React.useState()
+	export default function Widget() {
+		const [status, setStatus] = React.useState()
 
-  return (
-    <Turnstile
-      siteKey='{{ sitekey }}'
-      onError={() => setStatus('error')}
-      onExpire={() => setStatus('expired')}
-      onSuccess={() => setStatus('solved')}
-    />
-  )
-}
-```
+		return (
+			<Turnstile
+				siteKey='{{ sitekey }}'
+				onError={() => setStatus('error')}
+				onExpire={() => setStatus('expired')}
+				onSuccess={() => setStatus('solved')}
+			/>
+		)
+	}
+	```
+
+	```TypeScript
+	import { Turnstile } from '@marsidev/react-turnstile'
+
+	type Status = 'error' | 'expired' | 'solved'
+
+	export default function Widget() {
+		const [status, setStatus] = React.useState<Status | null>(null)
+
+		return (
+			<Turnstile
+				siteKey='{{ sitekey }}'
+				onError={() => setStatus('error')}
+				onExpire={() => setStatus('expired')}
+				onSuccess={() => setStatus('solved')}
+			/>
+		)
+	}
+	```
+</CodeGroup>
