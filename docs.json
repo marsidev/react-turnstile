@@ -5,13 +5,7 @@
 	"sidebar": [
 		["Getting Started", "/"],
 		["Another Page", "/another-page"],
-		[
-			"Advanced",
-			[
-				["Reference API", "/reference"],
-				["FAQs", "/faqs"]
-			]
-		]
+		["Examples", [["Basic usage", "/examples/basic-usage"]]]
 	],
 	"twitter": "marsigliacr",
 	"variables": {
