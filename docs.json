@@ -11,6 +11,7 @@
 				["Basic usage", "/basic-usage"],
 				["Custom props", "/custom-props"],
 				["Managing widget status", "/managing-widget-status"],
+				["Interact with the widget", "/interact-with-the-widget"],
 				["Get widget token", "/get-widget-token"]
 			]
 		]

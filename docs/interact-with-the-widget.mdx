@@ -1,0 +1,68 @@
+---
+title: React Turnstile - Interact with the widget
+---
+
+# Interact with the widget
+
+<CodeGroup>
+  ```jsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+
+  export default function Widget() {
+    const ref = React.useRef()
+
+    return (
+      <>
+        <Turnstile ref={ref} siteKey='{{ siteKey }}' />
+
+        <button onClick={() => alert(ref.current?.getResponse())}>
+          Get response
+        </button>
+
+        <button onClick={() => ref.current?.reset()}>
+          Reset widget
+        </button>
+
+        <button onClick={() => ref.current?.remove()}>
+          Remove widget
+        </button>
+
+        <button onClick={() => ref.current?.render()}>
+          Render widget
+        </button>
+      </>
+    )
+  }
+  ```
+
+  ```tsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+  import type { TurnstileInstance } from '@marsidev/react-turnstile'
+
+  export default function Widget() {
+    const ref = React.useRef<TurnstileInstance>(null)
+
+    return (
+      <>
+        <Turnstile ref={ref} siteKey='{{ siteKey }}' />
+
+        <button onClick={() => alert(ref.current?.getResponse())}>
+          Get response
+        </button>
+
+        <button onClick={() => ref.current?.reset()}>
+          Reset widget
+        </button>
+
+        <button onClick={() => ref.current?.remove()}>
+          Remove widget
+        </button>
+
+        <button onClick={() => ref.current?.render()}>
+          Render widget
+        </button>
+      </>
+    )
+  }
+  ```
+</CodeGroup>
