@@ -1,4 +1,4 @@
-import type { TurnstileValidationResponse } from '~/types'
+import type { TurnstileServerValidationResponse } from '@marsidev/react-turnstile'
 
 const verifyEndpoint = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
 
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 		headers: {
 			'content-type': 'application/x-www-form-urlencoded'
 		}
-	}).then(res => res.json())) as TurnstileValidationResponse
+	}).then(res => res.json())) as TurnstileServerValidationResponse
 
 	if (!data.success) {
 		return new Response(JSON.stringify(data), {

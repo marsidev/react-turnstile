@@ -110,6 +110,8 @@ The validation of tokens needs to be done on the server. Here is an example of h
   ```
 
   ```ts
+  import type { TurnstileServerValidationResponse } from '@marsidev/react-turnstile'
+
   const verifyEndpoint = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
   const secret = '{{ secretKey }}'
 
@@ -124,7 +126,7 @@ The validation of tokens needs to be done on the server. Here is an example of h
       }
     })
 
-    const data = await res.json() as { success: boolean }
+    const data = (await res.json()) as TurnstileServerValidationResponse
 
     return new Response(JSON.stringify(data), {
       status: data.success ? 200 : 400,
