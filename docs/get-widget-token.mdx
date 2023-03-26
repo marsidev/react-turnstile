@@ -6,11 +6,11 @@ title: React Turnstile - Get widget token
 
 You can get the widget token by three ways:
 
-- By catching it from the `onSuccess` callback.
-- By calling the `ref.current.getResponse()` method.
-- By reading the HTML input named `cf-turnstile-response`.
+- [`onSuccess` callback](#onsuccess-callback).
+- [`ref.current.getResponse()` method](#refcurrentgetresponse-method).
+- [`cf-turnstile-response` HTML input](#cf-turnstile-response-html-input).
 
-## Catching it from the `onSuccess` callback
+## `onSuccess` callback
 
 <CodeGroup>
   ```jsx
@@ -20,10 +20,7 @@ You can get the widget token by three ways:
     const [token, setToken] = React.useState()
 
     return (
-      <Turnstile
-        siteKey='{{ siteKey }}'
-        onSuccess={setToken}
-      />
+      <Turnstile siteKey='{{ sitekey }}' onSuccess={setToken} />
     )
   }
   ```
@@ -35,17 +32,13 @@ You can get the widget token by three ways:
     const [token, setToken] = React.useState<string | null>(null)
 
     return (
-      <Turnstile
-        siteKey='{{ siteKey }}'
-        onSuccess={(token) => setToken(token)}
-      />
+      <Turnstile siteKey='{{ sitekey }}' onSuccess={setToken} />
     )
   }
   ```
-
 </CodeGroup>
 
-## Calling the `ref.current.getResponse()` method
+## `ref.current.getResponse()` method
 
 <CodeGroup>
   ```jsx
@@ -84,10 +77,9 @@ You can get the widget token by three ways:
     )
   }
   ```
-
 </CodeGroup>
 
-## Reading the HTML input named `cf-turnstile-response`
+## `cf-turnstile-response` HTML input
 
 <CodeGroup>
   ```jsx
@@ -137,5 +129,4 @@ You can get the widget token by three ways:
     )
   }
   ```
-
 </CodeGroup>
