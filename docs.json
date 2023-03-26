@@ -1,10 +1,21 @@
 {
 	"name": "React Turnstile Docs",
-	"description": "TBD",
+	"description": "React Turnstile is an unofficial integration of Cloudflare Turnstile for React.",
 	"theme": "#36B9B9",
 	"sidebar": [
-		["Home", "/"],
-		["Another Page", "/another-page"]
+		["Getting Started", "/"],
+		["Another Page", "/another-page"],
+		[
+			"Advanced",
+			[
+				["Reference API", "/reference"],
+				["FAQs", "/faqs"]
+			]
+		]
 	],
-	"twitter": "https://twitter.com/marsigliacr"
+	"twitter": "marsigliacr",
+	"discord": "https://discord.gg/6qZ2qY",
+	"variables": {
+		"sitekey": "1x00000000000000000000AA"
+	}
 }
