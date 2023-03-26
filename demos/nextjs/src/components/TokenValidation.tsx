@@ -1,4 +1,5 @@
-import type { SecretKeyType, TurnstileValidationResponse } from '../types'
+import type { SecretKeyType } from '../types'
+import type { TurnstileServerValidationResponse } from '@marsidev/react-turnstile'
 import { type FC, useEffect, useRef, useState } from 'react'
 import { DEMO_SECRET, secretOptions } from '~/constants'
 import Options from './Options'
@@ -14,7 +15,7 @@ const TokenValidation: FC<TokenValidationProps> = ({
 	widgetRerenderCount,
 	challengeSolved
 }) => {
-	const [response, setResponse] = useState<TurnstileValidationResponse | null>(null)
+	const [response, setResponse] = useState<TurnstileServerValidationResponse | null>(null)
 	const [loading, setLoading] = useState(false)
 	const submitFormRef = useRef<HTMLFormElement>(null)
 
