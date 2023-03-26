@@ -22,12 +22,12 @@ You can get the widget token by three ways:
 		```jsx
 		import { Turnstile } from '@marsidev/react-turnstile'
 
-		function Widget() {
+		export default function Widget() {
 			const [token, setToken] = React.useState()
 
 			return (
 				<Turnstile
-					siteKey={{ siteKey }}
+					siteKey='{{ siteKey }}'
 					onSuccess={(token) => setToken(token)}
 				/>
 			)
@@ -39,10 +39,15 @@ You can get the widget token by three ways:
 		```tsx
 		import { Turnstile } from '@marsidev/react-turnstile'
 
-		function Widget() {
+		export default function Widget() {
 			const [token, setToken] = React.useState<string | null>(null)
 
-			return <Turnstile siteKey={{ siteKey }} onSuccess={setToken} />
+			return (
+				<Turnstile
+					siteKey='{{ siteKey }}'
+					onSuccess={(token) => setToken(token)}
+				/>
+			)
 		}
 		```
 	</TabItem>
@@ -60,12 +65,12 @@ You can get the widget token by three ways:
 		```jsx
 		import { Turnstile } from '@marsidev/react-turnstile'
 
-		function Widget() {
+		export default function Widget() {
 			const ref = React.useRef()
 
 			return (
 				<>
-					<Turnstile ref={ref} siteKey={{ siteKey }} />
+					<Turnstile ref={ref} siteKey='{{ siteKey }}' />
 
 					<button onClick={() => alert(ref.current?.getResponse())}>
 						Get response
@@ -81,12 +86,12 @@ You can get the widget token by three ways:
 		import { Turnstile } from '@marsidev/react-turnstile'
 		import type { TurnstileInstance } from '@marsidev/react-turnstile'
 
-		function Widget() {
+		export default function Widget() {
 			const ref = React.useRef<TurnstileInstance>(null)
 
 			return (
 				<>
-					<Turnstile ref={ref} siteKey={{ siteKey }} />
+					<Turnstile ref={ref} siteKey='{{ siteKey }}' />
 
 					<button onClick={() => alert(ref.current?.getResponse())}>
 						Get response
@@ -110,7 +115,7 @@ You can get the widget token by three ways:
 		```jsx
 		import { Turnstile } from '@marsidev/react-turnstile'
 
-		function Widget() {
+		export default function Widget() {
 			const formRef = useRef(null)
 
 			async function handleSubmit(event) {
@@ -124,7 +129,7 @@ You can get the widget token by three ways:
 				<form ref={formRef} onSubmit={handleSubmit}>
 					<input type="text" placeholder="username" />
 					<input type="password" placeholder="password" />
-					<Turnstile siteKey={{ siteKey }} />
+					<Turnstile siteKey='{{ siteKey }}' />
 					<button type='submit'>Login</button>
 				</form>
 			)
@@ -136,7 +141,7 @@ You can get the widget token by three ways:
 		```tsx
 		import { Turnstile } from '@marsidev/react-turnstile'
 
-		function Widget() {
+		export default function Widget() {
 			const formRef = useRef<HTMLFormElement>(null)
 
 			async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -150,7 +155,7 @@ You can get the widget token by three ways:
 				<form ref={formRef} onSubmit={handleSubmit}>
 					<input type="text" placeholder="username" />
 					<input type="password" placeholder="password" />
-					<Turnstile siteKey={{ siteKey }} />
+					<Turnstile siteKey='{{ siteKey }}' />
 					<button type='submit'>Login</button>
 				</form>
 			)

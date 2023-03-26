@@ -7,10 +7,10 @@ title: React Turnstile - Custom props
 ```tsx
 import { Turnstile } from '@marsidev/react-turnstile'
 
-function Widget() {
+export default function Widget() {
   return (
     <Turnstile
-      siteKey={{ sitekey }}
+      siteKey='{{ sitekey }}'
       className='fixed bottom-4 right-4'
       options={{
         action: 'submit-form',

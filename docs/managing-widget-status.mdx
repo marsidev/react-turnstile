@@ -7,12 +7,12 @@ title: React Turnstile - Managing widget status
 ```tsx
 import { Turnstile } from '@marsidev/react-turnstile'
 
-function Widget() {
+export default function Widget() {
   const [status, setStatus] = React.useState()
 
   return (
     <Turnstile
-      siteKey={{ sitekey }}
+      siteKey='{{ sitekey }}'
       onError={() => setStatus('error')}
       onExpire={() => setStatus('expired')}
       onSuccess={() => setStatus('solved')}
