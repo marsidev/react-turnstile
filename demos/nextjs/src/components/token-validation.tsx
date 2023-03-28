@@ -1,7 +1,7 @@
 import type { SecretKeyType } from '../types'
 import type { TurnstileServerValidationResponse } from '@marsidev/react-turnstile'
 import { type FC, useEffect, useRef, useState } from 'react'
-import { DEMO_SECRET, secretOptions } from '~/constants'
+import { DEMO_SECRET, secretOptions } from '../constants'
 import Options from './options'
 
 interface TokenValidationProps {

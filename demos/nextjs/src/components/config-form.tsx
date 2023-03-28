@@ -1,6 +1,6 @@
 import { forwardRef, useState } from 'react'
-import { SiteKeyType, WidgetSize } from '~/types'
-import { langOptions, siteKeyOptions, sizeOptions, themeOptions } from '~/constants'
+import { langOptions, siteKeyOptions, sizeOptions, themeOptions } from '../constants'
+import { SiteKeyType, WidgetSize } from '../types'
 import Options from './options'
 
 interface FormProps {
