@@ -2,8 +2,8 @@
 
 import { useRef, useState } from 'react'
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
-import { Lang, SiteKeyType, Theme, WidgetSize, WidgetStatus } from '../types'
-import { DEMO_SITEKEY } from '../constants'
+import { Lang, SiteKeyType, Theme, WidgetSize, WidgetStatus } from '~/types'
+import { DEMO_SITEKEY } from '~/constants'
 import ConfigForm from './config-form'
 import StateLabels from './state-labels'
 import WidgetMethods from './widget-methods'
