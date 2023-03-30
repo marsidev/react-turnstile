@@ -1,0 +1,48 @@
+---
+title: React Turnstile - useRef methods
+---
+
+## `useRef` methods
+
+The library exposes some methods within the `Turnstile` ref, in order to interact with the widget.
+
+| **Method**      | **Description**                                                                                                                                                                                                                                                                                                                                                             | **Returns** |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `getResponse()` | Returns the widget’s response token.                                                                                                                                                                                                                                                                                                                                        | string      |
+| `reset()`       | Resets the widget. Useful if a given widget has timed out, expired or needs to be reloaded.                                                                                                                                                                                                                                                                                 | void        |
+| `remove()`      | Removes the widget. Useful when a widget is no longer needed. This will not call any callback and will remove all related DOM elements.                                                                                                                                                                                                                                     | void        |
+| `render()`      | Renders the widget. Since all widgets are rendered automatically, this only takes effect if the widget was previously removed. If the widget is already rendered, this method will not re-render the widget.                                                                                                                                                                | void        |
+| `execute()`     | If `options.execution` is set to `'execute'`, this method is used to render the widget. If the widget is already shown (rendered and executed), this method will not re-render the widget. If the widget got removed (`.remove()`), you need to call `.render()` and then `.execute()`. If `options.execution` is set to `'render'` (default), this method takes no effect. | void        |
+
+<CodeGroup>
+  ```jsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+
+  export default function Widget() {
+    const ref = React.useRef()
+
+    return (
+      <>
+        <Turnstile ref={ref} siteKey='{{ siteKey }}' />
+        <button onClick={ref.current?.reset}>Reset widget</button>
+      </>
+    )
+  }
+  ```
+
+  ```tsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+  import type { TurnstileInstance } from '@marsidev/react-turnstile'
+
+  export default function Widget() {
+    const ref = React.useRef<TurnstileInstance>(null)
+
+    return (
+      <>
+        <Turnstile ref={ref} siteKey='{{ siteKey }}' />
+        <button onClick={ref.current?.reset}>Reset widget</button>
+      </>
+    )
+  }
+  ```
+</CodeGroup>

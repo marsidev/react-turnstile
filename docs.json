@@ -4,7 +4,8 @@
 	"theme": "#f4a15d",
 	"sidebar": [
 		["Getting started", "/"],
-		["Another page", "/another-page"],
+		["Props", "/props"],
+		["`useRef` methods", "/use-ref-methods"],
 		[
 			"Examples",
 			[
