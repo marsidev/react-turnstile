@@ -5,7 +5,7 @@
 	"sidebar": [
 		["Getting started", "/"],
 		["Props", "/props"],
-		["`useRef` methods", "/use-ref-methods"],
+		["useRef methods", "/use-ref-methods"],
 		[
 			"Examples",
 			[
