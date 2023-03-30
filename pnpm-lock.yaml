@@ -7,8 +7,8 @@ importers:
       '@antfu/ni': 0.20.0
       '@antfu/utils': 0.7.2
       '@playwright/test': 1.31.2
-      '@types/node': 18.14.6
-      '@types/react': 18.0.28
+      '@types/node': 18.15.11
+      '@types/react': 18.0.31
       '@types/react-dom': 18.0.11
       concurrently: 7.6.0
       eslint-config-custom: workspace:*
@@ -17,13 +17,13 @@ importers:
       pnpm: 7.29.0
       prettier: 2.8.4
       simple-git-hooks: 2.8.1
-      typescript: 4.9.5
+      typescript: 5.0.2
     devDependencies:
       '@antfu/ni': 0.20.0
       '@antfu/utils': 0.7.2
       '@playwright/test': 1.31.2
-      '@types/node': 18.14.6
-      '@types/react': 18.0.28
+      '@types/node': 18.15.11
+      '@types/react': 18.0.31
       '@types/react-dom': 18.0.11
       concurrently: 7.6.0
       eslint-config-custom: link:packages/eslint-config-custom
@@ -32,7 +32,7 @@ importers:
       pnpm: 7.29.0
       prettier: 2.8.4
       simple-git-hooks: 2.8.1
-      typescript: 4.9.5
+      typescript: 5.0.2
 
   demos/nextjs:
     specifiers:
@@ -40,8 +40,8 @@ importers:
       autoprefixer: 10.4.13
       classnames: 2.3.2
       eslint-config-custom: workspace:*
-      eslint-config-next: latest
-      next: latest
+      eslint-config-next: 13.2.4
+      next: 13.2.4
       postcss: 8.4.21
       prettier-plugin-tailwindcss: 0.2.4
       react: 18.2.0
@@ -607,7 +607,7 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
-      '@types/node': 18.14.6
+      '@types/node': 18.15.11
       playwright-core: 1.31.2
     optionalDependencies:
       fsevents: 2.3.2
@@ -723,6 +723,10 @@ packages:
     resolution: {integrity: sha512-93+VvleD3mXwlLI/xASjw0FzKcwzl3OdTCzm1LaRfqgS21gfFtK3zDXM5Op9TeeMsJVOaJ2VRDpT9q4Y3d0AvA==}
     dev: true
 
+  /@types/node/18.15.11:
+    resolution: {integrity: sha512-E5Kwq2n4SbMzQOn6wnmBjuK9ouqlURrcZDVfbo9ftDDTFt3nk7ZKK4GMOzoYgnpQJKcxwQw+lGaBvvlMo0qN/Q==}
+    dev: true
+
   /@types/prop-types/15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
     dev: true
@@ -730,14 +734,14 @@ packages:
   /@types/react-dom/18.0.11:
     resolution: {integrity: sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==}
     dependencies:
-      '@types/react': 18.0.28
+      '@types/react': 18.0.31
     dev: true
 
-  /@types/react/18.0.28:
-    resolution: {integrity: sha512-RD0ivG1kEztNBdoAK7lekI9M+azSnitIn85h4iOiaLjaTrMjzslhaqCGaI4IyCJ1RljWiLCEu4jyrLLgqxBTew==}
+  /@types/react/18.0.31:
+    resolution: {integrity: sha512-EEG67of7DsvRDU6BLLI0p+k1GojDLz9+lZsnCpCRTa/lOokvyPBvp8S5x+A24hME3yyQuIipcP70KJ6H7Qupww==}
     dependencies:
       '@types/prop-types': 15.7.5
-      '@types/scheduler': 0.16.2
+      '@types/scheduler': 0.16.3
       csstype: 3.1.1
     dev: true
 
@@ -747,8 +751,8 @@ packages:
       '@types/node': 18.14.6
     dev: true
 
-  /@types/scheduler/0.16.2:
-    resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
+  /@types/scheduler/0.16.3:
+    resolution: {integrity: sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==}
     dev: true
 
   /@types/semver/7.3.13:
@@ -4581,6 +4585,12 @@ packages:
   /typescript/4.9.5:
     resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
     engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
+
+  /typescript/5.0.2:
+    resolution: {integrity: sha512-wVORMBGO/FAs/++blGNeAVdbNKtIh1rbBL2EyQ1+J9lClJ93KiiKe8PmFIVdXhHcyv44SL9oglmfeSsndo0jRw==}
+    engines: {node: '>=12.20'}
     hasBin: true
     dev: true
 

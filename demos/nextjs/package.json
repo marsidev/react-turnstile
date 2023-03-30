@@ -13,14 +13,14 @@
 	"dependencies": {
 		"@marsidev/react-turnstile": "workspace:*",
 		"classnames": "2.3.2",
-		"next": "latest",
+		"next": "13.2.4",
 		"react": "18.2.0",
 		"react-dom": "18.2.0"
 	},
 	"devDependencies": {
 		"autoprefixer": "10.4.13",
 		"eslint-config-custom": "workspace:*",
-		"eslint-config-next": "latest",
+		"eslint-config-next": "13.2.4",
 		"postcss": "8.4.21",
 		"prettier-plugin-tailwindcss": "0.2.4",
 		"tailwindcss": "3.2.7"
