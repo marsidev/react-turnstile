@@ -40,8 +40,8 @@
 		"react-dom": ">=16.8.0"
 	},
 	"devDependencies": {
-		"bumpp": "9.0.0",
-		"nodemon": "2.0.21",
+		"bumpp": "9.1.0",
+		"nodemon": "2.0.22",
 		"unbuild": "0.8.9"
 	},
 	"keywords": [
