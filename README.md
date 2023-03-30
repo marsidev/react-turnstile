@@ -52,9 +52,7 @@ function Widget() {
 ```
 
 > Checkout [the docs](https://docs.page/marsidev/react-turnstile) for more examples and for a detailed info about the `Turnstile` props.
-
 > Checkout [the demo](https://react-turnstile.vercel.app/) for a live example.
-
 
 ## Contributing
 
