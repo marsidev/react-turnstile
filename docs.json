@@ -1,0 +1,27 @@
+{
+	"name": "React Turnstile Docs",
+	"description": "React Turnstile is an unofficial integration of Cloudflare Turnstile for React.",
+	"theme": "#f4a15d",
+	"sidebar": [
+		["Getting started", "/"],
+		["Props", "/props"],
+		["useRef methods", "/use-ref-methods"],
+		[
+			"Examples",
+			[
+				["Basic usage", "/basic-usage"],
+				["Custom props", "/custom-props"],
+				["Managing widget status", "/managing-widget-status"],
+				["Interact with the widget", "/interact-with-the-widget"],
+				["Get widget token", "/get-widget-token"],
+				["Handling expiration", "/handling-expiration"],
+				["Validating a token", "/validating-a-token"]
+			]
+		]
+	],
+	"twitter": "marsigliacr",
+	"variables": {
+		"siteKey": "1x00000000000000000000AA",
+		"secretKey": "1x0000000000000000000000000000000AA"
+	}
+}

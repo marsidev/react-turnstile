@@ -6,14 +6,18 @@ on:
       - main
 
     paths-ignore:
+      - 'docs/**'
       - '**.md'
+      - '**.mdx'
 
   pull_request:
     branches:
       - main
 
     paths-ignore:
+     - 'docs/**'
       - '**.md'
+      - '**.mdx'
 
 jobs:
   lint:
@@ -37,12 +41,12 @@ jobs:
         run: nci
 
       - name: Build
-        run: nr build
+        run: nr lib:build
 
       - name: Lint
         run: nr lint
 
-  typecheck:
+  format:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -63,10 +67,36 @@ jobs:
         run: nci
 
       - name: Build
-        run: nr build
+        run: nr lib:build
 
-      - name: Typecheck
-        run: nr typecheck
+      - name: Format
+        run: nr format
+
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Set node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: pnpm
+
+      - name: Setup
+        run: npm i -g @antfu/ni
+
+      - name: Install
+        run: nci
+
+      - name: Build
+        run: nr lib:build
+
+      - name: Type check
+        run: nr type-check
 
   e2e-test:
     runs-on: ${{ matrix.os }}
@@ -99,7 +129,7 @@ jobs:
         run: npx playwright install --with-deps chromium webkit
 
       - name: Build
-        run: nr build
+        run: nr lib:build
 
       - name: Test
         run: npx playwright test

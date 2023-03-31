@@ -1,0 +1,25 @@
+---
+title: React Turnstile - Basic usage
+---
+
+# Basic Usage
+
+The only required prop is the `siteKey`. You can get your site key from the [Cloudflare guide](https://developers.cloudflare.com/turnstile/get-started/).
+
+<CodeGroup>
+  ```jsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+
+  export default function Widget() {
+    return <Turnstile siteKey='{{ siteKey }}' />
+  }
+  ```
+
+  ```tsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+
+  export default function Widget() {
+    return <Turnstile siteKey='{{ siteKey }}' />
+  }
+  ```
+</CodeGroup>

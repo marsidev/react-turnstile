@@ -1,0 +1,132 @@
+---
+title: React Turnstile - Get widget token
+---
+
+# Get widget token
+
+You can get the widget token by three ways:
+
+- [`onSuccess` callback](/get-widget-token#onsuccess-callback).
+- [`ref.current.getResponse()` method](/get-widget-token#refcurrentgetresponse-method).
+- [`cf-turnstile-response` HTML input](/get-widget-token#cf-turnstile-response-html-input).
+
+## `onSuccess` callback
+
+<CodeGroup>
+  ```jsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+
+  export default function Widget() {
+    const [token, setToken] = React.useState()
+
+    return (
+      <Turnstile siteKey='{{ siteKey }}' onSuccess={setToken} />
+    )
+  }
+  ```
+
+  ```tsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+
+  export default function Widget() {
+    const [token, setToken] = React.useState<string | null>(null)
+
+    return (
+      <Turnstile siteKey='{{ siteKey }}' onSuccess={setToken} />
+    )
+  }
+  ```
+</CodeGroup>
+
+## `ref.current.getResponse()` method
+
+<CodeGroup>
+  ```jsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+
+  export default function Widget() {
+    const ref = React.useRef()
+
+    return (
+      <>
+        <Turnstile ref={ref} siteKey='{{ siteKey }}' />
+
+        <button onClick={() => alert(ref.current?.getResponse())}>
+          Get response
+        </button>
+      </>
+    )
+  }
+  ```
+
+  ```tsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+  import type { TurnstileInstance } from '@marsidev/react-turnstile'
+
+  export default function Widget() {
+    const ref = React.useRef<TurnstileInstance>(null)
+
+    return (
+      <>
+        <Turnstile ref={ref} siteKey='{{ siteKey }}' />
+
+        <button onClick={() => alert(ref.current?.getResponse())}>
+          Get response
+        </button>
+      </>
+    )
+  }
+  ```
+</CodeGroup>
+
+## `cf-turnstile-response` HTML input
+
+<CodeGroup>
+  ```jsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+
+  export default function Widget() {
+    const formRef = React.useRef(null)
+
+    async function handleSubmit(event) {
+      event.preventDefault()
+      const formData = new FormData(formRef.current)
+      const token = formData.get('cf-turnstile-response')
+      // ...
+    }
+
+    return (
+      <form ref={formRef} onSubmit={handleSubmit}>
+        <input type="text" placeholder="username" />
+        <input type="password" placeholder="password" />
+        <Turnstile siteKey='{{ siteKey }}' />
+        <button type='submit'>Login</button>
+      </form>
+    )
+  }
+  ```
+
+  ```tsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+
+  export default function Widget() {
+    const formRef = React.useRef<HTMLFormElement>(null)
+
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+      event.preventDefault()
+      const formData = new FormData(formRef.current!)
+      const token = formData.get('cf-turnstile-response')
+      // ...
+    }
+
+    return (
+      <form ref={formRef} onSubmit={handleSubmit}>
+        <input type="text" placeholder="username" />
+        <input type="password" placeholder="password" />
+        <Turnstile siteKey='{{ siteKey }}' />
+        <button type='submit'>Login</button>
+      </form>
+    )
+  }
+  ```
+</CodeGroup>

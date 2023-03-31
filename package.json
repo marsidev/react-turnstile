@@ -1,92 +1,54 @@
 {
-	"name": "@marsidev/react-turnstile",
-	"version": "0.1.0",
-	"packageManager": "pnpm@7.29.0",
-	"description": "Cloudflare Turnstile integration for React.",
-	"author": "Luis Marsiglia <marsiglia.business@gmail.com>",
-	"license": "MIT",
-	"type": "module",
-	"private": false,
-	"homepage": "https://github.com/marsidev/react-turnstile",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/marsidev/react-turnstile.git"
-	},
-	"bugs": "https://github.com/marsidev/react-turnstile/issues",
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"require": "./dist/index.cjs",
-			"import": "./dist/index.mjs"
-		}
-	},
-	"main": "./dist/index.mjs",
-	"module": "./dist/index.mjs",
-	"types": "./dist/index.d.ts",
-	"files": [
-		"dist"
-	],
+	"name": "root",
+	"version": "0.0.1",
+	"private": true,
+	"packageManager": "pnpm@7.30.3",
 	"scripts": {
-		"build": "unbuild",
-		"build:watch": "nodemon --ext .ts,.tsx --watch src --exec unbuild",
-		"stub": "unbuild --stub",
-		"dev": "concurrently \"npm:build:watch\" \"npm:example\" -c auto,cyan",
-		"lint": "eslint .",
-		"lint:fix": "eslint . --fix",
-		"format": "npx prettier **/*.{js,mjs,cjs,ts,tsx,json} --write .",
-		"prepublishOnly": "nr build",
-		"release": "bumpp && npm publish",
-		"test": "nr test:e2e",
+		"demo": "pnpm run --filter=nextjs-demo dev",
+		"dev": "concurrently \"npm:lib:build:watch\" \"npm:demo\" -c auto,cyan",
+		"format:fix": "npx prettier **/*.{js,mjs,cjs,ts,tsx,json} --write .",
+		"format": "npx prettier **/*.{js,mjs,cjs,ts,tsx,json} --check .",
+		"lib:build": "pnpm run --filter=@marsidev/react-turnstile build",
+		"lib:build:watch": "pnpm run --filter=@marsidev/react-turnstile build:watch",
+		"lint": "pnpm run -r lint",
+		"lint:fix": "pnpm run -r lint:fix",
+		"release": "pnpm run --filter=@marsidev/react-turnstile release",
+		"test": "pnpm run test:e2e",
 		"test:e2e": "playwright test",
-		"typecheck": "tsc --noEmit",
-		"example": "pnpm run --filter=example dev",
-		"example:build": "pnpm run --filter=example build",
-		"example:preview": "pnpm run --filter=example preview"
-	},
-	"peerDependencies": {
-		"react": ">=16.8.0",
-		"react-dom": ">=16.8.0"
+		"type-check": "pnpm run -r type-check"
 	},
 	"devDependencies": {
 		"@antfu/ni": "0.20.0",
 		"@antfu/utils": "0.7.2",
 		"@playwright/test": "1.31.2",
-		"@types/node": "18.14.6",
-		"@types/react": "18.0.28",
+		"@types/node": "18.15.11",
+		"@types/react": "18.0.31",
 		"@types/react-dom": "18.0.11",
-		"bumpp": "9.0.0",
 		"concurrently": "7.6.0",
-		"eslint-config-marsi": "workspace:*",
+		"eslint-config-custom": "workspace:*",
 		"lint-staged": "13.1.2",
-		"nodemon": "2.0.21",
 		"playwright": "1.31.2",
 		"pnpm": "7.29.0",
-		"rimraf": "4.3.1",
+		"prettier": "2.8.4",
 		"simple-git-hooks": "2.8.1",
-		"typescript": "4.9.5",
-		"unbuild": "0.8.9"
-	},
-	"keywords": [
-		"turnstile",
-		"cloudflare",
-		"react"
-	],
-	"sideEffects": false,
-	"pnpm": {
-		"peerDependencyRules": {
-			"ignoreMissing": []
-		}
-	},
-	"publishConfig": {
-		"access": "public"
+		"typescript": "5.0.2"
 	},
 	"simple-git-hooks": {
 		"pre-commit": "pnpm lint-staged"
 	},
 	"lint-staged": {
 		"**/*.{js,mjs,cjs,ts,tsx,json}": [
-			"npx eslint . --fix",
-			"npx prettier --write ."
+			"eslint --cache --fix",
+			"prettier --write --cache --ignore-unknown"
 		]
+	},
+	"pnpm": {
+		"peerDependencyRules": {
+			"ignoreMissing": [
+				"typescript",
+				"eslint",
+				"prettier"
+			]
+		}
 	}
 }

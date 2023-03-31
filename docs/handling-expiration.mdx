@@ -1,0 +1,46 @@
+---
+title: React Turnstile - Handling expiration
+---
+
+# Handling expiration
+
+By default, you don't need to handle the widget expiring, unless you set `options.refreshExpired` to `'manual'` or `'never'`.
+
+Here is an example of how to reset the widget when it expires:
+
+<CodeGroup>
+  ```jsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+
+  export default function Widget() {
+    const ref = React.useRef()
+
+    return (
+      <Turnstile
+        ref={ref}
+        options={{ refreshExpired: 'manual' }}
+        siteKey='{{ siteKey }}}'
+        onExpire={() => ref.current?.reset()}
+      />
+    )
+  }
+  ```
+
+  ```tsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+  import type { TurnstileInstance } from '@marsidev/react-turnstile'
+
+  export default function Widget() {
+    const ref = React.useRef<TurnstileInstance>(null)
+
+    return (
+      <Turnstile
+        ref={ref}
+        options={{ refreshExpired: 'manual' }}
+        siteKey='{{ siteKey }}}'
+        onExpire={() => ref.current?.reset()}
+      />
+    )
+  }
+  ```
+</CodeGroup>

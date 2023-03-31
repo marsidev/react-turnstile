@@ -1,0 +1,143 @@
+---
+title: React Turnstile - Validating a token
+---
+
+# Validating a token
+
+The validation of tokens needs to be done on the server. Here is an example of how to do it with [Next.js](https://nextjs.org/) 13 App Router.
+
+<CodeGroup title='/app/page/login.{jsx,tsx}'>
+  ```jsx
+  'use client'
+  import { Turnstile } from '@marsidev/react-turnstile'
+
+  export default function LoginForm() {
+    const formRef = React.useRef()
+
+    async function handleSubmit(event) {
+      event.preventDefault()
+      const formData = new FormData(formRef.current)
+      const token = formData.get('cf-turnstile-response')
+
+      const res = await fetch('/api/verify', {
+        method: 'POST',
+        body: JSON.stringify({ token }),
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+
+      const data = await res.json()
+      if (data.success) {
+        // the token has been validated
+      }
+    }
+
+    return (
+      <form ref={formRef} onSubmit={handleSubmit}>
+        <input type="text" placeholder="username" />
+        <input type="password" placeholder="password" />
+        <Turnstile siteKey='{{ siteKey }}' />
+        <button type='submit'>Login</button>
+      </form>
+    )
+  }
+  ```
+
+  ```tsx
+  'use client'
+  import { Turnstile } from '@marsidev/react-turnstile'
+
+  export default function LoginForm() {
+    const formRef = React.useRef<HTMLFormElement>(null)
+
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+      event.preventDefault()
+      const formData = new FormData(formRef.current!)
+      const token = formData.get('cf-turnstile-response')
+
+      const res = await fetch('/api/verify', {
+        method: 'POST',
+        body: JSON.stringify({ token }),
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+
+      const data = await res.json()
+      if (data.success) {
+        // the token has been validated
+      }
+    }
+
+    return (
+      <form ref={formRef} onSubmit={handleSubmit}>
+        <input type="text" placeholder="username" />
+        <input type="password" placeholder="password" />
+        <Turnstile siteKey='{{ siteKey }}' />
+        <button type='submit'>Login</button>
+      </form>
+    )
+  }
+  ```
+</CodeGroup>
+
+<CodeGroup title='/app/api/verify/route.{js,ts}'>
+  ```js
+  const verifyEndpoint = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
+  const secret = '{{ secretKey }}'
+
+  export async function POST(request) {
+    const { token } = await request.json()
+
+    const res = await fetch(verifyEndpoint, {
+      method: 'POST',
+      body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(token)}`,
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded'
+      }
+    })
+
+    const data = await res.json()
+
+    return new Response(JSON.stringify(data), {
+      status: data.success ? 200 : 400,
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+  }
+  ```
+
+  ```ts
+  import type { TurnstileServerValidationResponse } from '@marsidev/react-turnstile'
+
+  const verifyEndpoint = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
+  const secret = '{{ secretKey }}'
+
+  export async function POST(request: Request) {
+    const { token } = (await request.json()) as { token: string }
+
+    const res = await fetch(verifyEndpoint, {
+      method: 'POST',
+      body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(token)}`,
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded'
+      }
+    })
+
+    const data = (await res.json()) as TurnstileServerValidationResponse
+
+    return new Response(JSON.stringify(data), {
+      status: data.success ? 200 : 400,
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+  }
+  ```
+</CodeGroup>
+
+<Info>
+  Check out [Cloudflare official docs](https://developers.cloudflare.com/turnstile/get-started/server-side-validation/) for more info about server side validation.
+</Info>
