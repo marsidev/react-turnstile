@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      # - path-setup
 
     paths-ignore:
       - 'docs/**'
@@ -16,7 +15,9 @@ on:
       - main
 
     paths-ignore:
+     - 'docs/**'
       - '**.md'
+      - '**.mdx'
 
 jobs:
   lint:
