@@ -16,8 +16,8 @@ on:
 
     paths-ignore:
      - 'docs/**'
-      - '**.md'
-      - '**.mdx'
+     - '**.md'
+     - '**.mdx'
 
 jobs:
   lint:
