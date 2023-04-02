@@ -285,6 +285,11 @@ interface TurnstileProps extends React.HTMLAttributes<HTMLDivElement> {
 	 * Custom injected script options.
 	 */
 	scriptOptions?: ScriptOptions
+
+	/**
+	 * Define the HTML tag of the widget container. Default to `'div'`.
+	 */
+	as?: React.ElementType
 }
 
 interface InjectTurnstileScriptParams {

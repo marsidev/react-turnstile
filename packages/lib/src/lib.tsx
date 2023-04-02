@@ -7,10 +7,21 @@ import {
 	injectTurnstileScript
 } from './utils'
 import { RenderOptions, TurnstileInstance, TurnstileProps } from './types'
+import Container from './container'
 
 export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProps>((props, ref) => {
-	const { scriptOptions, options, siteKey, onSuccess, onExpire, onError, id, style, ...divProps } =
-		props
+	const {
+		scriptOptions,
+		options,
+		siteKey,
+		onSuccess,
+		onExpire,
+		onError,
+		id,
+		style,
+		as = 'div',
+		...divProps
+	} = props
 	const config = options ?? {}
 	const widgetSize = config.size ?? 'normal'
 
@@ -19,7 +30,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		config.execution === 'execute' ? CONTAINER_STYLE_SET.invisible : CONTAINER_STYLE_SET[widgetSize]
 	)
 	const [scriptLoaded, setScriptLoaded] = useState(false)
-	const containerRef = useRef<HTMLDivElement | null>(null)
+	const containerRef = useRef<HTMLElement | null>(null)
 	const firstRendered = useRef(false)
 
 	const containerId = id ?? DEFAULT_CONTAINER_ID
@@ -205,8 +216,9 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 	}, [widgetSize, config.execution])
 
 	return (
-		<div
+		<Container
 			ref={containerRef}
+			as={as}
 			id={containerId}
 			style={{ ...containerStyle, ...style }}
 			{...divProps}

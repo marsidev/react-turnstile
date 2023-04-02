@@ -14,6 +14,11 @@ These are the props you can pass to the `Turnstile` component.
 | onSuccess     | `function` | Callback that is invoked upon success of the challenge. The callback is passed a token that can be validated.                                                                                                                                                                                                          |              |
 | onExpire      | `function` | Callback that is invoked when a challenge expires. Read the [Cloudflare docs](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#refreshing-a-widget) for more info about handling expired widgets.                                                                                                   |              |
 | onError       | `function` | Callback that is invoked when there is a network error.                                                                                                                                                                                                                                                                |              |
+| as       | `string` | Define the HTML tag of the widget container. Default to `'div'`.                                                                                                                                                                                                                                                                |              |
+
+<Info>
+	You can pass any valid HTML prop such as `className`, `id`, or `style`, based on the `as` prop.
+</Info>
 
 ### `options` prop
 
@@ -35,9 +40,6 @@ These are the props you can pass to the `Turnstile` component.
 
 <Info>
   Read the [Cloudflare docs](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#configurations) to get more info about this options.
-</Info>
-<Info>
-  The widget is wrapped in a `div`, so you can also pass any valid `div` prop such as `className`, `id`, or `style`.
 </Info>
 
 ### `scriptOptions` prop
