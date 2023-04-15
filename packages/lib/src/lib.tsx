@@ -1,13 +1,15 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
+import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import {
 	CONTAINER_STYLE_SET,
 	DEFAULT_CONTAINER_ID,
 	DEFAULT_ONLOAD_NAME,
+	DEFAULT_SCRIPT_ID,
 	getTurnstileSizeOpts,
 	injectTurnstileScript
 } from './utils'
 import { RenderOptions, TurnstileInstance, TurnstileProps } from './types'
 import Container from './container'
+import useObserveScript from './use-observe-script'
 
 export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProps>((props, ref) => {
 	const {
@@ -20,48 +22,54 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		id,
 		style,
 		as = 'div',
+		injectScript = true,
 		...divProps
 	} = props
-	const config = options ?? {}
+	const config = useMemo(() => options ?? {}, [options])
 	const widgetSize = config.size ?? 'normal'
+	const containerId = id ?? DEFAULT_CONTAINER_ID
 
 	const [widgetId, setWidgetId] = useState<string | undefined | null>()
 	const [containerStyle, setContainerStyle] = useState(
 		config.execution === 'execute' ? CONTAINER_STYLE_SET.invisible : CONTAINER_STYLE_SET[widgetSize]
 	)
-	const [scriptLoaded, setScriptLoaded] = useState(false)
 	const containerRef = useRef<HTMLElement | null>(null)
 	const firstRendered = useRef(false)
 
-	const containerId = id ?? DEFAULT_CONTAINER_ID
 	const onLoadCallbackName = scriptOptions?.onLoadCallbackName || DEFAULT_ONLOAD_NAME
-	const scriptOptionsJson = JSON.stringify(scriptOptions)
-	const configJson = JSON.stringify(config)
+	const scriptId = scriptOptions?.id || DEFAULT_SCRIPT_ID
+	const scriptLoaded = useObserveScript(scriptId)
 
-	const renderConfig: RenderOptions = {
-		sitekey: siteKey,
-		action: config.action,
-		cData: config.cData,
-		callback: onSuccess,
-		'error-callback': onError,
-		'expired-callback': onExpire,
-		theme: config.theme ?? 'auto',
-		language: config.language ?? 'auto',
-		tabindex: config.tabIndex,
-		'response-field': config.responseField,
-		'response-field-name': config.responseFieldName,
-		size: getTurnstileSizeOpts(widgetSize),
-		retry: config.retry ?? 'auto',
-		'retry-interval': config.retryInterval ?? 8000,
-		'refresh-expired': config.refreshExpired ?? 'auto',
-		execution: config.execution ?? 'render',
-		appearance: config.appearance ?? 'always'
-	}
+	const renderConfig: RenderOptions = useMemo(
+		() => ({
+			sitekey: siteKey,
+			action: config.action,
+			cData: config.cData,
+			callback: onSuccess,
+			'error-callback': onError,
+			'expired-callback': onExpire,
+			theme: config.theme ?? 'auto',
+			language: config.language ?? 'auto',
+			tabindex: config.tabIndex,
+			'response-field': config.responseField,
+			'response-field-name': config.responseFieldName,
+			size: getTurnstileSizeOpts(widgetSize),
+			retry: config.retry ?? 'auto',
+			'retry-interval': config.retryInterval ?? 8000,
+			'refresh-expired': config.refreshExpired ?? 'auto',
+			execution: config.execution ?? 'render',
+			appearance: config.appearance ?? 'always'
+		}),
+		[siteKey, config, onSuccess, onError, onExpire, widgetSize]
+	)
+
+	const renderConfigStringified = useMemo(() => JSON.stringify(renderConfig), [renderConfig])
 
 	useImperativeHandle(
 		ref,
 		() => {
 			if (typeof window === 'undefined') return
+			if (!scriptLoaded) return
 
 			const { turnstile } = window
 			return {
@@ -149,16 +157,8 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 				}
 			}
 		},
-		[scriptLoaded, typeof window, widgetId, config.execution, widgetSize]
+		[scriptLoaded, widgetId, config.execution, widgetSize, renderConfig]
 	)
-
-	const onLoadScript = () => {
-		setScriptLoaded(true)
-	}
-
-	const onLoadScriptError = () => {
-		console.error('Error loading turnstile script')
-	}
 
 	/** define onload function and inject turnstile script */
 	useEffect(() => {
@@ -177,23 +177,14 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			}
 		}
 
-		injectTurnstileScript({
-			render: 'explicit',
-			onLoadCallbackName,
-			scriptOptions,
-			onLoad: onLoadScript,
-			onError: onLoadScriptError
-		})
-	}, [
-		configJson,
-		scriptOptionsJson,
-		siteKey,
-		renderConfig,
-		onLoadCallbackName,
-		scriptOptions,
-		onLoadScript,
-		onLoadScriptError
-	])
+		if (injectScript) {
+			injectTurnstileScript({
+				render: 'explicit',
+				onLoadCallbackName,
+				scriptOptions
+			})
+		}
+	}, [siteKey, renderConfig, onLoadCallbackName, scriptOptions, injectScript])
 
 	useEffect(
 		function rerenderWidget() {
@@ -204,7 +195,8 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 				firstRendered.current = true
 			}
 		},
-		[configJson, siteKey]
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[renderConfigStringified, siteKey]
 	)
 
 	useEffect(() => {

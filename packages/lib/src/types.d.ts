@@ -290,13 +290,17 @@ interface TurnstileProps extends React.HTMLAttributes<HTMLDivElement> {
 	 * Define the HTML tag of the widget container. Default to `'div'`.
 	 */
 	as?: React.ElementType
+
+	/**
+	 * Controls if the script is automatically injected or not. If you want to inject the script manually, set this property to `false`. Default to `true`.
+	 */
+	injectScript?: boolean
 }
 
 interface InjectTurnstileScriptParams {
 	render: string
 	onLoadCallbackName: string
-	onLoad: () => void
-	onError: () => void
+	onLoad?: () => void
 	scriptOptions?: Omit<ScriptOptions, 'onLoadCallbackName'>
 }
 

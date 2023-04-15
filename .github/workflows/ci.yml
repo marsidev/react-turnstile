@@ -44,7 +44,7 @@ jobs:
         run: nr lib:build
 
       - name: Lint
-        run: nr lint
+        run: nr lint --cache
 
   format:
     runs-on: ubuntu-latest
@@ -70,7 +70,7 @@ jobs:
         run: nr lib:build
 
       - name: Format
-        run: nr format
+        run: nr format:check --cache
 
   type-check:
     runs-on: ubuntu-latest
@@ -104,7 +104,7 @@ jobs:
     strategy:
       matrix:
         node: [18.x]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest]
       fail-fast: false
 
     steps:
@@ -133,3 +133,33 @@ jobs:
 
       - name: Test
         run: npx playwright test
+
+  integration-test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        node: [18.x]
+        os: [ubuntu-latest, macos-latest]
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Set node ${{ matrix.node }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+
+      - name: Setup
+        run: npm i -g @antfu/ni
+
+      - name: Install
+        run: nci
+
+      - name: Test
+        run: nr test:integration

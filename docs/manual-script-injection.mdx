@@ -1,0 +1,111 @@
+---
+title: React Turnstile - Manual script injection
+---
+
+# Manual script injection
+
+Sometimes you may want to manually inject the Turnstile script into your application. You need to set the `injectScript` property to `false` to do it.
+
+The following example shows how to manually inject the Turnstile script into a Next.js project:
+
+<CodeGroup>
+  ```jsx
+  import { DEFAULT_ONLOAD_NAME, DEFAULT_SCRIPT_ID, SCRIPT_URL, Turnstile } from '@marsidev/react-turnstile'
+  import Script from 'next/script'
+
+  export default function Widget() {
+    return (
+      <>
+        <Script
+          id={DEFAULT_SCRIPT_ID}
+          src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`}
+          strategy="afterInteractive"
+        />
+
+        <Turnstile
+          injectScript={false}
+          siteKey='{{ siteKey }}'
+        />
+      </>
+    )
+  }
+  ```
+
+  ```tsx
+  import { DEFAULT_ONLOAD_NAME, DEFAULT_SCRIPT_ID, SCRIPT_URL, Turnstile } from '@marsidev/react-turnstile'
+  import Script from 'next/script'
+
+  export default function Widget() {
+    return (
+      <>
+        <Script
+          id={DEFAULT_SCRIPT_ID}
+          src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`}
+          strategy="afterInteractive"
+        />
+
+        <Turnstile
+          injectScript={false}
+          siteKey='{{ siteKey }}'
+        />
+      </>
+    )
+  }
+  ```
+</CodeGroup>
+
+If you want to use a custom script ID or a custom onLoad callback name:
+
+<CodeGroup>
+  ```jsx
+  import { SCRIPT_URL, Turnstile } from '@marsidev/react-turnstile'
+  import Script from 'next/script'
+
+  export default function Widget() {
+    return (
+      <>
+        <Script
+          id="turnstile-script"
+          src={`${SCRIPT_URL}?onload=turnstile-cb`}
+          strategy="afterInteractive"
+        />
+
+        <Turnstile
+          injectScript={false}
+          scriptOptions={{
+            id: 'turnstile-script',
+            onLoadCallbackName: 'turnstile-cb',
+          }}
+          siteKey='{{ siteKey }}'
+        />
+      </>
+    )
+  }
+  ```
+
+  ```tsx
+  import { SCRIPT_URL, Turnstile } from '@marsidev/react-turnstile'
+  import Script from 'next/script'
+
+  export default function Widget() {
+    return (
+      <>
+        <Script
+          id="turnstile-script"
+          src={`${SCRIPT_URL}?onload=turnstile-cb`}
+          strategy="afterInteractive"
+        />
+
+        <Turnstile
+          injectScript={false}
+          scriptOptions={{
+            id: 'turnstile-script',
+            onLoadCallbackName: 'turnstile-cb',
+          }}
+          siteKey='{{ siteKey }}'
+        />
+      </>
+    )
+  }
+  ```
+</CodeGroup>

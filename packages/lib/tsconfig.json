@@ -20,6 +20,6 @@
 			"~/*": ["./*"]
 		}
 	},
-	"include": ["src", "build.config.ts"],
+	"include": ["src", "test", "*.config.ts"],
 	"exclude": ["node_modules"]
 }
