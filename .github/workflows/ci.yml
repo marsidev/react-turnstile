@@ -44,7 +44,7 @@ jobs:
         run: nr lib:build
 
       - name: Lint
-        run: nr lint
+        run: nr lint --cache
 
   format:
     runs-on: ubuntu-latest
@@ -70,7 +70,7 @@ jobs:
         run: nr lib:build
 
       - name: Format
-        run: nr format
+        run: nr format:check --cache
 
   type-check:
     runs-on: ubuntu-latest

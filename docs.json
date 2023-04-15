@@ -15,7 +15,8 @@
 				["Interact with the widget", "/interact-with-the-widget"],
 				["Get widget token", "/get-widget-token"],
 				["Handling expiration", "/handling-expiration"],
-				["Validating a token", "/validating-a-token"]
+				["Validating a token", "/validating-a-token"],
+				["Manual script injection", "/manual-script-injection"]
 			]
 		]
 	],
