@@ -20,44 +20,27 @@ export const isScriptInjected = (scriptId: string) => !!document.querySelector(`
  * @returns
  */
 export const injectTurnstileScript = ({
-	render,
-	onLoadCallbackName,
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	onLoad = () => {},
+	render = 'explicit',
+	onLoadCallbackName = DEFAULT_ONLOAD_NAME,
 	scriptOptions: { nonce = '', defer = true, async = true, id = '', appendTo } = {}
 }: InjectTurnstileScriptParams) => {
 	const scriptId = id || DEFAULT_SCRIPT_ID
 
-	// Script has already been injected, just call onLoad and does nothing else
-	if (isScriptInjected(scriptId)) {
-		onLoad?.()
-		return
-	}
+	const script = document.createElement('script')
+	script.id = scriptId
 
-	// Generate the js script
-	const js = document.createElement('script')
-	js.id = scriptId
+	script.src = `${SCRIPT_URL}?onload=${onLoadCallbackName}&render=${render}`
 
-	const params = {
-		render: render === 'explicit' ? render : '',
-		onload: render === 'explicit' ? onLoadCallbackName : ''
-	}
-	const searchParams = new URLSearchParams(params)
-	js.src = `${SCRIPT_URL}?${searchParams}`
+	script.defer = !!defer
+	script.async = !!async
 
 	if (nonce) {
-		js.nonce = nonce
+		script.nonce = nonce
 	}
 
-	js.defer = !!defer
-	js.async = !!async
-	js.onload = onLoad
+	const parentEl = appendTo === 'body' ? document.body : document.getElementsByTagName('head')[0]
 
-	// Append it to the body|head
-	const elementToInjectScript =
-		appendTo === 'body' ? document.body : document.getElementsByTagName('head')[0]
-
-	elementToInjectScript!.appendChild(js)
+	parentEl!.appendChild(script)
 }
 
 /**

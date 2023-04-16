@@ -298,9 +298,8 @@ interface TurnstileProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 interface InjectTurnstileScriptParams {
-	render: string
-	onLoadCallbackName: string
-	onLoad?: () => void
+	render?: string
+	onLoadCallbackName?: string
 	scriptOptions?: Omit<ScriptOptions, 'onLoadCallbackName'>
 }
 
