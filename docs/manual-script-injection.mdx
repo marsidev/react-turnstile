@@ -10,7 +10,12 @@ The following example shows how to manually inject the Turnstile script into a N
 
 <CodeGroup>
   ```jsx
-  import { DEFAULT_ONLOAD_NAME, DEFAULT_SCRIPT_ID, SCRIPT_URL, Turnstile } from '@marsidev/react-turnstile'
+  import {
+    DEFAULT_ONLOAD_NAME,
+    DEFAULT_SCRIPT_ID,
+    SCRIPT_URL,
+    Turnstile
+  } from '@marsidev/react-turnstile'
   import Script from 'next/script'
 
   export default function Widget() {
@@ -18,7 +23,7 @@ The following example shows how to manually inject the Turnstile script into a N
       <>
         <Script
           id={DEFAULT_SCRIPT_ID}
-          src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`}
+          src={SCRIPT_URL}
           strategy="afterInteractive"
         />
 
@@ -32,7 +37,12 @@ The following example shows how to manually inject the Turnstile script into a N
   ```
 
   ```tsx
-  import { DEFAULT_ONLOAD_NAME, DEFAULT_SCRIPT_ID, SCRIPT_URL, Turnstile } from '@marsidev/react-turnstile'
+  import {
+    DEFAULT_ONLOAD_NAME,
+    DEFAULT_SCRIPT_ID,
+    SCRIPT_URL,
+    Turnstile
+  } from '@marsidev/react-turnstile'
   import Script from 'next/script'
 
   export default function Widget() {
@@ -40,7 +50,7 @@ The following example shows how to manually inject the Turnstile script into a N
       <>
         <Script
           id={DEFAULT_SCRIPT_ID}
-          src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`}
+          src={SCRIPT_URL}
           strategy="afterInteractive"
         />
 
@@ -54,7 +64,7 @@ The following example shows how to manually inject the Turnstile script into a N
   ```
 </CodeGroup>
 
-If you want to use a custom script ID or a custom onLoad callback name:
+If you want to use a custom script ID:
 
 <CodeGroup>
   ```jsx
@@ -66,16 +76,13 @@ If you want to use a custom script ID or a custom onLoad callback name:
       <>
         <Script
           id="turnstile-script"
-          src={`${SCRIPT_URL}?onload=turnstile-cb`}
+          src={SCRIPT_URL}
           strategy="afterInteractive"
         />
 
         <Turnstile
           injectScript={false}
-          scriptOptions={{
-            id: 'turnstile-script',
-            onLoadCallbackName: 'turnstile-cb',
-          }}
+          scriptOptions={{ id: 'turnstile-script' }}
           siteKey='{{ siteKey }}'
         />
       </>
@@ -92,16 +99,13 @@ If you want to use a custom script ID or a custom onLoad callback name:
       <>
         <Script
           id="turnstile-script"
-          src={`${SCRIPT_URL}?onload=turnstile-cb`}
+          src={SCRIPT_URL}
           strategy="afterInteractive"
         />
 
         <Turnstile
           injectScript={false}
-          scriptOptions={{
-            id: 'turnstile-script',
-            onLoadCallbackName: 'turnstile-cb',
-          }}
+          scriptOptions={{ id: 'turnstile-script' }}
           siteKey='{{ siteKey }}'
         />
       </>
@@ -109,3 +113,7 @@ If you want to use a custom script ID or a custom onLoad callback name:
   }
   ```
 </CodeGroup>
+
+<Info>
+	Note that the only `scriptOptions` property available when manually injecting the script is `id`.
+</Info>

@@ -1,0 +1,134 @@
+---
+title: React Turnstile - Multiple widgets
+---
+
+# Multiple widgets
+
+You can have multiple widgets on the same page. You only need to make sure that each widget has a unique `id`.
+
+<CodeGroup>
+  ```jsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+
+  export default function Widgets() {
+    return (
+      <>
+        <Turnstile id='widget-1' siteKey='{{ siteKey }}' />
+        <Turnstile id='widget-2' siteKey='{{ siteKey }}' />
+      </>
+    )
+  }
+  ```
+
+  ```tsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+
+  export default function Widgets() {
+    return (
+      <>
+        <Turnstile id='widget-1' siteKey='{{ siteKey }}' />
+        <Turnstile id='widget-2' siteKey='{{ siteKey }}' />
+
+        <button onClick={() => alert(widget1.current?.getResponse())}>
+          Get widget 1 response
+        </button>
+
+        <button onClick={() => alert(widget2.current?.getResponse())}>
+          Get widget 2 response
+        </button>
+      </>
+    )
+  }
+  ```
+</CodeGroup>
+
+You can use multiple `useRef` to interact with each widget:
+
+<CodeGroup>
+  ```jsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+
+  export default function Widgets() {
+    const widget1 = React.useRef()
+    const widget2 = React.useRef()
+
+    return (
+      <>
+        <Turnstile ref={widget1} id='widget-1' siteKey='{{ siteKey }}' />
+        <Turnstile ref={widget2} id='widget-2' siteKey='{{ siteKey }}' />
+
+        <button onClick={() => alert(widget1.current?.getResponse())}>
+          Get widget 1 response
+        </button>
+
+        <button onClick={() => alert(widget2.current?.getResponse())}>
+          Get widget 2 response
+        </button>
+      </>
+    )
+  }
+  ```
+
+  ```tsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+  import type { TurnstileInstance } from '@marsidev/react-turnstile'
+
+  export default function Widgets() {
+    const widget1 = React.useRef<TurnstileInstance>(null)
+    const widget2 = React.useRef<TurnstileInstance>(null)
+
+    return (
+      <>
+        <Turnstile ref={widget1} id='widget-1' siteKey='{{ siteKey }}' />
+        <Turnstile ref={widget2} id='widget-2' siteKey='{{ siteKey }}' />
+
+        <button onClick={() => alert(widget1.current?.getResponse())}>
+          Get widget 1 response
+        </button>
+
+        <button onClick={() => alert(widget2.current?.getResponse())}>
+          Get widget 2 response
+        </button>
+      </>
+    )
+  }
+  ```
+</CodeGroup>
+
+You even can add multiple widgets while manually injecting the Cloudflare script. The following shows how to do it in Next.js 13:
+
+<CodeGroup>
+  ```jsx
+  import { DEFAULT_SCRIPT_ID, SCRIPT_URL, Turnstile } from '@marsidev/react-turnstile'
+	import Script from 'next/script'
+
+  export default function Page() {
+    return (
+      <>
+				<Script id={DEFAULT_SCRIPT_ID} src={SCRIPT_URL} strategy="afterInteractive" />
+        <Turnstile id='widget-1' injectScript={false} siteKey='{{ siteKey }}' />
+        <Turnstile id='widget-2' injectScript={false} siteKey='{{ siteKey }}' />
+      </>
+    )
+  }
+  ```
+
+  ```tsx
+  import { DEFAULT_SCRIPT_ID, SCRIPT_URL, Turnstile } from '@marsidev/react-turnstile'
+	import Script from 'next/script'
+
+  export default function Page() {
+    return (
+      <>
+				<Script id={DEFAULT_SCRIPT_ID} src={SCRIPT_URL} strategy="afterInteractive" />
+        <Turnstile id='widget-1' injectScript={false} siteKey='{{ siteKey }}' />
+        <Turnstile id='widget-2' injectScript={false} siteKey='{{ siteKey }}' />
+      </>
+    )
+  }
+  ```
+</CodeGroup>
+
+<Info>
+  This is not the only way to do it. You can also manually inject the script by using a native `<script />` tag in your HTML entry file or inside an useEffect hook with the `document.body.appendChild` function. The key is to make sure that the script is loaded.
+</Info>
