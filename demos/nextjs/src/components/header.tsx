@@ -3,7 +3,6 @@
 import { GithubIcon, MenuIcon } from 'lucide-react'
 import { useAtom } from 'jotai'
 import { useEffect } from 'react'
-// import Link from 'next/link'
 import { mobileNavExpandedAtom } from '~/store'
 import { cn } from '~/utils'
 import Link from './link'
@@ -28,7 +27,7 @@ export default function Header() {
 			<div className="relative z-10 mx-auto max-w-8xl">
 				<div className="mx-4 flex h-16 items-center px-4 lg:mx-0 lg:px-8">
 					<Link
-						className="rounded-md px-2 py-1 text-gray-800 hover:text-cloudflare-light-400 focus:outline-none focus:ring-cloudflare-light-600 focus-visible:ring-4 dark:text-white dark:hover:text-cloudflare-400 dark:focus:ring-cloudflare-500"
+						className="rounded-md px-2 py-1 text-gray-800 no-underline hover:text-cloudflare-light-400 focus:outline-none focus:ring-cloudflare-light-600 focus-visible:ring-4 dark:text-white dark:hover:text-cloudflare-400 dark:focus:ring-cloudflare-500"
 						href="/"
 					>
 						<span className="text-md truncate font-bold sm:text-lg lg:text-xl">
