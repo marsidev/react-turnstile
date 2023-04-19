@@ -100,12 +100,12 @@ You even can add multiple widgets while manually injecting the Cloudflare script
 <CodeGroup>
   ```jsx
   import { DEFAULT_SCRIPT_ID, SCRIPT_URL, Turnstile } from '@marsidev/react-turnstile'
-	import Script from 'next/script'
+  import Script from 'next/script'
 
   export default function Page() {
     return (
       <>
-				<Script id={DEFAULT_SCRIPT_ID} src={SCRIPT_URL} strategy="afterInteractive" />
+        <Script id={DEFAULT_SCRIPT_ID} src={SCRIPT_URL} strategy="afterInteractive" />
         <Turnstile id='widget-1' injectScript={false} siteKey='{{ siteKey }}' />
         <Turnstile id='widget-2' injectScript={false} siteKey='{{ siteKey }}' />
       </>
@@ -115,12 +115,12 @@ You even can add multiple widgets while manually injecting the Cloudflare script
 
   ```tsx
   import { DEFAULT_SCRIPT_ID, SCRIPT_URL, Turnstile } from '@marsidev/react-turnstile'
-	import Script from 'next/script'
+  import Script from 'next/script'
 
   export default function Page() {
     return (
       <>
-				<Script id={DEFAULT_SCRIPT_ID} src={SCRIPT_URL} strategy="afterInteractive" />
+        <Script id={DEFAULT_SCRIPT_ID} src={SCRIPT_URL} strategy="afterInteractive" />
         <Turnstile id='widget-1' injectScript={false} siteKey='{{ siteKey }}' />
         <Turnstile id='widget-2' injectScript={false} siteKey='{{ siteKey }}' />
       </>
@@ -130,5 +130,5 @@ You even can add multiple widgets while manually injecting the Cloudflare script
 </CodeGroup>
 
 <Info>
-  This is not the only way to do it. You can also manually inject the script by using a native `<script />` tag in your HTML entry file or inside an useEffect hook with the `document.body.appendChild` function. The key is to make sure that the script is loaded.
+  This is not the only way to do it. You can also manually inject the script by using a native `<script />` tag in your HTML entry file or inside an useEffect hook with the `document.body.appendChild` function. The key is to make sure that the script is loaded with the `src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"`.
 </Info>
