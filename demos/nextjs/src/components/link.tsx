@@ -1,6 +1,6 @@
 import type { LinkProps } from 'next/link'
 import NextLink from 'next/link'
-import cn from 'classnames'
+import { cn } from '~/utils'
 
 type Props = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps> &
 	LinkProps & {

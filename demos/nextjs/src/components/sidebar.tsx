@@ -2,11 +2,11 @@
 
 import { SidebarCloseIcon } from 'lucide-react'
 import { useAtom } from 'jotai'
-import cn from 'classnames'
 import Link from '~/components/sidebar-link'
 import { mobileNavExpandedAtom } from '~/store'
 import { pages } from '~/constants'
 import { useBreakpoint } from '~/hooks/use-breakpoint'
+import { cn } from '~/utils'
 import Footer from './footer'
 import { Button } from './button'
 

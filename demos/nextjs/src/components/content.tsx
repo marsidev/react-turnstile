@@ -1,9 +1,9 @@
 'use client'
 
 import { PropsWithChildren } from 'react'
-import cn from 'classnames'
 import { useAtom } from 'jotai'
 import { mobileNavExpandedAtom } from '~/store'
+import { cn } from '~/utils'
 
 export default function Content({ children }: PropsWithChildren) {
 	const [mobileNavExpanded] = useAtom(mobileNavExpandedAtom)

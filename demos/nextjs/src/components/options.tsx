@@ -38,7 +38,6 @@ const Options: React.FC<OptionsProps> = props => {
 			</span>
 
 			<Select
-				data-testid={`widget-${props.name}-select`}
 				defaultValue={defaultValue}
 				name={props.name}
 				value={props.value}
@@ -47,17 +46,13 @@ const Options: React.FC<OptionsProps> = props => {
 					props.onChange(value)
 				}}
 			>
-				<SelectTrigger className="w-[180px]" data-testid={`widget-${props.name}-trigger`}>
+				<SelectTrigger>
 					<SelectValue data-testid={`widget-${props.name}-value`} defaultValue={defaultValue} />
 				</SelectTrigger>
 
 				<SelectContent>
 					{props.options.map(option => (
-						<SelectItem
-							key={option.value}
-							data-testid={`widget-${props.name}-aasasasbkjasbbas`}
-							value={option.value}
-						>
+						<SelectItem key={option.value} value={option.value}>
 							{option.label}
 						</SelectItem>
 					))}

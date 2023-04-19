@@ -1,10 +1,10 @@
 import '~/app/globals.css'
 import { Inter } from 'next/font/google'
-import cn from 'classnames'
 import Header from '~/components/header'
 import Sidebar from '~/components/sidebar'
 import Content from '~/components/content'
 import ThemeProvider from '~/components/theme-provider'
+import { cn } from '~/utils'
 
 const inter = Inter({ subsets: ['latin'] })
 

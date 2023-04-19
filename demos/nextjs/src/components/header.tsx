@@ -1,12 +1,14 @@
 'use client'
 
-import { MenuIcon } from 'lucide-react'
+import { GithubIcon, MenuIcon } from 'lucide-react'
 import { useAtom } from 'jotai'
 import { useEffect } from 'react'
-import Link from 'next/link'
+// import Link from 'next/link'
 import { mobileNavExpandedAtom } from '~/store'
+import { cn } from '~/utils'
+import Link from './link'
 import { ThemeToggle } from './theme-toggle'
-import { Button } from './button'
+import { Button, buttonVariants } from './button'
 
 export default function Header() {
 	const [mobileNavExpanded, setMobileNavExpanded] = useAtom(mobileNavExpandedAtom)
@@ -35,6 +37,16 @@ export default function Header() {
 					</Link>
 
 					<div className="flex flex-1 flex-shrink-0 items-center justify-end gap-2">
+						<Link
+							className={cn(
+								buttonVariants({ variant: 'ghost', size: 'sm' }),
+								'text-gray-800 hover:text-white dark:text-white dark:hover:text-white'
+							)}
+							href="https://github.com/marsidev/react-turnstile"
+						>
+							<GithubIcon />
+						</Link>
+
 						<ThemeToggle />
 
 						<div className="flex items-center lg:hidden">

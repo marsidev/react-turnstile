@@ -1,7 +1,7 @@
-import cn from 'classnames'
 import { useAtom } from 'jotai'
 import { mobileNavExpandedAtom } from '~/store'
 import { useBreakpoint } from '~/hooks/use-breakpoint'
+import { cn } from '~/utils'
 import Link from './link'
 
 type Props = React.HTMLAttributes<HTMLDivElement>

@@ -1,8 +1,8 @@
 import { forwardRef } from 'react'
-import cn from 'classnames'
 import { VariantProps, cva } from 'class-variance-authority'
+import { cn } from '~/utils'
 
-const buttonVariants = cva(
+export const buttonVariants = cva(
 	'inline-flex items-center justify-center rounded-md text-sm font-medium focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring disabled:opacity-50 disabled:pointer-events-none ring-offset-background focus:ring-cloudflare-light-600 dark:focus:ring-cloudflare-500',
 	{
 		variants: {
