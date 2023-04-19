@@ -132,3 +132,24 @@ You even can add multiple widgets while manually injecting the Cloudflare script
 <Info>
   This is not the only way to do it. You can also manually inject the script by using a native `<script />` tag in your HTML entry file or inside an useEffect hook with the `document.body.appendChild` function. The key is to make sure that the script is loaded with the `src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"`.
 </Info>
+
+Before version 0.2.0, to render multiple widgets, you need to force inject a Cloudflare script per widget. Something like this:
+
+```jsx
+import { Turnstile } from '@marsidev/react-turnstile'
+export default function Widgets() {
+  return (
+    <>
+      <Turnstile id='widget-1' siteKey='{{ siteKey }}' />
+      <Turnstile
+        id='widget-2'
+        siteKey='{{ siteKey }}'
+        scriptOptions={{
+          id: "second-script", // unique id
+          onLoadCallbackName: "secondCallback" // unique callback name
+        }}
+      />
+    </>
+  )
+}
+```
