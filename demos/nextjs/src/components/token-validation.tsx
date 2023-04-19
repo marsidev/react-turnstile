@@ -3,6 +3,7 @@ import { type FC, useEffect, useRef, useState } from 'react'
 import type { SecretKeyType } from '~/types'
 import { DEMO_SECRET, secretOptions } from '~/constants'
 import Options from './options'
+import { Button } from './button'
 
 interface TokenValidationProps {
 	token: string | undefined
@@ -58,7 +59,7 @@ const TokenValidation: FC<TokenValidationProps> = ({
 		<div className="flex flex-col gap-2">
 			<form
 				ref={submitFormRef}
-				className="flex flex-col gap-2 text-left accent-[#f4a15d]"
+				className="flex flex-col gap-2 text-left accent-cloudflare-400"
 				onSubmit={onSubmitForm}
 			>
 				<Options
@@ -68,13 +69,9 @@ const TokenValidation: FC<TokenValidationProps> = ({
 					title="Demo Secret Key Type"
 				/>
 
-				<button
-					className="mt-2 max-w-fit rounded-lg bg-[#f4a15d] px-4 py-2 text-black shadow-md hover:bg-[#e06d10]"
-					disabled={loading}
-					type="submit"
-				>
+				<Button className="max-w-fit" disabled={loading} type="submit">
 					Validate
-				</button>
+				</Button>
 			</form>
 
 			{loading && <span>Loading...</span>}

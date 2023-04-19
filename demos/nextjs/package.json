@@ -11,13 +11,20 @@
 		"type-check": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@kodingdotninja/use-tailwind-breakpoint": "0.0.5",
 		"@marsidev/react-turnstile": "workspace:*",
+		"@radix-ui/react-select": "1.2.1",
+		"class-variance-authority": "0.5.2",
 		"classnames": "2.3.2",
+		"jotai": "2.0.4",
+		"lucide-react": "0.161.0",
 		"next": "13.2.4",
+		"next-themes": "0.2.1",
 		"react": "18.2.0",
 		"react-dom": "18.2.0"
 	},
 	"devDependencies": {
+		"@tailwindcss/typography": "0.5.9",
 		"autoprefixer": "10.4.13",
 		"eslint-config-custom": "workspace:*",
 		"eslint-config-next": "13.2.4",

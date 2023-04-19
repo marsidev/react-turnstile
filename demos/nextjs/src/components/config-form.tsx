@@ -1,6 +1,6 @@
 import { forwardRef, useState } from 'react'
 import { langOptions, siteKeyOptions, sizeOptions, themeOptions } from '~/constants'
-import { SiteKeyType, WidgetSize } from '~/types'
+import { SiteKeyType, Theme, WidgetSize } from '~/types'
 import Options from './options'
 
 interface FormProps {
@@ -8,6 +8,8 @@ interface FormProps {
 	onChangeSiteKeyType: (value: string) => void
 	onChangeSize: (value: string) => void
 	onChangeLang: (value: string) => void
+	initialTheme?: Theme
+	initialSize?: WidgetSize
 }
 
 const ConfigForm = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
@@ -33,16 +35,23 @@ const ConfigForm = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
 	}
 
 	return (
-		<form ref={ref} className="text-left accent-[#f4a15d]">
-			<div className="flex gap-16">
+		<form ref={ref} className="text-left accent-cloudflare-400">
+			<div className="flex flex-wrap gap-6">
 				<Options
 					name="theme"
 					options={[...themeOptions]}
 					title="Theme"
+					value={props.initialTheme}
 					onChange={props.onChangeTheme}
 				/>
 
-				<Options name="size" options={[...sizeOptions]} title="Size" onChange={onChangeSizeProxy} />
+				<Options
+					name="size"
+					options={[...sizeOptions]}
+					title="Size"
+					value={props.initialSize}
+					onChange={onChangeSizeProxy}
+				/>
 
 				<Options
 					helperUrl="https://developers.cloudflare.com/turnstile/frequently-asked-questions/#are-there-sitekeys-and-secret-keys-that-can-be-used-for-testing"

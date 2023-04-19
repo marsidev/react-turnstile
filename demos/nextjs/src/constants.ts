@@ -56,3 +56,26 @@ export enum DEMO_SECRET {
 	fail = '2x0000000000000000000000000000000AA',
 	spent = '3x0000000000000000000000000000000AA'
 }
+
+export const pages = [
+	{
+		title: 'Basic demo',
+		href: '/basic'
+	},
+	{
+		title: 'Manual script injection',
+		href: '/manual-script-injection'
+	},
+	{
+		title: 'Manual script injection with custom script props',
+		href: '/manual-script-injection-with-custom-script-props'
+	},
+	{
+		title: 'Multiple widgets',
+		href: '/multiple-widgets'
+	},
+	{
+		title: 'Multiple widgets and manual script injection',
+		href: '/multi-widgets-and-manual-injection'
+	}
+]

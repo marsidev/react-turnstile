@@ -1,13 +1,19 @@
-import type { LinkProps as NextLinkProps } from 'next/link'
+import type { LinkProps } from 'next/link'
 import NextLink from 'next/link'
 import cn from 'classnames'
 
-interface LinkProps extends NextLinkProps, React.HTMLAttributes<HTMLAnchorElement> {}
+type Props = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps> &
+	LinkProps & {
+		children?: React.ReactNode
+	} & React.RefAttributes<HTMLAnchorElement>
 
-const Link: React.FC<LinkProps> = ({ href, children, className, ...rest }) => {
+const Link: React.FC<Props> = ({ href, children, className, ...rest }) => {
 	return (
 		<NextLink
-			className={cn(className, 'text-[#f4a15d] underline hover:text-[#e06d10]')}
+			className={cn(
+				'rounded-sm px-1 text-cloudflare-light-500 underline hover:text-cloudflare-light-600 focus:outline-none focus:ring-cloudflare-light-600 focus-visible:ring-2 dark:text-cloudflare-400 dark:hover:text-cloudflare-500 dark:focus:ring-cloudflare-500',
+				className
+			)}
 			href={href}
 			rel="noreferrer"
 			target="_blank"

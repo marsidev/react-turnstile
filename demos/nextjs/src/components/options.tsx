@@ -1,3 +1,4 @@
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select'
 import Link from './link'
 
 interface Option {
@@ -24,7 +25,7 @@ const Options: React.FC<OptionsProps> = props => {
 	}
 
 	return (
-		<label className="flex min-w-[80px] max-w-fit flex-col">
+		<label className="flex min-w-[100px] max-w-fit flex-col text-black dark:text-white">
 			<span className="font-medium">
 				{props.title}
 				{props.helperUrl && (
@@ -36,25 +37,26 @@ const Options: React.FC<OptionsProps> = props => {
 				)}
 			</span>
 
-			<select
-				className="rounded-md px-2 py-2"
+			<Select
 				defaultValue={defaultValue}
 				name={props.name}
 				value={props.value}
-				onChange={e => {
-					e.preventDefault()
+				onValueChange={value => {
 					if (!props.onChange) return
-					props.onChange(e.currentTarget.value)
+					props.onChange(value)
 				}}
 			>
-				{props.options.map(option => {
-					return (
-						<option key={option.value} disabled={option.disabled === true} value={option.value}>
+				<SelectTrigger className="w-[180px]">
+					<SelectValue defaultValue={defaultValue} />
+				</SelectTrigger>
+				<SelectContent>
+					{props.options.map(option => (
+						<SelectItem key={option.value} value={option.value}>
 							{option.label}
-						</option>
-					)
-				})}
-			</select>
+						</SelectItem>
+					))}
+				</SelectContent>
+			</Select>
 		</label>
 	)
 }

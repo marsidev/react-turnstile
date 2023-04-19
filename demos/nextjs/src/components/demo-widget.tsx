@@ -1,23 +1,46 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
+import type { TurnstileInstance, TurnstileProps } from '@marsidev/react-turnstile'
+import { Fragment, useEffect, useRef, useState } from 'react'
+import { Turnstile } from '@marsidev/react-turnstile'
+import { useTheme } from 'next-themes'
 import { Lang, SiteKeyType, Theme, WidgetSize, WidgetStatus } from '~/types'
 import { DEMO_SITEKEY } from '~/constants'
 import ConfigForm from './config-form'
 import StateLabels from './state-labels'
 import WidgetMethods from './widget-methods'
 import TokenValidation from './token-validation'
-import Footer from './footer'
 
-export default function Demo() {
-	const [theme, setTheme] = useState<Theme>('auto')
-	const [size, setSize] = useState<WidgetSize>('normal')
-	const [siteKeyType, setSiteKeyType] = useState<SiteKeyType>('pass')
+interface Props extends Omit<TurnstileProps, 'siteKey'> {
+	initialTheme?: Theme
+	initialSize?: WidgetSize
+	initialLang?: Lang
+	initialSiteKeyType?: SiteKeyType
+}
+
+export default function DemoWidget({
+	initialTheme,
+	initialSize,
+	initialLang,
+	initialSiteKeyType,
+	...props
+}: Props) {
+	const siteTheme = useTheme().resolvedTheme as Theme | undefined
+	// const { resolvedTheme: siteTheme } = useTheme()
+	const [theme, setTheme] = useState<Theme | undefined>(initialTheme ?? siteTheme)
+	const [size, setSize] = useState<WidgetSize>(initialSize ?? 'normal')
+	const [siteKeyType, setSiteKeyType] = useState<SiteKeyType>(initialSiteKeyType ?? 'pass')
+	const [lang, setLang] = useState<Lang>(initialLang ?? 'auto')
 	const [status, setStatus] = useState<WidgetStatus>(null)
-	const [lang, setLang] = useState<Lang>('auto')
 	const [token, setToken] = useState<string>()
 	const [rerenderCount, setRerenderCount] = useState(0)
+
+	useEffect(() => {
+		if (siteTheme && !theme) {
+			setTheme(siteTheme as Theme)
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [siteTheme])
 
 	const configFormRef = useRef<HTMLFormElement>(null)
 	const turnstileRef = useRef<TurnstileInstance>(null)
@@ -51,8 +74,9 @@ export default function Demo() {
 	}
 
 	return (
-		<>
+		<Fragment>
 			<Turnstile
+				{...props}
 				ref={turnstileRef}
 				options={{ theme, size, language: lang }}
 				siteKey={testingSiteKey}
@@ -64,29 +88,29 @@ export default function Demo() {
 				}}
 			/>
 
-			<h2 className="mt-8 text-2xl font-semibold">Configuration</h2>
+			<h3>Configuration</h3>
 			<ConfigForm
 				ref={configFormRef}
+				initialSize={size}
+				initialTheme={theme}
 				onChangeLang={onChangeLang}
 				onChangeSiteKeyType={onChangeSiteKeyType}
 				onChangeSize={onChangeSize}
 				onChangeTheme={onChangeTheme}
 			/>
 
-			<h2 className="mt-8 text-2xl font-semibold">Challenge States</h2>
+			<h3>Challenge States</h3>
 			<StateLabels status={status} />
 
-			<h2 className="mt-8 text-2xl font-semibold">Widget Methods</h2>
+			<h3>Widget Methods</h3>
 			<WidgetMethods turnstile={turnstileRef} onRestartStates={onRestartStates} />
 
-			<h2 className="mt-8 text-2xl font-semibold">Token validation (server-side)</h2>
+			<h3>Token validation (server-side)</h3>
 			<TokenValidation
 				challengeSolved={status === 'solved'}
 				token={token}
 				widgetRerenderCount={rerenderCount}
 			/>
-
-			<Footer />
-		</>
+		</Fragment>
 	)
 }
