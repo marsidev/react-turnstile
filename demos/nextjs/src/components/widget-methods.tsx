@@ -1,4 +1,5 @@
 import type { TurnstileInstance } from '@marsidev/react-turnstile'
+import { Button } from './button'
 
 interface StateLabelsProps {
 	turnstile: React.MutableRefObject<TurnstileInstance | null>
@@ -25,35 +26,11 @@ const WidgetMethods: React.FC<StateLabelsProps> = ({ turnstile, onRestartStates 
 	}
 
 	return (
-		<div className="flex gap-2">
-			<button
-				className="mt-2 rounded-lg bg-[#f4a15d] px-4 py-2 text-black shadow-md hover:bg-[#e06d10]"
-				type="button"
-				onClick={onGetResponse}
-			>
-				Get response
-			</button>
-
-			<button
-				className="mt-2 rounded-lg bg-[#f4a15d] px-4 py-2 text-black shadow-md hover:bg-[#e06d10]"
-				onClick={onReset}
-			>
-				Reset
-			</button>
-
-			<button
-				className="mt-2 rounded-lg bg-[#f4a15d] px-4 py-2 text-black shadow-md hover:bg-[#e06d10]"
-				onClick={onRemove}
-			>
-				Remove
-			</button>
-
-			<button
-				className="mt-2 rounded-lg bg-[#f4a15d] px-4 py-2 text-black shadow-md hover:bg-[#e06d10]"
-				onClick={onRender}
-			>
-				Render
-			</button>
+		<div className="flex flex-wrap gap-2">
+			<Button onClick={onGetResponse}>Get response</Button>
+			<Button onClick={onReset}>Reset</Button>
+			<Button onClick={onRemove}>Remove</Button>
+			<Button onClick={onRender}>Render</Button>
 		</div>
 	)
 }

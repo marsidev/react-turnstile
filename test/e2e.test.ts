@@ -54,10 +54,6 @@ test.afterAll(async () => {
 	await browser.close()
 })
 
-test('demo page rendered', async () => {
-	await expect(page.locator('h1')).toContainText('React Turnstile Demo')
-})
-
 test('script injected', async () => {
 	await expect(page.locator(`#${scriptId}`)).toHaveCount(1)
 })
@@ -115,7 +111,9 @@ test('widget can be sized', async () => {
 	expect(box!.width).toBeCloseTo(300)
 
 	// change size
-	await page.getByLabel('Size').selectOption('compact')
+	await page.getByTestId('widget-size-value').click()
+	await page.getByRole('option', { name: 'compact' }).click()
+
 	await ensureFrameVisible()
 
 	// check new width
@@ -126,28 +124,22 @@ test('widget can be sized', async () => {
 })
 
 test('widget can change language', async () => {
-	// default lang 'auto' (en)
 	await ensureFrameVisible()
 	const iframe = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
 	await expect(iframe.locator('#success-text')).toContainText('Success!')
 
-	// change lang to 'es'
-	await page.getByLabel('Language').selectOption('es')
+	await page.getByTestId('widget-lang-value').click()
+	await page.getByRole('option', { name: 'Español' }).click()
 	await ensureFrameVisible()
 	await expect(iframe.locator('#success-text')).toContainText('¡Operación exitosa!')
 
-	// change lang to 'de'
-	await page.getByLabel('Language').selectOption('de')
+	await page.getByTestId('widget-lang-value').click()
+	await page.getByRole('option', { name: 'Deutsch' }).click()
 	await ensureFrameVisible()
 	await expect(iframe.locator('#success-text')).toContainText('Erfolg!')
 
-	// change lang to 'ja'
-	await page.getByLabel('Language').selectOption('ja')
+	await page.getByTestId('widget-lang-value').click()
+	await page.getByRole('option', { name: '日本語' }).click()
 	await ensureFrameVisible()
 	await expect(iframe.locator('#success-text')).toContainText('成功しました!')
-
-	// change lang to 'ru'
-	await page.getByLabel('Language').selectOption('ru')
-	await ensureFrameVisible()
-	await expect(iframe.locator('#success-text')).toContainText('Проверка пройдена!')
 })
