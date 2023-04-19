@@ -71,14 +71,14 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 	useImperativeHandle(
 		ref,
 		() => {
-			if (typeof window === 'undefined' || !scriptLoaded || !widgetId) {
+			if (typeof window === 'undefined' || !scriptLoaded) {
 				return
 			}
 
 			const { turnstile } = window
 			return {
 				getResponse() {
-					if (!turnstile?.getResponse) {
+					if (!turnstile?.getResponse || !widgetId) {
 						console.warn('Turnstile has not been loaded')
 						return
 					}
@@ -87,7 +87,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 				},
 
 				reset() {
-					if (!turnstile?.reset) {
+					if (!turnstile?.reset || !widgetId) {
 						console.warn('Turnstile has not been loaded')
 						return
 					}
@@ -100,7 +100,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 				},
 
 				remove() {
-					if (!turnstile?.remove) {
+					if (!turnstile?.remove || !widgetId) {
 						console.warn('Turnstile has not been loaded')
 						return
 					}
