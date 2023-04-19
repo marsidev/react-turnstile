@@ -54,7 +54,7 @@ describe('Manual script injection', () => {
 		expect(container).toBeTruthy()
 	})
 
-	it('injects the script', async () => {
+	it('does not injects the script', async () => {
 		const script = document.querySelector('script')
 		expect(script).toBeFalsy()
 	})
