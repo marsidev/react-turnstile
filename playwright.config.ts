@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test'
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 const baseURL = `http://localhost:${PORT}/basic`
 
 // Reference: https://playwright.dev/docs/test-configuration
@@ -13,7 +13,7 @@ export default defineConfig({
 
 	// https://playwright.dev/docs/test-advanced#launching-a-development-web-server-during-the-tests
 	webServer: {
-		command: 'pnpm run --filter=nextjs-demo dev',
+		command: 'pnpm run --filter=nextjs-demo dev -- -p ' + PORT,
 		url: baseURL,
 		timeout: 120 * 1000,
 		reuseExistingServer: !process.env.CI
