@@ -126,7 +126,7 @@ jobs:
         run: nci
 
       - name: Install Playwright
-        run: npx playwright install --with-deps chromium webkit
+        run: npx playwright install --with-deps chromium webkit firefox
 
       - name: Build
         run: nr lib:build

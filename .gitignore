@@ -11,4 +11,5 @@ node_modules
 temp
 .vercel
 test/output
+test/e2e/output
 .eslintcache

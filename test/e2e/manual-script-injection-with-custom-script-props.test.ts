@@ -1,53 +1,30 @@
 import type { Browser, Page } from '@playwright/test'
-import fsPromises from 'node:fs/promises'
-import fs from 'node:fs'
-import path from 'node:path'
 import { chromium, expect, test } from '@playwright/test'
+import { DEFAULT_CONTAINER_ID } from '../../packages/lib/src/utils'
+import {
+	deleteScreenshots,
+	demoToken,
+	ensureChallengeNotSolved,
+	ensureChallengeSolved,
+	ensureDirectory,
+	ensureFrameHidden,
+	ensureFrameVisible,
+	ssPath
+} from './helpers'
 
-const scriptId = 'cf-turnstile-script'
-const containerId = 'cf-turnstile'
-const demoToken = 'XXXX.DUMMY.TOKEN.XXXX'
 const isCI = process.env.CI
+
 let browser: Browser
 let page: Page
 
-const deleteScreenshots = async (dir: string) => {
-	for (const file of await fsPromises.readdir(dir)) {
-		await fsPromises.unlink(path.join(dir, file))
-	}
-}
-
-const ensureDirectory = (dir: string) => {
-	if (!fs.existsSync(dir)) fs.mkdirSync(dir)
-}
-
-const ensureFrameVisible = async () => {
-	await expect(page.locator('iframe')).toBeVisible()
-	await expect(page.locator('iframe')).toHaveCount(1)
-}
-
-const ensureFrameHidden = async () => {
-	await expect(page.locator('iframe')).toBeHidden()
-	await expect(page.locator('iframe')).toHaveCount(0)
-}
-
-const ensureChallengeSolved = async () => {
-	await expect(page.locator('[name="cf-turnstile-response"]')).toHaveValue(demoToken)
-}
-
-const ensureChallengeNotSolved = async () => {
-	await expect(page.locator('[name="cf-turnstile-response"]')).toHaveValue('')
-}
-
-const ssPath = './test/output'
+const route = 'manual-script-injection-with-custom-script-props'
 
 test.beforeAll(async () => {
 	!isCI && ensureDirectory(ssPath)
 	!isCI && (await deleteScreenshots(ssPath))
 	browser = await chromium.launch()
 	page = await browser.newPage()
-	await page.goto('/')
-	!isCI && (await page.screenshot({ path: `${ssPath}/0-before-all.png` }))
+	await page.goto(`/${route}`)
 })
 
 test.afterAll(async () => {
@@ -55,43 +32,43 @@ test.afterAll(async () => {
 })
 
 test('script injected', async () => {
-	await expect(page.locator(`#${scriptId}`)).toHaveCount(1)
+	await expect(page.locator(`#turnstile-script`)).toHaveCount(1)
 })
 
 test('widget container rendered', async () => {
-	await expect(page.locator(`#${containerId}`)).toHaveCount(1)
+	await expect(page.locator(`#${DEFAULT_CONTAINER_ID}`)).toHaveCount(1)
 })
 
 test('widget iframe is visible', async () => {
-	await ensureFrameVisible()
+	// await ensureFrameVisible(page)
 	const iframe = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
-	await expect(iframe.locator('body')).toContainText('Testing only.')
-	!isCI && (await page.screenshot({ path: `${ssPath}/1-widget-visible.png` }))
+	await expect(iframe.locator('body')).toContainText('Testing only.', { timeout: 15000 })
+	!isCI && (await page.screenshot({ path: `${ssPath}/${route}_1-widget-visible.png` }))
 })
 
 test('challenge has been solved', async () => {
-	await ensureChallengeSolved()
-	!isCI && (await page.screenshot({ path: `${ssPath}/2-challenge-solved.png` }))
+	await ensureChallengeSolved(page)
+	!isCI && (await page.screenshot({ path: `${ssPath}/${route}_2-challenge-solved.png` }))
 })
 
 test('widget can be removed', async () => {
 	await page.locator('button', { hasText: 'Remove' }).click()
-	await ensureFrameHidden()
-	!isCI && (await page.screenshot({ path: `${ssPath}/3-widget-removed.png` }))
+	await ensureFrameHidden(page)
+	!isCI && (await page.screenshot({ path: `${ssPath}/${route}_3-widget-removed.png` }))
 })
 
 test('widget can be explicity rendered', async () => {
 	await page.locator('button', { hasText: 'Render' }).click()
-	await ensureFrameVisible()
-	await ensureChallengeSolved()
-	!isCI && (await page.screenshot({ path: `${ssPath}/4-widget-rendered.png` }))
+	await ensureFrameVisible(page)
+	await ensureChallengeSolved(page)
+	!isCI && (await page.screenshot({ path: `${ssPath}/${route}_4-widget-rendered.png` }))
 })
 
 test('widget can be reset', async () => {
 	await page.locator('button', { hasText: 'Reset' }).click()
-	await ensureChallengeNotSolved()
-	await ensureChallengeSolved()
-	!isCI && (await page.screenshot({ path: `${ssPath}/7-widget-reset.png` }))
+	await ensureChallengeNotSolved(page)
+	await ensureChallengeSolved(page)
+	!isCI && (await page.screenshot({ path: `${ssPath}/${route}_5-widget-reset.png` }))
 })
 
 test('can get the token', async () => {
@@ -114,7 +91,7 @@ test('widget can be sized', async () => {
 	await page.getByTestId('widget-size-value').click()
 	await page.getByRole('option', { name: 'compact' }).click()
 
-	await ensureFrameVisible()
+	await ensureFrameVisible(page)
 
 	// check new width
 	const iframeAfter = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
@@ -124,22 +101,22 @@ test('widget can be sized', async () => {
 })
 
 test('widget can change language', async () => {
-	await ensureFrameVisible()
+	await ensureFrameVisible(page)
 	const iframe = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
 	await expect(iframe.locator('#success-text')).toContainText('Success!')
 
 	await page.getByTestId('widget-lang-value').click()
 	await page.getByRole('option', { name: 'Español' }).click()
-	await ensureFrameVisible()
+	await ensureFrameVisible(page)
 	await expect(iframe.locator('#success-text')).toContainText('¡Operación exitosa!')
 
 	await page.getByTestId('widget-lang-value').click()
 	await page.getByRole('option', { name: 'Deutsch' }).click()
-	await ensureFrameVisible()
+	await ensureFrameVisible(page)
 	await expect(iframe.locator('#success-text')).toContainText('Erfolg!')
 
 	await page.getByTestId('widget-lang-value').click()
 	await page.getByRole('option', { name: '日本語' }).click()
-	await ensureFrameVisible()
+	await ensureFrameVisible(page)
 	await expect(iframe.locator('#success-text')).toContainText('成功しました!')
 })

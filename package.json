@@ -51,5 +51,8 @@
 				"prettier"
 			]
 		}
+	},
+	"eslintConfig": {
+		"extends": "custom"
 	}
 }

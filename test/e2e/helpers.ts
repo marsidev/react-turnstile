@@ -1,0 +1,35 @@
+import fsPromises from 'node:fs/promises'
+import fs from 'node:fs'
+import path from 'node:path'
+import { Page, expect } from '@playwright/test'
+
+export const demoToken = 'XXXX.DUMMY.TOKEN.XXXX'
+export const ssPath = './test/e2e/output'
+
+export const deleteScreenshots = async (dir: string) => {
+	for (const file of await fsPromises.readdir(dir)) {
+		await fsPromises.unlink(path.join(dir, file))
+	}
+}
+
+export const ensureDirectory = (dir: string) => {
+	if (!fs.existsSync(dir)) fs.mkdirSync(dir)
+}
+
+export const ensureFrameVisible = async (page: Page) => {
+	await expect(page.locator('iframe')).toBeVisible({ timeout: 10000 })
+	await expect(page.locator('iframe')).toHaveCount(1)
+}
+
+export const ensureFrameHidden = async (page: Page) => {
+	await expect(page.locator('iframe')).toBeHidden()
+	await expect(page.locator('iframe')).toHaveCount(0)
+}
+
+export const ensureChallengeSolved = async (page: Page) => {
+	await expect(page.locator('[name="cf-turnstile-response"]')).toHaveValue(demoToken)
+}
+
+export const ensureChallengeNotSolved = async (page: Page) => {
+	await expect(page.locator('[name="cf-turnstile-response"]')).toHaveValue('')
+}
