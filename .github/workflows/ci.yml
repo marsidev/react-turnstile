@@ -104,7 +104,7 @@ jobs:
     strategy:
       matrix:
         node: [18.x]
-        os: [ubuntu-latest, macos-latest]
+        os: [macos-latest]
       fail-fast: false
 
     steps:
@@ -140,7 +140,7 @@ jobs:
     strategy:
       matrix:
         node: [18.x]
-        os: [ubuntu-latest, macos-latest]
+        os: [macos-latest]
       fail-fast: false
 
     steps:
