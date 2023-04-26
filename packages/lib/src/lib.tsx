@@ -19,6 +19,9 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		onSuccess,
 		onExpire,
 		onError,
+		onBeforeInteractive,
+		onAfterInteractive,
+		onUnsupported,
 		id,
 		style,
 		as = 'div',
@@ -51,6 +54,9 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			callback: onSuccess,
 			'error-callback': onError,
 			'expired-callback': onExpire,
+			'before-interactive-callback': onBeforeInteractive,
+			'after-interactive-callback': onAfterInteractive,
+			'unsupported-callback': onUnsupported,
 			theme: options.theme ?? 'auto',
 			language: options.language ?? 'auto',
 			tabindex: options.tabIndex,
@@ -63,7 +69,17 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			execution: options.execution ?? 'render',
 			appearance: options.appearance ?? 'always'
 		}),
-		[siteKey, options, onSuccess, onError, onExpire, widgetSize]
+		[
+			siteKey,
+			options,
+			onSuccess,
+			onError,
+			onExpire,
+			widgetSize,
+			onBeforeInteractive,
+			onAfterInteractive,
+			onUnsupported
+		]
 	)
 
 	const renderConfigStringified = useMemo(() => JSON.stringify(renderConfig), [renderConfig])

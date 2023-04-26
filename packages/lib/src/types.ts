@@ -90,13 +90,13 @@ interface RenderOptions {
 	cData?: string
 
 	/**
-	 * Callback that is invoked upon success of the challenge. The callback is passed a token that can be validated.
+	 * Callback invoked upon success of the challenge. The callback is passed a token that can be validated.
 	 * @param token - Token response.
 	 */
 	callback?: (token: string) => void
 
 	/**
-	 * Callback that is invoked when there is a network error.
+	 * Callback invoked when there is an error (e.g. network error or the challenge failed).
 	 */
 	'error-callback'?: () => void
 
@@ -106,9 +106,24 @@ interface RenderOptions {
 	execution?: 'render' | 'execute'
 
 	/**
-	 * Callback that is invoked when a challenge expires and does not reset the widget.
+	 * Callback invoked when a challenge expires and does not reset the widget.
 	 */
 	'expired-callback'?: () => void
+
+	/**
+	 * Callback invoked before the challenge enters interactive mode.
+	 */
+	'before-interactive-callback'?: () => void
+
+	/**
+	 * Callback invoked when challenge has left interactive mode.
+	 */
+	'after-interactive-callback'?: () => void
+
+	/**
+	 * Callback invoked when a given client/browser is not supported by Turnstile.
+	 */
+	'unsupported-callback'?: () => void
 
 	/**
 	 * The widget theme. This can be forced to light or dark by setting the theme accordingly.
@@ -261,20 +276,35 @@ interface TurnstileProps extends React.HTMLAttributes<HTMLDivElement> {
 	siteKey: RenderOptions['sitekey']
 
 	/**
-	 * Callback that is invoked upon success of the challenge. The callback is passed a token that can be validated.
+	 * Callback invoked upon success of the challenge. The callback is passed a token that can be validated.
 	 * @param token - Token response.
 	 */
 	onSuccess?: RenderOptions['callback']
 
 	/**
-	 * Callback that is invoked when a challenge expires and does not reset the widget.
+	 * Callback invoked when a challenge expires and does not reset the widget.
 	 */
 	onExpire?: RenderOptions['expired-callback']
 
 	/**
-	 * Callback that is invoked when there is a network error.
+	 * Callback invoked when there is an error (e.g. network error or the challenge failed).
 	 */
 	onError?: RenderOptions['error-callback']
+
+	/**
+	 * Callback invoked before the challenge enters interactive mode.
+	 */
+	onBeforeInteractive?: RenderOptions['before-interactive-callback']
+
+	/**
+	 * Callback invoked when challenge has left interactive mode.
+	 */
+	onAfterInteractive?: RenderOptions['after-interactive-callback']
+
+	/**
+	 * Callback invoked when a given client/browser is not supported by Turnstile.
+	 */
+	onUnsupported?: RenderOptions['unsupported-callback']
 
 	/**
 	 * Custom widget render options. See {@link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#configurations the docs} for more info about this options.
