@@ -10,10 +10,10 @@ Here is an example of how to reset the widget when it expires:
 
 <CodeGroup>
   ```jsx
-  import { Turnstile } from '@marsidev/react-turnstile'
+  import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 
   export default function Widget() {
-    const ref = React.useRef()
+    const ref = React.useRef<TurnstileInstance>(null)
 
     return (
       <Turnstile
