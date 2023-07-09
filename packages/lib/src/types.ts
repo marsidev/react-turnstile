@@ -385,6 +385,10 @@ type TurnstileServerValidationErrorCode =
 	| 'missing-input-response'
 	/** 	The response parameter is invalid or has expired. */
 	| 'invalid-input-response'
+	/** 	The widget ID extracted from the parsed site secret key was invalid or did not exist. */
+	| 'invalid-widget-id'
+	/** 	The secret extracted from the parsed site secret key was invalid. */
+	| 'invalid-parsed-secret'
 	/** 	The request was rejected because it was malformed. */
 	| 'bad-request'
 	/** 	The response parameter has already been validated before. */
