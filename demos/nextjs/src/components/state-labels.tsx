@@ -13,7 +13,7 @@ interface LabelProps {
 const Label: React.FC<LabelProps> = props => {
 	return (
 		<div
-			className={cn('rounded-sm py-1 px-2 text-sm text-white', {
+			className={cn('rounded-sm px-2 py-1 text-sm text-white', {
 				'bg-blue-600': props.value,
 				'bg-gray-600': !props.value
 			})}

@@ -10,7 +10,7 @@ export default function Page() {
 		<React.Fragment>
 			<Script
 				id={DEFAULT_SCRIPT_ID}
-				src={ `${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`}
+				src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`}
 				strategy="afterInteractive"
 			/>
 
