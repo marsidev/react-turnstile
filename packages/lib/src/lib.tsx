@@ -112,7 +112,11 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 						setContainerStyle(CONTAINER_STYLE_SET.invisible)
 					}
 
-					turnstile.reset(widgetId)
+					try {
+						turnstile.reset(widgetId)
+					} catch (error) {
+						console.warn(`Failed to reset Turnstile widget ${widgetId}`, error)
+					}
 				},
 
 				remove() {
