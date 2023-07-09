@@ -1,3 +1,5 @@
+'use client'
+
 import Script from 'next/script'
 import { DEFAULT_SCRIPT_ID, SCRIPT_URL } from '@marsidev/react-turnstile'
 import React from 'react'

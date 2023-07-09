@@ -1,3 +1,5 @@
+'use client'
+
 import Script from 'next/script'
 import { DEFAULT_ONLOAD_NAME, DEFAULT_SCRIPT_ID, SCRIPT_URL } from '@marsidev/react-turnstile'
 import React from 'react'
@@ -8,7 +10,7 @@ export default function Page() {
 		<React.Fragment>
 			<Script
 				id={DEFAULT_SCRIPT_ID}
-				src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`}
+				src={ `${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`}
 				strategy="afterInteractive"
 			/>
 

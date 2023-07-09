@@ -40,7 +40,6 @@ test('widget container rendered', async () => {
 })
 
 test('widget iframe is visible', async () => {
-	// await ensureFrameVisible(page)
 	const iframe = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
 	await expect(iframe.locator('body')).toContainText('Testing only.', { timeout: 15000 })
 	!isCI && (await page.screenshot({ path: `${ssPath}/${route}_1-widget-visible.png` }))
