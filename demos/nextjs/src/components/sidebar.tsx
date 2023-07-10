@@ -1,6 +1,6 @@
 'use client'
 
-import { SidebarCloseIcon } from 'lucide-react'
+import { SidebarClose } from 'lucide-react'
 import { useAtom } from 'jotai'
 import Link from '~/components/sidebar-link'
 import { mobileNavExpandedAtom } from '~/store'
@@ -36,7 +36,7 @@ export default function Sidebar() {
 						variant="ghost"
 						onClick={() => setMobileNavExpanded(false)}
 					>
-						<SidebarCloseIcon />
+						<SidebarClose />
 					</Button>
 				</div>
 
