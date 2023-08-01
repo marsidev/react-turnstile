@@ -334,7 +334,7 @@ interface InjectTurnstileScriptParams {
 }
 
 type ContainerSizeSet = {
-	[size in NonNullable<ComponentRenderOptions['size']>]: React.CSSProperties
+	[size in NonNullable<ComponentRenderOptions['size']> | 'interactionOnly']: React.CSSProperties
 }
 
 type LangCode =
