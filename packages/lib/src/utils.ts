@@ -71,6 +71,10 @@ export const CONTAINER_STYLE_SET: ContainerSizeSet = {
 		width: 0,
 		height: 0,
 		overflow: 'hidden'
+	},
+	interactionOnly: {
+		width: 'fit-content',
+		height: 'auto'
 	}
 }
 

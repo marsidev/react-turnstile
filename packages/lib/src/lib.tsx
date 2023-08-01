@@ -29,9 +29,12 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		...divProps
 	} = props
 	const widgetSize = options.size ?? 'normal'
+
 	const [containerStyle, setContainerStyle] = useState(
 		options.execution === 'execute'
 			? CONTAINER_STYLE_SET.invisible
+			: options.appearance === 'interaction-only'
+			? CONTAINER_STYLE_SET.interactionOnly
 			: CONTAINER_STYLE_SET[widgetSize]
 	)
 	const containerRef = useRef<HTMLElement | null>(null)
@@ -219,9 +222,11 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		setContainerStyle(
 			options.execution === 'execute'
 				? CONTAINER_STYLE_SET.invisible
+				: renderConfig.appearance === 'interaction-only'
+				? CONTAINER_STYLE_SET.interactionOnly
 				: CONTAINER_STYLE_SET[widgetSize]
 		)
-	}, [options.execution, widgetSize])
+	}, [options.execution, widgetSize, renderConfig.appearance])
 
 	return (
 		<Container
