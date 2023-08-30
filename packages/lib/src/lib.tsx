@@ -1,4 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import Container from './container'
+import { RenderOptions, TurnstileInstance, TurnstileProps } from './types'
+import useObserveScript from './use-observe-script'
 import {
 	CONTAINER_STYLE_SET,
 	DEFAULT_CONTAINER_ID,
@@ -7,9 +10,6 @@ import {
 	getTurnstileSizeOpts,
 	injectTurnstileScript
 } from './utils'
-import { RenderOptions, TurnstileInstance, TurnstileProps } from './types'
-import Container from './container'
-import useObserveScript from './use-observe-script'
 
 export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProps>((props, ref) => {
 	const {
@@ -217,6 +217,14 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [renderConfigStringified, siteKey])
+
+	useEffect(() => {
+		return () => {
+			if (widgetId && window.turnstile) {
+				window.turnstile!.remove(widgetId)
+			}
+		}
+	}, [widgetId])
 
 	useEffect(() => {
 		setContainerStyle(
