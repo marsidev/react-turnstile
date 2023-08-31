@@ -6,8 +6,7 @@ export default function useObserveScript(scriptId = DEFAULT_SCRIPT_ID) {
 
 	useEffect(() => {
 		const checkScriptExists = () => {
-			const script = isScriptInjected(scriptId)
-			if (script) {
+			if (isScriptInjected(scriptId)) {
 				setScriptLoaded(true)
 			}
 		}

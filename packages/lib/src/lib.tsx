@@ -45,9 +45,9 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 	const scriptLoaded = useObserveScript(scriptId)
 	const containerId = id ?? DEFAULT_CONTAINER_ID
 
-	const onLoadCallbackName = `${
-		scriptOptions?.onLoadCallbackName || DEFAULT_ONLOAD_NAME
-	}#${containerId}`
+	const onLoadCallbackName = scriptOptions?.onLoadCallbackName
+		? `${scriptOptions.onLoadCallbackName}#${containerId}`
+		: DEFAULT_ONLOAD_NAME
 
 	const renderConfig = useMemo(
 		(): RenderOptions => ({
@@ -187,10 +187,10 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 	and set turnstileLoaded to true. Different from the case when handle the injection,
 	where we set turnstileLoaded in the script.onload callback */
 	useEffect(() => {
-		if (!injectScript && scriptLoaded && !turnstileLoaded && window.turnstile) {
+		if (scriptLoaded && !turnstileLoaded && window.turnstile) {
 			setTurnstileLoaded(true)
 		}
-	}, [injectScript, turnstileLoaded, scriptLoaded])
+	}, [turnstileLoaded, scriptLoaded])
 
 	useEffect(() => {
 		if (!siteKey) {

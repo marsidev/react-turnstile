@@ -2,8 +2,8 @@ import { ContainerSizeSet, InjectTurnstileScriptParams, RenderOptions } from './
 
 export const SCRIPT_URL = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
 export const DEFAULT_SCRIPT_ID = 'cf-turnstile-script'
-export const DEFAULT_ONLOAD_NAME = 'onloadTurnstileCallback'
 export const DEFAULT_CONTAINER_ID = 'cf-turnstile'
+export const DEFAULT_ONLOAD_NAME = `onloadTurnstileCallback#${DEFAULT_CONTAINER_ID}`
 
 /**
  * Function to check if script has already been injected
@@ -25,6 +25,10 @@ export const injectTurnstileScript = ({
 	scriptOptions: { nonce = '', defer = true, async = true, id = '', appendTo } = {}
 }: InjectTurnstileScriptParams) => {
 	const scriptId = id || DEFAULT_SCRIPT_ID
+
+	if (isScriptInjected(scriptId)) {
+		return
+	}
 
 	const script = document.createElement('script')
 	script.id = scriptId
