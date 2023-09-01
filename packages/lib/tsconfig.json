@@ -18,7 +18,8 @@
 		"noEmit": true,
 		"paths": {
 			"~/*": ["./*"]
-		}
+		},
+		"types": ["@testing-library/jest-dom"]
 	},
 	"include": ["src", "test", "*.config.ts"],
 	"exclude": ["node_modules"]
