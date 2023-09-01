@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
-import { DEFAULT_SCRIPT_ID, isScriptInjected } from './utils'
+import { DEFAULT_SCRIPT_ID, checkElementExistence } from './utils'
 
 export default function useObserveScript(scriptId = DEFAULT_SCRIPT_ID) {
 	const [scriptLoaded, setScriptLoaded] = useState(false)
 
 	useEffect(() => {
 		const checkScriptExists = () => {
-			const script = isScriptInjected(scriptId)
-			if (script) {
+			if (checkElementExistence(scriptId)) {
 				setScriptLoaded(true)
 			}
 		}

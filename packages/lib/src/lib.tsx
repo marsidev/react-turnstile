@@ -7,6 +7,7 @@ import {
 	DEFAULT_CONTAINER_ID,
 	DEFAULT_ONLOAD_NAME,
 	DEFAULT_SCRIPT_ID,
+	checkElementExistence,
 	getTurnstileSizeOpts,
 	injectTurnstileScript
 } from './utils'
@@ -41,13 +42,15 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 	const firstRendered = useRef(false)
 	const [widgetId, setWidgetId] = useState<string | undefined | null>()
 	const [turnstileLoaded, setTurnstileLoaded] = useState(false)
-	const scriptId = scriptOptions?.id || DEFAULT_SCRIPT_ID
-	const scriptLoaded = useObserveScript(scriptId)
 	const containerId = id ?? DEFAULT_CONTAINER_ID
+	const scriptId = injectScript
+		? scriptOptions?.id || `${DEFAULT_SCRIPT_ID}__${containerId}`
+		: scriptOptions?.id || DEFAULT_SCRIPT_ID
+	const scriptLoaded = useObserveScript(scriptId)
 
-	const onLoadCallbackName = `${
-		scriptOptions?.onLoadCallbackName || DEFAULT_ONLOAD_NAME
-	}#${containerId}`
+	const onLoadCallbackName = scriptOptions?.onLoadCallbackName
+		? `${scriptOptions.onLoadCallbackName}__${containerId}`
+		: `${DEFAULT_ONLOAD_NAME}__${containerId}`
 
 	const renderConfig = useMemo(
 		(): RenderOptions => ({
@@ -179,18 +182,22 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 
 	useEffect(() => {
 		if (injectScript && !turnstileLoaded) {
-			injectTurnstileScript({ onLoadCallbackName, scriptOptions })
+			injectTurnstileScript({
+				onLoadCallbackName,
+				scriptOptions: {
+					...scriptOptions,
+					id: scriptId
+				}
+			})
 		}
-	}, [injectScript, turnstileLoaded, onLoadCallbackName, scriptOptions])
+	}, [injectScript, turnstileLoaded, onLoadCallbackName, scriptOptions, scriptId])
 
-	/* if the script is injected by the user, we need to wait for turnstile to be loaded
-	and set turnstileLoaded to true. Different from the case when handle the injection,
-	where we set turnstileLoaded in the script.onload callback */
+	/* Set the turnstile as loaded, in case the onload callback never runs. (e.g., when manually injecting the script without specifying the `onload` param) */
 	useEffect(() => {
-		if (!injectScript && scriptLoaded && !turnstileLoaded && window.turnstile) {
+		if (scriptLoaded && !turnstileLoaded && window.turnstile) {
 			setTurnstileLoaded(true)
 		}
-	}, [injectScript, turnstileLoaded, scriptLoaded])
+	}, [turnstileLoaded, scriptLoaded])
 
 	useEffect(() => {
 		if (!siteKey) {
@@ -209,9 +216,13 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 
 	// re-render widget when renderConfig changes
 	useEffect(() => {
+		if (!window.turnstile) return
+
 		if (containerRef.current && widgetId) {
-			window.turnstile!.remove(widgetId)
-			const newWidgetId = window.turnstile!.render(containerRef.current, renderConfig)
+			if (checkElementExistence(widgetId)) {
+				window.turnstile.remove(widgetId)
+			}
+			const newWidgetId = window.turnstile.render(containerRef.current, renderConfig)
 			setWidgetId(newWidgetId)
 			firstRendered.current = true
 		}
@@ -219,10 +230,12 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 	}, [renderConfigStringified, siteKey])
 
 	useEffect(() => {
+		if (!window.turnstile) return
+		if (!widgetId) return
+		if (!checkElementExistence(widgetId)) return
+
 		return () => {
-			if (widgetId && window.turnstile) {
-				window.turnstile!.remove(widgetId)
-			}
+			window.turnstile!.remove(widgetId)
 		}
 	}, [widgetId])
 

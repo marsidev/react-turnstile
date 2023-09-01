@@ -42,7 +42,7 @@
 			"eslint --cache --fix",
 			"prettier --write --cache --ignore-unknown"
 		],
-		"**/*.{json}": [
+		"**/*.json": [
 			"prettier --write --cache --ignore-unknown"
 		]
 	},

@@ -2,16 +2,16 @@ import { ContainerSizeSet, InjectTurnstileScriptParams, RenderOptions } from './
 
 export const SCRIPT_URL = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
 export const DEFAULT_SCRIPT_ID = 'cf-turnstile-script'
-export const DEFAULT_ONLOAD_NAME = 'onloadTurnstileCallback'
 export const DEFAULT_CONTAINER_ID = 'cf-turnstile'
+export const DEFAULT_ONLOAD_NAME = 'onloadTurnstileCallback'
 
 /**
- * Function to check if script has already been injected
+ * Function to check if an element with the given id exists in the document.
  *
- * @param scriptId
+ * @param id Id of the element to check.
  * @returns
  */
-export const isScriptInjected = (scriptId: string) => !!document.querySelector(`#${scriptId}`)
+export const checkElementExistence = (id: string) => !!document.getElementById(id)
 
 /**
  * Function to inject the cloudflare turnstile script
@@ -26,10 +26,19 @@ export const injectTurnstileScript = ({
 }: InjectTurnstileScriptParams) => {
 	const scriptId = id || DEFAULT_SCRIPT_ID
 
+	if (checkElementExistence(scriptId)) {
+		return
+	}
+
 	const script = document.createElement('script')
 	script.id = scriptId
 
 	script.src = `${SCRIPT_URL}?onload=${onLoadCallbackName}&render=${render}`
+
+	// Prevent duplicate script injection with the same src
+	if (document.querySelector(`script[src="${script.src}"]`)) {
+		return
+	}
 
 	script.defer = !!defer
 	script.async = !!async
