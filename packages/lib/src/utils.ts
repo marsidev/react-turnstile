@@ -37,7 +37,6 @@ export const injectTurnstileScript = ({
 
 	// Prevent duplicate script injection with the same src
 	if (document.querySelector(`script[src="${script.src}"]`)) {
-		console.log('Script already loaded', { scriptSrc: script.src })
 		return
 	}
 

@@ -192,9 +192,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		}
 	}, [injectScript, turnstileLoaded, onLoadCallbackName, scriptOptions, scriptId])
 
-	/* if the script is injected by the user, we need to wait for turnstile to be loaded
-	and set turnstileLoaded to true. Different from the case when handle the injection,
-	where we set turnstileLoaded in the script.onload callback */
+	/* Set the turnstile as loaded, in case the onload callback never runs. (e.g., when manually injecting the script without specifying the `onload` param) */
 	useEffect(() => {
 		if (scriptLoaded && !turnstileLoaded && window.turnstile) {
 			setTurnstileLoaded(true)
@@ -218,11 +216,13 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 
 	// re-render widget when renderConfig changes
 	useEffect(() => {
+		if (!window.turnstile) return
+
 		if (containerRef.current && widgetId) {
 			if (checkElementExistence(widgetId)) {
-				window.turnstile!.remove(widgetId)
+				window.turnstile.remove(widgetId)
 			}
-			const newWidgetId = window.turnstile!.render(containerRef.current, renderConfig)
+			const newWidgetId = window.turnstile.render(containerRef.current, renderConfig)
 			setWidgetId(newWidgetId)
 			firstRendered.current = true
 		}
