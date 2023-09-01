@@ -10,13 +10,13 @@
 		"format:check": "npx prettier **/*.{js,mjs,cjs,ts,tsx,json} --check .",
 		"lib:build": "pnpm run --filter=@marsidev/react-turnstile build",
 		"lib:build:watch": "pnpm run --filter=@marsidev/react-turnstile build:watch",
-		"lint": "pnpm run -r lint",
-		"lint:fix": "pnpm run -r lint:fix",
+		"lint": "pnpm run --parallel lint",
+		"lint:fix": "pnpm run --parallel lint:fix",
 		"release": "pnpm run --filter=@marsidev/react-turnstile release",
 		"test": "pnpm run test:integration && pnpm run test:e2e",
 		"test:e2e": "playwright test",
 		"test:integration": "pnpm run --filter=@marsidev/react-turnstile test:integration",
-		"type-check": "pnpm run -r type-check"
+		"type-check": "pnpm run --parallel type-check"
 	},
 	"devDependencies": {
 		"@antfu/ni": "0.21.8",
