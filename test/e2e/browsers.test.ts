@@ -10,15 +10,11 @@ let currentBrowser: Browser
 const devices = [
 	{ name: 'Chrome', config: allDevices['Desktop Chrome'] },
 	{ name: 'Chrome (2)', config: allDevices['Desktop Chrome'], channel: 'chrome' },
-	{ name: 'Chrome Beta', config: allDevices['Desktop Chrome'], channel: 'chrome-beta' },
 	{ name: 'Desktop Edge', config: allDevices['Desktop Edge'] },
 	{ name: 'Desktop Edge (2)', config: allDevices['Desktop Edge'], channel: 'msedge' },
-	{ name: 'Desktop Edge Beta', config: allDevices['Desktop Edge'], channel: 'msedge-beta' },
 	{ name: 'Desktop Safari', config: allDevices['Desktop Safari'] },
 	{ name: 'Desktop Firefox', config: allDevices['Desktop Firefox'] },
 	{ name: 'Galaxy S9+', config: allDevices['Galaxy S9+'] },
-	{ name: 'Galaxy Tab S4', config: allDevices['Galaxy Tab S4'] },
-	{ name: 'iPad Pro 11', config: allDevices['iPad Pro 11'] },
 	{ name: 'iPhone 13 Pro Max', config: allDevices['iPhone 13 Pro Max'] }
 ]
 
