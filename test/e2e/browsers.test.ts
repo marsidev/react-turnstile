@@ -63,7 +63,9 @@ describe('Browsers', async () => {
 						const page = await context.newPage()
 						await page.goto('/')
 
-						await expect(page.locator(`#${DEFAULT_SCRIPT_ID}`)).toHaveCount(1)
+						await expect(
+							page.locator(`#${DEFAULT_SCRIPT_ID}__${DEFAULT_CONTAINER_ID}`)
+						).toHaveCount(1)
 						await expect(page.locator(`#${DEFAULT_CONTAINER_ID}`)).toHaveCount(1)
 						await ensureFrameVisible(page)
 						const iframe = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
