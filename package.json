@@ -2,7 +2,7 @@
 	"name": "root",
 	"version": "0.0.1",
 	"private": true,
-	"packageManager": "pnpm@8.6.11",
+	"packageManager": "pnpm@8.7.1",
 	"scripts": {
 		"demo": "pnpm run --filter=nextjs-demo dev",
 		"dev": "concurrently \"npm:lib:build:watch\" \"npm:demo\" -c auto,cyan",
@@ -19,20 +19,20 @@
 		"type-check": "pnpm run -r type-check"
 	},
 	"devDependencies": {
-		"@antfu/ni": "0.21.5",
-		"@antfu/utils": "0.7.5",
+		"@antfu/ni": "0.21.8",
+		"@antfu/utils": "0.7.6",
 		"@playwright/test": "1.31.2",
-		"@types/node": "20.4.5",
-		"@types/react": "18.2.18",
+		"@types/node": "20.5.7",
+		"@types/react": "18.2.21",
 		"@types/react-dom": "18.2.7",
-		"concurrently": "8.2.0",
+		"concurrently": "8.2.1",
 		"eslint-config-custom": "workspace:*",
-		"lint-staged": "13.2.3",
+		"lint-staged": "14.0.1",
 		"playwright": "1.31.2",
-		"pnpm": "8.6.11",
+		"pnpm": "8.7.1",
 		"prettier": "2.8.8",
 		"simple-git-hooks": "2.9.0",
-		"typescript": "5.1.6"
+		"typescript": "5.2.2"
 	},
 	"simple-git-hooks": {
 		"pre-commit": "pnpm lint-staged"
