@@ -6,5 +6,7 @@ export type {
 	TurnstileProps,
 	TurnstileInstance,
 	TurnstileServerValidationErrorCode,
-	TurnstileServerValidationResponse
+	TurnstileServerValidationResponse,
+	TurnstileTheme,
+	TurnstileLangCode
 } from './types'
