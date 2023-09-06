@@ -130,13 +130,13 @@ interface RenderOptions {
 	 *
 	 * @default `auto`
 	 */
-	theme?: 'light' | 'dark' | 'auto'
+	theme?: TurnstileTheme
 
 	/**
 	 * Language to display, must be either: `auto` (default) to use the language that the visitor has chosen, or an ISO 639-1 two-letter language code (e.g. `en`).
 	 * @default `auto`
 	 */
-	language?: 'auto' | LangCode
+	language?: 'auto' | TurnstileLangCode | (string & Record<never, never>)
 
 	/**
 	 * The tabindex of Turnstile’s iframe for accessibility purposes.
@@ -337,7 +337,7 @@ type ContainerSizeSet = {
 	[size in NonNullable<ComponentRenderOptions['size']> | 'interactionOnly']: React.CSSProperties
 }
 
-type LangCode =
+type TurnstileLangCode =
 	| 'ar'
 	| 'ar-EG'
 	| 'de'
@@ -357,6 +357,8 @@ type LangCode =
 	| 'tr'
 	| 'zh-CN'
 	| 'zh-TW'
+
+type TurnstileTheme = 'light' | 'dark' | 'auto'
 
 interface TurnstileServerValidationResponse {
 	/** Indicate if the token validation was successful or not. */
@@ -403,5 +405,7 @@ export type {
 	InjectTurnstileScriptParams,
 	ContainerSizeSet,
 	TurnstileServerValidationResponse,
-	TurnstileServerValidationErrorCode
+	TurnstileServerValidationErrorCode,
+	TurnstileTheme,
+	TurnstileLangCode
 }
