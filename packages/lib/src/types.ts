@@ -266,6 +266,11 @@ interface ScriptOptions {
 	 * @default `onloadTurnstileCallback`
 	 */
 	onLoadCallbackName?: string
+
+	/**
+	 * Called if script fails to load (e.g. Cloudflare has an outage).
+	 */
+	onError?: () => void
 }
 
 /** `<Turnstile />` component props */
