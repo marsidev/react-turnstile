@@ -268,7 +268,7 @@ interface ScriptOptions {
 	onLoadCallbackName?: string
 
 	/**
-	 * Called if script fails to load (e.g. Cloudflare has an outage).
+	 * Callback invoked when script fails to load (e.g. Cloudflare has an outage).
 	 */
 	onError?: () => void
 }
