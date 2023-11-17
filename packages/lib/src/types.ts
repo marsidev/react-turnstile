@@ -271,6 +271,12 @@ interface ScriptOptions {
 	 * Callback invoked when script fails to load (e.g. Cloudflare has an outage).
 	 */
 	onError?: () => void
+
+	/**
+	 * Custom crossOrigin for the injected script.
+	 * @default undefined
+	 */
+	crossOrigin?: string
 }
 
 /** `<Turnstile />` component props */

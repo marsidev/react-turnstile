@@ -22,7 +22,15 @@ export const checkElementExistence = (id: string) => !!document.getElementById(i
 export const injectTurnstileScript = ({
 	render = 'explicit',
 	onLoadCallbackName = DEFAULT_ONLOAD_NAME,
-	scriptOptions: { nonce = '', defer = true, async = true, id = '', appendTo, onError } = {}
+	scriptOptions: {
+		nonce = '',
+		defer = true,
+		async = true,
+		id = '',
+		appendTo,
+		onError,
+		crossOrigin = ''
+	} = {}
 }: InjectTurnstileScriptParams) => {
 	const scriptId = id || DEFAULT_SCRIPT_ID
 
@@ -45,6 +53,10 @@ export const injectTurnstileScript = ({
 
 	if (nonce) {
 		script.nonce = nonce
+	}
+
+	if (crossOrigin) {
+		script.crossOrigin = crossOrigin
 	}
 
 	if (onError) {
