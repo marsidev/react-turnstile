@@ -336,6 +336,11 @@ interface TurnstileProps extends React.HTMLAttributes<HTMLDivElement> {
 	 * Controls if the script is automatically injected or not. If you want to inject the script manually, set this property to `false`. Default to `true`.
 	 */
 	injectScript?: boolean
+
+	/**
+	 * Callback invoked when the script is injected and loaded.
+	 */
+	onLoadScript?: () => void
 }
 
 interface InjectTurnstileScriptParams {

@@ -23,6 +23,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		onBeforeInteractive,
 		onAfterInteractive,
 		onUnsupported,
+		onLoadScript,
 		id,
 		style,
 		as = 'div',
@@ -248,6 +249,13 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 				: CONTAINER_STYLE_SET[widgetSize]
 		)
 	}, [options.execution, widgetSize, renderConfig.appearance])
+
+	// onLoadScript callback
+	useEffect(() => {
+		if (!scriptLoaded || typeof onLoadScript !== 'function') return
+
+		onLoadScript()
+	}, [scriptLoaded, onLoadScript])
 
 	return (
 		<Container
