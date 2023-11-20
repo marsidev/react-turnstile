@@ -165,6 +165,15 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 
 					turnstile.execute(containerRef.current, renderConfig)
 					setContainerStyle(CONTAINER_STYLE_SET[widgetSize])
+				},
+
+				isExpired() {
+					if (!turnstile?.isExpired || !widgetId) {
+						console.warn('Turnstile has not been loaded')
+						return
+					}
+
+					return turnstile.isExpired(widgetId)
 				}
 			}
 		},

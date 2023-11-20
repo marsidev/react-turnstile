@@ -39,6 +39,13 @@ interface _Turnstile {
 	 * @returns The token response.
 	 */
 	getResponse: (id?: string) => string | undefined
+
+	/**
+	 * Check if a widget is expired.
+	 * @param id -  Optional. ID of the widget to check, if not provided will target the last rendered widget.
+	 * @returns `true` if the widget is expired, `false` otherwise.
+	 */
+	isExpired: (id?: string) => boolean
 }
 
 /* Same as _Turnstile but without custom widget IDs. */
@@ -69,6 +76,12 @@ interface TurnstileInstance {
 	 * @returns The token response.
 	 */
 	getResponse: () => string | undefined
+
+	/**
+	 * Check if the current rendered widget is expired.
+	 * @returns `true` if the widget is expired, `false` otherwise.
+	 */
+	isExpired: () => boolean | undefined
 }
 
 interface RenderOptions {
