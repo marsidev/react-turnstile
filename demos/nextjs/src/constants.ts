@@ -16,7 +16,11 @@ export const langOptions = [
 	{ label: 'Português', value: 'pt' },
 	{ label: 'Português (Brasil)', value: 'pt-BR' },
 	{ label: 'Русский', value: 'ru' },
+	{ label: 'tlhIngan Hol', value: 'tlh' },
 	{ label: 'Türkçe', value: 'tr' },
+	{ label: 'українська', value: 'uk' },
+	{ label: 'українська (Україна)', value: 'uk-UA' },
+	{ label: '中文', value: 'zh' },
 	{ label: '中文（简体）', value: 'zh-CN' },
 	{ label: '繁體中文', value: 'zh-TW' }
 ] as const

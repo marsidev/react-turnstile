@@ -39,6 +39,13 @@ interface _Turnstile {
 	 * @returns The token response.
 	 */
 	getResponse: (id?: string) => string | undefined
+
+	/**
+	 * Check if a widget is expired.
+	 * @param id -  Optional. ID of the widget to check, if not provided will target the last rendered widget.
+	 * @returns `true` if the widget is expired, `false` otherwise.
+	 */
+	isExpired: (id?: string) => boolean
 }
 
 /* Same as _Turnstile but without custom widget IDs. */
@@ -69,6 +76,12 @@ interface TurnstileInstance {
 	 * @returns The token response.
 	 */
 	getResponse: () => string | undefined
+
+	/**
+	 * Check if the current rendered widget is expired.
+	 * @returns `true` if the widget is expired, `false` otherwise.
+	 */
+	isExpired: () => boolean | undefined
 }
 
 interface RenderOptions {
@@ -96,7 +109,7 @@ interface RenderOptions {
 	callback?: (token: string) => void
 
 	/**
-	 * Callback invoked when there is an error (e.g. network error or the challenge failed).
+	 * Callback invoked when there is an error (e.g. network error or the challenge failed). Refer to [Client-side errors](https://developers.cloudflare.com/turnstile/reference/client-side-errors).
 	 */
 	'error-callback'?: () => void
 
@@ -133,7 +146,7 @@ interface RenderOptions {
 	theme?: TurnstileTheme
 
 	/**
-	 * Language to display, must be either: `auto` (default) to use the language that the visitor has chosen, or an ISO 639-1 two-letter language code (e.g. `en`).
+	 * Language to display, must be either: `auto` (default) to use the language that the visitor has chosen, or an ISO 639-1 two-letter language code (e.g. `en`) or language and country code (e.g. `en-US`). Refer to the [list of supported languages](https://developers.cloudflare.com/turnstile/reference/supported-languages/) for more information.
 	 * @default `auto`
 	 */
 	language?: 'auto' | TurnstileLangCode | (string & Record<never, never>)
@@ -336,6 +349,11 @@ interface TurnstileProps extends React.HTMLAttributes<HTMLDivElement> {
 	 * Controls if the script is automatically injected or not. If you want to inject the script manually, set this property to `false`. Default to `true`.
 	 */
 	injectScript?: boolean
+
+	/**
+	 * Callback invoked when the script is injected and loaded.
+	 */
+	onLoadScript?: () => void
 }
 
 interface InjectTurnstileScriptParams {
@@ -365,7 +383,11 @@ type TurnstileLangCode =
 	| 'pt'
 	| 'pt-BR'
 	| 'ru'
+	| 'tlh'
 	| 'tr'
+	| 'uk'
+	| 'uk-ua'
+	| 'zh'
 	| 'zh-CN'
 	| 'zh-TW'
 
