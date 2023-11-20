@@ -57,3 +57,4 @@ These are the props you can pass to the `Turnstile` component.
 | `appendTo`           | string   | `'head'`                    | Define if inject the script in the head or in the body.  This option has no effect if `injectScript` is set to false. |
 | `onLoadCallbackName` | string   | `'onloadTurnstileCallback'` | Custom name of the onload callback.  This option has no effect if `injectScript` is set to false.                     |
 | `onError`            | function | `undefined`                 | Callback invoked when script fails to load (e.g. Cloudflare has an outage).                                           |
+| `crossOrigin`        | string   | `undefined`                 | Custom crossOrigin for the injected script.                                                                           |
