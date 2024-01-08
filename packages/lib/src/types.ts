@@ -300,6 +300,11 @@ interface TurnstileProps extends React.HTMLAttributes<HTMLDivElement> {
 	siteKey: RenderOptions['sitekey']
 
 	/**
+	 * Callback invoked when the widget is loaded or reloaded (e.g. after a reset).
+	 */
+	onWidgetLoad?: (widgetID: string) => void
+
+	/**
 	 * Callback invoked upon success of the challenge. The callback is passed a token that can be validated.
 	 * @param token - Token response.
 	 */

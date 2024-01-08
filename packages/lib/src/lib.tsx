@@ -17,6 +17,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		scriptOptions,
 		options = {},
 		siteKey,
+		onWidgetLoad,
 		onSuccess,
 		onExpire,
 		onError,
@@ -244,10 +245,12 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		if (!widgetId) return
 		if (!checkElementExistence(widgetId)) return
 
+		onWidgetLoad?.(widgetId)
+
 		return () => {
 			window.turnstile!.remove(widgetId)
 		}
-	}, [widgetId])
+	}, [widgetId, onWidgetLoad])
 
 	useEffect(() => {
 		setContainerStyle(
