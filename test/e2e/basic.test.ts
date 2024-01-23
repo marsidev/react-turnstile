@@ -71,12 +71,25 @@ test('widget can be reset', async () => {
 })
 
 test('can get the token', async () => {
-	page.on('dialog', async dialog => {
+	page.once('dialog', async dialog => {
 		expect(dialog.message()).toContain(demoToken)
 		await dialog.accept()
 	})
 
-	await page.locator('button', { hasText: 'Get response' }).click()
+	await page.getByRole('button', { name: 'Get response', exact: true }).click()
+})
+
+test('can get the token using the promise method', async () => {
+	page.once('dialog', async dialog => {
+		expect(dialog.message()).toContain(demoToken)
+		await dialog.accept()
+	})
+
+	await page.locator('button', { hasText: 'Remove' }).click()
+	await ensureFrameHidden(page)
+	await page.locator('button', { hasText: 'Render' }).click()
+
+	await page.getByRole('button', { name: 'Get response (promise)', exact: true }).click()
 })
 
 test('widget can be sized', async () => {
