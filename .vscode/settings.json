@@ -1,19 +1,25 @@
 {
-	"eslint.packageManager": "pnpm",
-	"eslint.workingDirectories": ["./packages/lib", "./demos/nextjs"],
+	"eslint.workingDirectories": [
+		"./packages/lib",
+		"./demos/nextjs"
+	],
 	"editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
+		"source.fixAll.eslint": "explicit"
+	},
 	"editor.formatOnSave": true,
-  "eslint.options": {
-    "extensions": [".js", ".ts", ".tsx"]
-  },
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
+	"eslint.options": {
+		"extensions": [
+			".js",
+			".ts",
+			".tsx"
+		]
+	},
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact"
+	],
 	"editor.insertSpaces": false,
-  "editor.detectIndentation": false
+	"editor.detectIndentation": false
 }
