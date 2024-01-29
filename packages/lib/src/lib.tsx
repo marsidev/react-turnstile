@@ -1,4 +1,12 @@
-import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import {
+	forwardRef,
+	useCallback,
+	useEffect,
+	useImperativeHandle,
+	useMemo,
+	useRef,
+	useState
+} from 'react'
 import Container from './container'
 import { RenderOptions, TurnstileInstance, TurnstileProps } from './types'
 import useObserveScript from './use-observe-script'
@@ -42,8 +50,9 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 	)
 	const containerRef = useRef<HTMLElement | null>(null)
 	const firstRendered = useRef(false)
-	const [widgetId, setWidgetId] = useState<string | undefined | null>()
 	const [turnstileLoaded, setTurnstileLoaded] = useState(false)
+	const widgetId = useRef<string | undefined | null>()
+	const widgetSolved = useRef(false)
 	const containerId = id ?? DEFAULT_CONTAINER_ID
 	const scriptId = injectScript
 		? scriptOptions?.id || `${DEFAULT_SCRIPT_ID}__${containerId}`
@@ -59,7 +68,10 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			sitekey: siteKey,
 			action: options.action,
 			cData: options.cData,
-			callback: onSuccess,
+			callback: token => {
+				widgetSolved.current = true
+				onSuccess?.(token)
+			},
 			'error-callback': onError,
 			'expired-callback': onExpire,
 			'before-interactive-callback': onBeforeInteractive,
@@ -92,26 +104,63 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 
 	const renderConfigStringified = useMemo(() => JSON.stringify(renderConfig), [renderConfig])
 
+	const checkIfTurnstileLoaded = useCallback(() => {
+		return typeof window !== 'undefined' && !!window.turnstile
+	}, [])
+
 	useImperativeHandle(
 		ref,
 		() => {
-			if (typeof window === 'undefined' || !scriptLoaded) {
-				return
-			}
-
 			const { turnstile } = window
 			return {
 				getResponse() {
-					if (!turnstile?.getResponse || !widgetId) {
+					if (!turnstile?.getResponse || !widgetId.current || !checkIfTurnstileLoaded()) {
 						console.warn('Turnstile has not been loaded')
 						return
 					}
 
-					return turnstile.getResponse(widgetId)
+					return turnstile.getResponse(widgetId.current)
+				},
+
+				async getResponsePromise(timeout = 30000, retry = 100) {
+					return new Promise((resolve, reject) => {
+						let timeoutId: ReturnType<typeof setTimeout> | undefined
+
+						const checkLoaded = async () => {
+							if (widgetSolved.current && window.turnstile && widgetId.current) {
+								try {
+									const token = window.turnstile.getResponse(widgetId.current)
+									if (timeoutId) clearTimeout(timeoutId)
+
+									if (token) {
+										return resolve(token)
+									}
+
+									return reject(new Error('No response received'))
+								} catch (error) {
+									if (timeoutId) clearTimeout(timeoutId)
+									console.warn('Failed to get response', error)
+									return reject(new Error('Failed to get response'))
+								}
+							}
+
+							if (!timeoutId) {
+								timeoutId = setTimeout(() => {
+									if (timeoutId) clearTimeout(timeoutId)
+									reject(new Error('Timeout'))
+								}, timeout)
+							}
+
+							await new Promise(resolve => setTimeout(resolve, retry))
+							await checkLoaded()
+						}
+
+						checkLoaded()
+					})
 				},
 
 				reset() {
-					if (!turnstile?.reset || !widgetId) {
+					if (!turnstile?.reset || !widgetId.current || !checkIfTurnstileLoaded()) {
 						console.warn('Turnstile has not been loaded')
 						return
 					}
@@ -121,31 +170,39 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 					}
 
 					try {
-						turnstile.reset(widgetId)
+						console.log('resetting...')
+						widgetSolved.current = false
+						turnstile.reset(widgetId.current)
 					} catch (error) {
 						console.warn(`Failed to reset Turnstile widget ${widgetId}`, error)
 					}
 				},
 
 				remove() {
-					if (!turnstile?.remove || !widgetId) {
+					if (!turnstile?.remove || !widgetId.current || !checkIfTurnstileLoaded()) {
 						console.warn('Turnstile has not been loaded')
 						return
 					}
 
-					setWidgetId('')
 					setContainerStyle(CONTAINER_STYLE_SET.invisible)
-					turnstile.remove(widgetId)
+					widgetSolved.current = false
+					turnstile.remove(widgetId.current)
+					widgetId.current = null
 				},
 
 				render() {
-					if (!turnstile?.render || !containerRef.current || widgetId) {
+					if (
+						!turnstile?.render ||
+						!containerRef.current ||
+						!checkIfTurnstileLoaded() ||
+						widgetId.current
+					) {
 						console.warn('Turnstile has not been loaded or widget already rendered')
 						return
 					}
 
 					const id = turnstile.render(containerRef.current, renderConfig)
-					setWidgetId(id)
+					widgetId.current = id
 
 					if (options.execution !== 'execute') {
 						setContainerStyle(CONTAINER_STYLE_SET[widgetSize])
@@ -159,7 +216,12 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 						return
 					}
 
-					if (!turnstile?.execute || !containerRef.current || !widgetId) {
+					if (
+						!turnstile?.execute ||
+						!containerRef.current ||
+						!widgetId.current ||
+						!checkIfTurnstileLoaded()
+					) {
 						console.warn('Turnstile has not been loaded or widget has not been rendered')
 						return
 					}
@@ -169,16 +231,16 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 				},
 
 				isExpired() {
-					if (!turnstile?.isExpired || !widgetId) {
+					if (!turnstile?.isExpired || !widgetId.current || !checkIfTurnstileLoaded()) {
 						console.warn('Turnstile has not been loaded')
 						return
 					}
 
-					return turnstile.isExpired(widgetId)
+					return turnstile.isExpired(widgetId.current)
 				}
 			}
 		},
-		[scriptLoaded, widgetId, options.execution, widgetSize, renderConfig, containerRef]
+		[widgetId, options.execution, widgetSize, renderConfig, containerRef, checkIfTurnstileLoaded]
 	)
 
 	useEffect(() => {
@@ -221,7 +283,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		}
 
 		const id = window.turnstile!.render(containerRef.current, renderConfig)
-		setWidgetId(id)
+		widgetId.current = id
 		firstRendered.current = true
 	}, [scriptLoaded, siteKey, renderConfig, firstRendered, turnstileLoaded])
 
@@ -229,12 +291,12 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 	useEffect(() => {
 		if (!window.turnstile) return
 
-		if (containerRef.current && widgetId) {
-			if (checkElementExistence(widgetId)) {
-				window.turnstile.remove(widgetId)
+		if (containerRef.current && widgetId.current) {
+			if (checkElementExistence(widgetId.current)) {
+				window.turnstile.remove(widgetId.current)
 			}
 			const newWidgetId = window.turnstile.render(containerRef.current, renderConfig)
-			setWidgetId(newWidgetId)
+			widgetId.current = newWidgetId
 			firstRendered.current = true
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -242,13 +304,13 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 
 	useEffect(() => {
 		if (!window.turnstile) return
-		if (!widgetId) return
-		if (!checkElementExistence(widgetId)) return
+		if (!widgetId.current) return
+		if (!checkElementExistence(widgetId.current)) return
 
-		onWidgetLoad?.(widgetId)
+		onWidgetLoad?.(widgetId.current)
 
 		return () => {
-			window.turnstile!.remove(widgetId)
+			if (widgetId.current && window.turnstile) window.turnstile!.remove(widgetId.current)
 		}
 	}, [widgetId, onWidgetLoad])
 
