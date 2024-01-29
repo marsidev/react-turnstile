@@ -39,7 +39,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		injectScript = true,
 		...divProps
 	} = props
-	const widgetSize = options.size ?? 'normal'
+	const widgetSize = options.size || 'normal'
 
 	const [containerStyle, setContainerStyle] = useState(
 		options.execution === 'execute'
@@ -53,7 +53,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 	const [turnstileLoaded, setTurnstileLoaded] = useState(false)
 	const widgetId = useRef<string | undefined | null>()
 	const widgetSolved = useRef(false)
-	const containerId = id ?? DEFAULT_CONTAINER_ID
+	const containerId = id || DEFAULT_CONTAINER_ID
 	const scriptId = injectScript
 		? scriptOptions?.id || `${DEFAULT_SCRIPT_ID}__${containerId}`
 		: scriptOptions?.id || DEFAULT_SCRIPT_ID
@@ -77,17 +77,17 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			'before-interactive-callback': onBeforeInteractive,
 			'after-interactive-callback': onAfterInteractive,
 			'unsupported-callback': onUnsupported,
-			theme: options.theme ?? 'auto',
-			language: options.language ?? 'auto',
+			theme: options.theme || 'auto',
+			language: options.language || 'auto',
 			tabindex: options.tabIndex,
 			'response-field': options.responseField,
 			'response-field-name': options.responseFieldName,
 			size: getTurnstileSizeOpts(widgetSize),
-			retry: options.retry ?? 'auto',
-			'retry-interval': options.retryInterval ?? 8000,
-			'refresh-expired': options.refreshExpired ?? 'auto',
-			execution: options.execution ?? 'render',
-			appearance: options.appearance ?? 'always'
+			retry: options.retry || 'auto',
+			'retry-interval': options.retryInterval || 8000,
+			'refresh-expired': options.refreshExpired || 'auto',
+			execution: options.execution || 'render',
+			appearance: options.appearance || 'always'
 		}),
 		[
 			siteKey,
