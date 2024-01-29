@@ -83,11 +83,27 @@ test('widget can be reset', async () => {
 })
 
 test('can get the token', async () => {
-	page.on('dialog', async dialog => {
+	page.once('dialog', async dialog => {
 		expect(dialog.message()).toContain(demoToken)
 		await dialog.accept()
 	})
 
-	await page.locator('button', { hasText: 'Get response' }).first().click()
-	await page.locator('button', { hasText: 'Get response' }).last().click()
+	await page.getByRole('button', { name: 'Get response', exact: true }).first().click()
+	await page.getByRole('button', { name: 'Get response', exact: true }).last().click()
+})
+
+test('can get the token using the promise method', async () => {
+	page.once('dialog', async dialog => {
+		expect(dialog.message()).toContain(demoToken)
+		await dialog.accept()
+	})
+
+	await page.locator('button', { hasText: 'Remove' }).first().click()
+	await page.locator('button', { hasText: 'Remove' }).last().click()
+	await expect(page.locator('iframe')).toHaveCount(0)
+	await page.locator('button', { hasText: 'Render' }).first().click()
+	await page.locator('button', { hasText: 'Render' }).last().click()
+
+	await page.getByRole('button', { name: 'Get response (promise)', exact: true }).first().click()
+	await page.getByRole('button', { name: 'Get response (promise)', exact: true }).last().click()
 })

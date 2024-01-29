@@ -78,6 +78,14 @@ interface TurnstileInstance {
 	getResponse: () => string | undefined
 
 	/**
+	 * Method to get the token of the current rendered widget as a promise, it waits until the widget is rendered and solved.
+	 * @param timeout - Optional. Timeout in milliseconds. Default to 30000.
+	 * @param retry - Optional. Retry interval in milliseconds. Default to 250.
+	 * @returns The token response.
+	 */
+	getResponsePromise: (timeout?: number, retry?: number) => Promise<string>
+
+	/**
 	 * Check if the current rendered widget is expired.
 	 * @returns `true` if the widget is expired, `false` otherwise.
 	 */
