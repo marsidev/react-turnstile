@@ -1,2 +1,3 @@
-- packages/*
-- demos/*
+packages:
+  - 'packages/*'
+  - 'demos/*'
