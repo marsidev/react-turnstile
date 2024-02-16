@@ -99,7 +99,8 @@ export const CONTAINER_STYLE_SET: ContainerSizeSet = {
 	},
 	interactionOnly: {
 		width: 'fit-content',
-		height: 'auto'
+		height: 'auto',
+		display: 'flex'
 	}
 }
 
