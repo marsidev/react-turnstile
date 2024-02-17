@@ -422,7 +422,7 @@ interface TurnstileServerValidationResponse {
 	/** Whether or not an interactive challenge was issued by Cloudflare */
 	metadata?: { interactive: boolean }
 	/** Error messages returned */
-	messages?: []
+	messages?: string[]
 }
 
 /**
