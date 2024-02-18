@@ -410,7 +410,7 @@ interface TurnstileServerValidationResponse {
 	/** Indicate if the token validation was successful or not. */
 	success: boolean
 	/** A list of errors that occurred. */
-	'error-codes': TurnstileServerValidationErrorCode[] | []
+	'error-codes': TurnstileServerValidationErrorCode[]
 	/** The ISO timestamp for the time the challenge was solved. */
 	challenge_ts?: string
 	/** The hostname for which the challenge was served. */
