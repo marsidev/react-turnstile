@@ -409,16 +409,20 @@ type TurnstileTheme = 'light' | 'dark' | 'auto'
 interface TurnstileServerValidationResponse {
 	/** Indicate if the token validation was successful or not. */
 	success: boolean
+	/** A list of errors that occurred. */
+	'error-codes': TurnstileServerValidationErrorCode[]
 	/** The ISO timestamp for the time the challenge was solved. */
 	challenge_ts?: string
 	/** The hostname for which the challenge was served. */
 	hostname?: string
-	/** A list of errors that occurred. */
-	'error-codes'?: TurnstileServerValidationErrorCode[]
 	/** The customer widget identifier passed to the widget on the client side. This is used to differentiate widgets using the same sitekey in analytics. Its integrity is protected by modifications from an attacker. It is recommended to validate that the action matches an expected value. */
 	action?: string
 	/** The customer data passed to the widget on the client side. This can be used by the customer to convey state. It is integrity protected by modifications from an attacker. */
 	cdata?: string
+	/** Whether or not an interactive challenge was issued by Cloudflare */
+	metadata?: { interactive: boolean }
+	/** Error messages returned */
+	messages?: string[]
 }
 
 /**
