@@ -1,6 +1,6 @@
 <div align="center">
  <h1>React Turnstile</h1>
- <img src="preview.png" width="300" />
+ <img src="preview.png" width="300" alt="Cloudflare Turnstile widget" />
  <p><a href="https://developers.cloudflare.com/turnstile/">Cloudflare Turnstile</a> integration for React.</p>
  <a href="https://npm.im/@marsidev/react-turnstile">
   <img src="https://badgen.net/npm/v/@marsidev/react-turnstile?style=flat-square" alt="npm version" />
@@ -66,6 +66,12 @@ Any contributions are greatly appreciated. If you have a suggestion that would m
 * You can use `pnpm dev` to start the demo page in dev mode, which also rebuild the library when file changes are detected in the `packages/lib` folder.
 
 > The library is written under the `packages/lib` folder, the demo page is under the `demos/nextjs` folder and the docs are under the `docs` folder.
+
+## Contributors
+
+<a href="https://github.com/marsidev/react-turnstile/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=marsidev/react-turnstile" alt="Contributors" />
+</a>
 
 ## Credits
 
