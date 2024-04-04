@@ -240,7 +240,16 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 				}
 			}
 		},
-		[widgetId, options.execution, widgetSize, renderConfig, containerRef, checkIfTurnstileLoaded, turnstileLoaded]
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[
+			widgetId,
+			options.execution,
+			widgetSize,
+			renderConfig,
+			containerRef,
+			checkIfTurnstileLoaded,
+			turnstileLoaded
+		]
 	)
 
 	useEffect(() => {
