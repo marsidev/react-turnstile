@@ -240,7 +240,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 				}
 			}
 		},
-		[widgetId, options.execution, widgetSize, renderConfig, containerRef, checkIfTurnstileLoaded]
+		[widgetId, options.execution, widgetSize, renderConfig, containerRef, checkIfTurnstileLoaded, turnstileLoaded]
 	)
 
 	useEffect(() => {
