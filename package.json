@@ -2,7 +2,7 @@
 	"name": "root",
 	"version": "0.0.1",
 	"private": true,
-	"packageManager": "pnpm@8.7.1",
+	"packageManager": "pnpm@8.15.6",
 	"scripts": {
 		"demo": "pnpm run --filter=nextjs-demo dev",
 		"dev": "concurrently \"npm:lib:build:watch\" \"npm:demo\" -c auto,cyan",
@@ -19,20 +19,20 @@
 		"type-check": "pnpm run --parallel type-check"
 	},
 	"devDependencies": {
-		"@antfu/ni": "0.21.8",
-		"@antfu/utils": "0.7.6",
-		"@playwright/test": "1.31.2",
-		"@types/node": "20.5.7",
-		"@types/react": "18.2.21",
-		"@types/react-dom": "18.2.7",
-		"concurrently": "8.2.1",
+		"@antfu/ni": "0.21.12",
+		"@antfu/utils": "0.7.7",
+		"@playwright/test": "1.43.0",
+		"@types/node": "20.12.7",
+		"@types/react": "18.2.75",
+		"@types/react-dom": "18.2.24",
+		"concurrently": "8.2.2",
 		"eslint-config-custom": "workspace:*",
-		"lint-staged": "14.0.1",
-		"playwright": "1.31.2",
-		"pnpm": "8.7.1",
-		"prettier": "2.8.8",
-		"simple-git-hooks": "2.9.0",
-		"typescript": "5.2.2"
+		"lint-staged": "15.2.2",
+		"playwright": "1.43.0",
+		"pnpm": "8.15.6",
+		"prettier": "3.2.5",
+		"simple-git-hooks": "2.11.1",
+		"typescript": "5.4.5"
 	},
 	"simple-git-hooks": {
 		"pre-commit": "pnpm lint-staged"

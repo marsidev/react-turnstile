@@ -42,14 +42,14 @@
 		"react-dom": ">=16.8.0"
 	},
 	"devDependencies": {
-		"@testing-library/jest-dom": "^6.1.2",
-		"@testing-library/react": "^14.0.0",
-		"@types/jest": "^29.5.4",
-		"bumpp": "9.2.0",
-		"jsdom": "^22.1.0",
-		"nodemon": "3.0.1",
+		"@testing-library/jest-dom": "6.4.2",
+		"@testing-library/react": "15.0.0",
+		"@types/jest": "29.5.12",
+		"bumpp": "9.4.0",
+		"jsdom": "24.0.0",
+		"nodemon": "3.1.0",
 		"unbuild": "0.8.9",
-		"vitest": "^0.34.3"
+		"vitest": "1.4.0"
 	},
 	"keywords": [
 		"cloudflare-turnstile",
