@@ -8,7 +8,7 @@ type Props<Tag extends ElementType> = {
 type ComponentProps<Tag extends ElementType = 'div'> = Tag extends keyof JSX.IntrinsicElements
 	? Props<Tag>
 	: // eslint-disable-next-line @typescript-eslint/no-explicit-any
-	  Props<any>
+		Props<any>
 
 const Component = <Tag extends ElementType = 'div'>(
 	{ as: Element = 'div', ...props }: ComponentProps<Tag>,
