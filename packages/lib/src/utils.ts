@@ -1,4 +1,4 @@
-import { ContainerSizeSet, InjectTurnstileScriptParams, RenderOptions } from './types'
+import type { ContainerSizeSet, InjectTurnstileScriptParams, RenderOptions } from './types'
 
 export const SCRIPT_URL = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
 export const DEFAULT_SCRIPT_ID = 'cf-turnstile-script'
@@ -19,7 +19,7 @@ export const checkElementExistence = (id: string) => !!document.getElementById(i
  * @param param0
  * @returns
  */
-export const injectTurnstileScript = ({
+export function injectTurnstileScript({
 	render = 'explicit',
 	onLoadCallbackName = DEFAULT_ONLOAD_NAME,
 	scriptOptions: {
@@ -31,7 +31,7 @@ export const injectTurnstileScript = ({
 		onError,
 		crossOrigin = ''
 	} = {}
-}: InjectTurnstileScriptParams) => {
+}: InjectTurnstileScriptParams) {
 	const scriptId = id || DEFAULT_SCRIPT_ID
 
 	if (checkElementExistence(scriptId)) {

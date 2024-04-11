@@ -8,7 +8,7 @@ import {
 	useState
 } from 'react'
 import Container from './container'
-import { RenderOptions, TurnstileInstance, TurnstileProps } from './types'
+import type { RenderOptions, TurnstileInstance, TurnstileProps } from './types'
 import useObserveScript from './use-observe-script'
 import {
 	CONTAINER_STYLE_SET,

@@ -7,7 +7,7 @@ function resetDom() {
 	document.head.innerHTML = ''
 }
 
-describe('Basic setup', () => {
+describe('basic setup', () => {
 	beforeAll(() => {
 		render(<Turnstile siteKey={DEMO_SITEKEY.pass} />)
 	})
@@ -40,7 +40,7 @@ describe('Basic setup', () => {
 	})
 })
 
-describe('Manual script injection', () => {
+describe('manual script injection', () => {
 	beforeAll(() => {
 		render(<Turnstile injectScript={false} siteKey={DEMO_SITEKEY.pass} />)
 	})

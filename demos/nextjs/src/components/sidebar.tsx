@@ -2,13 +2,13 @@
 
 import { SidebarClose } from 'lucide-react'
 import { useAtom } from 'jotai'
+import Footer from './footer'
+import { Button } from './button'
 import Link from '~/components/sidebar-link'
 import { mobileNavExpandedAtom } from '~/store'
 import { pages } from '~/constants'
 import { useBreakpoint } from '~/hooks/use-breakpoint'
 import { cn } from '~/utils'
-import Footer from './footer'
-import { Button } from './button'
 
 export default function Sidebar() {
 	const [mobileNavExpanded, setMobileNavExpanded] = useAtom(mobileNavExpandedAtom)

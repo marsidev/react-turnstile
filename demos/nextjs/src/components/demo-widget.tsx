@@ -4,12 +4,12 @@ import type { TurnstileInstance, TurnstileProps } from '@marsidev/react-turnstil
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { Turnstile } from '@marsidev/react-turnstile'
 import { useTheme } from 'next-themes'
-import { Lang, SiteKeyType, Theme, WidgetSize, WidgetStatus } from '~/types'
-import { DEMO_SITEKEY } from '~/constants'
 import ConfigForm from './config-form'
 import StateLabels from './state-labels'
 import WidgetMethods from './widget-methods'
 import TokenValidation from './token-validation'
+import { DEMO_SITEKEY } from '~/constants'
+import type { Lang, SiteKeyType, Theme, WidgetSize, WidgetStatus } from '~/types'
 
 interface Props extends Omit<TurnstileProps, 'siteKey'> {
 	initialTheme?: Theme

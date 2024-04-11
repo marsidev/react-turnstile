@@ -12,6 +12,7 @@
 		"lib:build:watch": "pnpm run --filter=@marsidev/react-turnstile build:watch",
 		"lint": "pnpm run --parallel lint",
 		"lint:fix": "pnpm run --parallel lint:fix",
+		"lint:inspect": "npx @eslint/config-inspector",
 		"release": "pnpm run --filter=@marsidev/react-turnstile release",
 		"test": "pnpm run test:integration && pnpm run test:e2e",
 		"test:e2e": "playwright test",
@@ -19,6 +20,7 @@
 		"type-check": "pnpm run --parallel type-check"
 	},
 	"devDependencies": {
+		"@antfu/eslint-config": "2.13.3",
 		"@antfu/ni": "0.21.12",
 		"@antfu/utils": "0.7.7",
 		"@playwright/test": "1.43.0",
@@ -26,7 +28,7 @@
 		"@types/react": "18.2.75",
 		"@types/react-dom": "18.2.24",
 		"concurrently": "8.2.2",
-		"eslint-config-custom": "workspace:*",
+		"eslint": "8.57.0",
 		"lint-staged": "15.2.2",
 		"playwright": "1.43.0",
 		"pnpm": "8.15.6",
@@ -54,8 +56,5 @@
 				"prettier"
 			]
 		}
-	},
-	"eslintConfig": {
-		"extends": "custom"
 	}
 }

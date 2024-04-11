@@ -1,12 +1,74 @@
 {
-	"eslint.workingDirectories": [
-		"./packages/lib",
-		"./demos/nextjs"
+	// Enable the ESlint flat config support
+	"eslint.useFlatConfig": true,
+	"eslint.experimental.useFlatConfig": true,
+	// Silent the stylistic rules in you IDE, but still auto fix them
+	"eslint.rules.customizations": [
+		{
+			"rule": "style/*",
+			"severity": "off"
+		},
+		{
+			"rule": "*-indent",
+			"severity": "off"
+		},
+		{
+			"rule": "*-spacing",
+			"severity": "off"
+		},
+		{
+			"rule": "*-spaces",
+			"severity": "off"
+		},
+		{
+			"rule": "*-order",
+			"severity": "off"
+		},
+		{
+			"rule": "*-dangle",
+			"severity": "off"
+		},
+		{
+			"rule": "*-newline",
+			"severity": "off"
+		},
+		{
+			"rule": "*quotes",
+			"severity": "off"
+		},
+		{
+			"rule": "*semi",
+			"severity": "off"
+		}
 	],
-	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": "explicit"
-	},
-	"editor.formatOnSave": true,
+	// Enable eslint for all supported languages
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact"
+	],
+	// "eslint.workingDirectories": [
+	// 	"packages",
+	// 	"demos",
+	// 	"test",
+	// ],
+	// "eslint.workingDirectories": [
+	// 	{
+	// 		"mode": "auto"
+	// 	}
+	// ],
+	"eslint.workingDirectories": [
+		{
+			"pattern": "./packages/*/"
+		},
+		{
+			"pattern": "./demos/*/"
+		},
+		{
+			"pattern": "./test/*/"
+		}
+	],
 	"eslint.options": {
 		"extensions": [
 			".js",
@@ -14,12 +76,12 @@
 			".tsx"
 		]
 	},
-	"eslint.validate": [
-		"javascript",
-		"javascriptreact",
-		"typescript",
-		"typescriptreact"
-	],
+	"eslint.format.enable": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit",
+		"source.organizeImports": "never"
+	},
+	"editor.formatOnSave": true,
 	"editor.insertSpaces": false,
-	"editor.detectIndentation": false
+	"editor.detectIndentation": false,
 }

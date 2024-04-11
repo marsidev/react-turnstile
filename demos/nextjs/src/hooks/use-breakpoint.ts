@@ -2,6 +2,7 @@ import resolveConfig from 'tailwindcss/resolveConfig'
 import { create } from '@kodingdotninja/use-tailwind-breakpoint'
 import { useEffect } from 'react'
 import tailwindConfig from '../../tailwind.config'
+
 const config = resolveConfig(tailwindConfig)
 
 type BreakpointKey = 'sm' | 'md' | 'lg' | 'xl' | '2xl'

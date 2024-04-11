@@ -1,12 +1,12 @@
 import { useAtom } from 'jotai'
+import Link from './link'
 import { mobileNavExpandedAtom } from '~/store'
 import { useBreakpoint } from '~/hooks/use-breakpoint'
 import { cn } from '~/utils'
-import Link from './link'
 
 type Props = React.HTMLAttributes<HTMLDivElement>
 
-const Footer = ({ className, ...rest }: Props) => {
+function Footer({ className, ...rest }: Props) {
 	const [mobileNavExpanded] = useAtom(mobileNavExpandedAtom)
 	const isLargeScreen = useBreakpoint('lg')
 	const noTabbable = !isLargeScreen && !mobileNavExpanded

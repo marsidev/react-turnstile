@@ -1,6 +1,6 @@
 'use client'
 
-import { PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
 import { useAtom } from 'jotai'
 import { mobileNavExpandedAtom } from '~/store'
 import { cn } from '~/utils'

@@ -1,9 +1,9 @@
 import type { TurnstileServerValidationResponse } from '@marsidev/react-turnstile'
 import { type FC, useEffect, useRef, useState } from 'react'
-import type { SecretKeyType } from '~/types'
-import { DEMO_SECRET, secretOptions } from '~/constants'
 import Options from './options'
 import { Button } from './button'
+import type { SecretKeyType } from '~/types'
+import { DEMO_SECRET, secretOptions } from '~/constants'
 
 interface TokenValidationProps {
 	token: string | undefined
@@ -29,6 +29,7 @@ const TokenValidation: FC<TokenValidationProps> = ({
 		event.preventDefault()
 
 		if (!challengeSolved || !token) {
+			/* eslint-disable no-alert */
 			alert('The challenge has not been solved')
 			return
 		}

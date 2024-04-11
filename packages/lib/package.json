@@ -60,8 +60,5 @@
 	"sideEffects": false,
 	"publishConfig": {
 		"access": "public"
-	},
-	"eslintConfig": {
-		"extends": "custom"
 	}
 }

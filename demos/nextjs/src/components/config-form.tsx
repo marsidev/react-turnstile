@@ -1,7 +1,7 @@
 import { forwardRef, useState } from 'react'
-import { langOptions, siteKeyOptions, sizeOptions, themeOptions } from '~/constants'
-import { SiteKeyType, Theme, WidgetSize } from '~/types'
 import Options from './options'
+import { langOptions, siteKeyOptions, sizeOptions, themeOptions } from '~/constants'
+import type { SiteKeyType, Theme, WidgetSize } from '~/types'
 
 interface FormProps {
 	onChangeTheme: (value: string) => void

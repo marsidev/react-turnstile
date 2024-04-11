@@ -6,8 +6,8 @@
 		"dev": "next dev --port 3333",
 		"build": "pnpm run --filter=@marsidev/react-turnstile build && next build",
 		"start": "next start",
-		"lint": "next lint",
-		"lint:fix": "next lint --fix",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
 		"type-check": "tsc --noEmit"
 	},
 	"dependencies": {
@@ -27,16 +27,9 @@
 	"devDependencies": {
 		"@tailwindcss/typography": "0.5.12",
 		"autoprefixer": "10.4.19",
-		"eslint-config-custom": "workspace:*",
 		"eslint-config-next": "14.1.4",
 		"postcss": "8.4.38",
 		"prettier-plugin-tailwindcss": "0.5.13",
 		"tailwindcss": "3.4.3"
-	},
-	"eslintConfig": {
-		"extends": [
-			"next/core-web-vitals",
-			"custom"
-		]
 	}
 }

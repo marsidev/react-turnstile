@@ -3,11 +3,11 @@
 import { GithubIcon, MenuIcon } from 'lucide-react'
 import { useAtom } from 'jotai'
 import { useEffect } from 'react'
-import { mobileNavExpandedAtom } from '~/store'
-import { cn } from '~/utils'
 import Link from './link'
 import { ThemeToggle } from './theme-toggle'
 import { Button, buttonVariants } from './button'
+import { cn } from '~/utils'
+import { mobileNavExpandedAtom } from '~/store'
 
 export default function Header() {
 	const [mobileNavExpanded, setMobileNavExpanded] = useAtom(mobileNavExpandedAtom)

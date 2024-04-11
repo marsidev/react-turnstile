@@ -11,6 +11,7 @@ const WidgetMethods: React.FC<StateLabelsProps> = ({ turnstile, onRestartStates 
 	const [isGettingResponse, setIsGettingResponse] = useState(false)
 
 	const onGetResponse = () => {
+		/* eslint-disable no-alert */
 		alert(turnstile.current?.getResponse())
 	}
 

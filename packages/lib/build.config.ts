@@ -14,6 +14,7 @@ export default defineBuildConfig({
 			}
 
 			options.output.forEach(output => {
+				/* eslint-disable style/quotes */
 				output.banner = "'use client';"
 			})
 		}

@@ -1,4 +1,4 @@
-import { langOptions, secretOptions, siteKeyOptions, sizeOptions } from './constants'
+import type { langOptions, secretOptions, siteKeyOptions, sizeOptions } from './constants'
 
 export type SiteKeyType = (typeof siteKeyOptions)[number]['value']
 
