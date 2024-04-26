@@ -27,9 +27,14 @@ export const ensureFrameHidden = async (page: Page) => {
 }
 
 export const ensureChallengeSolved = async (page: Page) => {
+	await sleep(1500)
 	await expect(page.locator('[name="cf-turnstile-response"]')).toHaveValue(demoToken)
 }
 
 export const ensureChallengeNotSolved = async (page: Page) => {
 	await expect(page.locator('[name="cf-turnstile-response"]')).toHaveValue('')
+}
+
+export async function sleep(ms: number) {
+	return new Promise(resolve => setTimeout(resolve, ms))
 }
