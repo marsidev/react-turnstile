@@ -6,8 +6,8 @@
 		"dev": "next dev --port 3333",
 		"build": "pnpm run --filter=@marsidev/react-turnstile build && next build",
 		"start": "next start",
-		"lint": "next lint",
-		"lint:fix": "next lint --fix",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
 		"type-check": "tsc --noEmit"
 	},
 	"dependencies": {
