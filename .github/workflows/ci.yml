@@ -44,7 +44,7 @@ jobs:
         run: nr lib:build
 
       - name: Lint
-        run: nr lint --cache
+        run: nr lint --cache --quiet
 
   format:
     runs-on: ubuntu-latest
