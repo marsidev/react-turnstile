@@ -2,7 +2,7 @@
 	"name": "root",
 	"version": "0.0.1",
 	"private": true,
-	"packageManager": "pnpm@8.7.1",
+	"packageManager": "pnpm@9.0.6",
 	"scripts": {
 		"demo": "pnpm run --filter=nextjs-demo dev",
 		"dev": "concurrently \"npm:lib:build:watch\" \"npm:demo\" -c auto,cyan",
@@ -21,15 +21,15 @@
 	"devDependencies": {
 		"@antfu/ni": "0.21.8",
 		"@antfu/utils": "0.7.6",
-		"@playwright/test": "1.31.2",
+		"@playwright/test": "1.43.1",
 		"@types/node": "20.5.7",
 		"@types/react": "18.2.21",
 		"@types/react-dom": "18.2.7",
 		"concurrently": "8.2.1",
 		"eslint-config-custom": "workspace:*",
 		"lint-staged": "14.0.1",
-		"playwright": "1.31.2",
-		"pnpm": "8.7.1",
+		"playwright": "1.43.1",
+		"pnpm": "9.0.6",
 		"prettier": "2.8.8",
 		"simple-git-hooks": "2.9.0",
 		"typescript": "5.2.2"
