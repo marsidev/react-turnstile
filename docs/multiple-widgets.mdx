@@ -105,7 +105,7 @@ You even can add multiple widgets while manually injecting the Cloudflare script
   export default function Page() {
     return (
       <>
-        <Script id={DEFAULT_SCRIPT_ID} src={SCRIPT_URL} strategy="afterInteractive" />
+        <Script id={DEFAULT_SCRIPT_ID} src={SCRIPT_URL} strategy="beforeInteractive" />
         <Turnstile id='widget-1' injectScript={false} siteKey='{{ siteKey }}' />
         <Turnstile id='widget-2' injectScript={false} siteKey='{{ siteKey }}' />
       </>
@@ -120,7 +120,7 @@ You even can add multiple widgets while manually injecting the Cloudflare script
   export default function Page() {
     return (
       <>
-        <Script id={DEFAULT_SCRIPT_ID} src={SCRIPT_URL} strategy="afterInteractive" />
+        <Script id={DEFAULT_SCRIPT_ID} src={SCRIPT_URL} strategy="beforeInteractive" />
         <Turnstile id='widget-1' injectScript={false} siteKey='{{ siteKey }}' />
         <Turnstile id='widget-2' injectScript={false} siteKey='{{ siteKey }}' />
       </>

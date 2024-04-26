@@ -45,8 +45,8 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		options.execution === 'execute'
 			? CONTAINER_STYLE_SET.invisible
 			: options.appearance === 'interaction-only'
-			? CONTAINER_STYLE_SET.interactionOnly
-			: CONTAINER_STYLE_SET[widgetSize]
+				? CONTAINER_STYLE_SET.interactionOnly
+				: CONTAINER_STYLE_SET[widgetSize]
 	)
 	const containerRef = useRef<HTMLElement | null>(null)
 	const firstRendered = useRef(false)
@@ -328,8 +328,8 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			options.execution === 'execute'
 				? CONTAINER_STYLE_SET.invisible
 				: renderConfig.appearance === 'interaction-only'
-				? CONTAINER_STYLE_SET.interactionOnly
-				: CONTAINER_STYLE_SET[widgetSize]
+					? CONTAINER_STYLE_SET.interactionOnly
+					: CONTAINER_STYLE_SET[widgetSize]
 		)
 	}, [options.execution, widgetSize, renderConfig.appearance])
 

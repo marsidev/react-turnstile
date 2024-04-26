@@ -19,27 +19,27 @@
 		"type-check": "pnpm run --parallel type-check"
 	},
 	"devDependencies": {
-		"@antfu/ni": "0.21.8",
-		"@antfu/utils": "0.7.6",
+		"@antfu/ni": "0.21.12",
+		"@antfu/utils": "0.7.7",
 		"@playwright/test": "1.43.1",
-		"@types/node": "20.5.7",
-		"@types/react": "18.2.21",
-		"@types/react-dom": "18.2.7",
-		"concurrently": "8.2.1",
+		"@types/node": "20.12.7",
+		"@types/react": "18.3.0",
+		"@types/react-dom": "18.3.0",
+		"concurrently": "8.2.2",
 		"eslint-config-custom": "workspace:*",
-		"lint-staged": "14.0.1",
+		"lint-staged": "15.2.2",
 		"playwright": "1.43.1",
 		"pnpm": "9.0.6",
-		"prettier": "2.8.8",
-		"simple-git-hooks": "2.9.0",
-		"typescript": "5.2.2"
+		"prettier": "3.2.5",
+		"simple-git-hooks": "2.11.1",
+		"typescript": "5.4.5"
 	},
 	"simple-git-hooks": {
 		"pre-commit": "pnpm lint-staged"
 	},
 	"lint-staged": {
 		"**/*.{js,mjs,cjs,ts,tsx}": [
-			"eslint --cache --fix",
+			"eslint . --cache --fix",
 			"prettier --write --cache --ignore-unknown"
 		],
 		"**/*.json": [
