@@ -9,7 +9,7 @@ export default function Page() {
 	return (
 		<React.Fragment>
 			{/* We add a custom query param to the script URL to force a re-download of the script, since the manual script injection is also used in other demos. This is not needed if the script ID is the same. */}
-			<Script id="turnstile-script" src={`${SCRIPT_URL}?v=2`} strategy="afterInteractive" />
+			<Script id="turnstile-script" src={`${SCRIPT_URL}?v=2`} strategy="beforeInteractive" />
 
 			<h1>Manual script injection with custom script props</h1>
 

@@ -45,9 +45,9 @@
 		"@testing-library/jest-dom": "6.4.2",
 		"@testing-library/react": "15.0.5",
 		"@types/jest": "29.5.12",
-		"bumpp": "9.2.0",
+		"bumpp": "9.4.0",
 		"jsdom": "24.0.0",
-		"nodemon": "3.0.1",
+		"nodemon": "3.1.0",
 		"unbuild": "0.8.9",
 		"vitest": "1.5.2"
 	},

@@ -8,7 +8,7 @@ import DemoWidget from '~/components/demo-widget'
 export default function Page() {
 	return (
 		<React.Fragment>
-			<Script id={DEFAULT_SCRIPT_ID} src={SCRIPT_URL} strategy="afterInteractive" />
+			<Script id={DEFAULT_SCRIPT_ID} src={SCRIPT_URL} strategy="beforeInteractive" />
 
 			<h1>Manual script injection</h1>
 			<DemoWidget injectScript={false} />
