@@ -1,7 +1,7 @@
 import type { Browser, Page } from '@playwright/test'
 import { chromium, expect, test } from '@playwright/test'
 import { DEFAULT_CONTAINER_ID, DEFAULT_SCRIPT_ID } from '../../packages/lib/src/utils'
-import { deleteScreenshots, demoToken, ensureDirectory, ssPath } from './helpers'
+import { deleteScreenshots, demoToken, ensureDirectory, sleep, ssPath } from './helpers'
 
 const isCI = process.env.CI
 
@@ -34,6 +34,7 @@ test('widget containers rendered', async () => {
 })
 
 test('widgets iframe are visible', async () => {
+	await sleep(1500)
 	await expect(page.locator('iframe')).toHaveCount(2, { timeout: 10000 })
 
 	const iframe = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]').first()
