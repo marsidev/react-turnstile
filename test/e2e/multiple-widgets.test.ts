@@ -39,14 +39,20 @@ test('widgets iframe are visible', async () => {
 
 	const iframe = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]').first()
 	await expect(iframe.locator('body')).toContainText('Testing only.')
-	!isCI && (await page.screenshot({ path: `${ssPath}/${route}_1-widget-visible.png` }))
+	!isCI &&
+		(await page.screenshot({
+			path: `${ssPath}/${route}_1-widget-visible.png`
+		}))
 })
 
 test('challenge has been solved', async () => {
 	await expect(page.locator('[name="cf-turnstile-response"]')).toHaveCount(2)
 	await expect(page.locator('[name="cf-turnstile-response"]').first()).toHaveValue(demoToken)
 	await expect(page.locator('[name="cf-turnstile-response"]').last()).toHaveValue(demoToken)
-	!isCI && (await page.screenshot({ path: `${ssPath}/${route}_2-challenge-solved.png` }))
+	!isCI &&
+		(await page.screenshot({
+			path: `${ssPath}/${route}_2-challenge-solved.png`
+		}))
 })
 
 test('widget can be removed', async () => {
@@ -54,7 +60,10 @@ test('widget can be removed', async () => {
 	await page.locator('button', { hasText: 'Remove' }).last().click()
 	await expect(page.locator('iframe')).toHaveCount(0)
 
-	!isCI && (await page.screenshot({ path: `${ssPath}/${route}_3-widget-removed.png` }))
+	!isCI &&
+		(await page.screenshot({
+			path: `${ssPath}/${route}_3-widget-removed.png`
+		}))
 })
 
 test('widget can be explicity rendered', async () => {
@@ -66,7 +75,10 @@ test('widget can be explicity rendered', async () => {
 	await expect(page.locator('[name="cf-turnstile-response"]').first()).toHaveValue(demoToken)
 	await expect(page.locator('[name="cf-turnstile-response"]').last()).toHaveValue(demoToken)
 
-	!isCI && (await page.screenshot({ path: `${ssPath}/${route}_4-widget-rendered.png` }))
+	!isCI &&
+		(await page.screenshot({
+			path: `${ssPath}/${route}_4-widget-rendered.png`
+		}))
 })
 
 test('widget can be reset', async () => {

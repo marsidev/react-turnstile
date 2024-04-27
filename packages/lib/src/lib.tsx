@@ -170,7 +170,6 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 					}
 
 					try {
-						console.log('resetting...')
 						widgetSolved.current = false
 						turnstile.reset(widgetId.current)
 					} catch (error) {
