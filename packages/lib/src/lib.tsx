@@ -196,7 +196,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 						!checkIfTurnstileLoaded() ||
 						widgetId.current
 					) {
-						console.warn('Turnstile has not been loaded or widget already rendered')
+						console.warn('Turnstile has not been loaded or container not found')
 						return
 					}
 
@@ -212,6 +212,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 
 				execute() {
 					if (options.execution !== 'execute') {
+						console.warn('Execution mode is not set to "execute"')
 						return
 					}
 
@@ -221,7 +222,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 						!widgetId.current ||
 						!checkIfTurnstileLoaded()
 					) {
-						console.warn('Turnstile has not been loaded or widget has not been rendered')
+						console.warn('Turnstile has not been loaded or container not found')
 						return
 					}
 
