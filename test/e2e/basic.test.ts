@@ -44,25 +44,37 @@ test('widget iframe is visible', async () => {
 	await sleep(1500)
 	const iframe = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
 	await expect(iframe.locator('body')).toContainText('Testing only.')
-	!isCI && (await page.screenshot({ path: `${ssPath}/${route}_1-widget-visible.png` }))
+	!isCI &&
+		(await page.screenshot({
+			path: `${ssPath}/${route}_1-widget-visible.png`
+		}))
 })
 
 test('challenge has been solved', async () => {
 	await ensureChallengeSolved(page)
-	!isCI && (await page.screenshot({ path: `${ssPath}/${route}_2-challenge-solved.png` }))
+	!isCI &&
+		(await page.screenshot({
+			path: `${ssPath}/${route}_2-challenge-solved.png`
+		}))
 })
 
 test('widget can be removed', async () => {
 	await page.locator('button', { hasText: 'Remove' }).click()
 	await ensureFrameHidden(page)
-	!isCI && (await page.screenshot({ path: `${ssPath}/${route}_3-widget-removed.png` }))
+	!isCI &&
+		(await page.screenshot({
+			path: `${ssPath}/${route}_3-widget-removed.png`
+		}))
 })
 
 test('widget can be explicity rendered', async () => {
 	await page.locator('button', { hasText: 'Render' }).click()
 	await ensureFrameVisible(page)
 	await ensureChallengeSolved(page)
-	!isCI && (await page.screenshot({ path: `${ssPath}/${route}_4-widget-rendered.png` }))
+	!isCI &&
+		(await page.screenshot({
+			path: `${ssPath}/${route}_4-widget-rendered.png`
+		}))
 })
 
 test('widget can be reset', async () => {
