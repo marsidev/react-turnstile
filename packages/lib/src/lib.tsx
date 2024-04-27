@@ -316,10 +316,6 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		if (!checkElementExistence(widgetId.current)) return
 
 		onWidgetLoad?.(widgetId.current)
-
-		return () => {
-			if (widgetId.current && window.turnstile) window.turnstile!.remove(widgetId.current)
-		}
 	}, [widgetId, onWidgetLoad])
 
 	useEffect(() => {
