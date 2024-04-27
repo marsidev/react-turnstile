@@ -86,6 +86,7 @@ export default function DemoWidget({
 					setToken(token)
 					setStatus('solved')
 				}}
+				onWidgetLoad={widgetId => console.log('Widget loaded', widgetId)}
 			/>
 
 			<h3>Configuration</h3>

@@ -17,6 +17,7 @@ const isCI = process.env.CI
 
 let browser: Browser
 let page: Page
+let logsCount = 0
 
 const route = 'basic'
 
@@ -48,6 +49,21 @@ test('widget iframe is visible', async () => {
 		(await page.screenshot({
 			path: `${ssPath}/${route}_1-widget-visible.png`
 		}))
+})
+
+test('`onWidgetLoad` callback is called', async () => {
+	if (logsCount > 0) return
+	const iframe = page.getByTitle('Widget containing a Cloudflare security challenge')
+	const widgetId = await iframe.getAttribute('id')
+	expect(widgetId).toBeDefined()
+
+	page.on('console', msg => {
+		const text = msg.text()
+		if (text.includes('Widget loaded') && logsCount === 0) {
+			logsCount++
+			expect(text).toBe(`Widget loaded ${widgetId}`)
+		}
+	})
 })
 
 test('challenge has been solved', async () => {
