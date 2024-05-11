@@ -117,9 +117,9 @@ interface RenderOptions {
 	callback?: (token: string) => void
 
 	/**
-	 * Callback invoked when there is an error (e.g. network error or the challenge failed). Refer to [Client-side errors](https://developers.cloudflare.com/turnstile/reference/client-side-errors).
+	 * Callback invoked when there is an error (e.g. network error or the challenge failed), it receives the error code as argument. Refer to [Client-side errors](https://developers.cloudflare.com/turnstile/reference/client-side-errors).
 	 */
-	'error-callback'?: () => void
+	'error-callback'?: (errorCode: number) => void
 
 	/**
 	 * Execution controls when to obtain the token of the widget and can be on `'render'` (default) or on `'execute'`. See {@link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#execution-modes the docs} for more info.
@@ -301,7 +301,7 @@ interface ScriptOptions {
 }
 
 /** `<Turnstile />` component props */
-interface TurnstileProps extends React.HTMLAttributes<HTMLDivElement> {
+interface TurnstileProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onError'> {
 	/**
 	 * The sitekey of your widget. This sitekey is created upon the widget creation.
 	 */
@@ -324,7 +324,7 @@ interface TurnstileProps extends React.HTMLAttributes<HTMLDivElement> {
 	onExpire?: RenderOptions['expired-callback']
 
 	/**
-	 * Callback invoked when there is an error (e.g. network error or the challenge failed).
+	 * Callback invoked when there is an error (e.g. network error or the challenge failed), it receives the error code as argument. Refer to [Client-side errors](https://developers.cloudflare.com/turnstile/reference/client-side-errors).
 	 */
 	onError?: RenderOptions['error-callback']
 
