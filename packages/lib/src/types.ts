@@ -241,7 +241,7 @@ interface ComponentRenderOptions
 	 * The widget size. Can take the following values: `normal`, `compact`, and `invisible`. The normal size is 300x65px, the compact size is 130x120px, invisible will show no widget.
 	 * @default `normal`
 	 */
-	size?: RenderOptions['size'] | 'invisible'
+	size?: RenderOptions['size'] | 'invisible' | 'auto'
 
 	/**
 	 * Automatically refreshes the token when it expires. Can take `'auto'`, `'manual'` or `'never'`.
