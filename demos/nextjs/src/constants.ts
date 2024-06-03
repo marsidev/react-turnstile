@@ -32,6 +32,7 @@ export const themeOptions = [
 ] as const
 
 export const sizeOptions = [
+	{ label: 'Auto', value: 'auto' },
 	{ label: 'Normal', value: 'normal' },
 	{ label: 'Compact', value: 'compact' },
 	{ label: 'Invisible', value: 'invisible' }

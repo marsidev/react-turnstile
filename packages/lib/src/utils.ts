@@ -97,6 +97,7 @@ export const CONTAINER_STYLE_SET: ContainerSizeSet = {
 		height: 0,
 		overflow: 'hidden'
 	},
+	auto: {},
 	interactionOnly: {
 		width: 'fit-content',
 		height: 'auto',
@@ -114,7 +115,7 @@ export const CONTAINER_STYLE_SET: ContainerSizeSet = {
 export function getTurnstileSizeOpts(size: keyof ContainerSizeSet): RenderOptions['size'] {
 	let result: RenderOptions['size']
 
-	if (size !== 'invisible') {
+	if (size !== 'invisible' && size !== 'auto') {
 		result = size as RenderOptions['size']
 	}
 
