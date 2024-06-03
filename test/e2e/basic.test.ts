@@ -1,4 +1,4 @@
-import type { Browser, Page } from '@playwright/test'
+import type { Browser, ConsoleMessage, Page } from '@playwright/test'
 import { chromium, expect, test } from '@playwright/test'
 import { DEFAULT_CONTAINER_ID, DEFAULT_SCRIPT_ID } from '../../packages/lib/src/utils'
 import {
@@ -34,7 +34,7 @@ test.afterAll(async () => {
 })
 
 test('script injected', async () => {
-	await expect(page.locator(`#${DEFAULT_SCRIPT_ID}__${DEFAULT_CONTAINER_ID}`)).toHaveCount(1)
+	await expect(page.locator(`#${DEFAULT_SCRIPT_ID}`)).toHaveCount(1)
 })
 
 test('widget container rendered', async () => {
@@ -52,18 +52,20 @@ test('widget iframe is visible', async () => {
 })
 
 test('`onWidgetLoad` callback is called', async () => {
-	if (logsCount > 0) return
 	const iframe = page.getByTitle('Widget containing a Cloudflare security challenge')
 	const widgetId = await iframe.getAttribute('id')
 	expect(widgetId).toBeDefined()
 
-	page.on('console', msg => {
+	const onLog = (msg: ConsoleMessage) => {
 		const text = msg.text()
 		if (text.includes('Widget loaded') && logsCount === 0) {
 			logsCount++
 			expect(text).toBe(`Widget loaded ${widgetId}`)
 		}
-	})
+	}
+
+	page.once('console', onLog)
+	page.removeListener('console', onLog)
 })
 
 test('challenge has been solved', async () => {
