@@ -15,10 +15,35 @@ import {
 	DEFAULT_CONTAINER_ID,
 	DEFAULT_ONLOAD_NAME,
 	DEFAULT_SCRIPT_ID,
-	checkElementExistence,
 	getTurnstileSizeOpts,
 	injectTurnstileScript
 } from './utils'
+
+let turnstileState: 'unloaded' | 'loading' | 'ready' = 'unloaded'
+
+let turnstileLoad: {
+	resolve: (value?: unknown) => void
+	reject: (reason?: unknown) => void
+}
+
+const turnstileLoadPromise = new Promise((resolve, reject) => {
+	turnstileLoad = { resolve, reject }
+	if (turnstileState === 'ready') resolve(undefined)
+})
+
+const ensureTurnstile = (onLoadCallbackName = DEFAULT_ONLOAD_NAME) => {
+	if (turnstileState === 'unloaded') {
+		turnstileState = 'loading'
+		// @ts-expect-error implicit any
+		window[onLoadCallbackName] = () => {
+			turnstileLoad.resolve()
+			turnstileState = 'ready'
+			// @ts-expect-error implicit any
+			delete window[onLoadCallbackName]
+		}
+	}
+	return turnstileLoadPromise
+}
 
 export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProps>((props, ref) => {
 	const {
@@ -49,19 +74,16 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 				: CONTAINER_STYLE_SET[widgetSize]
 	)
 	const containerRef = useRef<HTMLElement | null>(null)
-	const firstRendered = useRef(false)
 	const [turnstileLoaded, setTurnstileLoaded] = useState(false)
 	const widgetId = useRef<string | undefined | null>()
 	const widgetSolved = useRef(false)
 	const containerId = id || DEFAULT_CONTAINER_ID
-	const scriptId = injectScript
-		? scriptOptions?.id || `${DEFAULT_SCRIPT_ID}__${containerId}`
-		: scriptOptions?.id || DEFAULT_SCRIPT_ID
-	const scriptLoaded = useObserveScript(scriptId)
 
-	const onLoadCallbackName = scriptOptions?.onLoadCallbackName
-		? `${scriptOptions.onLoadCallbackName}__${containerId}`
-		: `${DEFAULT_ONLOAD_NAME}__${containerId}`
+	const scriptId = scriptOptions?.id || DEFAULT_SCRIPT_ID
+	const scriptLoaded = useObserveScript(scriptId)
+	const onLoadCallbackName = scriptOptions?.onLoadCallbackName || DEFAULT_ONLOAD_NAME
+
+	const appearance = options.appearance || 'always'
 
 	const renderConfig = useMemo(
 		(): RenderOptions => ({
@@ -90,23 +112,72 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			appearance: options.appearance || 'always'
 		}),
 		[
+			options.action,
+			options.appearance,
+			options.cData,
+			options.execution,
+			options.language,
+			options.refreshExpired,
+			options.responseField,
+			options.responseFieldName,
+			options.retry,
+			options.retryInterval,
+			options.tabIndex,
+			options.theme,
 			siteKey,
-			options,
-			onSuccess,
-			onError,
-			onExpire,
-			widgetSize,
-			onBeforeInteractive,
-			onAfterInteractive,
-			onUnsupported
+			widgetSize
 		]
 	)
-
-	const renderConfigStringified = useMemo(() => JSON.stringify(renderConfig), [renderConfig])
 
 	const checkIfTurnstileLoaded = useCallback(() => {
 		return typeof window !== 'undefined' && !!window.turnstile
 	}, [])
+
+	useEffect(
+		function inject() {
+			if (injectScript && !turnstileLoaded) {
+				injectTurnstileScript({
+					onLoadCallbackName,
+					scriptOptions: {
+						...scriptOptions,
+						id: scriptId
+					}
+				})
+			}
+		},
+		[injectScript, turnstileLoaded, scriptOptions, scriptId]
+	)
+
+	useEffect(function waitForTurnstile() {
+		if (turnstileState !== 'ready') {
+			ensureTurnstile(onLoadCallbackName)
+				.then(() => setTurnstileLoaded(true))
+				.catch(console.error)
+		}
+	}, [])
+
+	useEffect(
+		function renderWidget() {
+			if (!containerRef.current) return
+			if (!turnstileLoaded) return
+			let cancelled = false
+
+			const render = async () => {
+				if (cancelled || !containerRef.current) return
+				const id = window.turnstile!.render(containerRef.current, renderConfig)
+				widgetId.current = id
+				if (widgetId.current) onWidgetLoad?.(widgetId.current)
+			}
+
+			render()
+
+			return () => {
+				cancelled = true
+				if (widgetId.current) window.turnstile!.remove(widgetId.current)
+			}
+		},
+		[containerId, turnstileLoaded, renderConfig]
+	)
 
 	useImperativeHandle(
 		ref,
@@ -202,6 +273,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 
 					const id = turnstile.render(containerRef.current, renderConfig)
 					widgetId.current = id
+					if (widgetId.current) onWidgetLoad?.(widgetId.current)
 
 					if (options.execution !== 'execute') {
 						setContainerStyle(CONTAINER_STYLE_SET[widgetSize])
@@ -240,7 +312,6 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 				}
 			}
 		},
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[
 			widgetId,
 			options.execution,
@@ -248,31 +319,10 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			renderConfig,
 			containerRef,
 			checkIfTurnstileLoaded,
-			turnstileLoaded
+			turnstileLoaded,
+			onWidgetLoad
 		]
 	)
-
-	useEffect(() => {
-		// @ts-expect-error implicit any
-		window[onLoadCallbackName] = () => setTurnstileLoaded(true)
-
-		return () => {
-			// @ts-expect-error implicit any
-			delete window[onLoadCallbackName]
-		}
-	}, [onLoadCallbackName])
-
-	useEffect(() => {
-		if (injectScript && !turnstileLoaded) {
-			injectTurnstileScript({
-				onLoadCallbackName,
-				scriptOptions: {
-					...scriptOptions,
-					id: scriptId
-				}
-			})
-		}
-	}, [injectScript, turnstileLoaded, onLoadCallbackName, scriptOptions, scriptId])
 
 	/* Set the turnstile as loaded, in case the onload callback never runs. (e.g., when manually injecting the script without specifying the `onload` param) */
 	useEffect(() => {
@@ -281,60 +331,22 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		}
 	}, [turnstileLoaded, scriptLoaded])
 
-	useEffect(() => {
-		if (!siteKey) {
-			console.warn('sitekey was not provided')
-			return
-		}
-
-		if (!scriptLoaded || !containerRef.current || !turnstileLoaded || firstRendered.current) {
-			return
-		}
-
-		const id = window.turnstile!.render(containerRef.current, renderConfig)
-		widgetId.current = id
-		firstRendered.current = true
-	}, [scriptLoaded, siteKey, renderConfig, firstRendered, turnstileLoaded])
-
-	// re-render widget when renderConfig changes
-	useEffect(() => {
-		if (!window.turnstile) return
-
-		if (containerRef.current && widgetId.current) {
-			if (checkElementExistence(widgetId.current)) {
-				window.turnstile.remove(widgetId.current)
-			}
-			const newWidgetId = window.turnstile.render(containerRef.current, renderConfig)
-			widgetId.current = newWidgetId
-			firstRendered.current = true
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [renderConfigStringified, siteKey])
-
-	useEffect(() => {
-		if (!window.turnstile) return
-		if (!widgetId.current) return
-		if (!checkElementExistence(widgetId.current)) return
-
-		onWidgetLoad?.(widgetId.current)
-	}, [widgetId, onWidgetLoad])
-
+	// Update style
 	useEffect(() => {
 		setContainerStyle(
 			options.execution === 'execute'
 				? CONTAINER_STYLE_SET.invisible
-				: renderConfig.appearance === 'interaction-only'
+				: appearance === 'interaction-only'
 					? CONTAINER_STYLE_SET.interactionOnly
 					: CONTAINER_STYLE_SET[widgetSize]
 		)
-	}, [options.execution, widgetSize, renderConfig.appearance])
+	}, [options.execution, widgetSize, appearance])
 
 	// onLoadScript callback
 	useEffect(() => {
 		if (!scriptLoaded || typeof onLoadScript !== 'function') return
-
 		onLoadScript()
-	}, [scriptLoaded, onLoadScript])
+	}, [scriptLoaded])
 
 	return (
 		<Container

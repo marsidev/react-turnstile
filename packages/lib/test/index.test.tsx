@@ -24,7 +24,7 @@ describe('Basic setup', () => {
 	it('injects the script', async () => {
 		const script = document.querySelector('script')
 		expect(script).toBeTruthy()
-		expect(script?.id).toBe(`${DEFAULT_SCRIPT_ID}__${DEFAULT_CONTAINER_ID}`)
+		expect(script?.id).toBe(DEFAULT_SCRIPT_ID)
 		expect(script?.src).toContain(SCRIPT_URL)
 	})
 

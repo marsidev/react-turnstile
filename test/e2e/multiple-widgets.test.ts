@@ -23,8 +23,7 @@ test.afterAll(async () => {
 })
 
 test('script injected', async () => {
-	await expect(page.locator(`#${DEFAULT_SCRIPT_ID}__widget-1`)).toHaveCount(1)
-	await expect(page.locator(`#${DEFAULT_SCRIPT_ID}__widget-2`)).toHaveCount(1)
+	await expect(page.locator(`#${DEFAULT_SCRIPT_ID}`)).toHaveCount(1)
 })
 
 test('widget containers rendered', async () => {
