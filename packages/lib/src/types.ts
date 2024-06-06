@@ -119,7 +119,7 @@ interface RenderOptions {
 	/**
 	 * Callback invoked when there is an error (e.g. network error or the challenge failed), it receives the error code as argument. Refer to [Client-side errors](https://developers.cloudflare.com/turnstile/reference/client-side-errors).
 	 */
-	'error-callback'?: (errorCode: number) => void
+	'error-callback'?: (errorCode: string) => void
 
 	/**
 	 * Execution controls when to obtain the token of the widget and can be on `'render'` (default) or on `'execute'`. See {@link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#execution-modes the docs} for more info.
