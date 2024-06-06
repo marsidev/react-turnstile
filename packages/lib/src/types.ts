@@ -9,7 +9,7 @@ interface _Turnstile {
 	/**
 	 * Method to explicit render a widget.
 	 * @param container -  Element ID or HTML node element.
-	 * @param params -  Optional. Render parameter options. See {@link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#configurations the docs} for more info about this options.
+	 * @param params -  Optional. Render parameter options. See {@link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#configurations the docs} for more info about these options.
 	 * @returns The rendered widget ID.
 	 */
 	render: (container?: string | HTMLElement, params?: RenderOptions) => string | undefined
@@ -17,7 +17,7 @@ interface _Turnstile {
 	/**
 	 * Method to render a widget when `execution` is set to `'execute'`. This method should be called after the `.render()` method. If `execution` is set to `'render'` this method has no effect.
 	 * @param container -  Element ID or HTML node element.
-	 * @param params -  Optional. Render parameter options. See {@link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#configurations the docs} for more info about this options.
+	 * @param params -  Optional. Render parameter options. See {@link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#configurations the docs} for more info about these options.
 	 */
 	execute: (container?: string | HTMLElement, params?: RenderOptions) => void
 
@@ -117,7 +117,7 @@ interface RenderOptions {
 	callback?: (token: string) => void
 
 	/**
-	 * Callback invoked when there is an error (e.g. network error or the challenge failed), it receives the error code as argument. Refer to [Client-side errors](https://developers.cloudflare.com/turnstile/reference/client-side-errors).
+	 * Callback invoked when there is an error (e.g. network error or the challenge failed), it receives the error code as argument. Refer to [Client-side errors](https://developers.cloudflare.com/turnstile/troubleshooting/client-side-errors/).
 	 */
 	'error-callback'?: (errorCode: number) => void
 
@@ -324,7 +324,7 @@ interface TurnstileProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onE
 	onExpire?: RenderOptions['expired-callback']
 
 	/**
-	 * Callback invoked when there is an error (e.g. network error or the challenge failed), it receives the error code as argument. Refer to [Client-side errors](https://developers.cloudflare.com/turnstile/reference/client-side-errors).
+	 * Callback invoked when there is an error (e.g. network error or the challenge failed), it receives the error code as argument. Refer to [Client-side errors](https://developers.cloudflare.com/turnstile/troubleshooting/client-side-errors/).
 	 */
 	onError?: RenderOptions['error-callback']
 
@@ -382,24 +382,41 @@ type ContainerSizeSet = {
 type TurnstileLangCode =
 	| 'ar'
 	| 'ar-EG'
+	| 'cs'
+	| 'da'
 	| 'de'
+	| 'el'
 	| 'en'
 	| 'es'
 	| 'fa'
+	| 'fi'
 	| 'fr'
+	| 'he'
+	| 'hi'
+	| 'hr'
+	| 'hu'
 	| 'id'
 	| 'it'
 	| 'ja'
 	| 'ko'
+	| 'lt'
 	| 'nl'
+	| 'ms'
+	| 'nb'
 	| 'pl'
 	| 'pt'
 	| 'pt-BR'
+	| 'ro'
 	| 'ru'
+	| 'sk'
+	| 'sl'
+	| 'sr'
+	| 'sv'
+	| 'th'
+	| 'tl'
 	| 'tlh'
 	| 'tr'
 	| 'uk'
-	| 'uk-ua'
 	| 'zh'
 	| 'zh-CN'
 	| 'zh-TW'
