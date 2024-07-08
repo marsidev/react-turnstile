@@ -173,7 +173,10 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 
 			return () => {
 				cancelled = true
-				if (widgetId.current) window.turnstile!.remove(widgetId.current)
+				if (widgetId.current) {
+					window.turnstile!.remove(widgetId.current)
+					widgetSolved.current = false
+				}
 			}
 		},
 		[containerId, turnstileLoaded, renderConfig]
