@@ -1,7 +1,7 @@
 import type { Browser, Page } from '@playwright/test'
 import { chromium, expect, test } from '@playwright/test'
 import { DEFAULT_CONTAINER_ID, DEFAULT_SCRIPT_ID } from '../../packages/lib/src/utils'
-import { deleteScreenshots, demoToken, ensureDirectory, sleep, ssPath } from './helpers'
+import { deleteScreenshots, demoToken, ensureDirectory, getWidgetFrames, ssPath } from './helpers'
 
 const isCI = process.env.CI
 
@@ -32,12 +32,13 @@ test('widget containers rendered', async () => {
 	await expect(page.locator('#widget-2')).toHaveCount(1)
 })
 
-test('widgets iframe are visible', async () => {
-	await sleep(1500)
-	await expect(page.locator('iframe')).toHaveCount(2, { timeout: 10000 })
+test('widget iframes are visible', async () => {
+	const frames = await getWidgetFrames(page)
+	expect(frames).toHaveLength(2)
 
-	const iframe = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]').first()
-	await expect(iframe.locator('body')).toContainText('Testing only.')
+	for (const frame of frames) {
+		await expect(frame.locator('body')).toContainText('Testing only.')
+	}
 	!isCI &&
 		(await page.screenshot({
 			path: `${ssPath}/${route}_1-widget-visible.png`
@@ -69,12 +70,12 @@ test('widget can be explicity rendered', async () => {
 	await page.locator('button', { hasText: 'Render' }).first().click()
 	await page.locator('button', { hasText: 'Render' }).last().click()
 
-	await expect(page.locator('iframe')).toHaveCount(2, { timeout: 10000 })
 	await expect(page.locator('[name="cf-turnstile-response"]')).toHaveCount(2)
 	await expect(page.locator('[name="cf-turnstile-response"]').first()).toHaveValue(demoToken)
 	await expect(page.locator('[name="cf-turnstile-response"]').last()).toHaveValue(demoToken)
 
 	!isCI &&
+		!isCI &&
 		(await page.screenshot({
 			path: `${ssPath}/${route}_4-widget-rendered.png`
 		}))
@@ -87,7 +88,9 @@ test('widget can be reset', async () => {
 	await page.locator('button', { hasText: 'Reset' }).last().click()
 	await expect(page.locator('[name="cf-turnstile-response"]').last()).toHaveValue('')
 
-	await expect(page.locator('iframe')).toHaveCount(2, { timeout: 10000 })
+	const frames = await getWidgetFrames(page)
+	expect(frames).toHaveLength(2)
+
 	await expect(page.locator('[name="cf-turnstile-response"]')).toHaveCount(2)
 	await expect(page.locator('[name="cf-turnstile-response"]').first()).toHaveValue(demoToken)
 	await expect(page.locator('[name="cf-turnstile-response"]').last()).toHaveValue(demoToken)

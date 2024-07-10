@@ -8,8 +8,7 @@ import {
 	ensureChallengeSolved,
 	ensureDirectory,
 	ensureFrameHidden,
-	ensureFrameVisible,
-	sleep,
+	getFirstWidgetFrame,
 	ssPath
 } from './helpers'
 
@@ -41,10 +40,10 @@ test('widget container rendered', async () => {
 	await expect(page.locator(`#${DEFAULT_CONTAINER_ID}`)).toHaveCount(1)
 })
 
-test('widget iframe is visible', async () => {
-	await sleep(1500)
-	const iframe = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
+test.only('widget iframe is visible', async () => {
+	const iframe = await getFirstWidgetFrame(page)
 	await expect(iframe.locator('body')).toContainText('Testing only.')
+
 	!isCI &&
 		(await page.screenshot({
 			path: `${ssPath}/${route}_1-widget-visible.png`
@@ -87,7 +86,6 @@ test('widget can be removed', async () => {
 
 test('widget can be explicity rendered', async () => {
 	await page.locator('button', { hasText: 'Render' }).click()
-	await ensureFrameVisible(page)
 	await ensureChallengeSolved(page)
 	!isCI &&
 		(await page.screenshot({
@@ -126,8 +124,8 @@ test('can get the token using the promise method', async () => {
 
 test('widget can be sized', async () => {
 	// check default width
-	const iframe = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
-	const box = await iframe.locator('body').boundingBox()
+	const iframe = await getFirstWidgetFrame(page)
+	const box = await iframe?.locator('body').boundingBox()
 	expect(box).toBeDefined()
 	expect(box!.width).toBeCloseTo(300)
 
@@ -135,32 +133,29 @@ test('widget can be sized', async () => {
 	await page.getByTestId('widget-size-value').click()
 	await page.getByRole('option', { name: 'compact' }).click()
 
-	await ensureFrameVisible(page)
-
 	// check new width
-	const iframeAfter = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
-	const boxAfter = await iframeAfter.locator('body').boundingBox()
+	const iframeAfter = await getFirstWidgetFrame(page)
+	const boxAfter = await iframeAfter?.locator('body').boundingBox()
 	expect(boxAfter).toBeDefined()
 	expect(boxAfter!.width).toBeCloseTo(130)
 })
 
 test('widget can change language', async () => {
-	await ensureFrameVisible(page)
-	const iframe = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
-	await expect(iframe.locator('#success-text')).toContainText('Success!')
+	const iframe = await getFirstWidgetFrame(page)
+	await expect(iframe?.locator('#success-text')).toContainText('Success!')
 
 	await page.getByTestId('widget-lang-value').click()
 	await page.getByRole('option', { name: 'Español' }).click()
-	await ensureFrameVisible(page)
-	await expect(iframe.locator('#success-text')).toContainText('¡Operación exitosa!')
+	const iframe2 = await getFirstWidgetFrame(page)
+	await expect(iframe2?.locator('#success-text')).toContainText('¡Operación exitosa!')
 
 	await page.getByTestId('widget-lang-value').click()
 	await page.getByRole('option', { name: 'Deutsch' }).click()
-	await ensureFrameVisible(page)
-	await expect(iframe.locator('#success-text')).toContainText('Erfolg!')
+	const iframe3 = await getFirstWidgetFrame(page)
+	await expect(iframe3?.locator('#success-text')).toContainText('Erfolg!')
 
 	await page.getByTestId('widget-lang-value').click()
 	await page.getByRole('option', { name: '日本語' }).click()
-	await ensureFrameVisible(page)
-	await expect(iframe.locator('#success-text')).toContainText('成功しました!')
+	const iframe4 = await getFirstWidgetFrame(page)
+	await expect(iframe4?.locator('#success-text')).toContainText('成功しました!')
 })

@@ -1,7 +1,7 @@
 import type { Browser } from '@playwright/test'
 import { devices as allDevices, chromium, expect, test, webkit } from '@playwright/test'
 import { DEFAULT_CONTAINER_ID, DEFAULT_SCRIPT_ID } from '../../packages/lib/src/utils'
-import { ensureDirectory, ensureFrameVisible, ssPath } from './helpers'
+import { ensureDirectory, getFirstWidgetFrame, sleep, ssPath } from './helpers'
 
 const { describe } = test
 const isCI = process.env.CI
@@ -54,12 +54,13 @@ describe('Browsers', async () => {
 
 						const page = await context.newPage()
 						await page.goto('/')
+						await sleep(1000)
 
 						await expect(page.locator(`#${DEFAULT_SCRIPT_ID}`)).toHaveCount(1)
 						await expect(page.locator(`#${DEFAULT_CONTAINER_ID}`)).toHaveCount(1)
-						await ensureFrameVisible(page)
-						const iframe = page.frameLocator('iframe[src^="https://challenges.cloudflare.com"]')
-						await expect(iframe.locator('body')).toContainText('Testing only.')
+						const iframe = await getFirstWidgetFrame(page)
+						await expect(iframe?.locator('body')).toContainText('Testing only.')
+
 						!isCI &&
 							(await page.screenshot({
 								path: `${ssPath}/${browserName}-${tokenizedDeviceName}-visible.png`
