@@ -16,11 +16,6 @@ export const ensureDirectory = (dir: string) => {
 	if (!fs.existsSync(dir)) fs.mkdirSync(dir)
 }
 
-export const ensureFrameVisible = async (page: Page) => {
-	await expect(page.locator('iframe')).toBeVisible({ timeout: 10000 })
-	await expect(page.locator('iframe')).toHaveCount(1)
-}
-
 export const ensureFrameHidden = async (page: Page) => {
 	await expect(page.locator('iframe')).toBeHidden()
 	await expect(page.locator('iframe')).toHaveCount(0)
@@ -37,4 +32,14 @@ export const ensureChallengeNotSolved = async (page: Page) => {
 
 export async function sleep(ms: number) {
 	return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+export async function getWidgetFrames(page: Page) {
+	await sleep(1000)
+	return page.frames().filter(f => f.url().startsWith('https://challenges.cloudflare.com'))
+}
+
+export async function getFirstWidgetFrame(page: Page) {
+	await sleep(1000)
+	return page.frames().filter(f => f.url().startsWith('https://challenges.cloudflare.com'))[0]
 }
