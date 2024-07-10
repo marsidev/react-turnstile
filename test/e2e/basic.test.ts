@@ -40,7 +40,7 @@ test('widget container rendered', async () => {
 	await expect(page.locator(`#${DEFAULT_CONTAINER_ID}`)).toHaveCount(1)
 })
 
-test.only('widget iframe is visible', async () => {
+test('widget iframe is visible', async () => {
 	const iframe = await getFirstWidgetFrame(page)
 	await expect(iframe.locator('body')).toContainText('Testing only.')
 
