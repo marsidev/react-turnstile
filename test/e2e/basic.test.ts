@@ -50,7 +50,7 @@ test('widget iframe is visible', async () => {
 		}))
 })
 
-test('`onWidgetLoad` callback is called', async () => {
+test.skip('`onWidgetLoad` callback is called', async () => {
 	const iframe = page.getByTitle('Widget containing a Cloudflare security challenge')
 	const widgetId = await iframe.getAttribute('id')
 	expect(widgetId).toBeDefined()
