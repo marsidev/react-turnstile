@@ -308,7 +308,7 @@ interface TurnstileProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onE
 	siteKey: RenderOptions['sitekey']
 
 	/**
-	 * Callback invoked when the widget is loaded or reloaded (e.g. after a reset).
+	 * Callback invoked after a successful render of the widget. The callback is passed the widget ID. It does not trigger when the widget is reset.
 	 */
 	onWidgetLoad?: (widgetID: string) => void
 
