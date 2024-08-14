@@ -8,7 +8,7 @@ import {
 	useState
 } from 'react'
 import Container from './container'
-import { RenderOptions, TurnstileInstance, TurnstileProps } from './types'
+import { RenderParameters, TurnstileInstance, TurnstileProps } from './types'
 import useObserveScript from './use-observe-script'
 import {
 	CONTAINER_STYLE_SET,
@@ -86,7 +86,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 	const appearance = options.appearance || 'always'
 
 	const renderConfig = useMemo(
-		(): RenderOptions => ({
+		(): RenderParameters => ({
 			sitekey: siteKey,
 			action: options.action,
 			cData: options.cData,
@@ -271,7 +271,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 						widgetId.current
 					) {
 						console.warn('Turnstile has not been loaded or container not found')
-						return
+						return undefined
 					}
 
 					const id = turnstile.render(containerRef.current, renderConfig)
@@ -308,7 +308,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 				isExpired() {
 					if (!turnstile?.isExpired || !widgetId.current || !checkIfTurnstileLoaded()) {
 						console.warn('Turnstile has not been loaded')
-						return
+						return false
 					}
 
 					return turnstile.isExpired(widgetId.current)

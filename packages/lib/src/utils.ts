@@ -1,4 +1,4 @@
-import { ContainerSizeSet, InjectTurnstileScriptParams, RenderOptions } from './types'
+import { ContainerSizeSet, InjectTurnstileScriptParams, RenderParameters } from './types'
 
 export const SCRIPT_URL = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
 export const DEFAULT_SCRIPT_ID = 'cf-turnstile-script'
@@ -114,11 +114,11 @@ export const CONTAINER_STYLE_SET: ContainerSizeSet = {
  * @param size Size from props.
  * @returns
  */
-export function getTurnstileSizeOpts(size: keyof ContainerSizeSet): RenderOptions['size'] {
-	let result: RenderOptions['size']
+export function getTurnstileSizeOpts(size: keyof ContainerSizeSet) {
+	let result: RenderParameters['size']
 
 	if (size !== 'invisible' && size !== 'auto') {
-		result = size as RenderOptions['size']
+		result = size as RenderParameters['size']
 	}
 
 	return result

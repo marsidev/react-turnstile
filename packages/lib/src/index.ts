@@ -7,6 +7,11 @@ export type {
 	TurnstileInstance,
 	TurnstileServerValidationErrorCode,
 	TurnstileServerValidationResponse,
-	TurnstileTheme,
-	TurnstileLangCode
+	Theme as TurnstileTheme,
+	TurnstileLangCode,
+	AppearanceMode,
+	ExecutionMode,
+	FailureRetryMode,
+	RefreshExpiredMode,
+	RefreshTimeoutMode
 } from './types'
