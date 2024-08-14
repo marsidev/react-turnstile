@@ -20,7 +20,7 @@ You can pass any of the props listed [here](/props) into the `Turnstile` compone
           action: 'submit-form',
           theme: 'light',
           size: 'compact',
-          language: 'fr',
+          language: 'es',
         }}
         scriptOptions={{
           appendTo: 'body'
@@ -36,13 +36,14 @@ You can pass any of the props listed [here](/props) into the `Turnstile` compone
   export default function Widget() {
     return (
       <Turnstile
+			  as='aside'
         siteKey='{{ siteKey }}'
         className='fixed bottom-4 right-4'
         options={{
           action: 'submit-form',
           theme: 'light',
           size: 'compact',
-          language: 'fr',
+          language: 'es',
         }}
         scriptOptions={{
           appendTo: 'body'

@@ -64,7 +64,7 @@ You can get the widget token by three ways:
   import type { TurnstileInstance } from '@marsidev/react-turnstile'
 
   export default function Widget() {
-    const ref = React.useRef<TurnstileInstance>(null)
+    const ref = React.useRef<TurnstileInstance | null>(null)
 
     return (
       <>

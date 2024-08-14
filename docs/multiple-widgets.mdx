@@ -68,8 +68,8 @@ You can use multiple `useRef` to interact with each widget:
   import type { TurnstileInstance } from '@marsidev/react-turnstile'
 
   export default function Widgets() {
-    const widget1 = React.useRef<TurnstileInstance>(null)
-    const widget2 = React.useRef<TurnstileInstance>(null)
+    const widget1 = React.useRef<TurnstileInstance | null>(null)
+    const widget2 = React.useRef<TurnstileInstance | null>(null)
 
     return (
       <>

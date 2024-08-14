@@ -11,9 +11,9 @@ The library exposes some methods within the `Turnstile` ref, in order to interac
 | `getResponse()`        | Returns the widget’s response token.                                                                                                                                                                                                                                                                                                                                        | `string`          |
 | `getResponsePromise()` | Returns the widget’s response as a promise, it waits until the widget is rendered and solved. It has a timeout of 30 seconds.                                                                                                                                                                                                                                               | `Promise<string>` |
 | `reset()`              | Resets the widget. Useful if a given widget has timed out, expired or needs to be reloaded.                                                                                                                                                                                                                                                                                 | `void`            |
-| `remove()`             | Removes the widget. Useful when a widget is no longer needed. This will not call any callback and will remove all related DOM elements.                                                                                                                                                                                                                                     | `void`            |
+| `remove()`             | Fully removes the Turnstile widget from the DOM.                                                                                                                                                                                                                                     | `void`            |
 | `render()`             | Renders the widget. Since all widgets are rendered automatically, this only takes effect if the widget was previously removed. If the widget is already rendered, this method will not re-render the widget.                                                                                                                                                                | `void`            |
-| `execute()`            | If `options.execution` is set to `'execute'`, this method is used to render the widget. If the widget is already shown (rendered and executed), this method will not re-render the widget. If the widget got removed (`.remove()`), you need to call `.render()` and then `.execute()`. If `options.execution` is set to `'render'` (default), this method takes no effect. | `void`            |
+| `execute()`            | If `options.execution` is set to `'execute'`, this method is used to render the widget. If the widget is already shown (rendered and executed), this method will not re-render the widget. If the widget got removed (`.remove()`), you need to call `.render()` and then `.execute()`. If `options.execution` is set to `'render'` (default), this method has no effect. | `void`            |
 | `isExpired()`          | Returns `true` if the widget has expired.                                                                                                                                                                                                                                                                                                                                   | `boolean`         |
 
 <CodeGroup>
@@ -37,7 +37,7 @@ The library exposes some methods within the `Turnstile` ref, in order to interac
   import type { TurnstileInstance } from '@marsidev/react-turnstile'
 
   export default function Widget() {
-    const ref = React.useRef<TurnstileInstance>(null)
+    const ref = React.useRef<TurnstileInstance | null>(null)
 
     return (
       <>

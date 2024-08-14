@@ -31,7 +31,7 @@ Here is an example of how to reset the widget when it expires:
   import type { TurnstileInstance } from '@marsidev/react-turnstile'
 
   export default function Widget() {
-    const ref = React.useRef<TurnstileInstance>(null)
+    const ref = React.useRef<TurnstileInstance | null>(null)
 
     return (
       <Turnstile
