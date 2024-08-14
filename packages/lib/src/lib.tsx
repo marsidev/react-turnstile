@@ -64,15 +64,20 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		injectScript = true,
 		...divProps
 	} = props
-	const widgetSize = options.size || 'normal'
 
-	const [containerStyle, setContainerStyle] = useState(
-		options.execution === 'execute'
-			? CONTAINER_STYLE_SET.invisible
-			: options.appearance === 'interaction-only'
-				? CONTAINER_STYLE_SET.interactionOnly
-				: CONTAINER_STYLE_SET[widgetSize]
-	)
+	const widgetSize = options.size
+
+	const calculateContainerStyle = useCallback(() => {
+		return typeof widgetSize === 'undefined'
+			? {}
+			: options.execution === 'execute'
+				? CONTAINER_STYLE_SET.invisible
+				: options.appearance === 'interaction-only'
+					? CONTAINER_STYLE_SET.interactionOnly
+					: CONTAINER_STYLE_SET[widgetSize]
+	}, [options.execution, widgetSize, options.appearance])
+
+	const [containerStyle, setContainerStyle] = useState(calculateContainerStyle())
 	const containerRef = useRef<HTMLElement | null>(null)
 	const [turnstileLoaded, setTurnstileLoaded] = useState(false)
 	const widgetId = useRef<string | undefined | null>()
@@ -279,7 +284,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 					if (widgetId.current) onWidgetLoad?.(widgetId.current)
 
 					if (options.execution !== 'execute') {
-						setContainerStyle(CONTAINER_STYLE_SET[widgetSize])
+						setContainerStyle(widgetSize ? CONTAINER_STYLE_SET[widgetSize] : {})
 					}
 
 					return id
@@ -302,7 +307,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 					}
 
 					turnstile.execute(containerRef.current, renderConfig)
-					setContainerStyle(CONTAINER_STYLE_SET[widgetSize])
+					setContainerStyle(widgetSize ? CONTAINER_STYLE_SET[widgetSize] : {})
 				},
 
 				isExpired() {
@@ -336,13 +341,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 
 	// Update style
 	useEffect(() => {
-		setContainerStyle(
-			options.execution === 'execute'
-				? CONTAINER_STYLE_SET.invisible
-				: appearance === 'interaction-only'
-					? CONTAINER_STYLE_SET.interactionOnly
-					: CONTAINER_STYLE_SET[widgetSize]
-		)
+		setContainerStyle(calculateContainerStyle())
 	}, [options.execution, widgetSize, appearance])
 
 	// onLoadScript callback

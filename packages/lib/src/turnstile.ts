@@ -57,9 +57,9 @@ export type Theme = 'auto' | 'light' | 'dark'
 
 /**
  * The widget size.
- * Can take the following values: normal, compact.
+ * Can take the following values: normal, compact, invisible.
  */
-export type WidgetSize = 'normal' | 'compact'
+export type WidgetSize = 'normal' | 'compact' | 'invisible'
 
 /**
  * How to retry on widget failure.

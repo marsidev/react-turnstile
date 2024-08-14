@@ -83,7 +83,7 @@ export interface ComponentRenderOptions
 	 * Note: "invisible" is only to be used with invisible widgets.
 	 * @default "normal"
 	 */
-	size?: Turnstile.WidgetSize | 'invisible' | 'auto'
+	size?: Turnstile.WidgetSize
 
 	/**
 	 * The refresh mode to use when the given Turnstile token expires.

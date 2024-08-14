@@ -13,5 +13,6 @@ export type {
 	ExecutionMode,
 	FailureRetryMode,
 	RefreshExpiredMode,
-	RefreshTimeoutMode
+	RefreshTimeoutMode,
+	WidgetSize
 } from './types'
