@@ -19,7 +19,7 @@
 			"import": "./dist/index.mjs"
 		}
 	},
-	"main": "./dist/index.mjs",
+	"main": "./dist/index.cjs",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
 	"files": [
@@ -42,14 +42,14 @@
 		"react-dom": ">=16.8.0"
 	},
 	"devDependencies": {
-		"@testing-library/jest-dom": "6.4.2",
-		"@testing-library/react": "15.0.5",
+		"@testing-library/jest-dom": "6.4.8",
+		"@testing-library/react": "16.0.0",
 		"@types/jest": "29.5.12",
-		"bumpp": "9.4.0",
-		"jsdom": "24.0.0",
-		"nodemon": "3.1.0",
-		"unbuild": "0.8.9",
-		"vitest": "1.5.2"
+		"bumpp": "9.5.1",
+		"jsdom": "24.1.1",
+		"nodemon": "3.1.4",
+		"unbuild": "1.2.1",
+		"vitest": "2.0.5"
 	},
 	"keywords": [
 		"cloudflare-turnstile",

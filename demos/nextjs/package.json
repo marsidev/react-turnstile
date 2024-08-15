@@ -13,25 +13,25 @@
 	"dependencies": {
 		"@kodingdotninja/use-tailwind-breakpoint": "1.0.0",
 		"@marsidev/react-turnstile": "workspace:*",
-		"@radix-ui/react-select": "2.0.0",
+		"@radix-ui/react-select": "2.1.1",
 		"class-variance-authority": "0.7.0",
 		"classnames": "2.5.1",
-		"jotai": "2.8.0",
-		"lucide-react": "0.376.0",
-		"next": "14.2.3",
+		"jotai": "2.9.3",
+		"lucide-react": "0.427.0",
+		"next": "14.2.5",
 		"next-themes": "0.3.0",
 		"react": "18.3.1",
 		"react-dom": "18.3.1",
-		"tailwind-merge": "2.3.0"
+		"tailwind-merge": "2.5.2"
 	},
 	"devDependencies": {
-		"@tailwindcss/typography": "0.5.13",
-		"autoprefixer": "10.4.19",
+		"@tailwindcss/typography": "0.5.14",
+		"autoprefixer": "10.4.20",
 		"eslint-config-custom": "workspace:*",
-		"eslint-config-next": "14.2.3",
-		"postcss": "8.4.38",
-		"prettier-plugin-tailwindcss": "0.5.14",
-		"tailwindcss": "3.4.3"
+		"eslint-config-next": "14.2.5",
+		"postcss": "8.4.41",
+		"prettier-plugin-tailwindcss": "0.6.6",
+		"tailwindcss": "3.4.10"
 	},
 	"eslintConfig": {
 		"extends": [
