@@ -14,22 +14,22 @@ export interface TurnstileInstance extends Omit<Turnstile.Turnstile, 'ready'> {
 	 * Explicitly render the Turnstile widget.
 	 * @returns The rendered widget ID.
 	 */
-	render: Turnstile.Turnstile['render']
+	render: () => ReturnType<Turnstile.Turnstile['render']>
 
 	/** Render a widget when `options.execution` is set to `'execute'`. This method should be called after the `.render()` method. If `options.execution` is set to `'render'` this method has no effect. */
-	execute: Turnstile.Turnstile['execute']
+	execute: () => ReturnType<Turnstile.Turnstile['execute']>
 
 	/** Resets the Turnstile widget. */
-	reset: Turnstile.Turnstile['reset']
+	reset: () => ReturnType<Turnstile.Turnstile['reset']>
 
 	/** Fully removes the Turnstile widget from the DOM. */
-	remove: Turnstile.Turnstile['remove']
+	remove: () => ReturnType<Turnstile.Turnstile['remove']>
 
 	/**
 	 * Gets the response of a Turnstile widget.
 	 * @returns The token response.
 	 */
-	getResponse: Turnstile.Turnstile['getResponse']
+	getResponse: () => ReturnType<Turnstile.Turnstile['getResponse']>
 
 	/**
 	 *  Gets the response of a Turnstile widget as a promise, it waits until the widget is rendered and solved.
@@ -43,7 +43,7 @@ export interface TurnstileInstance extends Omit<Turnstile.Turnstile, 'ready'> {
 	) => Promise<ReturnType<Turnstile.Turnstile['getResponse']>>
 
 	/** Checks whether or not the token returned by the given widget is expired. */
-	isExpired: Turnstile.Turnstile['isExpired']
+	isExpired: () => ReturnType<Turnstile.Turnstile['isExpired']>
 }
 
 /** Render options or parameters for the `<Turnstile />` component. */
