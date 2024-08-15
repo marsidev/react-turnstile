@@ -193,150 +193,146 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		[containerId, turnstileLoaded, renderConfig]
 	)
 
-	useImperativeHandle(
-		ref,
-		() => {
-			const { turnstile } = window
-			return {
-				getResponse() {
-					if (!turnstile?.getResponse || !widgetId.current || !checkIfTurnstileLoaded()) {
-						console.warn('Turnstile has not been loaded')
-						return
-					}
+	useImperativeHandle(ref, () => {
+		const { turnstile } = window
+		return {
+			getResponse() {
+				if (!turnstile?.getResponse || !widgetId.current || !checkIfTurnstileLoaded()) {
+					console.warn('Turnstile has not been loaded')
+					return
+				}
 
-					return turnstile.getResponse(widgetId.current)
-				},
+				return turnstile.getResponse(widgetId.current)
+			},
 
-				async getResponsePromise(timeout = 30000, retry = 100) {
-					return new Promise((resolve, reject) => {
-						let timeoutId: ReturnType<typeof setTimeout> | undefined
+			async getResponsePromise(timeout = 30000, retry = 100) {
+				return new Promise((resolve, reject) => {
+					let timeoutId: ReturnType<typeof setTimeout> | undefined
 
-						const checkLoaded = async () => {
-							if (widgetSolved.current && window.turnstile && widgetId.current) {
-								try {
-									const token = window.turnstile.getResponse(widgetId.current)
-									if (timeoutId) clearTimeout(timeoutId)
+					const checkLoaded = async () => {
+						if (widgetSolved.current && window.turnstile && widgetId.current) {
+							try {
+								const token = window.turnstile.getResponse(widgetId.current)
+								if (timeoutId) clearTimeout(timeoutId)
 
-									if (token) {
-										return resolve(token)
-									}
-
-									return reject(new Error('No response received'))
-								} catch (error) {
-									if (timeoutId) clearTimeout(timeoutId)
-									console.warn('Failed to get response', error)
-									return reject(new Error('Failed to get response'))
+								if (token) {
+									return resolve(token)
 								}
-							}
 
-							if (!timeoutId) {
-								timeoutId = setTimeout(() => {
-									if (timeoutId) clearTimeout(timeoutId)
-									reject(new Error('Timeout'))
-								}, timeout)
+								return reject(new Error('No response received'))
+							} catch (error) {
+								if (timeoutId) clearTimeout(timeoutId)
+								console.warn('Failed to get response', error)
+								return reject(new Error('Failed to get response'))
 							}
-
-							await new Promise(resolve => setTimeout(resolve, retry))
-							await checkLoaded()
 						}
 
-						checkLoaded()
-					})
-				},
+						if (!timeoutId) {
+							timeoutId = setTimeout(() => {
+								if (timeoutId) clearTimeout(timeoutId)
+								reject(new Error('Timeout'))
+							}, timeout)
+						}
 
-				reset() {
-					if (!turnstile?.reset || !widgetId.current || !checkIfTurnstileLoaded()) {
-						console.warn('Turnstile has not been loaded')
-						return
+						await new Promise(resolve => setTimeout(resolve, retry))
+						await checkLoaded()
 					}
 
-					if (options.execution === 'execute') {
-						setContainerStyle(CONTAINER_STYLE_SET.invisible)
-					}
+					checkLoaded()
+				})
+			},
 
-					try {
-						widgetSolved.current = false
-						turnstile.reset(widgetId.current)
-					} catch (error) {
-						console.warn(`Failed to reset Turnstile widget ${widgetId}`, error)
-					}
-				},
-
-				remove() {
-					if (!turnstile?.remove || !widgetId.current || !checkIfTurnstileLoaded()) {
-						console.warn('Turnstile has not been loaded')
-						return
-					}
-
-					setContainerStyle(CONTAINER_STYLE_SET.invisible)
-					widgetSolved.current = false
-					turnstile.remove(widgetId.current)
-					widgetId.current = null
-				},
-
-				render() {
-					if (
-						!turnstile?.render ||
-						!containerRef.current ||
-						!checkIfTurnstileLoaded() ||
-						widgetId.current
-					) {
-						console.warn('Turnstile has not been loaded or container not found')
-						return undefined
-					}
-
-					const id = turnstile.render(containerRef.current, renderConfig)
-					widgetId.current = id
-					if (widgetId.current) onWidgetLoad?.(widgetId.current)
-
-					if (options.execution !== 'execute') {
-						setContainerStyle(widgetSize ? CONTAINER_STYLE_SET[widgetSize] : {})
-					}
-
-					return id
-				},
-
-				execute() {
-					if (options.execution !== 'execute') {
-						console.warn('Execution mode is not set to "execute"')
-						return
-					}
-
-					if (
-						!turnstile?.execute ||
-						!containerRef.current ||
-						!widgetId.current ||
-						!checkIfTurnstileLoaded()
-					) {
-						console.warn('Turnstile has not been loaded or container not found')
-						return
-					}
-
-					turnstile.execute(containerRef.current, renderConfig)
-					setContainerStyle(widgetSize ? CONTAINER_STYLE_SET[widgetSize] : {})
-				},
-
-				isExpired() {
-					if (!turnstile?.isExpired || !widgetId.current || !checkIfTurnstileLoaded()) {
-						console.warn('Turnstile has not been loaded')
-						return false
-					}
-
-					return turnstile.isExpired(widgetId.current)
+			reset() {
+				if (!turnstile?.reset || !widgetId.current || !checkIfTurnstileLoaded()) {
+					console.warn('Turnstile has not been loaded')
+					return
 				}
+
+				if (options.execution === 'execute') {
+					setContainerStyle(CONTAINER_STYLE_SET.invisible)
+				}
+
+				try {
+					widgetSolved.current = false
+					turnstile.reset(widgetId.current)
+				} catch (error) {
+					console.warn(`Failed to reset Turnstile widget ${widgetId}`, error)
+				}
+			},
+
+			remove() {
+				if (!turnstile?.remove || !widgetId.current || !checkIfTurnstileLoaded()) {
+					console.warn('Turnstile has not been loaded')
+					return
+				}
+
+				setContainerStyle(CONTAINER_STYLE_SET.invisible)
+				widgetSolved.current = false
+				turnstile.remove(widgetId.current)
+				widgetId.current = null
+			},
+
+			render() {
+				if (
+					!turnstile?.render ||
+					!containerRef.current ||
+					!checkIfTurnstileLoaded() ||
+					widgetId.current
+				) {
+					console.warn('Turnstile has not been loaded or container not found')
+					return undefined
+				}
+
+				const id = turnstile.render(containerRef.current, renderConfig)
+				widgetId.current = id
+				if (widgetId.current) onWidgetLoad?.(widgetId.current)
+
+				if (options.execution !== 'execute') {
+					setContainerStyle(widgetSize ? CONTAINER_STYLE_SET[widgetSize] : {})
+				}
+
+				return id
+			},
+
+			execute() {
+				if (options.execution !== 'execute') {
+					console.warn('Execution mode is not set to "execute"')
+					return
+				}
+
+				if (
+					!turnstile?.execute ||
+					!containerRef.current ||
+					!widgetId.current ||
+					!checkIfTurnstileLoaded()
+				) {
+					console.warn('Turnstile has not been loaded or container not found')
+					return
+				}
+
+				turnstile.execute(containerRef.current, renderConfig)
+				setContainerStyle(widgetSize ? CONTAINER_STYLE_SET[widgetSize] : {})
+			},
+
+			isExpired() {
+				if (!turnstile?.isExpired || !widgetId.current || !checkIfTurnstileLoaded()) {
+					console.warn('Turnstile has not been loaded')
+					return false
+				}
+
+				return turnstile.isExpired(widgetId.current)
 			}
-		},
-		[
-			widgetId,
-			options.execution,
-			widgetSize,
-			renderConfig,
-			containerRef,
-			checkIfTurnstileLoaded,
-			turnstileLoaded,
-			onWidgetLoad
-		]
-	)
+		}
+	}, [
+		widgetId,
+		options.execution,
+		widgetSize,
+		renderConfig,
+		containerRef,
+		checkIfTurnstileLoaded,
+		turnstileLoaded,
+		onWidgetLoad
+	])
 
 	/* Set the turnstile as loaded, in case the onload callback never runs. (e.g., when manually injecting the script without specifying the `onload` param) */
 	useEffect(() => {
