@@ -91,6 +91,13 @@ export interface ComponentRenderOptions
 	 * @default "auto"
 	 */
 	refreshExpired?: Turnstile.RenderParameters['refresh-expired']
+
+	/**
+	 * The refresh mode to use when the widget times out.
+	 * The default is "auto". "never" will never refresh the widget, "manual" will prompt the user with a refresh button.
+	 * @default "auto"
+	 */
+	refreshTimeout?: Turnstile.RenderParameters['refresh-timeout']
 }
 
 /** Custom options for the injected script. */

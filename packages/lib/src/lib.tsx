@@ -113,6 +113,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			retry: options.retry || 'auto',
 			'retry-interval': options.retryInterval || 8000,
 			'refresh-expired': options.refreshExpired || 'auto',
+			'refresh-timeout': options.refreshTimeout || 'auto',
 			execution: options.execution || 'render',
 			appearance: options.appearance || 'always'
 		}),
