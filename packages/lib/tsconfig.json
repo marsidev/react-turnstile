@@ -1,9 +1,9 @@
 {
 	"compilerOptions": {
-		"target": "ESNext",
+		"target": "ES2022",
 		"module": "ESNext",
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
-		"moduleResolution": "Node",
+		"moduleResolution": "Bundler",
 		"esModuleInterop": true,
 		"strict": true,
 		"forceConsistentCasingInFileNames": true,
@@ -22,5 +22,5 @@
 		"types": ["@testing-library/jest-dom"]
 	},
 	"include": ["src", "test", "*.config.ts"],
-	"exclude": ["node_modules"]
+	"exclude": ["node_modules", "dist"]
 }
