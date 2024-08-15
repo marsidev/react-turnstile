@@ -186,6 +186,9 @@ export interface TurnstileProps extends Omit<React.HTMLAttributes<HTMLDivElement
 	/** Callback that is invoked when the browser is not supported by Turnstile. */
 	onUnsupported?: Turnstile.RenderParameters['unsupported-callback']
 
+	/** Callback that is invoked when the Turnstile widget times out. */
+	onTimeout?: Turnstile.RenderParameters['timeout-callback']
+
 	/**
 	 * Custom widget render options. See {@link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#configurations the docs} for more info.
 	 */

@@ -57,6 +57,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		onBeforeInteractive,
 		onAfterInteractive,
 		onUnsupported,
+		onTimeout,
 		onLoadScript,
 		id,
 		style,
@@ -116,7 +117,8 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			'refresh-timeout': options.refreshTimeout || 'auto',
 			execution: options.execution || 'render',
 			appearance: options.appearance || 'always',
-			'feedback-enabled': options.feedbackEnabled || true
+			'feedback-enabled': options.feedbackEnabled || true,
+			'timeout-callback': onTimeout
 		}),
 		[
 			options.action,
