@@ -57,9 +57,9 @@ export type Theme = 'auto' | 'light' | 'dark'
 
 /**
  * The widget size.
- * Can take the following values: normal, compact, invisible.
+ * Can take the following values: normal, compact, flexible, invisible.
  */
-export type WidgetSize = 'normal' | 'compact' | 'invisible'
+export type WidgetSize = 'normal' | 'compact' | 'flexible' | 'invisible'
 
 /**
  * How to retry on widget failure.
@@ -162,7 +162,7 @@ export interface RenderParameters {
 
 	/**
 	 * Optional. The size of the Turnstile widget.
-	 * Accepted values: "normal", "compact", "invisible"
+	 * Accepted values: "normal", "compact", "flexible", "invisible"
 	 * Note: "invisible" is only to be used with invisible widgets
 	 * @see WidgetSize
 	 * @default "normal"

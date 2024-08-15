@@ -91,13 +91,18 @@ export const CONTAINER_STYLE_SET: ContainerSizeSet = {
 		height: 65
 	},
 	compact: {
-		width: 130,
-		height: 120
+		width: 150,
+		height: 140
 	},
 	invisible: {
 		width: 0,
 		height: 0,
 		overflow: 'hidden'
+	},
+	flexible: {
+		minWidth: 300,
+		width: '100%',
+		height: 65
 	},
 	interactionOnly: {
 		width: 'fit-content',

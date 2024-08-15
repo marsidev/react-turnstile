@@ -78,9 +78,9 @@ export interface ComponentRenderOptions
 
 	/**
 	 * The size of the Turnstile widget.
-	 * Accepted values: "normal", "compact", "invisible"
-	 * The normal size is 300x65px, the compact size is 130x120px, invisible will show no widget.
-	 * Note: "invisible" is only to be used with invisible widgets.
+	 * Accepted values: "normal", "compact", "flexible", "invisible".
+	 * Normal: 300x65px, compact: 150x140px, flexible: 100% width (min: 300px) x 65px.
+	 * Invisible will show no widget and is only to be used with invisible type widgets.
 	 * @default "normal"
 	 */
 	size?: Turnstile.WidgetSize
