@@ -98,6 +98,12 @@ export interface ComponentRenderOptions
 	 * @default "auto"
 	 */
 	refreshTimeout?: Turnstile.RenderParameters['refresh-timeout']
+
+	/**
+	 * Allows Cloudflare to gather visitor feedback upon widget failure.
+	 * @default true
+	 */
+	feedbackEnabled?: Turnstile.RenderParameters['feedback-enabled']
 }
 
 /** Custom options for the injected script. */

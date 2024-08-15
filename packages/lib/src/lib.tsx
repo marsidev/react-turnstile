@@ -115,7 +115,8 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			'refresh-expired': options.refreshExpired || 'auto',
 			'refresh-timeout': options.refreshTimeout || 'auto',
 			execution: options.execution || 'render',
-			appearance: options.appearance || 'always'
+			appearance: options.appearance || 'always',
+			'feedback-enabled': options.feedbackEnabled || true
 		}),
 		[
 			options.action,
@@ -130,6 +131,8 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			options.retryInterval,
 			options.tabIndex,
 			options.theme,
+			options.feedbackEnabled,
+			options.refreshTimeout,
 			siteKey,
 			widgetSize
 		]

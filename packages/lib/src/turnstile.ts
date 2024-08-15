@@ -1,4 +1,4 @@
-// Reference: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/6fadb7c9001318e86d5e52695c5a46746e3715bf/types/cloudflare-turnstile/index.d.ts
+// Reference: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/cloudflare-turnstile/index.d.ts
 export interface Turnstile {
 	/**
 	 * Registers a callback to be invoked when the turnstile is ready.
@@ -229,4 +229,10 @@ export interface RenderParameters {
 	 * @default "render"
 	 */
 	execution?: ExecutionMode | undefined
+
+	/**
+	 * Optional. Allows Cloudflare to gather visitor feedback upon widget failure.
+	 * @default true
+	 */
+	'feedback-enabled'?: boolean | undefined
 }
