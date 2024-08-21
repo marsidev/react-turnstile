@@ -31,14 +31,14 @@ body:
   - attributes:
       description: What browsers are you seeing the problem on?
       label: Browsers
-    type: dropdown
-    multiple: true
-    options:
+      multiple: true
+      options:
       - Chrome
       - Firefox
       - Safari
       - Microsoft Edge
       - Other
+    type: dropdown
     validations:
       required: false
   - attributes:
