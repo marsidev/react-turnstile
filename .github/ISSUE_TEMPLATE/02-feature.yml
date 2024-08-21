@@ -9,7 +9,7 @@ body:
           required: true
     type: checkboxes
   - attributes:
-      description: What did you expect to be able to do?
+      description: What would you like to request?
       label: Overview
     type: textarea
     validations:

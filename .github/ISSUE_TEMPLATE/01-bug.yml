@@ -32,13 +32,13 @@ body:
       description: What browsers are you seeing the problem on?
       label: Browsers
     type: dropdown
-      multiple: true
-      options:
-        - Chrome
-        - Firefox
-        - Safari
-        - Microsoft Edge
-        - Other
+    multiple: true
+    options:
+      - Chrome
+      - Firefox
+      - Safari
+      - Microsoft Edge
+      - Other
     validations:
       required: false
   - attributes:

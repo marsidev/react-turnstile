@@ -11,17 +11,11 @@ body:
           required: true
     type: checkboxes
   - attributes:
-      description: What did you expect to be able to do?
+      description: What would you like to request?
       label: Overview
     type: textarea
     validations:
       required: true
-  - attributes:
-      description: Enter the version of @marsidev/react-turnstile you are using.
-      label: Package Version
-    type: input
-    validations:
-      required: false
   - attributes:
       description: Any additional info you'd like to provide.
       label: Additional Info
