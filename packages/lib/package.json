@@ -15,20 +15,18 @@
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"require": "./dist/index.cjs",
-			"import": "./dist/index.mjs"
+			"import": "./dist/index.js"
 		}
 	},
-	"main": "./dist/index.mjs",
-	"module": "./dist/index.mjs",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"files": [
 		"dist"
 	],
 	"scripts": {
-		"build": "unbuild",
-		"build:watch": "nodemon --ext .ts,.tsx --watch src --exec unbuild",
-		"stub": "unbuild --stub",
+		"build": "tsup",
+		"build:watch": "tsup --watch",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
 		"prepublishOnly": "pnpm run build",
@@ -38,18 +36,17 @@
 		"test:integration:watch": "vitest"
 	},
 	"peerDependencies": {
-		"react": ">=16.8.0",
-		"react-dom": ">=16.8.0"
+		"react": "^17.0.2 || ^18.0.0",
+		"react-dom": "^17.0.2 || ^18.0.0"
 	},
 	"devDependencies": {
-		"@testing-library/jest-dom": "6.4.2",
-		"@testing-library/react": "15.0.5",
+		"@testing-library/jest-dom": "6.4.8",
+		"@testing-library/react": "16.0.0",
 		"@types/jest": "29.5.12",
-		"bumpp": "9.4.0",
-		"jsdom": "24.0.0",
-		"nodemon": "3.1.0",
-		"unbuild": "0.8.9",
-		"vitest": "1.5.2"
+		"bumpp": "9.5.1",
+		"jsdom": "24.1.1",
+		"tsup": "8.2.4",
+		"vitest": "2.0.5"
 	},
 	"keywords": [
 		"cloudflare-turnstile",
@@ -60,8 +57,5 @@
 	"sideEffects": false,
 	"publishConfig": {
 		"access": "public"
-	},
-	"eslintConfig": {
-		"extends": "custom"
 	}
 }

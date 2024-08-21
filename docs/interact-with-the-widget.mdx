@@ -42,7 +42,7 @@ You can interact with the widget using the `ref` prop. The available methods are
   import type { TurnstileInstance } from '@marsidev/react-turnstile'
 
   export default function Widget() {
-    const ref = React.useRef<TurnstileInstance>(null)
+    const ref = React.useRef<TurnstileInstance | null>(null)
 
     return (
       <>

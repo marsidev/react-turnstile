@@ -1,4 +1,4 @@
-import { ContainerSizeSet, InjectTurnstileScriptParams, RenderOptions } from './types'
+import { ContainerSizeSet, InjectTurnstileScriptParams } from './types'
 
 export const SCRIPT_URL = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
 export const DEFAULT_SCRIPT_ID = 'cf-turnstile-script'
@@ -91,15 +91,19 @@ export const CONTAINER_STYLE_SET: ContainerSizeSet = {
 		height: 65
 	},
 	compact: {
-		width: 130,
-		height: 120
+		width: 150,
+		height: 140
 	},
 	invisible: {
 		width: 0,
 		height: 0,
 		overflow: 'hidden'
 	},
-	auto: {},
+	flexible: {
+		minWidth: 300,
+		width: '100%',
+		height: 65
+	},
 	interactionOnly: {
 		width: 'fit-content',
 		height: 'auto',
@@ -114,12 +118,10 @@ export const CONTAINER_STYLE_SET: ContainerSizeSet = {
  * @param size Size from props.
  * @returns
  */
-export function getTurnstileSizeOpts(size: keyof ContainerSizeSet): RenderOptions['size'] {
-	let result: RenderOptions['size']
-
-	if (size !== 'invisible' && size !== 'auto') {
-		result = size as RenderOptions['size']
+export function getTurnstileSizeOpts(size: keyof ContainerSizeSet | undefined) {
+	if (size !== 'invisible' && size !== 'interactionOnly') {
+		return size
 	}
 
-	return result
+	return undefined
 }
