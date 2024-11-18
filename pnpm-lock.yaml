@@ -188,10 +188,10 @@ importers:
   packages/lib:
     dependencies:
       react:
-        specifier: ^17.0.2 || ^18.0.0
+        specifier: ^17.0.2 || ^18.0.0 || ^19.0
         version: 18.3.1
       react-dom:
-        specifier: ^17.0.2 || ^18.0.0
+        specifier: ^17.0.2 || ^18.0.0 || ^19.0
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@testing-library/jest-dom':
