@@ -136,7 +136,14 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			options.feedbackEnabled,
 			options.refreshTimeout,
 			siteKey,
-			widgetSize
+			widgetSize,
+			onSuccess,
+			onExpire,
+			onError,
+			onBeforeInteractive,
+			onAfterInteractive,
+			onUnsupported,
+			onTimeout
 		]
 	)
 
