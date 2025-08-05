@@ -210,6 +210,31 @@ export interface TurnstileProps extends Omit<React.HTMLAttributes<HTMLDivElement
 
 	/** Callback that is invoked when the script is loaded. */
 	onLoadScript?: () => void
+
+	/**
+	 * Controls whether the widget re-renders when callback props change.
+	 *
+	 * - `false` (default): Stable callbacks - better performance, callbacks don't cause widget re-renders
+	 * - `true`: Dynamic callbacks - widget re-renders when callbacks change, useful for intentional callback updates
+	 *
+	 * **Important:** When set to `true`, wrap your callback functions with `useCallback` to prevent
+	 * unnecessary widget re-renders on every parent component re-render.
+	 *
+	 * @example
+	 * ```tsx
+	 * const handleSuccess = useCallback((token) => {
+	 *   console.log('Success:', token)
+	 * }, [])
+	 *
+	 * <Turnstile
+	 *   rerenderOnCallbackChange={true}
+	 *   onSuccess={handleSuccess}
+	 * />
+	 * ```
+	 *
+	 * @default false
+	 */
+	rerenderOnCallbackChange?: boolean
 }
 
 export interface InjectTurnstileScriptParams {

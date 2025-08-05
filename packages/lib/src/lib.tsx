@@ -63,6 +63,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 		style,
 		as = 'div',
 		injectScript = true,
+		rerenderOnCallbackChange = false,
 		...divProps
 	} = props
 
@@ -85,6 +86,32 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 	const widgetSolved = useRef(false)
 	const containerId = id || DEFAULT_CONTAINER_ID
 
+	// Stable callback references. Only used when rerenderOnCallbackChange is false
+	const callbacksRef = useRef({
+		onSuccess,
+		onError,
+		onExpire,
+		onBeforeInteractive,
+		onAfterInteractive,
+		onUnsupported,
+		onTimeout
+	})
+
+	// Update refs with latest callbacks when using stable callback mode
+	useEffect(() => {
+		if (!rerenderOnCallbackChange) {
+			callbacksRef.current = {
+				onSuccess,
+				onError,
+				onExpire,
+				onBeforeInteractive,
+				onAfterInteractive,
+				onUnsupported,
+				onTimeout
+			}
+		}
+	})
+
 	const scriptId = scriptOptions?.id || DEFAULT_SCRIPT_ID
 	const scriptLoaded = useObserveScript(scriptId)
 	const onLoadCallbackName = scriptOptions?.onLoadCallbackName || DEFAULT_ONLOAD_NAME
@@ -96,15 +123,6 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			sitekey: siteKey,
 			action: options.action,
 			cData: options.cData,
-			callback: token => {
-				widgetSolved.current = true
-				onSuccess?.(token)
-			},
-			'error-callback': onError,
-			'expired-callback': onExpire,
-			'before-interactive-callback': onBeforeInteractive,
-			'after-interactive-callback': onAfterInteractive,
-			'unsupported-callback': onUnsupported,
 			theme: options.theme || 'auto',
 			language: options.language || 'auto',
 			tabindex: options.tabIndex,
@@ -118,7 +136,32 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			execution: options.execution || 'render',
 			appearance: options.appearance || 'always',
 			'feedback-enabled': options.feedbackEnabled || true,
-			'timeout-callback': onTimeout
+			callback: token => {
+				widgetSolved.current = true
+				if (rerenderOnCallbackChange) {
+					onSuccess?.(token)
+				} else {
+					callbacksRef.current.onSuccess?.(token)
+				}
+			},
+			'error-callback': rerenderOnCallbackChange
+				? onError
+				: (...args) => callbacksRef.current.onError?.(...args),
+			'expired-callback': rerenderOnCallbackChange
+				? onExpire
+				: (...args) => callbacksRef.current.onExpire?.(...args),
+			'before-interactive-callback': rerenderOnCallbackChange
+				? onBeforeInteractive
+				: (...args) => callbacksRef.current.onBeforeInteractive?.(...args),
+			'after-interactive-callback': rerenderOnCallbackChange
+				? onAfterInteractive
+				: (...args) => callbacksRef.current.onAfterInteractive?.(...args),
+			'unsupported-callback': rerenderOnCallbackChange
+				? onUnsupported
+				: (...args) => callbacksRef.current.onUnsupported?.(...args),
+			'timeout-callback': rerenderOnCallbackChange
+				? onTimeout
+				: (...args) => callbacksRef.current.onTimeout?.(...args)
 		}),
 		[
 			options.action,
@@ -137,13 +180,15 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			options.refreshTimeout,
 			siteKey,
 			widgetSize,
-			onSuccess,
-			onExpire,
-			onError,
-			onBeforeInteractive,
-			onAfterInteractive,
-			onUnsupported,
-			onTimeout
+			rerenderOnCallbackChange,
+			// Using either callbacks or null to keep the array length fixed
+			rerenderOnCallbackChange ? onSuccess : null,
+			rerenderOnCallbackChange ? onError : null,
+			rerenderOnCallbackChange ? onExpire : null,
+			rerenderOnCallbackChange ? onBeforeInteractive : null,
+			rerenderOnCallbackChange ? onAfterInteractive : null,
+			rerenderOnCallbackChange ? onUnsupported : null,
+			rerenderOnCallbackChange ? onTimeout : null
 		]
 	)
 

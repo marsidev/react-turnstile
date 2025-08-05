@@ -1,0 +1,169 @@
+---
+title: React Turnstile - Dynamic Callbacks
+---
+
+# Dynamic Callbacks
+
+By default, callbacks always access the latest state/props without re-rendering the widget. For cases where you need the widget to re-render when callbacks change, use `rerenderOnCallbackChange={true}`.
+
+## Default Behavior
+
+<CodeGroup>
+  ```jsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+
+  export default function LoginForm() {
+    const [userType, setUserType] = React.useState('user')
+    const [message, setMessage] = React.useState('')
+
+    const handleSuccess = (token) => {
+      // Always accesses current userType value
+      setMessage(`${userType} login successful!`)
+      submitForm(token, userType)
+    }
+
+    return (
+      <form>
+        <select value={userType} onChange={(e) => setUserType(e.target.value)}>
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Password" />
+
+        <Turnstile siteKey='{{ siteKey }}' onSuccess={handleSuccess} />
+
+        <button type="submit">Login as {userType}</button>
+        {message && <p>{message}</p>}
+      </form>
+    )
+  }
+  ```
+
+  ```tsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+
+  export default function LoginForm() {
+    const [userType, setUserType] = React.useState<'user' | 'admin'>('user')
+    const [message, setMessage] = React.useState('')
+
+    const handleSuccess = (token: string) => {
+      // Always accesses current userType value
+      setMessage(`${userType} login successful!`)
+      submitForm(token, userType)
+    }
+
+    return (
+      <form>
+        <select value={userType} onChange={(e) => setUserType(e.target.value as 'user' | 'admin')}>
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Password" />
+
+        <Turnstile siteKey='{{ siteKey }}' onSuccess={handleSuccess} />
+
+        <button type="submit">Login as {userType}</button>
+        {message && <p>{message}</p>}
+      </form>
+    )
+  }
+  ```
+</CodeGroup>
+
+## Dynamic Callbacks with Re-rendering
+
+<CodeGroup>
+  ```jsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+  import { useCallback } from 'react'
+
+  export default function LoginForm() {
+    const [userType, setUserType] = React.useState('user')
+    const [message, setMessage] = React.useState('')
+
+    const userCallback = useCallback((token) => {
+      setMessage('User login successful!')
+      submitUserForm(token)
+    }, [])
+
+    const adminCallback = useCallback((token) => {
+      setMessage('Admin login successful!')
+      submitAdminForm(token) // Different submission logic
+    }, [])
+
+    const currentCallback = userType === 'user' ? userCallback : adminCallback
+
+    return (
+      <form>
+        <select value={userType} onChange={(e) => setUserType(e.target.value)}>
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Password" />
+
+        <Turnstile
+          siteKey='{{ siteKey }}'
+          rerenderOnCallbackChange={true}
+          onSuccess={currentCallback}
+        />
+
+        <button type="submit">Login as {userType}</button>
+        {message && <p>{message}</p>}
+      </form>
+    )
+  }
+  ```
+
+  ```tsx
+  import { Turnstile } from '@marsidev/react-turnstile'
+  import { useCallback } from 'react'
+
+  export default function LoginForm() {
+    const [userType, setUserType] = React.useState<'user' | 'admin'>('user')
+    const [message, setMessage] = React.useState('')
+
+    const userCallback = useCallback((token: string) => {
+      setMessage('User login successful!')
+      submitUserForm(token)
+    }, [])
+
+    const adminCallback = useCallback((token: string) => {
+      setMessage('Admin login successful!')
+      submitAdminForm(token) // Different submission logic
+    }, [])
+
+    const currentCallback = userType === 'user' ? userCallback : adminCallback
+
+    return (
+      <form>
+        <select value={userType} onChange={(e) => setUserType(e.target.value as 'user' | 'admin')}>
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Password" />
+
+        <Turnstile
+          siteKey='{{ siteKey }}'
+          rerenderOnCallbackChange={true}
+          onSuccess={currentCallback}
+        />
+
+        <button type="submit">Login as {userType}</button>
+        {message && <p>{message}</p>}
+      </form>
+    )
+  }
+  ```
+</CodeGroup>
+
+<Info>
+  When using `rerenderOnCallbackChange={true}`, always wrap your callback functions with `useCallback` to prevent unnecessary widget re-renders.
+</Info>
