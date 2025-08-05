@@ -12,6 +12,7 @@
 				["Basic usage", "/basic-usage"],
 				["Custom props", "/custom-props"],
 				["Managing widget status", "/managing-widget-status"],
+				["Dynamic Callbacks", "/dynamic-callbacks"],
 				["Interact with the widget", "/interact-with-the-widget"],
 				["Get widget token", "/get-widget-token"],
 				["Handling expiration", "/handling-expiration"],
