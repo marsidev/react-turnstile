@@ -1,6 +1,6 @@
 {
 	"name": "@marsidev/react-turnstile",
-	"version": "1.2.0",
+	"version": "1.3.0",
 	"description": "Cloudflare Turnstile integration for React.",
 	"author": "Luis Marsiglia <marsiglia.business@gmail.com>",
 	"license": "MIT",
