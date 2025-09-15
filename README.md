@@ -1,6 +1,6 @@
 <div align="center">
  <h1>React Turnstile</h1>
- <img src="preview.png" width="300" alt="Cloudflare Turnstile widget" />
+ <img src="https://raw.githubusercontent.com/marsidev/react-turnstile/main/preview.png" width="300" alt="Cloudflare Turnstile widget" />
  <p><a href="https://developers.cloudflare.com/turnstile/">Cloudflare Turnstile</a> integration for React.</p>
  <a href="https://npm.im/@marsidev/react-turnstile">
   <img src="https://badgen.net/npm/v/@marsidev/react-turnstile?style=flat-square" alt="npm version" />

@@ -30,7 +30,7 @@
 		"build:watch": "tsup --watch",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
-		"prepublishOnly": "pnpm run build",
+		"prepublishOnly": "copyfiles -u 2 ../../README.md . && pnpm run build",
 		"release": "bumpp && npm publish",
 		"type-check": "tsc --noEmit",
 		"test:integration": "vitest run",
@@ -45,6 +45,7 @@
 		"@testing-library/react": "16.0.0",
 		"@types/jest": "29.5.12",
 		"bumpp": "9.5.1",
+		"copyfiles": "2.4.1",
 		"jsdom": "24.1.1",
 		"tsup": "8.2.4",
 		"vitest": "2.0.5"
