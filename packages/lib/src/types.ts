@@ -40,7 +40,7 @@ export interface TurnstileInstance extends Omit<Turnstile.Turnstile, 'ready'> {
 	getResponsePromise: (
 		timeout?: number,
 		retry?: number
-	) => Promise<ReturnType<Turnstile.Turnstile['getResponse']>>
+	) => Promise<ReturnType<Exclude<Turnstile.Turnstile['getResponse'], undefined>>>
 
 	/** Checks whether or not the token returned by the given widget is expired. */
 	isExpired: () => ReturnType<Turnstile.Turnstile['isExpired']>
