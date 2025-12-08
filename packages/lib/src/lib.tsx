@@ -82,7 +82,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 	const [containerStyle, setContainerStyle] = useState(calculateContainerStyle())
 	const containerRef = useRef<HTMLElement | null>(null)
 	const [turnstileLoaded, setTurnstileLoaded] = useState(false)
-	const widgetId = useRef<string | undefined | null>()
+	const widgetId = useRef<string | undefined | null>(undefined)
 	const widgetSolved = useRef(false)
 	const containerId = id || DEFAULT_CONTAINER_ID
 

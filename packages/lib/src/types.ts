@@ -47,11 +47,10 @@ export interface TurnstileInstance extends Omit<Turnstile.Turnstile, 'ready'> {
 }
 
 /** Render options or parameters for the `<Turnstile />` component. */
-export interface ComponentRenderOptions
-	extends Pick<
-		Turnstile.RenderParameters,
-		'action' | 'cData' | 'theme' | 'retry' | 'language' | 'execution' | 'appearance'
-	> {
+export interface ComponentRenderOptions extends Pick<
+	Turnstile.RenderParameters,
+	'action' | 'cData' | 'theme' | 'retry' | 'language' | 'execution' | 'appearance'
+> {
 	/**
 	 * The tabindex of Turnstile’s iframe for accessibility purposes.
 	 * @default 0
