@@ -28,8 +28,6 @@
 	"scripts": {
 		"build": "tsup",
 		"build:watch": "tsup --watch",
-		"lint": "eslint .",
-		"lint:fix": "eslint . --fix",
 		"prepublishOnly": "copyfiles -u 2 ../../README.md . && pnpm run build",
 		"release": "bumpp && npm publish",
 		"type-check": "tsc --noEmit",
