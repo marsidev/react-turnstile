@@ -6,5 +6,6 @@ export default {
 	trailingComma: 'none',
 	tabWidth: 2,
 	arrowParens: 'avoid',
-	printWidth: 100
+	printWidth: 100,
+	plugins: ['prettier-plugin-tailwindcss']
 }

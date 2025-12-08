@@ -31,7 +31,8 @@
 		"lint-staged": "15.2.9",
 		"playwright": "1.46.0",
 		"pnpm": "9.7.1",
-		"prettier": "3.3.3",
+		"prettier": "3.7.4",
+		"prettier-plugin-tailwindcss": "0.7.2",
 		"simple-git-hooks": "2.11.1",
 		"typescript": "5.5.4"
 	},
