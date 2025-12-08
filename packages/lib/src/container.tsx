@@ -5,7 +5,7 @@ type Props<Tag extends ElementType> = {
 	as?: Tag
 } & ComponentPropsWithoutRef<Tag>
 
-type ComponentProps<Tag extends ElementType = 'div'> = Tag extends keyof JSX.IntrinsicElements
+type ComponentProps<Tag extends ElementType = 'div'> = Tag extends keyof React.JSX.IntrinsicElements
 	? Props<Tag>
 	: // eslint-disable-next-line @typescript-eslint/no-explicit-any
 		Props<any>

@@ -39,7 +39,6 @@ export default function DemoWidget({
 		if (siteTheme && !theme) {
 			setTheme(siteTheme as Theme)
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [siteTheme])
 
 	const configFormRef = useRef<HTMLFormElement>(null)
