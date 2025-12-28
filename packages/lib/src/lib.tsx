@@ -199,6 +199,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 	useEffect(
 		function inject() {
 			if (injectScript && !turnstileLoaded) {
+				ensureTurnstile(onLoadCallbackName)
 				injectTurnstileScript({
 					onLoadCallbackName,
 					scriptOptions: {
@@ -208,16 +209,19 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 				})
 			}
 		},
-		[injectScript, turnstileLoaded, scriptOptions, scriptId]
+		[injectScript, turnstileLoaded, scriptOptions, scriptId, onLoadCallbackName]
 	)
 
-	useEffect(function waitForTurnstile() {
-		if (turnstileState !== 'ready') {
-			ensureTurnstile(onLoadCallbackName)
-				.then(() => setTurnstileLoaded(true))
-				.catch(console.error)
-		}
-	}, [])
+	useEffect(
+		function waitForTurnstile() {
+			if (turnstileState !== 'ready') {
+				ensureTurnstile(onLoadCallbackName)
+					.then(() => setTurnstileLoaded(true))
+					.catch(console.error)
+			}
+		},
+		[onLoadCallbackName]
+	)
 
 	useEffect(
 		function renderWidget() {
@@ -388,8 +392,25 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 
 	/* Set the turnstile as loaded, in case the onload callback never runs. (e.g., when manually injecting the script without specifying the `onload` param) */
 	useEffect(() => {
-		if (scriptLoaded && !turnstileLoaded && window.turnstile) {
+		if (turnstileLoaded || !scriptLoaded) return
+
+		if (window.turnstile) {
 			setTurnstileLoaded(true)
+			return
+		}
+
+		// Poll for window.turnstile to handle two cases:
+		// 1. Script is manually injected without the ?onload= callback parameter
+		// 2. Script executes before the onload callback is registered (race condition)
+		const intervalId = setInterval(() => {
+			if (window.turnstile) {
+				setTurnstileLoaded(true)
+				clearInterval(intervalId)
+			}
+		}, 50)
+
+		return () => {
+			clearInterval(intervalId)
 		}
 	}, [turnstileLoaded, scriptLoaded])
 
