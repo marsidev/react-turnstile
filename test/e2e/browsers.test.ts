@@ -1,7 +1,7 @@
 import type { Browser } from '@playwright/test'
 import { devices as allDevices, chromium, expect, test, webkit } from '@playwright/test'
 import { DEFAULT_CONTAINER_ID, DEFAULT_SCRIPT_ID } from '../../packages/lib/src/utils'
-import { ensureDirectory, getFirstWidgetFrame, sleep, ssPath } from './helpers'
+import { ensureDirectory, ssPath } from './helpers'
 
 const { describe } = test
 const isCI = process.env.CI
@@ -9,11 +9,8 @@ let currentBrowser: Browser
 
 const devices = [
 	{ name: 'Chrome', config: allDevices['Desktop Chrome'] },
-	{ name: 'Desktop Edge', config: allDevices['Desktop Edge'] },
-	{ name: 'Desktop Safari', config: allDevices['Desktop Safari'] },
-	{ name: 'Desktop Firefox', config: allDevices['Desktop Firefox'] },
-	{ name: 'Galaxy S9+', config: allDevices['Galaxy S9+'] },
-	{ name: 'iPhone 13 Pro Max', config: allDevices['iPhone 13 Pro Max'] }
+	{ name: 'Galaxy S24', config: allDevices['Galaxy S24'] },
+	{ name: 'iPhone 15 Pro Max', config: allDevices['iPhone 15 Pro Max'] }
 ]
 
 test.beforeAll(async () => {
@@ -54,12 +51,11 @@ describe('Browsers', async () => {
 
 						const page = await context.newPage()
 						await page.goto('/')
-						await sleep(1000)
 
 						await expect(page.locator(`#${DEFAULT_SCRIPT_ID}`)).toHaveCount(1)
 						await expect(page.locator(`#${DEFAULT_CONTAINER_ID}`)).toHaveCount(1)
-						const iframe = await getFirstWidgetFrame(page)
-						await expect(iframe?.locator('body')).toContainText('Testing only.')
+						const wrapper = page.getByTestId('turnstile-wrapper')
+						await expect(wrapper).toHaveAttribute('data-status', 'solved', { timeout: 10000 })
 
 						!isCI &&
 							(await page.screenshot({

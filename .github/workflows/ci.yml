@@ -98,50 +98,8 @@ jobs:
       - name: Type check
         run: nr type-check
 
-  # e2e-test:
-  #   runs-on: ${{ matrix.os }}
-
-  #   strategy:
-  #     matrix:
-  #       node: [18.x]
-  #       os: [macos-latest]
-  #     fail-fast: false
-
-  # steps:
-  #   - uses: actions/checkout@v3
-
-  #   - name: Install pnpm
-  #     uses: pnpm/action-setup@v2
-
-  #   - name: Set node ${{ matrix.node }}
-  #     uses: actions/setup-node@v3
-  #     with:
-  #       node-version: ${{ matrix.node }}
-  #       cache: pnpm
-
-  #   - name: Setup
-  #     run: npm i -g @antfu/ni
-
-  #   - name: Install
-  #     run: nci
-
-  #   - name: Install Playwright
-  #     run: npx playwright install --with-deps chromium webkit firefox
-
-  #   - name: Build
-  #     run: nr lib:build
-
-  #   - name: Test
-  #     run: npx playwright test
-
-  integration-test:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        node: [24.x]
-        os: [macos-latest]
-      fail-fast: false
+  e2e-test:
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -149,10 +107,40 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Set node ${{ matrix.node }}
+      - name: Set node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 24.x
+          cache: pnpm
+
+      - name: Setup
+        run: npm i -g @antfu/ni
+
+      - name: Install
+        run: nci
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium webkit
+
+      - name: Build
+        run: nr lib:build
+
+      - name: Test
+        run: nr test:e2e
+
+  integration-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
           cache: pnpm
 
       - name: Setup

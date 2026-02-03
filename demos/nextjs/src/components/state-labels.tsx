@@ -25,7 +25,7 @@ const Label: React.FC<LabelProps> = props => {
 
 const StateLabels: React.FC<StateLabelsProps> = props => {
 	return (
-		<div className="flex gap-2">
+		<div className="flex gap-2" data-testid="widget-status" data-status={props.status ?? 'pending'}>
 			<Label label="Solved" value={props.status === 'solved'} />
 			<Label label="Error" value={props.status === 'error'} />
 			<Label label="Expired" value={props.status === 'expired'} />

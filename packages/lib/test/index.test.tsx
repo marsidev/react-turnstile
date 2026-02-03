@@ -27,17 +27,6 @@ describe('Basic setup', () => {
 		expect(script?.id).toBe(DEFAULT_SCRIPT_ID)
 		expect(script?.src).toContain(SCRIPT_URL)
 	})
-
-	// this is not working, maybe Cloudflare is detecting the test as a bot
-	it.skip('loads the cloudflare iframe', async () => {
-		await waitFor(
-			() => {
-				const widget = screen.getByTitle('Widget containing a Cloudflare security challenge')
-				expect(widget).toBeInTheDocument()
-			},
-			{ timeout: 15000 }
-		)
-	})
 })
 
 describe('Manual script injection', () => {

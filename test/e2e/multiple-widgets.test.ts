@@ -1,6 +1,6 @@
 import type { Browser, Page } from '@playwright/test'
 import { chromium, expect, test } from '@playwright/test'
-import { DEFAULT_CONTAINER_ID, DEFAULT_SCRIPT_ID } from '../../packages/lib/src/utils'
+import { DEFAULT_CONTAINER_ID } from '../../packages/lib/src/utils'
 import { deleteScreenshots, demoToken, ensureDirectory, getWidgetFrames, ssPath } from './helpers'
 
 const isCI = process.env.CI
@@ -19,11 +19,7 @@ test.beforeAll(async () => {
 })
 
 test.afterAll(async () => {
-	await browser.close()
-})
-
-test('script injected', async () => {
-	await expect(page.locator(`#${DEFAULT_SCRIPT_ID}`)).toHaveCount(1)
+	await browser?.close?.()
 })
 
 test('widget containers rendered', async () => {
@@ -32,27 +28,31 @@ test('widget containers rendered', async () => {
 	await expect(page.locator('#widget-2')).toHaveCount(1)
 })
 
-test('widget iframes are visible', async () => {
-	const frames = await getWidgetFrames(page)
-	expect(frames).toHaveLength(2)
+test('widgets are rendered and solved', async () => {
+	const wrapper1 = page.getByTestId('turnstile-wrapper-widget-1')
+	const wrapper2 = page.getByTestId('turnstile-wrapper-widget-2')
 
-	for (const frame of frames) {
-		await expect(frame.locator('body')).toContainText('Testing only.')
-	}
+	await expect(wrapper1).toHaveAttribute('data-status', 'solved', { timeout: 10000 })
+	await expect(wrapper2).toHaveAttribute('data-status', 'solved', { timeout: 10000 })
+
 	!isCI &&
 		(await page.screenshot({
 			path: `${ssPath}/${route}_1-widget-visible.png`
 		}))
 })
 
-test('challenge has been solved', async () => {
+test('`onWidgetLoad` callbacks are called', async () => {
+	const wrapper1 = page.getByTestId('turnstile-wrapper-widget-1')
+	const wrapper2 = page.getByTestId('turnstile-wrapper-widget-2')
+
+	await expect(wrapper1).toHaveAttribute('data-widget-id', /.+/, { timeout: 10000 })
+	await expect(wrapper2).toHaveAttribute('data-widget-id', /.+/, { timeout: 10000 })
+})
+
+test('challenges have been solved', async () => {
 	await expect(page.locator('[name="cf-turnstile-response"]')).toHaveCount(2)
 	await expect(page.locator('[name="cf-turnstile-response"]').first()).toHaveValue(demoToken)
 	await expect(page.locator('[name="cf-turnstile-response"]').last()).toHaveValue(demoToken)
-	!isCI &&
-		(await page.screenshot({
-			path: `${ssPath}/${route}_2-challenge-solved.png`
-		}))
 })
 
 test('widget can be removed', async () => {

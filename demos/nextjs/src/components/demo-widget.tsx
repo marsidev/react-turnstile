@@ -23,6 +23,7 @@ export default function DemoWidget({
 	initialSize,
 	initialLang,
 	initialSiteKeyType,
+	id,
 	...props
 }: Props) {
 	const siteTheme = useTheme().resolvedTheme as Theme | undefined
@@ -34,6 +35,7 @@ export default function DemoWidget({
 	const [status, setStatus] = useState<WidgetStatus>(null)
 	const [token, setToken] = useState<string>()
 	const [rerenderCount, setRerenderCount] = useState(0)
+	const [widgetId, setWidgetId] = useState<string | null>(null)
 
 	useEffect(() => {
 		if (siteTheme && !theme) {
@@ -74,19 +76,30 @@ export default function DemoWidget({
 
 	return (
 		<Fragment>
-			<Turnstile
-				{...props}
-				ref={turnstileRef}
-				options={{ theme, size, language: lang }}
-				siteKey={testingSiteKey}
-				onError={() => setStatus('error')}
-				onExpire={() => setStatus('expired')}
-				onSuccess={token => {
-					setToken(token)
-					setStatus('solved')
-				}}
-				onWidgetLoad={widgetId => console.log('Widget loaded', widgetId)}
-			/>
+			<div
+				data-testid={id ? `turnstile-wrapper-${id}` : 'turnstile-wrapper'}
+				data-lang={lang}
+				data-status={status ?? 'pending'}
+				data-widget-id={widgetId ?? ''}
+			>
+				<Turnstile
+					{...props}
+					id={id}
+					ref={turnstileRef}
+					options={{ theme, size, language: lang }}
+					siteKey={testingSiteKey}
+					onError={() => setStatus('error')}
+					onExpire={() => setStatus('expired')}
+					onSuccess={token => {
+						setToken(token)
+						setStatus('solved')
+					}}
+					onWidgetLoad={id => {
+						setWidgetId(id)
+						console.log('Widget loaded', id)
+					}}
+				/>
+			</div>
 
 			<h3>Configuration</h3>
 			<ConfigForm

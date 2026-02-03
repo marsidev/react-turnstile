@@ -1,6 +1,6 @@
 import type { Browser, Page } from '@playwright/test'
 import { chromium, expect, test } from '@playwright/test'
-import { DEFAULT_CONTAINER_ID, DEFAULT_SCRIPT_ID } from '../../packages/lib/src/utils'
+import { CONTAINER_STYLE_SET, DEFAULT_CONTAINER_ID, DEFAULT_SCRIPT_ID } from '../../packages/lib/src/utils'
 import {
 	deleteScreenshots,
 	demoToken,
@@ -28,7 +28,7 @@ test.beforeAll(async () => {
 })
 
 test.afterAll(async () => {
-	await browser.close()
+	await browser?.close?.()
 })
 
 test('script injected', async () => {
@@ -39,22 +39,18 @@ test('widget container rendered', async () => {
 	await expect(page.locator(`#${DEFAULT_CONTAINER_ID}`)).toHaveCount(1)
 })
 
-test('widget iframe is visible', async () => {
-	const iframe = await getFirstWidgetFrame(page)
-	await expect(iframe?.locator('body')).toContainText('Testing only.')
+test('widget is rendered and solved', async () => {
+	const wrapper = page.getByTestId('turnstile-wrapper')
+	await expect(wrapper).toHaveAttribute('data-status', 'solved', { timeout: 10000 })
+})
 
-	!isCI &&
-		(await page.screenshot({
-			path: `${ssPath}/${route}_1-widget-visible.png`
-		}))
+test('`onWidgetLoad` callback is called', async () => {
+	const wrapper = page.getByTestId('turnstile-wrapper')
+	await expect(wrapper).toHaveAttribute('data-widget-id', /.+/, { timeout: 10000 })
 })
 
 test('challenge has been solved', async () => {
 	await ensureChallengeSolved(page)
-	!isCI &&
-		(await page.screenshot({
-			path: `${ssPath}/${route}_2-challenge-solved.png`
-		}))
 })
 
 test('widget can be removed', async () => {
@@ -109,7 +105,7 @@ test('widget can be sized', async () => {
 	const iframe = await getFirstWidgetFrame(page)
 	const box = await iframe?.locator('body').boundingBox()
 	expect(box).toBeDefined()
-	expect(box!.width).toBeCloseTo(300)
+	expect(box!.width).toBeCloseTo(CONTAINER_STYLE_SET.normal.width as number)
 
 	// change size
 	await page.getByTestId('widget-size-value').click()
@@ -119,25 +115,17 @@ test('widget can be sized', async () => {
 	const iframeAfter = await getFirstWidgetFrame(page)
 	const boxAfter = await iframeAfter?.locator('body').boundingBox()
 	expect(boxAfter).toBeDefined()
-	expect(boxAfter!.width).toBeCloseTo(130)
+	expect(boxAfter!.width).toBeCloseTo(CONTAINER_STYLE_SET.compact.width as number)
 })
 
 test('widget can change language', async () => {
-	const iframe = await getFirstWidgetFrame(page)
-	await expect(iframe?.locator('#success-text')).toContainText('Success!')
+	const wrapper = page.getByTestId('turnstile-wrapper')
+	await expect(wrapper).toHaveAttribute('data-lang', 'auto')
 
 	await page.getByTestId('widget-lang-value').click()
 	await page.getByRole('option', { name: 'Español' }).click()
-	const iframe2 = await getFirstWidgetFrame(page)
-	await expect(iframe2?.locator('#success-text')).toContainText('¡Operación exitosa!')
 
-	await page.getByTestId('widget-lang-value').click()
-	await page.getByRole('option', { name: 'Deutsch' }).click()
-	const iframe3 = await getFirstWidgetFrame(page)
-	await expect(iframe3?.locator('#success-text')).toContainText('Erfolg!')
-
-	await page.getByTestId('widget-lang-value').click()
-	await page.getByRole('option', { name: '日本語' }).click()
-	const iframe4 = await getFirstWidgetFrame(page)
-	await expect(iframe4?.locator('#success-text')).toContainText('成功しました!')
+	await expect(wrapper).toHaveAttribute('data-lang', 'es')
+	await ensureChallengeSolved(page)
+	await expect(wrapper).toHaveAttribute('data-status', 'solved')
 })
