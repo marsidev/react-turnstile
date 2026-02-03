@@ -8,7 +8,7 @@ export const ssPath = './test/e2e/output'
 
 export const deleteScreenshots = async (dir: string) => {
 	for (const file of await fsPromises.readdir(dir)) {
-		await fsPromises.unlink(path.join(dir, file)).catch(() => { })
+		await fsPromises.unlink(path.join(dir, file)).catch(() => {})
 	}
 }
 

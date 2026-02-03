@@ -1,6 +1,10 @@
 import type { Browser, Page } from '@playwright/test'
 import { chromium, expect, test } from '@playwright/test'
-import { CONTAINER_STYLE_SET, DEFAULT_CONTAINER_ID, DEFAULT_SCRIPT_ID } from '../../packages/lib/src/utils'
+import {
+	CONTAINER_STYLE_SET,
+	DEFAULT_CONTAINER_ID,
+	DEFAULT_SCRIPT_ID
+} from '../../packages/lib/src/utils'
 import {
 	deleteScreenshots,
 	demoToken,

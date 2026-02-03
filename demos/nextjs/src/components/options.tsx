@@ -25,7 +25,7 @@ const Options: React.FC<OptionsProps> = props => {
 	}
 
 	return (
-		<label className="flex min-w-[100px] max-w-fit flex-col text-black dark:text-white">
+		<label className="flex max-w-fit min-w-[100px] flex-col text-black dark:text-white">
 			<span className="font-medium">
 				{props.title}
 				{props.helperUrl && (

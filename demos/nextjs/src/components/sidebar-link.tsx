@@ -17,9 +17,9 @@ export default function NavLink({ href, children, className, ...rest }: Props) {
 	return (
 		<Link
 			className={classNames(
-				'block rounded-sm px-1 font-semibold opacity-75 transition hover:opacity-100 focus:outline-none focus:ring-cloudflare-light-600 focus-visible:ring-2 dark:focus:ring-cloudflare-500',
+				'focus:ring-cloudflare-light-600 dark:focus:ring-cloudflare-500 block rounded-sm px-1 font-semibold opacity-75 transition hover:opacity-100 focus:outline-none focus-visible:ring-2',
 				{
-					'text-cloudflare-light-500 opacity-100 hover:text-cloudflare-light-600 dark:text-cloudflare-400 dark:hover:text-cloudflare-50':
+					'text-cloudflare-light-500 hover:text-cloudflare-light-600 dark:text-cloudflare-400 dark:hover:text-cloudflare-50 opacity-100':
 						active
 				},
 				className

@@ -35,7 +35,7 @@ const ConfigForm = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
 	}
 
 	return (
-		<form ref={ref} className="text-left accent-cloudflare-400">
+		<form ref={ref} className="accent-cloudflare-400 text-left">
 			<div className="flex flex-wrap gap-6">
 				<Options
 					name="theme"

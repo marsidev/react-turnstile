@@ -11,7 +11,7 @@ const Link: React.FC<Props> = ({ href, children, className, ...rest }) => {
 	return (
 		<NextLink
 			className={cn(
-				'rounded-sm px-1 text-cloudflare-light-500 underline hover:text-cloudflare-light-600 focus:outline-none focus:ring-cloudflare-light-600 focus-visible:ring-2 dark:text-cloudflare-400 dark:hover:text-cloudflare-500 dark:focus:ring-cloudflare-500',
+				'text-cloudflare-light-500 hover:text-cloudflare-light-600 focus:ring-cloudflare-light-600 dark:text-cloudflare-400 dark:hover:text-cloudflare-500 dark:focus:ring-cloudflare-500 rounded-sm px-1 underline focus:outline-none focus-visible:ring-2',
 				className
 			)}
 			href={href}

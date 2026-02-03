@@ -24,10 +24,10 @@ export default function Header() {
 
 	return (
 		<header className="sticky top-0 z-20 border-b border-slate-200/80 shadow-sm backdrop-blur dark:border-slate-800">
-			<div className="relative z-10 mx-auto max-w-8xl">
+			<div className="max-w-8xl relative z-10 mx-auto">
 				<div className="mx-4 flex h-16 items-center px-4 lg:mx-0 lg:px-8">
 					<Link
-						className="rounded-md px-2 py-1 text-gray-800 no-underline hover:text-cloudflare-light-400 focus:outline-none focus:ring-cloudflare-light-600 focus-visible:ring-4 dark:text-white dark:hover:text-cloudflare-400 dark:focus:ring-cloudflare-500"
+						className="hover:text-cloudflare-light-400 focus:ring-cloudflare-light-600 dark:hover:text-cloudflare-400 dark:focus:ring-cloudflare-500 rounded-md px-2 py-1 text-gray-800 no-underline focus:outline-none focus-visible:ring-4 dark:text-white"
 						href="/"
 					>
 						<span className="text-md truncate font-bold sm:text-lg lg:text-xl">

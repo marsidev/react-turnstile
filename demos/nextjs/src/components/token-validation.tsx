@@ -59,7 +59,7 @@ const TokenValidation: FC<TokenValidationProps> = ({
 		<div className="flex flex-col gap-2">
 			<form
 				ref={submitFormRef}
-				className="flex flex-col gap-2 text-left accent-cloudflare-400"
+				className="accent-cloudflare-400 flex flex-col gap-2 text-left"
 				onSubmit={onSubmitForm}
 			>
 				<Options

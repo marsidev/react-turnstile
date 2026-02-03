@@ -77,15 +77,15 @@ export default function DemoWidget({
 	return (
 		<Fragment>
 			<div
-				data-testid={id ? `turnstile-wrapper-${id}` : 'turnstile-wrapper'}
 				data-lang={lang}
 				data-status={status ?? 'pending'}
+				data-testid={id ? `turnstile-wrapper-${id}` : 'turnstile-wrapper'}
 				data-widget-id={widgetId ?? ''}
 			>
 				<Turnstile
 					{...props}
-					id={id}
 					ref={turnstileRef}
+					id={id}
 					options={{ theme, size, language: lang }}
 					siteKey={testingSiteKey}
 					onError={() => setStatus('error')}

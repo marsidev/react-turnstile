@@ -19,7 +19,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
 			<body className={cn(inter.className, 'min-h-screen antialiased')}>
 				<ThemeProvider attribute="class">
 					<Header />
-					<section className="mx-auto max-w-8xl px-4 sm:px-6 md:px-8">
+					<section className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
 						<Sidebar />
 
 						<Content>{children}</Content>
