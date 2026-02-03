@@ -23,7 +23,7 @@ export default function Header() {
 	}, [mobileNavExpanded])
 
 	return (
-		<header className="sticky top-0 z-20 border-b border-slate-200 border-opacity-80 shadow-sm backdrop-blur dark:border-slate-800">
+		<header className="sticky top-0 z-20 border-b border-slate-200/80 shadow-sm backdrop-blur dark:border-slate-800">
 			<div className="relative z-10 mx-auto max-w-8xl">
 				<div className="mx-4 flex h-16 items-center px-4 lg:mx-0 lg:px-8">
 					<Link
@@ -35,7 +35,7 @@ export default function Header() {
 						</span>
 					</Link>
 
-					<div className="flex flex-1 flex-shrink-0 items-center justify-end gap-2">
+					<div className="flex flex-1 shrink-0 items-center justify-end gap-2">
 						<Link
 							className={cn(
 								buttonVariants({ variant: 'ghost', size: 'sm' }),

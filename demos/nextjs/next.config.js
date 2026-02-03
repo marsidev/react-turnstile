@@ -1,6 +1,11 @@
+const path = require('node:path')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	async redirects() {
+	turbopack: {
+		root: path.join(__dirname, '../..'),
+	},
+	async redirects () {
 		return [
 			{
 				source: '/',

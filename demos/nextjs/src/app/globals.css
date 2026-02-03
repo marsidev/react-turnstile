@@ -1,8 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.js";
 
-@layer base{
+@layer base {
 	body {
 		@apply dark:bg-dark bg-white text-black dark:text-white;
 	}

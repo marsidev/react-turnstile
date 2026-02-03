@@ -18,7 +18,7 @@ const SelectTrigger = React.forwardRef<
 	<SelectPrimitive.Trigger
 		ref={ref}
 		className={cn(
-			'border-input ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex h-10 w-full select-none items-center justify-between rounded-md border border-slate-400 border-opacity-80 bg-gray-200 px-3 py-2 text-sm opacity-80 focus:outline-none focus:ring-cloudflare-light-600 focus-visible:ring-4 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-dark dark:focus:ring-cloudflare-500',
+			'border-input ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex h-10 w-full select-none items-center justify-between rounded-md border border-slate-400/80 bg-gray-200 px-3 py-2 text-sm opacity-80 focus:outline-none focus:ring-cloudflare-light-600 focus-visible:ring-4 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-dark dark:focus:ring-cloudflare-500',
 			className
 		)}
 		{...props}
@@ -39,7 +39,7 @@ const SelectContent = React.forwardRef<
 		<SelectPrimitive.Content
 			ref={ref}
 			className={cn(
-				'relative z-50 max-h-[200px] w-fit min-w-[140px] overflow-hidden rounded-md border border-slate-400 border-opacity-80 bg-gray-200 shadow-md dark:border-slate-700 dark:bg-dark',
+				'relative z-50 max-h-[200px] w-fit min-w-[140px] overflow-hidden rounded-md border border-slate-400/80 bg-gray-200 shadow-md dark:border-slate-700 dark:bg-dark',
 				position === 'popper' && 'translate-y-1',
 				className
 			)}
@@ -50,7 +50,7 @@ const SelectContent = React.forwardRef<
 				className={cn(
 					'p-1',
 					position === 'popper' &&
-						'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]'
+					'h-(--radix-select-trigger-height) w-full min-w-(--radix-select-trigger-width)'
 				)}
 			>
 				{children}
@@ -79,7 +79,7 @@ const SelectItem = React.forwardRef<
 	<SelectPrimitive.Item
 		ref={ref}
 		className={cn(
-			'focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none hover:bg-cloudflare-light-400 focus:bg-cloudflare-light-400 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:hover:bg-cloudflare-400 dark:focus:bg-cloudflare-400',
+			'focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none hover:bg-cloudflare-light-400 focus:bg-cloudflare-light-400 data-disabled:pointer-events-none data-disabled:opacity-50 dark:hover:bg-cloudflare-400 dark:focus:bg-cloudflare-400',
 			className
 		)}
 		{...props}

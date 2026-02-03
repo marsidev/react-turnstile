@@ -1,21 +1,33 @@
-import resolveConfig from 'tailwindcss/resolveConfig'
-import { create } from '@kodingdotninja/use-tailwind-breakpoint'
-import { useEffect } from 'react'
-import tailwindConfig from '../../tailwind.config'
-const config = resolveConfig(tailwindConfig)
+'use client'
 
-type BreakpointKey = 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+import { useEffect, useState } from 'react'
 
-const hooks = create(config.theme!.screens)
+const breakpoints = {
+	sm: 640,
+	md: 768,
+	lg: 1024,
+	xl: 1280,
+	'2xl': 1536
+} as const
 
+type BreakpointKey = keyof typeof breakpoints
+
+/**
+ * Returns true if the viewport width is at or above the given breakpoint.
+ */
 export function useBreakpoint(breakpoint: BreakpointKey) {
-	const result = hooks.useBreakpoint(breakpoint)
+	const [matches, setMatches] = useState(false)
 
-	// Workaround for a bug with the use-tailwind-breakpoint library. See:
-	// https://github.com/kodingdotninja/use-tailwind-breakpoint/issues/2#issuecomment-1030703188
 	useEffect(() => {
-		window.dispatchEvent(new Event('resize'))
-	}, [])
+		const query = `(min-width: ${breakpoints[breakpoint]}px)`
+		const media = window.matchMedia(query)
 
-	return result
+		const updateMatch = () => setMatches(media.matches)
+		updateMatch()
+
+		media.addEventListener('change', updateMatch)
+		return () => media.removeEventListener('change', updateMatch)
+	}, [breakpoint])
+
+	return matches
 }

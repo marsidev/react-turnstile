@@ -19,7 +19,7 @@ export default function Sidebar() {
 	return (
 		<aside
 			className={cn(
-				'fixed bottom-0 left-0 right-auto top-16 z-20 flex w-[19.5rem] -translate-x-full flex-col justify-between overflow-y-auto border-t border-slate-200 border-opacity-80 bg-white px-6 pb-6 transition-transform dark:border-slate-800 dark:bg-dark sm:px-8 md:px-10 lg:left-[max(0px,calc(50%-46rem))] lg:translate-x-0',
+				'fixed bottom-0 left-0 right-auto top-16 z-20 flex w-78 -translate-x-full flex-col justify-between overflow-y-auto border-t border-slate-200/80 bg-white px-6 pb-6 transition-transform dark:border-slate-800 dark:bg-dark sm:px-8 md:px-10 lg:left-[max(0px,calc(50%-46rem))] lg:translate-x-0',
 				{
 					'translate-x-0': mobileNavExpanded,
 					'shadow-lg': mobileNavExpanded,

@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
 	title: 'React Turnstile Demo',
-	description: 'React Turnstile Next.js 13 App Router Demo'
+	description: 'React Turnstile Next.js 16 App Router Demo'
 }
 
 export default function RootLayout({ children }: React.PropsWithChildren) {
