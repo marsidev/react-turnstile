@@ -135,7 +135,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 			'refresh-timeout': options.refreshTimeout || 'auto',
 			execution: options.execution || 'render',
 			appearance: options.appearance || 'always',
-			'feedback-enabled': options.feedbackEnabled || true,
+			'feedback-enabled': options.feedbackEnabled ?? true,
 			callback: token => {
 				widgetSolved.current = true
 				if (rerenderOnCallbackChange) {
