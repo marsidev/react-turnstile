@@ -55,6 +55,11 @@
 				"eslint",
 				"prettier"
 			]
+		},
+		"overrides": {
+			"minimatch": "^9.0.7",
+			"rollup": "^4.59.0",
+			"ajv": "^6.14.0"
 		}
 	},
 	"eslintConfig": {
