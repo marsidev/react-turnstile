@@ -16,3 +16,5 @@ export type {
 	RefreshTimeoutMode,
 	WidgetSize
 } from './types'
+
+export { useTurnstile } from './use-turnstile'
