@@ -1,10 +1,10 @@
-"use client"
+'use client'
 
-import { useState } from "react";
+import { useState } from 'react'
 
-type Props = {
-	action: (widgetToken: string) => Promise<{ success: boolean }>;
-	tries?: number;
+interface Props {
+	action: (widgetToken: string) => Promise<{ success: boolean }>
+	tries?: number
 }
 
 export function useTurnstile({ tries = 5, action }: Props) {
@@ -12,7 +12,7 @@ export function useTurnstile({ tries = 5, action }: Props) {
 	const [serverValidationError, setServerValidationError] = useState<string | null>(null)
 
 	async function turnstileAction(widgetToken: string): Promise<string> {
-		let error = ""
+		let error = ''
 
 		try {
 			if (allowedTriesWithoutCaptcha === 0) {
@@ -21,14 +21,14 @@ export function useTurnstile({ tries = 5, action }: Props) {
 					setAllowedTriesWithoutCaptcha(tries)
 					setServerValidationError(null)
 				} else {
-					error = "Captcha validation failed"
+					error = 'Captcha validation failed'
 					setServerValidationError(error)
 				}
 			} else {
 				setAllowedTriesWithoutCaptcha(prev => prev - 1)
 			}
 		} catch (err) {
-			error = "Internal server error"
+			error = 'Internal server error'
 			setServerValidationError(error)
 		}
 
