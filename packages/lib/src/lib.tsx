@@ -199,7 +199,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
   useEffect(
     function inject() {
       if (injectScript && !turnstileLoaded) {
-        ensureTurnstile(onLoadCallbackName);
+        void ensureTurnstile(onLoadCallbackName);
         injectTurnstileScript({
           onLoadCallbackName,
           scriptOptions: {
@@ -236,7 +236,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
         if (widgetId.current) onWidgetLoad?.(widgetId.current);
       };
 
-      render();
+      void render();
 
       return () => {
         cancelled = true;
@@ -294,7 +294,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
             await checkLoaded();
           };
 
-          checkLoaded();
+          void checkLoaded();
         });
       },
 
@@ -312,7 +312,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
           widgetSolved.current = false;
           turnstile.reset(widgetId.current);
         } catch (error) {
-          console.warn(`Failed to reset Turnstile widget ${widgetId}`, error);
+          console.warn(`Failed to reset Turnstile widget ${widgetId.current}`, error);
         }
       },
 
