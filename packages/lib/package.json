@@ -23,7 +23,9 @@
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"files": [
-		"dist"
+		"dist",
+		"skills",
+		"!skills/_artifacts"
 	],
 	"scripts": {
 		"build": "tsup",
@@ -39,6 +41,7 @@
 		"react-dom": "^17.0.2 || ^18.0.0 || ^19.0"
 	},
 	"devDependencies": {
+		"@tanstack/intent": "0.0.23",
 		"@testing-library/jest-dom": "6.9.1",
 		"@testing-library/react": "16.3.2",
 		"@types/jest": "30.0.0",
@@ -52,7 +55,8 @@
 		"cloudflare-turnstile",
 		"turnstile",
 		"cloudflare",
-		"react"
+		"react",
+		"tanstack-intent"
 	],
 	"sideEffects": false,
 	"publishConfig": {

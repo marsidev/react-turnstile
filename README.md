@@ -12,7 +12,7 @@
   <img src="https://badgen.net/packagephobia/install/@marsidev/react-turnstile?style=square-flat" alt="install size" />
  </a>
  <a href="https://bundlejs.com/?q=%40marsidev%2Freact-turnstile">
-  <img src="https://deno.bundlejs.com/badge?q=@marsidev/react-turnstile@1.4.2" alt="bundle size powered by bundlejs.com" />
+  <img src="https://deno.bundlejs.com/badge?q=@marsidev/react-turnstile" alt="bundle size powered by bundlejs.com" />
  </a>
 </div>
 
