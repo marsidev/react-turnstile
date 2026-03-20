@@ -1,17 +1,18 @@
 {
 	"name": "root",
 	"version": "0.0.1",
+	"type": "module",
 	"private": true,
 	"packageManager": "pnpm@10.28.2",
 	"scripts": {
 		"demo": "pnpm run --filter=nextjs-demo dev",
 		"dev": "concurrently \"npm:lib:build:watch\" \"npm:demo\" -c auto,cyan",
-		"format:write": "npx prettier **/*.{js,mjs,cjs,ts,tsx,json} --write .",
-		"format:check": "npx prettier **/*.{js,mjs,cjs,ts,tsx,json} --check .",
+		"format:write": "oxfmt .",
+		"format:check": "oxfmt --check .",
 		"lib:build": "pnpm run --filter=@marsidev/react-turnstile build",
 		"lib:build:watch": "pnpm run --filter=@marsidev/react-turnstile build:watch",
-		"lint": "eslint .",
-		"lint:fix": "eslint . --fix",
+		"lint": "oxlint .",
+		"lint:fix": "oxlint --fix .",
 		"release": "pnpm run --filter=@marsidev/react-turnstile release",
 		"test": "pnpm run test:integration && pnpm run test:e2e",
 		"test:e2e": "playwright test",
@@ -25,45 +26,31 @@
 		"@types/node": "25.2.0",
 		"@types/react": "19.2.10",
 		"@types/react-dom": "19.2.3",
+		"@typescript/native-preview": "7.0.0-dev.20260320.1",
 		"concurrently": "9.2.1",
-		"eslint": "8.57.0",
-		"eslint-config-custom": "workspace:*",
 		"lint-staged": "16.2.7",
+		"oxfmt": "0.41.0",
+		"oxlint": "1.56.0",
+		"oxlint-tsgolint": "0.17.1",
 		"playwright": "1.58.1",
 		"pnpm": "10.28.2",
-		"prettier": "3.8.1",
-		"prettier-plugin-tailwindcss": "0.7.2",
-		"simple-git-hooks": "2.13.1",
-		"typescript": "5.9.3"
+		"simple-git-hooks": "2.13.1"
 	},
 	"simple-git-hooks": {
 		"pre-commit": "pnpm lint-staged"
 	},
 	"lint-staged": {
 		"**/*.{js,mjs,cjs,ts,tsx}": [
-			"eslint . --cache --fix",
-			"prettier --write --cache --ignore-unknown"
+			"oxlint --fix",
+			"oxfmt"
 		],
 		"**/*.json": [
-			"prettier --write --cache --ignore-unknown"
+			"oxfmt"
 		]
 	},
 	"pnpm": {
-		"peerDependencyRules": {
-			"ignoreMissing": [
-				"typescript",
-				"eslint",
-				"prettier"
-			]
-		},
 		"overrides": {
-			"@typescript-eslint/typescript-estree>minimatch": "^9.0.7",
-			"tsup>rollup": "^4.59.0",
-			"eslint>ajv": "^6.14.0",
-			"eslint>minimatch": "^3.1.4"
+			"tsup>rollup": "^4.59.0"
 		}
-	},
-	"eslintConfig": {
-		"extends": "custom"
 	}
 }
