@@ -167,7 +167,7 @@ importers:
         version: 19.2.4(react@19.2.4)
     devDependencies:
       '@tanstack/intent':
-        specifier: ^0.0.23
+        specifier: 0.0.23
         version: 0.0.23
       '@testing-library/jest-dom':
         specifier: 6.9.1
