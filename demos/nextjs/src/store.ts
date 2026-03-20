@@ -1,3 +1,3 @@
-import { atom } from 'jotai'
+import { atom } from "jotai";
 
-export const mobileNavExpandedAtom = atom(false)
+export const mobileNavExpandedAtom = atom(false);
