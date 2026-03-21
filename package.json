@@ -4,8 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "check": "pnpm lint:check && pnpm format:check && pnpm typecheck",
     "demo": "pnpm run --filter=nextjs-demo dev",
     "dev": "concurrently \"npm:lib:build:watch\" \"npm:demo\" -c auto,cyan",
+    "fix": "pnpm lint && pnpm format",
     "format": "oxfmt .",
     "format:check": "oxfmt --check .",
     "lib:build": "pnpm run --filter=@marsidev/react-turnstile build",
@@ -16,7 +18,7 @@
     "test": "pnpm run test:integration && pnpm run test:e2e",
     "test:e2e": "playwright test",
     "test:integration": "pnpm run --filter=@marsidev/react-turnstile test:integration",
-    "type-check": "pnpm run --parallel type-check"
+    "typecheck": "pnpm run --parallel typecheck"
   },
   "devDependencies": {
     "@antfu/ni": "28.2.0",
@@ -27,7 +29,6 @@
     "@types/react-dom": "19.2.3",
     "@typescript/native-preview": "7.0.0-dev.20260320.1",
     "concurrently": "9.2.1",
-    "lint-staged": "16.2.7",
     "oxfmt": "0.41.0",
     "oxlint": "1.56.0",
     "oxlint-tsgolint": "0.17.1",
@@ -36,16 +37,7 @@
     "simple-git-hooks": "2.13.1"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged"
-  },
-  "lint-staged": {
-    "**/*.{js,mjs,cjs,ts,tsx}": [
-      "oxlint --fix",
-      "oxfmt"
-    ],
-    "**/*.json": [
-      "oxfmt"
-    ]
+    "pre-commit": "pnpm check"
   },
   "packageManager": "pnpm@10.28.2",
   "pnpm": {

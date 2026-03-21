@@ -6,7 +6,7 @@
     "dev": "next dev --port 3333",
     "build": "pnpm run --filter=@marsidev/react-turnstile build && next build",
     "start": "next start --port 3333",
-    "type-check": "tsgo --noEmit"
+    "typecheck": "tsgo --noEmit"
   },
   "dependencies": {
     "@marsidev/react-turnstile": "workspace:*",

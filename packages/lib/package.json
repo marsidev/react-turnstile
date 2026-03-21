@@ -43,7 +43,7 @@
     "build:watch": "tsup --watch",
     "prepublishOnly": "copyfiles -u 2 ../../README.md . && pnpm run build",
     "release": "bumpp && npm publish",
-    "type-check": "tsgo --noEmit",
+    "typecheck": "tsgo --noEmit",
     "test:integration": "vitest run",
     "test:integration:watch": "vitest"
   },
