@@ -21,28 +21,28 @@
     "typecheck": "pnpm run --parallel typecheck"
   },
   "devDependencies": {
-    "@antfu/ni": "28.2.0",
+    "@antfu/ni": "30.0.0",
     "@antfu/utils": "9.3.0",
-    "@playwright/test": "1.58.1",
-    "@types/node": "25.2.0",
-    "@types/react": "19.2.10",
+    "@playwright/test": "1.58.2",
+    "@types/node": "25.5.0",
+    "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260320.1",
+    "@typescript/native-preview": "7.0.0-dev.20260325.1",
     "concurrently": "9.2.1",
-    "oxfmt": "0.41.0",
-    "oxlint": "1.56.0",
-    "oxlint-tsgolint": "0.17.1",
-    "playwright": "1.58.1",
-    "pnpm": "10.28.2",
+    "oxfmt": "0.42.0",
+    "oxlint": "1.57.0",
+    "oxlint-tsgolint": "0.17.4",
+    "playwright": "1.58.2",
+    "pnpm": "10.33.0",
     "simple-git-hooks": "2.13.1"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm check"
   },
-  "packageManager": "pnpm@10.28.2",
+  "packageManager": "pnpm@10.33.0",
   "pnpm": {
     "overrides": {
-      "tsup>rollup": "^4.59.0"
+      "tsup>rollup": "^4.60.0"
     }
   }
 }
