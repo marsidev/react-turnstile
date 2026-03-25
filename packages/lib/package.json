@@ -39,8 +39,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsup",
-    "build:watch": "tsup --watch",
+    "build": "tsdown",
+    "build:watch": "tsdown --watch",
     "prepublishOnly": "copyfiles -u 2 ../../README.md . && pnpm run build",
     "release": "bumpp && npm publish",
     "typecheck": "tsgo --noEmit",
@@ -55,7 +55,7 @@
     "bumpp": "11.0.1",
     "copyfiles": "2.4.1",
     "jsdom": "29.0.1",
-    "tsup": "8.5.1",
+    "tsdown": "^0.21.5",
     "vitest": "4.1.1"
   },
   "peerDependencies": {
