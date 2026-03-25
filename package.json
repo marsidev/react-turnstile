@@ -39,10 +39,5 @@
   "simple-git-hooks": {
     "pre-commit": "pnpm check"
   },
-  "packageManager": "pnpm@10.33.0",
-  "pnpm": {
-    "overrides": {
-      "tsup>rollup": "^4.60.0"
-    }
-  }
+  "packageManager": "pnpm@10.33.0"
 }

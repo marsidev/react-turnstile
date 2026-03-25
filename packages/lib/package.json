@@ -55,7 +55,8 @@
     "bumpp": "11.0.1",
     "copyfiles": "2.4.1",
     "jsdom": "29.0.1",
-    "tsdown": "^0.21.5",
+    "tsdown": "0.21.5",
+    "typescript": "5.8.2",
     "vitest": "4.1.1"
   },
   "peerDependencies": {

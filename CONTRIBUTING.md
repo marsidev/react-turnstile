@@ -23,7 +23,7 @@ pnpm dev
 
 The dev server will start:
 
-- Library build with hot module replacement on port (via tsup)
+- Library build with hot module replacement (via tsdown)
 - Next.js demo app on port 3333
 
 Visit [http://localhost:3333](http://localhost:3333) to see the demo.
