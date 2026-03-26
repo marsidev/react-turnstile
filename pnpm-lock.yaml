@@ -135,10 +135,10 @@ importers:
         version: 29.0.1
       tsdown:
         specifier: 0.21.5
-        version: 0.21.5(@typescript/native-preview@7.0.0-dev.20260325.1)(typescript@5.8.2)
+        version: 0.21.5(@typescript/native-preview@7.0.0-dev.20260325.1)(typescript@6.0.2)
       typescript:
-        specifier: 5.8.2
-        version: 5.8.2
+        specifier: 6.0.2
+        version: 6.0.2
       vitest:
         specifier: 4.1.1
         version: 4.1.1(@types/node@25.5.0)(jsdom@29.0.1)(vite@8.0.2(@types/node@25.5.0)(jiti@2.6.1)(yaml@2.8.3))
@@ -2297,8 +2297,8 @@ packages:
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
-  typescript@5.8.2:
-    resolution: {integrity: sha512-aJn6wq13/afZp/jT9QZmwEjDqqvSGp1VT5GVg+f/t6/oVyrgXM6BY1h9BRh/O5p3PlUPAe+WuiEZOmb/49RqoQ==}
+  typescript@6.0.2:
+    resolution: {integrity: sha512-bGdAIrZ0wiGDo5l8c++HWtbaNCWTS4UTv7RaTH/ThVIgjkveJt83m74bBHMJkuCbslY8ixgLBVZJIOiQlQTjfQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -4110,7 +4110,7 @@ snapshots:
 
   resolve-pkg-maps@1.0.0: {}
 
-  rolldown-plugin-dts@0.22.5(@typescript/native-preview@7.0.0-dev.20260325.1)(rolldown@1.0.0-rc.11)(typescript@5.8.2):
+  rolldown-plugin-dts@0.22.5(@typescript/native-preview@7.0.0-dev.20260325.1)(rolldown@1.0.0-rc.11)(typescript@6.0.2):
     dependencies:
       '@babel/generator': 8.0.0-rc.2
       '@babel/helper-validator-identifier': 8.0.0-rc.2
@@ -4124,7 +4124,7 @@ snapshots:
       rolldown: 1.0.0-rc.11
     optionalDependencies:
       '@typescript/native-preview': 7.0.0-dev.20260325.1
-      typescript: 5.8.2
+      typescript: 6.0.2
     transitivePeerDependencies:
       - oxc-resolver
 
@@ -4288,7 +4288,7 @@ snapshots:
 
   tree-kill@1.2.2: {}
 
-  tsdown@0.21.5(@typescript/native-preview@7.0.0-dev.20260325.1)(typescript@5.8.2):
+  tsdown@0.21.5(@typescript/native-preview@7.0.0-dev.20260325.1)(typescript@6.0.2):
     dependencies:
       ansis: 4.2.0
       cac: 7.0.0
@@ -4299,7 +4299,7 @@ snapshots:
       obug: 2.1.1
       picomatch: 4.0.4
       rolldown: 1.0.0-rc.11
-      rolldown-plugin-dts: 0.22.5(@typescript/native-preview@7.0.0-dev.20260325.1)(rolldown@1.0.0-rc.11)(typescript@5.8.2)
+      rolldown-plugin-dts: 0.22.5(@typescript/native-preview@7.0.0-dev.20260325.1)(rolldown@1.0.0-rc.11)(typescript@6.0.2)
       semver: 7.7.4
       tinyexec: 1.0.4
       tinyglobby: 0.2.15
@@ -4307,7 +4307,7 @@ snapshots:
       unconfig-core: 7.5.0
       unrun: 0.2.33
     optionalDependencies:
-      typescript: 5.8.2
+      typescript: 6.0.2
     transitivePeerDependencies:
       - '@ts-macro/tsc'
       - '@typescript/native-preview'
@@ -4317,7 +4317,7 @@ snapshots:
 
   tslib@2.8.1: {}
 
-  typescript@5.8.2: {}
+  typescript@6.0.2: {}
 
   unconfig-core@7.5.0:
     dependencies:
