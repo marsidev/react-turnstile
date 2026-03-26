@@ -18,7 +18,8 @@
 				["Handling expiration", "/handling-expiration"],
 				["Validating a token", "/validating-a-token"],
 				["Manual script injection", "/manual-script-injection"],
-				["Multiple widgets", "/multiple-widgets"]
+				["Multiple widgets", "/multiple-widgets"],
+				["Form submission retry", "/form-submission-retry-logic"]
 			]
 		]
 	],
