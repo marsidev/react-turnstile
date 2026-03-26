@@ -1,0 +1,179 @@
+---
+title: React Turnstile - Form submission retry logic
+---
+
+# Form submission retry logic
+
+Turnstile tokens are **single-use** — once validated on the server, the token is consumed and cannot be reused. This means that if a user submits a form and hits a validation error (e.g. wrong password), they must complete the Turnstile challenge again before resubmitting, which creates unnecessary friction.
+
+A common solution is to allow a few re-submissions with the same token before requiring a new challenge. You can implement this using the `useRef` API to programmatically reset the widget only when needed.
+
+Adjust `MAX_TRIES` to control how many total submissions share one validated token. Set it to `1` to validate on every submission.
+
+<Info>
+  See [Validating a token](/validating-a-token) for the server-side `/api/verify` route setup.
+</Info>
+
+<CodeGroup title='/components/login-form.{jsx,tsx}'>
+  ```jsx
+  'use client'
+  import { useRef, useState } from 'react'
+  import { Turnstile } from '@marsidev/react-turnstile'
+
+  const MAX_TRIES = 5
+
+  export default function LoginForm() {
+    const turnstileRef = useRef(null)
+    const [triesLeft, setTriesLeft] = useState(0)
+    const [captchaToken, setCaptchaToken] = useState(null)
+    const [error, setError] = useState(null)
+
+    async function handleSubmit(e) {
+      e.preventDefault()
+      const formData = new FormData(e.currentTarget)
+
+      try {
+        if (triesLeft === 0) {
+          const res = await fetch('/api/verify', {
+            method: 'POST',
+            body: JSON.stringify({ token: captchaToken }),
+            headers: { 'content-type': 'application/json' }
+          })
+
+          const data = await res.json()
+
+          if (!data.success) {
+            setError('Captcha validation failed. Please try again.')
+            turnstileRef.current?.reset()
+            return
+          }
+
+          setTriesLeft(MAX_TRIES - 1)
+          setError(null)
+        } else {
+          setTriesLeft(prev => prev - 1)
+        }
+
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          body: JSON.stringify({
+            username: formData.get('username'),
+            password: formData.get('password')
+          }),
+          headers: { 'content-type': 'application/json' }
+        })
+
+        const data = await res.json()
+
+        if (!data.success) {
+          setError(data.message ?? 'Login failed. Please try again.')
+        }
+      } catch {
+        setError('An unexpected error occurred. Please try again.')
+        turnstileRef.current?.reset()
+      }
+    }
+
+    return (
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="username" placeholder="Username" />
+        <input type="password" name="password" placeholder="Password" />
+        {error && <p>{error}</p>}
+        <Turnstile
+          ref={turnstileRef}
+          siteKey='{{ siteKey }}'
+          onSuccess={token => setCaptchaToken(token)}
+          onExpire={() => {
+            setCaptchaToken(null)
+            setTriesLeft(0)
+          }}
+        />
+        <button type="submit">Login</button>
+      </form>
+    )
+  }
+  ```
+  ```tsx
+  'use client'
+  import { useRef, useState } from 'react'
+  import { Turnstile } from '@marsidev/react-turnstile'
+  import type { TurnstileInstance } from '@marsidev/react-turnstile'
+
+  const MAX_TRIES = 5
+
+  export default function LoginForm() {
+    const turnstileRef = useRef<TurnstileInstance | null>(null)
+    const [triesLeft, setTriesLeft] = useState(0)
+    const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+    const [error, setError] = useState<string | null>(null)
+
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+      e.preventDefault()
+      const formData = new FormData(e.currentTarget)
+
+      try {
+        if (triesLeft === 0) {
+          const res = await fetch('/api/verify', {
+            method: 'POST',
+            body: JSON.stringify({ token: captchaToken }),
+            headers: { 'content-type': 'application/json' }
+          })
+
+          const data = await res.json()
+
+          if (!data.success) {
+            setError('Captcha validation failed. Please try again.')
+            turnstileRef.current?.reset()
+            return
+          }
+
+          setTriesLeft(MAX_TRIES - 1)
+          setError(null)
+        } else {
+          setTriesLeft(prev => prev - 1)
+        }
+
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          body: JSON.stringify({
+            username: formData.get('username'),
+            password: formData.get('password')
+          }),
+          headers: { 'content-type': 'application/json' }
+        })
+
+        const data = (await res.json()) as { success: boolean; message?: string }
+
+        if (!data.success) {
+          setError(data.message ?? 'Login failed. Please try again.')
+        }
+      } catch {
+        setError('An unexpected error occurred. Please try again.')
+        turnstileRef.current?.reset()
+      }
+    }
+
+    return (
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="username" placeholder="Username" />
+        <input type="password" name="password" placeholder="Password" />
+        {error && <p>{error}</p>}
+        <Turnstile
+          ref={turnstileRef}
+          siteKey='{{ siteKey }}'
+          onSuccess={token => setCaptchaToken(token)}
+          onExpire={() => {
+            setCaptchaToken(null)
+            setTriesLeft(0)
+          }}
+        />
+        <button type="submit">Login</button>
+      </form>
+    )
+  }
+  ```
+</CodeGroup>
+
+<Info>
+  The `onExpire` callback resets `triesLeft` to `0` so the next submission triggers a fresh server-side validation with the new token. Always validate on the server — the retry counter is a client-side UX optimization only.
+</Info>
