@@ -1,3 +1,9 @@
 packages:
   - 'packages/*'
   - 'demos/*'
+
+blockExoticSubdeps: true
+
+minimumReleaseAge: 1440
+
+trustPolicy: no-downgrade
