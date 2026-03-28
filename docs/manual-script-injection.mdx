@@ -8,111 +8,57 @@ Sometimes you may want to manually inject the Turnstile script into your applica
 
 The following example shows how to manually inject the Turnstile script into a Next.js project:
 
-<CodeGroup>
-  ```jsx
-  import {
-    DEFAULT_ONLOAD_NAME,
-    DEFAULT_SCRIPT_ID,
-    SCRIPT_URL,
-    Turnstile
-  } from '@marsidev/react-turnstile'
-  import Script from 'next/script'
+```tsx
+import {
+  DEFAULT_ONLOAD_NAME,
+  DEFAULT_SCRIPT_ID,
+  SCRIPT_URL,
+  Turnstile,
+} from "@marsidev/react-turnstile";
+import Script from "next/script";
 
-  export default function Widget() {
-    return (
-      <>
-        <Script
-          id={DEFAULT_SCRIPT_ID}
-          src={SCRIPT_URL}
-          strategy="beforeInteractive"
-        />
+export default function Widget() {
+  return (
+    <>
+      <Script
+        id={DEFAULT_SCRIPT_ID}
+        src={SCRIPT_URL}
+        strategy="beforeInteractive"
+      />
 
-        <Turnstile
-          injectScript={false}
-          siteKey='{{ siteKey }}'
-        />
-      </>
-    )
-  }
-  ```
-
-  ```tsx
-  import {
-    DEFAULT_ONLOAD_NAME,
-    DEFAULT_SCRIPT_ID,
-    SCRIPT_URL,
-    Turnstile
-  } from '@marsidev/react-turnstile'
-  import Script from 'next/script'
-
-  export default function Widget() {
-    return (
-      <>
-        <Script
-          id={DEFAULT_SCRIPT_ID}
-          src={SCRIPT_URL}
-          strategy="beforeInteractive"
-        />
-
-        <Turnstile
-          injectScript={false}
-          siteKey='{{ siteKey }}'
-        />
-      </>
-    )
-  }
-  ```
-</CodeGroup>
+      <Turnstile
+        injectScript={false}
+        siteKey="{{ siteKey }}"
+      />
+    </>
+  );
+}
+```
 
 If you want to use a custom script ID:
 
-<CodeGroup>
-  ```jsx
-  import { SCRIPT_URL, Turnstile } from '@marsidev/react-turnstile'
-  import Script from 'next/script'
+```tsx
+import { SCRIPT_URL, Turnstile } from "@marsidev/react-turnstile";
+import Script from "next/script";
 
-  export default function Widget() {
-    return (
-      <>
-        <Script
-          id="turnstile-script"
-          src={SCRIPT_URL}
-          strategy="beforeInteractive"
-        />
+export default function Widget() {
+  return (
+    <>
+      <Script
+        id="turnstile-script"
+        src={SCRIPT_URL}
+        strategy="beforeInteractive"
+      />
 
-        <Turnstile
-          injectScript={false}
-          scriptOptions={{ id: 'turnstile-script' }}
-          siteKey='{{ siteKey }}'
-        />
-      </>
-    )
-  }
-  ```
-
-  ```tsx
-  import { SCRIPT_URL, Turnstile } from '@marsidev/react-turnstile'
-  import Script from 'next/script'
-
-  export default function Widget() {
-    return (
-      <>
-        <Script
-          id="turnstile-script"
-          src={SCRIPT_URL}
-          strategy="beforeInteractive"
-        />
-
-        <Turnstile
-          injectScript={false}
-          scriptOptions={{ id: 'turnstile-script' }}
-          siteKey='{{ siteKey }}'
-        />
-      </>
-    )
-  }
-  ```
-</CodeGroup>
+      <Turnstile
+        injectScript={false}
+        scriptOptions={{ id: "turnstile-script" }}
+        siteKey="{{ siteKey }}"
+      />
+    </>
+  );
+}
+```
 
 <Info>
 	When manually injecting the script, the only valid property for `scriptOptions` is the `id`, and it needs to match the ID of the script tag.
