@@ -1,0 +1,38 @@
+name: Validate Skills
+
+on:
+  pull_request:
+    paths:
+      - 'packages/lib/skills/**'
+      - 'packages/lib/_artifacts/**'
+  push:
+    branches: [main]
+    paths:
+      - 'packages/lib/skills/**'
+      - 'packages/lib/_artifacts/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+          cache: pnpm
+
+      - name: Setup
+        run: npm i -g @antfu/ni
+
+      - name: Install
+        run: nci
+
+      - name: Validate skills
+        run: |
+          cd packages/lib
+          npx @tanstack/intent@latest validate

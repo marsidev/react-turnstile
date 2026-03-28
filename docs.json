@@ -1,30 +1,30 @@
 {
-	"name": "React Turnstile Docs",
-	"description": "React Turnstile is an unofficial integration of Cloudflare Turnstile for React.",
-	"theme": "#f69b41",
-	"sidebar": [
-		["Getting started", "/"],
-		["Props", "/props"],
-		["useRef methods", "/use-ref-methods"],
-		[
-			"Examples",
-			[
-				["Basic usage", "/basic-usage"],
-				["Custom props", "/custom-props"],
-				["Managing widget status", "/managing-widget-status"],
-				["Dynamic Callbacks", "/dynamic-callbacks"],
-				["Interact with the widget", "/interact-with-the-widget"],
-				["Get widget token", "/get-widget-token"],
-				["Handling expiration", "/handling-expiration"],
-				["Validating a token", "/validating-a-token"],
-				["Manual script injection", "/manual-script-injection"],
-				["Multiple widgets", "/multiple-widgets"],
-				["Form submission retry", "/form-submission-retry-logic"]
-			]
-		]
-	],
-	"variables": {
-		"siteKey": "1x00000000000000000000AA",
-		"secretKey": "1x0000000000000000000000000000000AA"
-	}
+  "name": "React Turnstile Docs",
+  "description": "React Turnstile is an unofficial integration of Cloudflare Turnstile for React.",
+  "theme": "#f69b41",
+  "sidebar": [
+    ["Getting started", "/"],
+    ["Props", "/props"],
+    ["useRef methods", "/use-ref-methods"],
+    [
+      "Examples",
+      [
+        ["Basic usage", "/basic-usage"],
+        ["Custom props", "/custom-props"],
+        ["Managing widget status", "/managing-widget-status"],
+        ["Dynamic Callbacks", "/dynamic-callbacks"],
+        ["Interact with the widget", "/interact-with-the-widget"],
+        ["Get widget token", "/get-widget-token"],
+        ["Handling expiration", "/handling-expiration"],
+        ["Validating a token", "/validating-a-token"],
+        ["Manual script injection", "/manual-script-injection"],
+        ["Multiple widgets", "/multiple-widgets"],
+        ["Form submission retry", "/form-submission-retry-logic"]
+      ]
+    ]
+  ],
+  "variables": {
+    "siteKey": "1x00000000000000000000AA",
+    "secretKey": "1x0000000000000000000000000000000AA"
+  }
 }

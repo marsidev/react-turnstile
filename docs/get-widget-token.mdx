@@ -12,121 +12,61 @@ You can get the widget token by three ways:
 
 ## `onSuccess` callback
 
-<CodeGroup>
-  ```jsx
-  import { Turnstile } from '@marsidev/react-turnstile'
+```tsx
+import { Turnstile } from "@marsidev/react-turnstile";
 
-  export default function Widget() {
-    const [token, setToken] = React.useState()
+export default function Widget() {
+  const [token, setToken] = React.useState<string | null>(null);
 
-    return (
-      <Turnstile siteKey='{{ siteKey }}' onSuccess={setToken} />
-    )
-  }
-  ```
-
-  ```tsx
-  import { Turnstile } from '@marsidev/react-turnstile'
-
-  export default function Widget() {
-    const [token, setToken] = React.useState<string | null>(null)
-
-    return (
-      <Turnstile siteKey='{{ siteKey }}' onSuccess={setToken} />
-    )
-  }
-  ```
-</CodeGroup>
+  return (
+    <Turnstile siteKey="{{ siteKey }}" onSuccess={setToken} />
+  );
+}
+```
 
 ## `ref.current.getResponse()` method
 
-<CodeGroup>
-  ```jsx
-  import { Turnstile } from '@marsidev/react-turnstile'
+```tsx
+import { Turnstile } from "@marsidev/react-turnstile";
+import type { TurnstileInstance } from "@marsidev/react-turnstile";
 
-  export default function Widget() {
-    const ref = React.useRef()
+export default function Widget() {
+  const ref = React.useRef<TurnstileInstance | null>(null);
 
-    return (
-      <>
-        <Turnstile ref={ref} siteKey='{{ siteKey }}' />
+  return (
+    <>
+      <Turnstile ref={ref} siteKey="{{ siteKey }}" />
 
-        <button onClick={() => alert(ref.current?.getResponse())}>
-          Get response
-        </button>
-      </>
-    )
-  }
-  ```
-
-  ```tsx
-  import { Turnstile } from '@marsidev/react-turnstile'
-  import type { TurnstileInstance } from '@marsidev/react-turnstile'
-
-  export default function Widget() {
-    const ref = React.useRef<TurnstileInstance | null>(null)
-
-    return (
-      <>
-        <Turnstile ref={ref} siteKey='{{ siteKey }}' />
-
-        <button onClick={() => alert(ref.current?.getResponse())}>
-          Get response
-        </button>
-      </>
-    )
-  }
-  ```
-</CodeGroup>
+      <button onClick={() => alert(ref.current?.getResponse())}>
+        Get response
+      </button>
+    </>
+  );
+}
+```
 
 ## `cf-turnstile-response` HTML input
 
-<CodeGroup>
-  ```jsx
-  import { Turnstile } from '@marsidev/react-turnstile'
+```tsx
+import { Turnstile } from "@marsidev/react-turnstile";
 
-  export default function Widget() {
-    const formRef = React.useRef(null)
+export default function Widget() {
+  const formRef = React.useRef<HTMLFormElement>(null);
 
-    async function handleSubmit(event) {
-      event.preventDefault()
-      const formData = new FormData(formRef.current)
-      const token = formData.get('cf-turnstile-response')
-      // ...
-    }
-
-    return (
-      <form ref={formRef} onSubmit={handleSubmit}>
-        <input type="text" placeholder="username" />
-        <input type="password" placeholder="password" />
-        <Turnstile siteKey='{{ siteKey }}' />
-        <button type='submit'>Login</button>
-      </form>
-    )
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(formRef.current!);
+    const token = formData.get("cf-turnstile-response");
+    // ...
   }
-  ```
 
-  ```tsx
-  import { Turnstile } from '@marsidev/react-turnstile'
-
-  export default function Widget() {
-    const formRef = React.useRef<HTMLFormElement>(null)
-
-    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-      event.preventDefault()
-      const formData = new FormData(formRef.current!)
-      const token = formData.get('cf-turnstile-response')
-      // ...
-    }
-
-    return (
-      <form ref={formRef} onSubmit={handleSubmit}>
-        <input type="text" placeholder="username" />
-        <input type="password" placeholder="password" />
-        <Turnstile siteKey='{{ siteKey }}' />
-        <button type='submit'>Login</button>
-      </form>
-    )
-  }
-  ```
-</CodeGroup>
+  return (
+    <form ref={formRef} onSubmit={handleSubmit}>
+      <input type="text" placeholder="username" />
+      <input type="password" placeholder="password" />
+      <Turnstile siteKey="{{ siteKey }}" />
+      <button type="submit">Login</button>
+    </form>
+  );
+}
+```

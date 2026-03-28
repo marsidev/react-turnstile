@@ -1,31 +1,31 @@
-import '~/app/globals.css'
-import { Inter } from 'next/font/google'
-import Header from '~/components/header'
-import Sidebar from '~/components/sidebar'
-import Content from '~/components/content'
-import ThemeProvider from '~/components/theme-provider'
-import { cn } from '~/utils'
+import "~/app/globals.css";
+import { Inter } from "next/font/google";
+import Header from "~/components/header";
+import Sidebar from "~/components/sidebar";
+import Content from "~/components/content";
+import ThemeProvider from "~/components/theme-provider";
+import { cn } from "~/utils";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-	title: 'React Turnstile Demo',
-	description: 'React Turnstile Next.js 16 App Router Demo'
-}
+  title: "React Turnstile Demo",
+  description: "React Turnstile Next.js 16 App Router Demo"
+};
 
 export default function RootLayout({ children }: React.PropsWithChildren) {
-	return (
-		<html suppressHydrationWarning lang="en">
-			<body className={cn(inter.className, 'min-h-screen antialiased')}>
-				<ThemeProvider attribute="class">
-					<Header />
-					<section className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
-						<Sidebar />
+  return (
+    <html suppressHydrationWarning lang="en">
+      <body className={cn(inter.className, "min-h-screen antialiased")}>
+        <ThemeProvider attribute="class">
+          <Header />
+          <section className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+            <Sidebar />
 
-						<Content>{children}</Content>
-					</section>
-				</ThemeProvider>
-			</body>
-		</html>
-	)
+            <Content>{children}</Content>
+          </section>
+        </ThemeProvider>
+      </body>
+    </html>
+  );
 }

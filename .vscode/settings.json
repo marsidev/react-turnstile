@@ -1,25 +1,12 @@
 {
-	"eslint.workingDirectories": [
-		"./packages/lib",
-		"./demos/nextjs"
-	],
-	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": "explicit"
-	},
+	"editor.defaultFormatter": "oxc.oxc-vscode",
 	"editor.formatOnSave": true,
-	"eslint.options": {
-		"extensions": [
-			".js",
-			".ts",
-			".tsx"
-		]
+	"editor.codeActionsOnSave": {
+		"source.fixAll.oxc": "always"
 	},
-	"eslint.validate": [
-		"javascript",
-		"javascriptreact",
-		"typescript",
-		"typescriptreact"
-	],
+	"oxc.fmt.configPath": "oxfmt.config.ts",
 	"editor.insertSpaces": false,
-	"editor.detectIndentation": false
+	"editor.detectIndentation": false,
+	"typescript.experimental.useTsgo": true,
+	"js/ts.experimental.useTsgo": true
 }

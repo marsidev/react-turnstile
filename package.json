@@ -1,69 +1,43 @@
 {
-	"name": "root",
-	"version": "0.0.1",
-	"private": true,
-	"packageManager": "pnpm@10.28.2",
-	"scripts": {
-		"demo": "pnpm run --filter=nextjs-demo dev",
-		"dev": "concurrently \"npm:lib:build:watch\" \"npm:demo\" -c auto,cyan",
-		"format:write": "npx prettier **/*.{js,mjs,cjs,ts,tsx,json} --write .",
-		"format:check": "npx prettier **/*.{js,mjs,cjs,ts,tsx,json} --check .",
-		"lib:build": "pnpm run --filter=@marsidev/react-turnstile build",
-		"lib:build:watch": "pnpm run --filter=@marsidev/react-turnstile build:watch",
-		"lint": "eslint .",
-		"lint:fix": "eslint . --fix",
-		"release": "pnpm run --filter=@marsidev/react-turnstile release",
-		"test": "pnpm run test:integration && pnpm run test:e2e",
-		"test:e2e": "playwright test",
-		"test:integration": "pnpm run --filter=@marsidev/react-turnstile test:integration",
-		"type-check": "pnpm run --parallel type-check"
-	},
-	"devDependencies": {
-		"@antfu/ni": "28.2.0",
-		"@antfu/utils": "9.3.0",
-		"@playwright/test": "1.58.1",
-		"@types/node": "25.2.0",
-		"@types/react": "19.2.10",
-		"@types/react-dom": "19.2.3",
-		"concurrently": "9.2.1",
-		"eslint": "8.57.0",
-		"eslint-config-custom": "workspace:*",
-		"lint-staged": "16.2.7",
-		"playwright": "1.58.1",
-		"pnpm": "10.28.2",
-		"prettier": "3.8.1",
-		"prettier-plugin-tailwindcss": "0.7.2",
-		"simple-git-hooks": "2.13.1",
-		"typescript": "5.9.3"
-	},
-	"simple-git-hooks": {
-		"pre-commit": "pnpm lint-staged"
-	},
-	"lint-staged": {
-		"**/*.{js,mjs,cjs,ts,tsx}": [
-			"eslint . --cache --fix",
-			"prettier --write --cache --ignore-unknown"
-		],
-		"**/*.json": [
-			"prettier --write --cache --ignore-unknown"
-		]
-	},
-	"pnpm": {
-		"peerDependencyRules": {
-			"ignoreMissing": [
-				"typescript",
-				"eslint",
-				"prettier"
-			]
-		},
-		"overrides": {
-			"@typescript-eslint/typescript-estree>minimatch": "^9.0.7",
-			"tsup>rollup": "^4.59.0",
-			"eslint>ajv": "^6.14.0",
-			"eslint>minimatch": "^3.1.4"
-		}
-	},
-	"eslintConfig": {
-		"extends": "custom"
-	}
+  "name": "root",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "pnpm lint:check && pnpm format:check && pnpm typecheck",
+    "demo": "pnpm run --filter=nextjs-demo dev",
+    "dev": "concurrently \"npm:lib:build:watch\" \"npm:demo\" -c auto,cyan",
+    "fix": "pnpm lint && pnpm format",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "lib:build": "pnpm run --filter=@marsidev/react-turnstile build",
+    "lib:build:watch": "pnpm run --filter=@marsidev/react-turnstile build:watch",
+    "lint": "oxlint --fix .",
+    "lint:check": "oxlint .",
+    "release": "pnpm run --filter=@marsidev/react-turnstile release",
+    "test": "pnpm run test:integration && pnpm run test:e2e",
+    "test:e2e": "playwright test",
+    "test:integration": "pnpm run --filter=@marsidev/react-turnstile test:integration",
+    "typecheck": "pnpm run --parallel typecheck"
+  },
+  "devDependencies": {
+    "@antfu/ni": "30.0.0",
+    "@antfu/utils": "9.3.0",
+    "@playwright/test": "1.58.2",
+    "@types/node": "25.5.0",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@typescript/native-preview": "7.0.0-dev.20260325.1",
+    "concurrently": "9.2.1",
+    "oxfmt": "0.42.0",
+    "oxlint": "1.57.0",
+    "oxlint-tsgolint": "0.17.4",
+    "playwright": "1.58.2",
+    "pnpm": "10.33.0",
+    "simple-git-hooks": "2.13.1"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm check"
+  },
+  "packageManager": "pnpm@10.33.0"
 }

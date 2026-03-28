@@ -6,50 +6,25 @@ title: React Turnstile - Custom props
 
 You can pass any of the props listed [here](/props) into the `Turnstile` component. Here is an example:
 
-<CodeGroup>
-  ```jsx
-  import { Turnstile } from '@marsidev/react-turnstile'
+```tsx
+import { Turnstile } from "@marsidev/react-turnstile";
 
-  export default function Widget() {
-    return (
-      <Turnstile
-        as='aside'
-        siteKey='{{ siteKey }}'
-        className='fixed bottom-4 right-4'
-        options={{
-          action: 'submit-form',
-          theme: 'light',
-          size: 'compact',
-          language: 'es',
-        }}
-        scriptOptions={{
-          appendTo: 'body'
-        }}
-      />
-    )
-  }
-  ```
-
-  ```tsx
-  import { Turnstile } from '@marsidev/react-turnstile'
-
-  export default function Widget() {
-    return (
-      <Turnstile
-			  as='aside'
-        siteKey='{{ siteKey }}'
-        className='fixed bottom-4 right-4'
-        options={{
-          action: 'submit-form',
-          theme: 'light',
-          size: 'compact',
-          language: 'es',
-        }}
-        scriptOptions={{
-          appendTo: 'body'
-        }}
-      />
-    )
-  }
-  ```
-</CodeGroup>
+export default function Widget() {
+  return (
+    <Turnstile
+      as="aside"
+      siteKey="{{ siteKey }}"
+      className="fixed bottom-4 right-4"
+      options={{
+        action: "submit-form",
+        theme: "light",
+        size: "compact",
+        language: "es",
+      }}
+      scriptOptions={{
+        appendTo: "body",
+      }}
+    />
+  );
+}
+```

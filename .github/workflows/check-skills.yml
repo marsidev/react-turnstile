@@ -1,0 +1,54 @@
+name: Check Stale Skills
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+          cache: pnpm
+
+      - name: Setup
+        run: npm i -g @antfu/ni
+
+      - name: Install
+        run: nci
+
+      - name: Check for stale skills
+        id: stale
+        run: |
+          cd packages/lib
+          npx @tanstack/intent@latest stale --json > stale-report.json || true
+
+      - name: Create PR if skills are stale
+        if: steps.stale.outcome == 'failure'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore: update stale skills'
+          title: 'Update stale skills'
+          body: |
+            This PR was created because the following skills may be out of date:
+
+            Please review and update the skills using:
+            ```
+            npx @tanstack/intent@latest scaffold
+            ```
+
+            Then run validation:
+            ```
+            npx @tanstack/intent@latest validate
+            ```
+          branch: update-stale-skills

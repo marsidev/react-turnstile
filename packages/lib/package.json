@@ -1,61 +1,66 @@
 {
-	"name": "@marsidev/react-turnstile",
-	"version": "1.4.2",
-	"description": "Cloudflare Turnstile integration for React.",
-	"author": "Luis Marsiglia <marsiglia.business@gmail.com>",
-	"license": "MIT",
-	"type": "module",
-	"private": false,
-	"homepage": "https://github.com/marsidev/react-turnstile",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/marsidev/react-turnstile.git"
-	},
-	"bugs": "https://github.com/marsidev/react-turnstile/issues",
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js",
-			"default": "./dist/index.js"
-		}
-	},
-	"main": "./dist/index.js",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"files": [
-		"dist"
-	],
-	"scripts": {
-		"build": "tsup",
-		"build:watch": "tsup --watch",
-		"prepublishOnly": "copyfiles -u 2 ../../README.md . && pnpm run build",
-		"release": "bumpp && npm publish",
-		"type-check": "tsc --noEmit",
-		"test:integration": "vitest run",
-		"test:integration:watch": "vitest"
-	},
-	"peerDependencies": {
-		"react": "^17.0.2 || ^18.0.0 || ^19.0",
-		"react-dom": "^17.0.2 || ^18.0.0 || ^19.0"
-	},
-	"devDependencies": {
-		"@testing-library/jest-dom": "6.9.1",
-		"@testing-library/react": "16.3.2",
-		"@types/jest": "30.0.0",
-		"bumpp": "10.4.0",
-		"copyfiles": "2.4.1",
-		"jsdom": "28.0.0",
-		"tsup": "8.5.1",
-		"vitest": "4.0.18"
-	},
-	"keywords": [
-		"cloudflare-turnstile",
-		"turnstile",
-		"cloudflare",
-		"react"
-	],
-	"sideEffects": false,
-	"publishConfig": {
-		"access": "public"
-	}
+  "name": "@marsidev/react-turnstile",
+  "version": "1.4.2",
+  "private": false,
+  "description": "Cloudflare Turnstile integration for React.",
+  "keywords": [
+    "cloudflare",
+    "cloudflare-turnstile",
+    "react",
+    "tanstack-intent",
+    "turnstile"
+  ],
+  "homepage": "https://github.com/marsidev/react-turnstile",
+  "bugs": "https://github.com/marsidev/react-turnstile/issues",
+  "license": "MIT",
+  "author": "Luis Marsiglia <marsiglia.business@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marsidev/react-turnstile.git"
+  },
+  "files": [
+    "dist",
+    "skills",
+    "!skills/_artifacts"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "build:watch": "tsdown --watch",
+    "prepublishOnly": "copyfiles -u 2 ../../README.md . && pnpm run build",
+    "release": "bumpp && npm publish",
+    "typecheck": "tsgo --noEmit",
+    "test:integration": "vitest run",
+    "test:integration:watch": "vitest"
+  },
+  "devDependencies": {
+    "@tanstack/intent": "0.0.23",
+    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/react": "16.3.2",
+    "@types/jest": "30.0.0",
+    "bumpp": "11.0.1",
+    "copyfiles": "2.4.1",
+    "jsdom": "29.0.1",
+    "tsdown": "0.21.5",
+    "typescript": "6.0.2",
+    "vitest": "4.1.1"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2 || ^18.0.0 || ^19.0",
+    "react-dom": "^17.0.2 || ^18.0.0 || ^19.0"
+  }
 }

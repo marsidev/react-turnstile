@@ -1,24 +1,23 @@
 {
-	"compilerOptions": {
-		"target": "ESNext",
-		"module": "ESNext",
-		"lib": ["DOM", "DOM.Iterable", "ESNext"],
-		"moduleResolution": "Node",
-		"esModuleInterop": true,
-		"strict": true,
-		"forceConsistentCasingInFileNames": true,
-		"strictNullChecks": true,
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"skipDefaultLibCheck": true,
-		"isolatedModules": true,
-		"rootDir": ".",
-		"baseUrl": ".",
-		"noEmit": true,
-		"paths": {
-			"~/*": ["./*"]
-		}
-	},
-	"include": ["packages", "demos", "test", "playwright.config.ts"],
-	"exclude": ["node_modules"]
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "isolatedModules": true,
+    "rootDir": ".",
+    "noEmit": true,
+    "paths": {
+      "~/*": ["./*"]
+    }
+  },
+  "include": ["packages", "demos", "test", "playwright.config.ts"],
+  "exclude": ["node_modules"]
 }

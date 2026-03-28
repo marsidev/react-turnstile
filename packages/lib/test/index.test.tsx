@@ -1,50 +1,50 @@
-import { render } from '@testing-library/react'
-import { DEFAULT_CONTAINER_ID, DEFAULT_SCRIPT_ID, SCRIPT_URL, Turnstile } from '../src'
-import { DEMO_SITEKEY } from './constants'
+import { render } from "@testing-library/react";
+import { DEFAULT_CONTAINER_ID, DEFAULT_SCRIPT_ID, SCRIPT_URL, Turnstile } from "../src";
+import { DEMO_SITEKEY } from "./constants";
 
 function resetDom() {
-	document.body.innerHTML = ''
-	document.head.innerHTML = ''
+  document.body.innerHTML = "";
+  document.head.innerHTML = "";
 }
 
-describe('Basic setup', () => {
-	beforeAll(() => {
-		render(<Turnstile siteKey={DEMO_SITEKEY.pass} />)
-	})
+describe("Basic setup", () => {
+  beforeAll(() => {
+    render(<Turnstile siteKey={DEMO_SITEKEY.pass} />);
+  });
 
-	afterAll(() => {
-		resetDom()
-	})
+  afterAll(() => {
+    resetDom();
+  });
 
-	it('renders the widget container', async () => {
-		const container = document.querySelector(`#${DEFAULT_CONTAINER_ID}`)
-		expect(container).toBeTruthy()
-	})
+  it("renders the widget container", async () => {
+    const container = document.querySelector(`#${DEFAULT_CONTAINER_ID}`);
+    expect(container).toBeTruthy();
+  });
 
-	it('injects the script', async () => {
-		const script = document.querySelector('script')
-		expect(script).toBeTruthy()
-		expect(script?.id).toBe(DEFAULT_SCRIPT_ID)
-		expect(script?.src).toContain(SCRIPT_URL)
-	})
-})
+  it("injects the script", async () => {
+    const script = document.querySelector("script");
+    expect(script).toBeTruthy();
+    expect(script?.id).toBe(DEFAULT_SCRIPT_ID);
+    expect(script?.src).toContain(SCRIPT_URL);
+  });
+});
 
-describe('Manual script injection', () => {
-	beforeAll(() => {
-		render(<Turnstile injectScript={false} siteKey={DEMO_SITEKEY.pass} />)
-	})
+describe("Manual script injection", () => {
+  beforeAll(() => {
+    render(<Turnstile injectScript={false} siteKey={DEMO_SITEKEY.pass} />);
+  });
 
-	afterAll(() => {
-		resetDom()
-	})
+  afterAll(() => {
+    resetDom();
+  });
 
-	it('renders the widget container', async () => {
-		const container = document.querySelector(`#${DEFAULT_CONTAINER_ID}`)
-		expect(container).toBeTruthy()
-	})
+  it("renders the widget container", async () => {
+    const container = document.querySelector(`#${DEFAULT_CONTAINER_ID}`);
+    expect(container).toBeTruthy();
+  });
 
-	it('does not injects the script', async () => {
-		const script = document.querySelector('script')
-		expect(script).toBeFalsy()
-	})
-})
+  it("does not injects the script", async () => {
+    const script = document.querySelector("script");
+    expect(script).toBeFalsy();
+  });
+});
