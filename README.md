@@ -1,19 +1,12 @@
 <div align="center">
  <h1>React Turnstile</h1>
  <img src="https://raw.githubusercontent.com/marsidev/react-turnstile/main/preview.png" width="300" alt="Cloudflare Turnstile widget" />
- <p><a href="https://developers.cloudflare.com/turnstile/">Cloudflare Turnstile</a> integration for React.</p>
- <a href="https://npm.im/@marsidev/react-turnstile">
-  <img src="https://badgen.net/npm/v/@marsidev/react-turnstile?style=flat-square" alt="npm version" />
+ <p>Cloudflare Turnstile integration for React.</p>
+ <a href="https://npmx.dev/package/@marsidev/react-turnstile">
+  <img src="https://nodei.co/npm/@marsidev/react-turnstile.svg?style=shields&data=v,u,d&color=%23f58d1a">
  </a>
- <a href="https://npm.im/@marsidev/react-turnstile">
-  <img src="https://badgen.net/npm/dm/@marsidev/react-turnstile?style=flat-square" alt="npm downloads" />
- </a>
- <a href="https://packagephobia.com/result?p=@marsidev/react-turnstile">
-  <img src="https://badgen.net/packagephobia/install/@marsidev/react-turnstile?style=square-flat" alt="install size" />
- </a>
- <a href="https://bundlejs.com/?q=%40marsidev%2Freact-turnstile">
-  <img src="https://deno.bundlejs.com/badge?q=@marsidev/react-turnstile" alt="bundle size powered by bundlejs.com" />
- </a>
+ <img src="https://img.shields.io/npm/unpacked-size/%40marsidev%2Freact-turnstile?style=square-flat&color=f58d1a" alt="unpacked size" />
+ <img src="https://img.shields.io/bundlephobia/minzip/%40marsidev%2Freact-turnstile?style=square-flat&color=f58d1a" alt="npm bundle size" />
 </div>
 
 ## Features
@@ -35,7 +28,7 @@
 2. Install `@marsidev/react-turnstile` into your React project.
 
  ```bash
- pnpm add @marsidev/react-turnstile
+ npm i @marsidev/react-turnstile -E
  ```
 
 ## Usage
@@ -80,6 +73,10 @@ function LoginForm() {
   )
 }
 ```
+
+## Star history
+
+[![Star History Chart](https://api.star-history.com/svg?repos=marsidev/react-turnstile&type=Date)](https://star-history.com/#marsidev/react-turnstile&Date)
 
 ## Contributing
 
