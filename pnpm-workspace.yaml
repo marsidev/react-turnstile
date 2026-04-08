@@ -7,3 +7,8 @@ blockExoticSubdeps: true
 minimumReleaseAge: 1440
 
 trustPolicy: no-downgrade
+
+overrides:
+  defu: ">=6.1.5"
+  vite: ">=8.0.5"
+  brace-expansion: ">=1.1.13"
