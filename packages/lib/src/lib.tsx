@@ -366,7 +366,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
           return;
         }
 
-        turnstile.execute(containerRef.current, renderConfig);
+        turnstile.execute(containerRef.current);
         setContainerStyle(widgetSize ? CONTAINER_STYLE_SET[widgetSize] : {});
       },
 
