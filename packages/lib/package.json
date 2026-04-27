@@ -41,8 +41,7 @@
   "scripts": {
     "build": "tsdown",
     "build:watch": "tsdown --watch",
-    "prepublishOnly": "copyfiles -u 2 ../../README.md . && pnpm run build",
-    "release": "bumpp && npm publish",
+    "release": "bumpp && copyfiles -u 2 ../../README.md . && pnpm run build && npm publish",
     "typecheck": "tsgo --noEmit",
     "test:integration": "vitest run",
     "test:integration:watch": "vitest"
