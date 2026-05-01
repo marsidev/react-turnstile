@@ -19,7 +19,6 @@
     "url": "git+https://github.com/marsidev/react-turnstile.git"
   },
   "files": [
-	"../../LICENSE",
     "dist",
     "skills",
     "!skills/_artifacts"
@@ -42,7 +41,7 @@
   "scripts": {
     "build": "tsdown",
     "build:watch": "tsdown --watch",
-    "release": "bumpp && copyfiles -u 2 ../../README.md . && pnpm run build && npm publish",
+    "release": "bumpp && copyfiles -u 2 ../../LICENSE . && copyfiles -u 2 ../../README.md . && pnpm run build && npm publish",
     "typecheck": "tsgo --noEmit",
     "test:integration": "vitest run",
     "test:integration:watch": "vitest"
