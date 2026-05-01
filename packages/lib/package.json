@@ -19,6 +19,7 @@
     "url": "git+https://github.com/marsidev/react-turnstile.git"
   },
   "files": [
+	"../../LICENSE",
     "dist",
     "skills",
     "!skills/_artifacts"
