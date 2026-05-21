@@ -30,7 +30,7 @@
     "@types/node": "25.5.0",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260325.1",
+    "@typescript/native-preview": "7.0.0-dev.20260514.1",
     "concurrently": "9.2.1",
     "oxfmt": "0.42.0",
     "oxlint": "1.57.0",
