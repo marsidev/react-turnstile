@@ -30,10 +30,13 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
+      # continue-on-error (not `|| true`) so the step's outcome stays `failure`
+      # when skills are stale, which is what gates the PR-creation step below.
       - name: Check for stale skills
         id: stale
+        continue-on-error: true
         working-directory: packages/lib
-        run: pnpm exec intent stale --json > stale-report.json || true
+        run: pnpm exec intent stale --json > stale-report.json
 
       - name: Create PR if skills are stale
         if: steps.stale.outcome == 'failure'
