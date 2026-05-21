@@ -36,11 +36,11 @@
     "oxlint": "1.57.0",
     "oxlint-tsgolint": "0.17.4",
     "playwright": "1.58.2",
-    "pnpm": "10.33.0",
+    "pnpm": "11.0.8",
     "simple-git-hooks": "2.13.1"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm check"
   },
-  "packageManager": "pnpm@10.33.0"
+  "packageManager": "pnpm@11.0.8"
 }
