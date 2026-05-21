@@ -1,0 +1,34 @@
+name: Zizmor
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+      - '.github/actions/**'
+      - '.github/zizmor.yml'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/**'
+      - '.github/actions/**'
+      - '.github/zizmor.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  zizmor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        with:
+          persist-credentials: false
+
+      - name: Run zizmor
+        uses: zizmorcore/zizmor-action@5f14fd08f7cf1cb1609c1e344975f152c7ee938d # v0.5.6
+        with:
+          # Print findings and FAIL the job on any finding, so this acts as a
+          # blocking required check. (The default uploads to the Security tab
+          # and does not fail the build.) Mark this job required in branch
+          # protection / rulesets to block merges.
+          advanced-security: false

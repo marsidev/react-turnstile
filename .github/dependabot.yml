@@ -1,0 +1,45 @@
+# Dependabot version updates - https://docs.github.com/en/code-security/dependabot/dependabot-version-updates
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "ci"
+    # Don't adopt a freshly published action immediately.
+    cooldown:
+      default-days: 5
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  # npm/pnpm dependencies across the workspace.
+  - package-ecosystem: "npm"
+    directories:
+      - "/"
+      - "/packages/lib"
+      - "/demos/nextjs"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+    # Defense-in-depth against compromised brand-new releases: hold back PRs
+    # for recently published versions (mirrors `minimumReleaseAge` in
+    # pnpm-workspace.yaml). Majors wait longer since they need more review.
+    cooldown:
+      default-days: 7
+      semver-major-days: 14
+      semver-minor-days: 5
+      semver-patch-days: 3
+    groups:
+      dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
