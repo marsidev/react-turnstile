@@ -26,7 +26,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install pnpm
-        uses: pnpm/action-setup@d15e628ca66d93ee5f352c71671a7bc6a97af5c9 # v6.0.8
+        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
 
       - name: Set node
         uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
@@ -48,7 +48,7 @@ jobs:
 
       # Opens/updates the Version Packages PR; publishes once that PR is merged.
       - name: Create Release PR or publish
-        uses: changesets/action@d94a5c301145045a0960133674e003b265942a22 # v1.8.0
+        uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b # v1.8.0
         with:
           version: pnpm run version-packages
           publish: pnpm run release

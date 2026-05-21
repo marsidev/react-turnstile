@@ -1,9 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.1.4/schema.json",
-  "changelog": [
-    "@changesets/changelog-github",
-    { "repo": "marsidev/react-turnstile" }
-  ],
+  "changelog": ["@changesets/changelog-github", { "repo": "marsidev/react-turnstile" }],
   "commit": false,
   "fixed": [],
   "linked": [],

@@ -10,7 +10,7 @@ updates:
       prefix: "ci"
     # Don't adopt a freshly published action immediately.
     cooldown:
-      default-days: 5
+      default-days: 7
     groups:
       github-actions:
         patterns:
