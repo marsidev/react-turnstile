@@ -5,36 +5,42 @@ on:
     types: [published]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   check:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        with:
+          persist-credentials: false
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
 
       - name: Set node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
           node-version: 24.x
-          cache: pnpm
-
-      - name: Setup
-        run: npm i -g @antfu/ni
 
       - name: Install
-        run: nci
+        run: pnpm install --frozen-lockfile
 
+      # continue-on-error (not `|| true`) so the step's outcome stays `failure`
+      # when skills are stale, which is what gates the PR-creation step below.
       - name: Check for stale skills
         id: stale
-        run: |
-          cd packages/lib
-          npx @tanstack/intent@latest stale --json > stale-report.json || true
+        continue-on-error: true
+        working-directory: packages/lib
+        run: pnpm exec intent stale --json > stale-report.json
 
       - name: Create PR if skills are stale
         if: steps.stale.outcome == 'failure'
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'chore: update stale skills'
@@ -44,11 +50,11 @@ jobs:
 
             Please review and update the skills using:
             ```
-            npx @tanstack/intent@latest scaffold
+            pnpm exec intent scaffold
             ```
 
             Then run validation:
             ```
-            npx @tanstack/intent@latest validate
+            pnpm exec intent validate
             ```
           branch: update-stale-skills

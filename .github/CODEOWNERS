@@ -1,0 +1,3 @@
+# CI/workflow files are the most privileged code in the repo.
+# Changes here must be reviewed by a core maintainer.
+/.github/ @marsidev

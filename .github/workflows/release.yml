@@ -1,27 +1,58 @@
 name: Release
 
+# NOTE: the npm Trusted Publisher on npmjs.com must reference this filename
+# (release.yml) under "Workflow filename", or publishing will fail.
 on:
   push:
-    tags:
-      - "v*"
+    branches: [main]
+
+# Never run two releases at once.
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions: {}
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # version-bump commits, tags, GitHub Releases
+      pull-requests: write # open/update the "Version Packages" PR
+      id-token: write # npm OIDC trusted publishing + provenance
     steps:
-      - uses: actions/checkout@v4
+      # No persist-credentials:false here: changesets/action pushes the
+      # `changeset-release/main` branch using the persisted GITHUB_TOKEN.
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           fetch-depth: 0
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
 
       - name: Set node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
           node-version: 24.x
-          cache: pnpm
+          registry-url: https://registry.npmjs.org
+          # No `cache:` on the publish runner (cache-poisoning hardening).
 
-      - run: npx changelogithub
+      # OIDC trusted publishing needs npm >= 11.5.1. Node 24.x already ships a
+      # newer npm, so only upgrade on the rare runner that lags the floor.
+      - name: Ensure npm >= 11.5.1
+        run: |
+          need=11.5.1
+          have=$(npm -v)
+          [ "$(printf '%s\n%s\n' "$need" "$have" | sort -V | head -n1)" = "$need" ] || npm install -g npm@latest
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # Opens/updates the Version Packages PR; publishes once that PR is merged.
+      - name: Create Release PR or publish
+        uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b # v1.8.0
+        with:
+          version: pnpm run version-packages
+          publish: pnpm run release
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Generates npm provenance during `changeset publish`.
+          NPM_CONFIG_PROVENANCE: "true"

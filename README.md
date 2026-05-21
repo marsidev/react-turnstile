@@ -7,6 +7,9 @@
  </a>
  <img src="https://img.shields.io/npm/unpacked-size/%40marsidev%2Freact-turnstile?style=square-flat&color=f58d1a" alt="unpacked size" />
  <img src="https://img.shields.io/bundlephobia/minzip/%40marsidev%2Freact-turnstile?style=square-flat&color=f58d1a" alt="npm bundle size" />
+ <a href="https://socket.dev/npm/package/@marsidev/react-turnstile">
+  <img src="https://socket.dev/api/badge/npm/package/@marsidev/react-turnstile" alt="Socket Score" />
+ </a>
 </div>
 
 ## Features
@@ -111,4 +114,4 @@ If you find this library useful, you can buy me a coffee:
 
 ## License
 
-Published under the [MIT License](./LICENCE).
+Published under the [MIT License](./LICENSE).

@@ -1,0 +1,16 @@
+# zizmor configuration - https://docs.zizmor.sh/configuration/
+rules:
+  cache-poisoning:
+    ignore:
+      # Release/publish workflows do NOT restore any build cache (no `cache:`
+      # on setup-node), so there is nothing to poison. zizmor flags setup-node's
+      # mere presence in a publish context (low confidence).
+      - release.yml
+      # check-skills runs deps install but no caching is enabled, and it never
+      # publishes runtime artifacts (it only opens a PR).
+      - check-skills.yml
+  artipacked:
+    ignore:
+      # changesets/action pushes the `changeset-release/main` branch using the
+      # persisted GITHUB_TOKEN, so persist-credentials must stay enabled here.
+      - release.yml
