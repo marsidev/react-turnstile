@@ -1,17 +1,13 @@
 name: Zizmor
 
+# No `paths:` filter: this is a required status check, so it must run (and
+# report) on every PR. A path-filtered required check never reports on PRs that
+# don't touch the filtered paths, which blocks them from merging. Scanning the
+# unchanged workflows on every PR is cheap (~10s).
 on:
   pull_request:
-    paths:
-      - '.github/workflows/**'
-      - '.github/actions/**'
-      - '.github/zizmor.yml'
   push:
     branches: [main]
-    paths:
-      - '.github/workflows/**'
-      - '.github/actions/**'
-      - '.github/zizmor.yml'
 
 permissions:
   contents: read
