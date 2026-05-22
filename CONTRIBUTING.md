@@ -78,11 +78,12 @@ pnpm test:e2e
 
 ### Pre-commit Hooks
 
-We use `simple-git-hooks` to run checks before each commit. This ensures code quality before pushing.
+`simple-git-hooks` is installed automatically on `pnpm install` (via the `prepare` script). On each commit it runs `nano-staged`, which lints and formats **only your staged files** — fast, while the full lint/format/typecheck stays in CI.
 
 ```bash
-# The following runs automatically on git commit:
-pnpm check  # lint:check + format:check + typecheck
+# Runs automatically on git commit, on staged files only:
+# - oxlint --fix
+# - oxfmt
 ```
 
 ## Project Structure
@@ -104,8 +105,23 @@ pnpm check  # lint:check + format:check + typecheck
 2. **Create a branch** from `main` for your changes
 3. **Make your changes** with clear, focused commits
 4. **Run checks** before committing: `pnpm check`
-5. **Test your changes** with the demo app: `pnpm dev`
-6. **Submit a PR** with a clear description
+5. **Add a changeset** for any user-facing change: `pnpm changeset`
+6. **Test your changes** with the demo app: `pnpm dev`
+7. **Submit a PR** with a clear description
+
+## Changesets
+
+Releases are automated with [Changesets](https://github.com/changesets/changesets) and published from CI via npm OIDC.
+
+If your PR changes the published package (`@marsidev/react-turnstile`), add a changeset:
+
+```bash
+pnpm changeset
+```
+
+Pick the bump type (patch / minor / major) and write a short, user-facing changelog line. Commit the generated file in `.changeset/`. Changes that don't affect the package (docs, demo, CI, internal tooling) don't need one.
+
+You don't need to publish anything — **releases are cut by the maintainers**. The changeset you include is just what feeds the version bump and changelog when a release is later published.
 
 ## Resources
 
@@ -148,14 +164,6 @@ Make sure you've built the library first:
 ```bash
 pnpm lib:build
 pnpm typecheck
-```
-
-### Pre-commit hooks not running
-
-Reinstall hooks:
-
-```bash
-pnpm simple-git-hooks
 ```
 
 ## Questions?

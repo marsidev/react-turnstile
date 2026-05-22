@@ -14,6 +14,7 @@
     "lib:build:watch": "pnpm run --filter=@marsidev/react-turnstile build:watch",
     "lint": "oxlint --fix .",
     "lint:check": "oxlint .",
+    "prepare": "simple-git-hooks",
     "changeset": "changeset",
     "version-packages": "changeset version && pnpm install --lockfile-only",
     "release": "pnpm lib:build && cp LICENSE README.md packages/lib/ && changeset publish",
@@ -32,6 +33,7 @@
     "@types/react-dom": "19.2.3",
     "@typescript/native-preview": "7.0.0-dev.20260514.1",
     "concurrently": "9.2.1",
+    "nano-staged": "1.0.2",
     "oxfmt": "0.50.0",
     "oxlint": "1.65.0",
     "oxlint-tsgolint": "0.22.1",
@@ -39,7 +41,17 @@
     "simple-git-hooks": "2.13.1"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm check"
+    "pre-commit": "pnpm exec nano-staged"
+  },
+  "nano-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "oxlint --fix",
+      "oxfmt"
+    ],
+    "*.{json,jsonc}": "oxfmt"
+  },
+  "engines": {
+    "node": ">=24"
   },
   "packageManager": "pnpm@11.0.8"
 }

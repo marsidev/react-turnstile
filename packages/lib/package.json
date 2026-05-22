@@ -41,6 +41,7 @@
   "scripts": {
     "build": "tsdown",
     "build:watch": "tsdown --watch",
+    "check:package": "publint",
     "typecheck": "tsgo --noEmit",
     "test:integration": "vitest run",
     "test:integration:watch": "vitest"
@@ -51,6 +52,7 @@
     "@testing-library/react": "16.3.2",
     "@types/jest": "30.0.0",
     "jsdom": "29.1.1",
+    "publint": "0.3.21",
     "tsdown": "0.22.0",
     "typescript": "6.0.3",
     "vitest": "4.1.6"

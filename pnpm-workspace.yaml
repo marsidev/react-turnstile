@@ -8,6 +8,8 @@ minimumReleaseAge: 1440
 
 trustPolicy: no-downgrade
 
+saveExact: true
+
 overrides:
   defu: ">=6.1.5"
   vite: ">=8.0.5"

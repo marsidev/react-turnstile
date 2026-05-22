@@ -50,6 +50,9 @@ jobs:
       - name: Build
         run: pnpm run lib:build
 
+      - name: Validate package (publint)
+        run: pnpm --filter @marsidev/react-turnstile run check:package
+
       - name: Check
         run: pnpm run check
 
