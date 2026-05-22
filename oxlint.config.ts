@@ -19,11 +19,9 @@ export default defineConfig({
     jsx: true
   },
   rules: {
-    "import/no-unresolved": "off",
     "no-control-regex": "off",
     "no-unused-expressions": "off",
     "typescript/no-non-null-assertion": "off",
-    "jsx-quotes": ["warn", "prefer-double"],
     "react-hooks/exhaustive-deps": "off"
   },
   ignorePatterns: ["**/node_modules/**", "**/dist/**", "**/.next/**", "**/coverage/**", "**/*.d.ts"]
