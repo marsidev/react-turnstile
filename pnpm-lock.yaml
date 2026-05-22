@@ -52,9 +52,6 @@ importers:
       playwright:
         specifier: 1.58.2
         version: 1.58.2
-      pnpm:
-        specifier: 11.0.8
-        version: 11.0.8
       simple-git-hooks:
         specifier: 2.13.1
         version: 2.13.1
@@ -2444,11 +2441,6 @@ packages:
   playwright@1.58.2:
     resolution: {integrity: sha512-vA30H8Nvkq/cPBnNw4Q8TWz1EJyqgpuinBcHET0YVJVFldr8JDNiU9LaWAE1KqSkRYazuaBhTpB5ZzShOezQ6A==}
     engines: {node: '>=18'}
-    hasBin: true
-
-  pnpm@11.0.8:
-    resolution: {integrity: sha512-TECX4d0tQjcsTn+lp5H/KPx1pITHrBkuZLHfD97xdZS6mC+bT+2a37PHV4RvVlt5mydj+zcz0d4by4LPRmhJEg==}
-    engines: {node: '>=22.13'}
     hasBin: true
 
   postcss-selector-parser@6.0.10:
@@ -4926,8 +4918,6 @@ snapshots:
       playwright-core: 1.58.2
     optionalDependencies:
       fsevents: 2.3.2
-
-  pnpm@11.0.8: {}
 
   postcss-selector-parser@6.0.10:
     dependencies:
