@@ -40,6 +40,18 @@ updates:
       dependencies:
         patterns:
           - "*"
+        # Keep the volatile toolchain out of the batch: these ship
+        # config-breaking changes (oxlint rules, tsgolint moduleResolution,
+        # bundler/TS options) that need a manual migration, so they should
+        # arrive as isolated PRs instead of blocking the whole group.
+        exclude-patterns:
+          - "oxlint"
+          - "oxlint-tsgolint"
+          - "oxfmt"
+          - "tsdown"
+          - "typescript"
+          - "@typescript/native-preview"
+          - "@tanstack/intent"
         update-types:
           - "minor"
           - "patch"
