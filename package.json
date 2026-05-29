@@ -36,7 +36,7 @@
     "nano-staged": "1.0.2",
     "oxfmt": "0.50.0",
     "oxlint": "1.66.0",
-    "oxlint-tsgolint": "0.22.1",
+    "oxlint-tsgolint": "0.23.0",
     "playwright": "1.60.0",
     "simple-git-hooks": "2.13.1"
   },
