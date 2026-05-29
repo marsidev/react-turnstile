@@ -35,7 +35,7 @@
     "concurrently": "9.2.1",
     "nano-staged": "1.0.2",
     "oxfmt": "0.50.0",
-    "oxlint": "1.65.0",
+    "oxlint": "1.66.0",
     "oxlint-tsgolint": "0.22.1",
     "playwright": "1.60.0",
     "simple-git-hooks": "2.13.1"
