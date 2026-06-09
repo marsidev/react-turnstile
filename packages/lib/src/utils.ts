@@ -52,7 +52,9 @@ export const injectTurnstileScript = ({
   script.async = !!async;
 
   if (nonce) {
-    script.nonce = nonce;
+    // Use `setAttribute`, not `script.nonce`: the property only sets the
+    // internal slot and never reflects to the attribute on the tag (#166).
+    script.setAttribute("nonce", nonce);
   }
 
   if (crossOrigin) {
