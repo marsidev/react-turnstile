@@ -32,6 +32,10 @@ jobs:
         with:
           app-id: ${{ secrets.RELEASE_APP_ID }}
           private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          # Scope the token to only what the release needs (the app itself may
+          # hold more): push branches/tags and open the Version Packages PR.
+          permission-contents: write
+          permission-pull-requests: write
 
       # persist-credentials (default) keeps the app token in git config so
       # changesets/action pushes `changeset-release/main` as the app.
