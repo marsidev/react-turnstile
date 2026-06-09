@@ -18,6 +18,8 @@ jobs:
       contents: write # version-bump commits, tags, GitHub Releases
       pull-requests: write # open/update the "Version Packages" PR
       id-token: write # npm OIDC trusted publishing + provenance
+    outputs:
+      published: ${{ steps.changesets.outputs.published }}
     steps:
       # No persist-credentials:false here: changesets/action pushes the
       # `changeset-release/main` branch using the persisted GITHUB_TOKEN.
@@ -48,11 +50,48 @@ jobs:
 
       # Opens/updates the Version Packages PR; publishes once that PR is merged.
       - name: Create Release PR or publish
+        id: changesets
         uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b # v1.8.0
         with:
           version: pnpm run version-packages
           publish: pnpm run release
+          # Friendlier than the default "Version Packages" commit/title.
+          commit: "chore: version packages"
+          title: "chore: version packages"
+          # The GitHub Release is created by the `release-notes` job below with
+          # richer notes (grouped changes, "by @user in #PR", a compare link and
+          # a contributors list) than the Changesets default.
+          createGithubReleases: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Generates npm provenance during `changeset publish`.
           NPM_CONFIG_PROVENANCE: "true"
+
+  # Builds the GitHub Release from conventional commits (matching the format
+  # used before the Changesets migration). Runs only on the publish push - i.e.
+  # when a version was actually released. Deliberately a separate job so this
+  # third-party tool never runs alongside the `id-token` (OIDC) permission.
+  release-notes:
+    needs: release
+    if: needs.release.outputs.published == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # create the GitHub Release
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0 # full history + tags for the changelog range
+          persist-credentials: false
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
+
+      - name: Set node
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version-file: .node-version
+
+      - name: Create GitHub Release notes
+        run: pnpm dlx changelogithub@14.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
