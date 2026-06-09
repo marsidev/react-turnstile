@@ -82,5 +82,9 @@ export const pages = [
   {
     title: "Multiple widgets and manual script injection",
     href: "/multi-widgets-and-manual-injection"
+  },
+  {
+    title: "Script options - nonce",
+    href: "/script-options-nonce"
   }
 ];
