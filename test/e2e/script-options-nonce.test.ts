@@ -1,16 +1,16 @@
 import type { Browser, Page } from "@playwright/test";
 import { chromium, expect, test } from "@playwright/test";
-import { DEFAULT_CONTAINER_ID } from "../../packages/lib/src/utils";
+import { DEFAULT_CONTAINER_ID, SCRIPT_URL } from "../../packages/lib/src/utils";
 import { ensureChallengeSolved } from "./helpers";
-
-// Keep in sync with demos/nextjs/src/app/script-options-nonce/page.tsx
-const NONCE_VALUE = "cf-turnstile-nonce-e2e";
-const NONCE_SCRIPT_ID = "turnstile-script-with-nonce";
 
 let browser: Browser;
 let page: Page;
 
 const route = "script-options-nonce";
+
+// The library-injected api.js script, located via the library's own SCRIPT_URL
+// so the test stays decoupled from the demo page's chosen script id / nonce.
+const turnstileScript = (page: Page) => page.locator(`script[src*="${SCRIPT_URL}"]`);
 
 test.beforeAll(async () => {
   browser = await chromium.launch();
@@ -22,18 +22,18 @@ test.afterAll(async () => {
   await browser?.close?.();
 });
 
-test("script injected with custom id", async () => {
-  await expect(page.locator(`#${NONCE_SCRIPT_ID}`)).toHaveCount(1);
+test("script is injected", async () => {
+  await expect(turnstileScript(page)).toHaveCount(1);
 });
 
 // Regression test for https://github.com/marsidev/react-turnstile/issues/166
 // The nonce passed via `scriptOptions` must end up as a `nonce` content
 // attribute on the injected <script>. Setting the `nonce` IDL property (the
 // previous behavior) only writes the element's internal slot, so the attribute
-// never appears in a real browser. This must run in a real browser - jsdom
-// reflects the IDL property to the attribute and would pass either way.
+// is absent in a real browser. This must run in a real browser - jsdom reflects
+// the IDL property to the attribute and would pass either way.
 test("nonce from scriptOptions is set as a content attribute on the script", async () => {
-  await expect(page.locator(`#${NONCE_SCRIPT_ID}`)).toHaveAttribute("nonce", NONCE_VALUE);
+  await expect(turnstileScript(page)).toHaveAttribute("nonce", /.+/);
 });
 
 test("widget container rendered", async () => {

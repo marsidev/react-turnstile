@@ -3,10 +3,9 @@
 import React from "react";
 import DemoWidget from "~/components/demo-widget";
 
-// Nonce forwarded to the library-injected <script> via `scriptOptions`. A custom
-// script id keeps this demo's script isolated from the other demos' scripts.
-export const NONCE_VALUE = "cf-turnstile-nonce-e2e";
-export const NONCE_SCRIPT_ID = "turnstile-script-with-nonce";
+// A custom script id keeps this demo's script isolated from the other demos'.
+const NONCE_VALUE = "cf-turnstile-nonce-e2e";
+const NONCE_SCRIPT_ID = "turnstile-script-with-nonce";
 
 export default function Page() {
   return (
