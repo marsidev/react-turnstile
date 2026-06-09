@@ -53,9 +53,9 @@
     "@types/jest": "30.0.0",
     "jsdom": "29.1.1",
     "publint": "0.3.21",
-    "tsdown": "0.22.0",
+    "tsdown": "0.22.1",
     "typescript": "6.0.3",
-    "vitest": "4.1.6"
+    "vitest": "4.1.7"
   },
   "peerDependencies": {
     "react": "^17.0.2 || ^18.0.0 || ^19.0",
