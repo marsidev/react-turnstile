@@ -21,11 +21,24 @@ jobs:
     outputs:
       published: ${{ steps.changesets.outputs.published }}
     steps:
-      # No persist-credentials:false here: changesets/action pushes the
-      # `changeset-release/main` branch using the persisted GITHUB_TOKEN.
+      # Mint a token from the release GitHub App. Unlike the default
+      # GITHUB_TOKEN, pushes made with it DO trigger other workflows - so the
+      # "Version Packages" PR runs the required CI - and the app is a ruleset
+      # bypass actor, so its version-bump commit satisfies the signed-commits
+      # rule without a manual re-sign.
+      - name: Generate app token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+
+      # persist-credentials (default) keeps the app token in git config so
+      # changesets/action pushes `changeset-release/main` as the app.
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: Install pnpm
         uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
@@ -63,7 +76,7 @@ jobs:
           # a contributors list) than the Changesets default.
           createGithubReleases: false
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           # Generates npm provenance during `changeset publish`.
           NPM_CONFIG_PROVENANCE: "true"
 
