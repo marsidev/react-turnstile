@@ -31,7 +31,7 @@
     "@types/node": "25.9.1",
     "@types/react": "19.2.15",
     "@types/react-dom": "19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260527.2",
+    "@typescript/native-preview": "7.0.0-dev.20260603.1",
     "concurrently": "9.2.1",
     "nano-staged": "1.0.2",
     "oxfmt": "0.52.0",
