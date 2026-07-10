@@ -14,3 +14,9 @@ rules:
       # changesets/action pushes the `changeset-release/main` branch using the
       # persisted GITHUB_TOKEN, so persist-credentials must stay enabled here.
       - release.yml
+  adhoc-packages:
+    ignore:
+      # The "Ensure npm >= 11.5.1" step intentionally upgrades npm globally
+      # when the runner's npm lags the OIDC trusted-publishing floor. It's a
+      # tooling upgrade, not a lockfile-managed dependency.
+      - release.yml
