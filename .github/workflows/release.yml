@@ -57,7 +57,9 @@ jobs:
       # OIDC trusted publishing needs npm >= 11.5.1. Node 24.x already ships a
       # newer npm, so only upgrade on the rare runner that lags the floor.
       - name: Ensure npm >= 11.5.1
-        run: |
+        # The global npm upgrade is an intentional tooling bump (OIDC trusted
+        # publishing floor), not a lockfile-managed dependency.
+        run: | # zizmor: ignore[adhoc-packages]
           need=11.5.1
           have=$(npm -v)
           [ "$(printf '%s\n%s\n' "$need" "$have" | sort -V | head -n1)" = "$need" ] || npm install -g npm@latest
