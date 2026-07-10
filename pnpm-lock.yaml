@@ -123,8 +123,8 @@ importers:
         version: 19.2.7(react@19.2.7)
     devDependencies:
       '@tanstack/intent':
-        specifier: 0.3.2
-        version: 0.3.2
+        specifier: 0.3.5
+        version: 0.3.5
       '@testing-library/jest-dom':
         specifier: 6.9.1
         version: 6.9.1
@@ -1501,8 +1501,8 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.0.0 || >=4.0.0 || insiders'
 
-  '@tanstack/intent@0.3.2':
-    resolution: {integrity: sha512-Apyfkf0O8QqHQJjy/cB1QW2GpYTOyjf98nFAaYtzjBc0V5YzJoy0wnmZSLvwBJxE8/Hhy0Bsa+EPt/fdeJyXkw==}
+  '@tanstack/intent@0.3.5':
+    resolution: {integrity: sha512-OVeyLejsN+LYGVNCJNhcCOlFkpqdkWG/ZB6mDDVOzfoLYDn/9uKaCmZkV6GsIkF0aKY7uu05RTJNibZ+uaZ1ig==}
     hasBin: true
 
   '@testing-library/dom@10.4.1':
@@ -2648,6 +2648,9 @@ packages:
 
   std-env@4.1.0:
     resolution: {integrity: sha512-Rq7ybcX2RuC55r9oaPVEW7/xu3tj8u4GeBYHBWCychFtzMIr86A7e3PPEBPT37sHStKX3+TiX/Fr/ACmJLVlLQ==}
+
+  std-env@4.2.0:
+    resolution: {integrity: sha512-oCUKSupKTHX53EyjDtuZQ64pjLJ6yYCtpmEw0goYxtjG9KpbRe8KAsl2tBUGU9DyMcJ0RwJ8GqJAFzMXcXW1Rw==}
 
   string-width@7.2.0:
     resolution: {integrity: sha512-tsaTIkKW9b4N+AEj+SVA+WhJzV7/zMhcSu78mLKWSk7cXMOSHsBKFWUs0fWwq8QyK3MgJBQRX6Gbi4kYbdvGkQ==}
@@ -4061,12 +4064,12 @@ snapshots:
       postcss-selector-parser: 6.0.10
       tailwindcss: 4.3.2
 
-  '@tanstack/intent@0.3.2':
+  '@tanstack/intent@0.3.5':
     dependencies:
       cac: 6.7.14
       jsonc-parser: 3.3.1
       semver: 7.8.5
-      std-env: 4.1.0
+      std-env: 4.2.0
       yaml: 2.9.0
 
   '@testing-library/dom@10.4.1':
@@ -5145,6 +5148,8 @@ snapshots:
   stackback@0.0.2: {}
 
   std-env@4.1.0: {}
+
+  std-env@4.2.0: {}
 
   string-width@7.2.0:
     dependencies:
