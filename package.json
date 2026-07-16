@@ -34,7 +34,7 @@
     "@typescript/native-preview": "7.0.0-dev.20260703.1",
     "concurrently": "10.0.3",
     "nano-staged": "1.0.2",
-    "oxfmt": "0.57.0",
+    "oxfmt": "0.58.0",
     "oxlint": "1.72.0",
     "oxlint-tsgolint": "0.24.0",
     "playwright": "1.61.1",
