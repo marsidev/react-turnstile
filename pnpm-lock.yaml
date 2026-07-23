@@ -123,8 +123,8 @@ importers:
         version: 19.2.7(react@19.2.7)
     devDependencies:
       '@tanstack/intent':
-        specifier: 0.3.5
-        version: 0.3.5
+        specifier: 0.3.6
+        version: 0.3.6
       '@testing-library/jest-dom':
         specifier: 6.9.1
         version: 6.9.1
@@ -1501,8 +1501,8 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.0.0 || >=4.0.0 || insiders'
 
-  '@tanstack/intent@0.3.5':
-    resolution: {integrity: sha512-OVeyLejsN+LYGVNCJNhcCOlFkpqdkWG/ZB6mDDVOzfoLYDn/9uKaCmZkV6GsIkF0aKY7uu05RTJNibZ+uaZ1ig==}
+  '@tanstack/intent@0.3.6':
+    resolution: {integrity: sha512-ylew/4T3layUXSfE/SDGUSAi1B3U/wuoNUE0adC3j/s6wzX7omV6e6hAv0WyMC52Inren8kqvwpHj+G/ZBbQHQ==}
     hasBin: true
 
   '@testing-library/dom@10.4.1':
@@ -4058,7 +4058,7 @@ snapshots:
       postcss-selector-parser: 6.0.10
       tailwindcss: 4.3.2
 
-  '@tanstack/intent@0.3.5':
+  '@tanstack/intent@0.3.6':
     dependencies:
       cac: 6.7.14
       jsonc-parser: 3.3.1
