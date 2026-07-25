@@ -243,7 +243,7 @@ export interface InjectTurnstileScriptParams {
 }
 
 export type ContainerSizeSet = {
-  [size in NonNullable<ComponentRenderOptions["size"]> | "interactionOnly"]: React.CSSProperties;
+  [size in NonNullable<ComponentRenderOptions["size"]>]: React.CSSProperties;
 };
 
 /**

@@ -69,17 +69,20 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 
   const widgetSize = options.size;
 
-  const calculateContainerStyle = useCallback(() => {
-    return typeof widgetSize === "undefined"
-      ? {}
-      : options.execution === "execute"
-        ? CONTAINER_STYLE_SET.invisible
-        : options.appearance === "interaction-only"
-          ? CONTAINER_STYLE_SET.interactionOnly
-          : CONTAINER_STYLE_SET[widgetSize];
+  const getContainerStyle = useCallback(() => {
+    if (typeof widgetSize === "undefined") return {};
+    if (options.execution === "execute") return CONTAINER_STYLE_SET.invisible;
+
+    const baseStyle = CONTAINER_STYLE_SET[widgetSize];
+
+    if (options.appearance === "interaction-only") {
+      return { ...baseStyle, height: "auto" };
+    }
+
+    return baseStyle;
   }, [options.execution, widgetSize, options.appearance]);
 
-  const [containerStyle, setContainerStyle] = useState(calculateContainerStyle());
+  const [containerStyle, setContainerStyle] = useState(getContainerStyle());
   const containerRef = useRef<HTMLElement | null>(null);
   const [turnstileLoaded, setTurnstileLoaded] = useState(false);
   const widgetId = useRef<string | undefined | null>(undefined);
@@ -344,7 +347,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
         if (widgetId.current) onWidgetLoad?.(widgetId.current);
 
         if (options.execution !== "execute") {
-          setContainerStyle(widgetSize ? CONTAINER_STYLE_SET[widgetSize] : {});
+          setContainerStyle(getContainerStyle());
         }
 
         return id;
@@ -367,7 +370,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
         }
 
         turnstile.execute(containerRef.current);
-        setContainerStyle(widgetSize ? CONTAINER_STYLE_SET[widgetSize] : {});
+        setContainerStyle(getContainerStyle());
       },
 
       isExpired() {
@@ -387,7 +390,8 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
     containerRef,
     checkIfTurnstileLoaded,
     turnstileLoaded,
-    onWidgetLoad
+    onWidgetLoad,
+    getContainerStyle
   ]);
 
   /* Set the turnstile as loaded, in case the onload callback never runs. (e.g., when manually injecting the script without specifying the `onload` param) */
@@ -416,7 +420,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 
   // Update style
   useEffect(() => {
-    setContainerStyle(calculateContainerStyle());
+    setContainerStyle(getContainerStyle());
   }, [options.execution, widgetSize, appearance]);
 
   // onLoadScript callback
