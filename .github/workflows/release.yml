@@ -38,8 +38,8 @@ jobs:
           permission-contents: write
           permission-pull-requests: write
 
-      # persist-credentials (default) keeps the app token in git config so
-      # changesets/action pushes `changeset-release/main` as the app.
+      # persist-credentials (default) keeps the app token in git config so the
+      # "Push release tags" step below can push tags as the app.
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
@@ -91,6 +91,14 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           # Generates npm provenance during `changeset publish`.
           NPM_CONFIG_PROVENANCE: "true"
+
+      # changesets/action only pushes release tags as part of
+      # createGithubReleases, which is disabled above - so the tag created by
+      # `changeset publish` never reaches GitHub and the `release-notes` job
+      # can't find it. Push it explicitly instead.
+      - name: Push release tags
+        if: steps.changesets.outputs.published == 'true'
+        run: git push origin --tags
 
   # Builds the GitHub Release from conventional commits (matching the format
   # used before the Changesets migration). Runs only on the publish push - i.e.
