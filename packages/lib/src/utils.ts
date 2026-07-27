@@ -105,11 +105,6 @@ export const CONTAINER_STYLE_SET: ContainerSizeSet = {
     minWidth: 300,
     width: "100%",
     height: 65
-  },
-  interactionOnly: {
-    width: "fit-content",
-    height: "auto",
-    display: "flex"
   }
 };
 
@@ -121,7 +116,7 @@ export const CONTAINER_STYLE_SET: ContainerSizeSet = {
  * @returns
  */
 export function getTurnstileSizeOpts(size: keyof ContainerSizeSet | undefined) {
-  if (size !== "invisible" && size !== "interactionOnly") {
+  if (size !== "invisible") {
     return size;
   }
 
