@@ -54,7 +54,7 @@
     "jsdom": "29.1.1",
     "publint": "0.3.22",
     "tsdown": "0.22.14",
-    "typescript": "6.0.3",
+    "typescript": "7.0.2",
     "vite": "8.1.5",
     "vitest": "4.1.10"
   },
