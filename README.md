@@ -77,9 +77,15 @@ function LoginForm() {
 }
 ```
 
-## Star history
+## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=marsidev/react-turnstile&type=Date)](https://star-history.com/#marsidev/react-turnstile&Date)
+<a href="https://www.star-history.com/?type=date&repos=marsidev%2Freact-turnstile">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=marsidev/react-turnstile&type=date&theme=dark&legend=top-left&sealed_token=KQdjIGHECVHvmhDa4RwnH3fMkCaF_n21hbERbJPn3mr2iN2BTUntMVwDF0vgTrLcZBAZVsk7PrQJLzvv9S7Sfr6mWDUf3EIQqf8po7tzK1x8CtUsb-_L9y9awseOecUW_cpT-eaNROn_eH-xOzh7TEQDjpj-5oQTttxF9aUCdGvBnhk7VdMKkBIn-73z" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=marsidev/react-turnstile&type=date&legend=top-left&sealed_token=KQdjIGHECVHvmhDa4RwnH3fMkCaF_n21hbERbJPn3mr2iN2BTUntMVwDF0vgTrLcZBAZVsk7PrQJLzvv9S7Sfr6mWDUf3EIQqf8po7tzK1x8CtUsb-_L9y9awseOecUW_cpT-eaNROn_eH-xOzh7TEQDjpj-5oQTttxF9aUCdGvBnhk7VdMKkBIn-73z" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=marsidev/react-turnstile&type=date&legend=top-left&sealed_token=KQdjIGHECVHvmhDa4RwnH3fMkCaF_n21hbERbJPn3mr2iN2BTUntMVwDF0vgTrLcZBAZVsk7PrQJLzvv9S7Sfr6mWDUf3EIQqf8po7tzK1x8CtUsb-_L9y9awseOecUW_cpT-eaNROn_eH-xOzh7TEQDjpj-5oQTttxF9aUCdGvBnhk7VdMKkBIn-73z" />
+ </picture>
+</a>
 
 ## Contributing
 
