@@ -10,14 +10,12 @@ on:
       - "**.md"
       - "**.mdx"
 
+  # No paths-ignore here: check/e2e-test/integration-test are required status
+  # checks, and a path-filtered workflow never reports them - a docs-only PR
+  # would show them as "Expected" forever and be unmergeable.
   pull_request:
     branches:
       - main
-
-    paths-ignore:
-      - "docs/**"
-      - "**.md"
-      - "**.mdx"
 
 permissions:
   contents: read
