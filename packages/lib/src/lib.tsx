@@ -69,18 +69,21 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 
   const widgetSize = options.size;
 
-  const getContainerStyle = useCallback(() => {
-    if (typeof widgetSize === "undefined") return {};
-    if (options.execution === "execute") return CONTAINER_STYLE_SET.invisible;
+  const getContainerStyle = useCallback(
+    (ignoreExecution = false) => {
+      if (typeof widgetSize === "undefined") return {};
+      if (!ignoreExecution && options.execution === "execute") return CONTAINER_STYLE_SET.invisible;
 
-    const baseStyle = CONTAINER_STYLE_SET[widgetSize];
+      const baseStyle = CONTAINER_STYLE_SET[widgetSize];
 
-    if (options.appearance === "interaction-only") {
-      return { ...baseStyle, height: "auto" };
-    }
+      if (options.appearance === "interaction-only") {
+        return { ...baseStyle, height: "auto" };
+      }
 
-    return baseStyle;
-  }, [options.execution, widgetSize, options.appearance]);
+      return baseStyle;
+    },
+    [options.execution, widgetSize, options.appearance]
+  );
 
   const [containerStyle, setContainerStyle] = useState(getContainerStyle());
   const containerRef = useRef<HTMLElement | null>(null);
@@ -370,7 +373,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
         }
 
         turnstile.execute(containerRef.current);
-        setContainerStyle(getContainerStyle());
+        setContainerStyle(getContainerStyle(true));
       },
 
       isExpired() {
