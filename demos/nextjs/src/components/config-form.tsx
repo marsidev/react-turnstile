@@ -10,11 +10,12 @@ interface FormProps {
   onChangeLang: (value: string) => void;
   initialTheme?: Theme;
   initialSize?: WidgetSize;
+  initialSiteKeyType?: SiteKeyType;
 }
 
 const ConfigForm = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
-  const [sizeType, setSizeType] = useState<WidgetSize>("normal");
-  const [siteKeyType, setSiteKeyType] = useState<SiteKeyType>("pass");
+  const [sizeType, setSizeType] = useState<WidgetSize>(props.initialSize ?? "normal");
+  const [siteKeyType, setSiteKeyType] = useState<SiteKeyType>(props.initialSiteKeyType ?? "pass");
 
   const isInvisibleType = sizeType === "invisible";
 
