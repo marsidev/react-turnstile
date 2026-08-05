@@ -68,6 +68,17 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
+      # changesets/action with `commitMode: github-api` skips configuring a git
+      # user (commits are created via the API), but `changeset publish` still
+      # creates release tags with the git CLI - and the annotated `git tag -m`
+      # it runs fails without a committer identity. changesets swallows that
+      # failure after logging "New tag:", leaving no tag for the push step
+      # below (this is how 1.5.4 and 1.5.5 ended up with no tag on GitHub).
+      - name: Set git identity for release tags
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
       # Opens/updates the Version Packages PR; publishes once that PR is merged.
       - name: Create Release PR or publish
         id: changesets
@@ -93,12 +104,23 @@ jobs:
           NPM_CONFIG_PROVENANCE: "true"
 
       # changesets/action only pushes release tags as part of
-      # createGithubReleases, which is disabled above - so the tag created by
-      # `changeset publish` never reaches GitHub and the `release-notes` job
-      # can't find it. Push it explicitly instead.
+      # createGithubReleases, which is disabled above - so the tags created by
+      # `changeset publish` never reach GitHub and the `release-notes` job
+      # can't find them. Push them explicitly, and fail loudly if a published
+      # package is missing its local tag (a bare `git push --tags` reported
+      # "Everything up-to-date" and hid exactly that for 1.5.5).
       - name: Push release tags
         if: steps.changesets.outputs.published == 'true'
-        run: git push origin --tags
+        env:
+          PUBLISHED_PACKAGES: ${{ steps.changesets.outputs.publishedPackages }}
+        run: |
+          echo "$PUBLISHED_PACKAGES" | jq -r '.[] | "\(.name)@\(.version)"' | while read -r tag; do
+            if [ -z "$(git tag -l "$tag")" ]; then
+              echo "::error::tag $tag was not created by changeset publish"
+              exit 1
+            fi
+            git push origin "refs/tags/$tag"
+          done
 
   # Builds the GitHub Release from conventional commits (matching the format
   # used before the Changesets migration). Runs only on the publish push - i.e.
