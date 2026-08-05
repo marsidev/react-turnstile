@@ -69,23 +69,26 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 
   const widgetSize = options.size;
 
-  const getContainerStyle = useCallback(
-    (ignoreExecution = false) => {
-      if (typeof widgetSize === "undefined") return {};
-      if (!ignoreExecution && options.execution === "execute") return CONTAINER_STYLE_SET.invisible;
+  const visibleContainerStyle = useMemo(() => {
+    if (typeof widgetSize === "undefined") return {};
 
-      const baseStyle = CONTAINER_STYLE_SET[widgetSize];
+    const baseStyle = CONTAINER_STYLE_SET[widgetSize];
 
-      if (options.appearance === "interaction-only") {
-        return { ...baseStyle, height: "auto" };
-      }
+    if (options.appearance === "interaction-only") {
+      return { ...baseStyle, height: "auto" };
+    }
 
-      return baseStyle;
-    },
-    [options.execution, widgetSize, options.appearance]
-  );
+    return baseStyle;
+  }, [widgetSize, options.appearance]);
 
-  const [containerStyle, setContainerStyle] = useState(getContainerStyle());
+  // In `execute` mode the widget must occupy no space (regardless of `size`)
+  // until `execute()` is called; `execute()` then applies
+  // `visibleContainerStyle` so an interactive challenge can actually be
+  // shown (#244).
+  const defaultContainerStyle =
+    options.execution === "execute" ? CONTAINER_STYLE_SET.invisible : visibleContainerStyle;
+
+  const [containerStyle, setContainerStyle] = useState(defaultContainerStyle);
   const containerRef = useRef<HTMLElement | null>(null);
   const [turnstileLoaded, setTurnstileLoaded] = useState(false);
   const widgetId = useRef<string | undefined | null>(undefined);
@@ -121,8 +124,6 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
   const scriptId = scriptOptions?.id || DEFAULT_SCRIPT_ID;
   const scriptLoaded = useObserveScript(scriptId);
   const onLoadCallbackName = scriptOptions?.onLoadCallbackName || DEFAULT_ONLOAD_NAME;
-
-  const appearance = options.appearance || "always";
 
   const renderConfig = useMemo(
     (): RenderParameters => ({
@@ -239,6 +240,9 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
         if (cancelled || !containerRef.current) return;
         const id = window.turnstile!.render(containerRef.current, renderConfig);
         widgetId.current = id;
+        // A freshly (re-)rendered widget is back in its pre-execute state, so
+        // re-derive the container style (invisible again in `execute` mode).
+        setContainerStyle(defaultContainerStyle);
         if (widgetId.current) onWidgetLoad?.(widgetId.current);
       };
 
@@ -252,7 +256,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
         }
       };
     },
-    [containerId, turnstileLoaded, renderConfig]
+    [containerId, turnstileLoaded, renderConfig, defaultContainerStyle]
   );
 
   useImperativeHandle(ref, () => {
@@ -310,9 +314,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
           return;
         }
 
-        if (options.execution === "execute") {
-          setContainerStyle(CONTAINER_STYLE_SET.invisible);
-        }
+        setContainerStyle(defaultContainerStyle);
 
         try {
           widgetSolved.current = false;
@@ -349,9 +351,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
         widgetId.current = id;
         if (widgetId.current) onWidgetLoad?.(widgetId.current);
 
-        if (options.execution !== "execute") {
-          setContainerStyle(getContainerStyle());
-        }
+        setContainerStyle(defaultContainerStyle);
 
         return id;
       },
@@ -373,7 +373,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
         }
 
         turnstile.execute(containerRef.current);
-        setContainerStyle(getContainerStyle(true));
+        setContainerStyle(visibleContainerStyle);
       },
 
       isExpired() {
@@ -388,13 +388,13 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
   }, [
     widgetId,
     options.execution,
-    widgetSize,
     renderConfig,
     containerRef,
     checkIfTurnstileLoaded,
     turnstileLoaded,
     onWidgetLoad,
-    getContainerStyle
+    defaultContainerStyle,
+    visibleContainerStyle
   ]);
 
   /* Set the turnstile as loaded, in case the onload callback never runs. (e.g., when manually injecting the script without specifying the `onload` param) */
@@ -423,8 +423,8 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 
   // Update style
   useEffect(() => {
-    setContainerStyle(getContainerStyle());
-  }, [options.execution, widgetSize, appearance]);
+    setContainerStyle(defaultContainerStyle);
+  }, [defaultContainerStyle]);
 
   // onLoadScript callback
   useEffect(() => {

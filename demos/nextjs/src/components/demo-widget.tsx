@@ -24,6 +24,7 @@ export default function DemoWidget({
   initialLang,
   initialSiteKeyType,
   id,
+  options,
   ...props
 }: Props) {
   const siteTheme = useTheme().resolvedTheme as Theme | undefined;
@@ -86,8 +87,9 @@ export default function DemoWidget({
           {...props}
           ref={turnstileRef}
           id={id}
-          options={{ theme, size, language: lang }}
+          options={{ ...options, theme, size, language: lang }}
           siteKey={testingSiteKey}
+          onBeforeInteractive={() => setStatus("interactive")}
           onError={() => setStatus("error")}
           onExpire={() => setStatus("expired")}
           onSuccess={token => {
@@ -96,6 +98,7 @@ export default function DemoWidget({
           }}
           onWidgetLoad={id => {
             setWidgetId(id);
+            setStatus("loaded");
             console.log("Widget loaded", id);
           }}
         />
@@ -105,6 +108,7 @@ export default function DemoWidget({
       <ConfigForm
         ref={configFormRef}
         initialSize={size}
+        initialSiteKeyType={siteKeyType}
         initialTheme={theme}
         onChangeLang={onChangeLang}
         onChangeSiteKeyType={onChangeSiteKeyType}
@@ -116,7 +120,11 @@ export default function DemoWidget({
       <StateLabels status={status} />
 
       <h3>Widget Methods</h3>
-      <WidgetMethods turnstile={turnstileRef} onRestartStates={onRestartStates} />
+      <WidgetMethods
+        turnstile={turnstileRef}
+        onRestartStates={onRestartStates}
+        canExecute={options?.execution === "execute"}
+      />
 
       <h3>Token validation (server-side)</h3>
       <TokenValidation

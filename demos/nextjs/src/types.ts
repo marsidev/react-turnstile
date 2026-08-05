@@ -10,4 +10,4 @@ export type Lang = (typeof langOptions)[number]["value"];
 
 export type Theme = "light" | "dark" | "auto";
 
-export type WidgetStatus = "solved" | "error" | "expired" | null;
+export type WidgetStatus = "loaded" | "interactive" | "solved" | "error" | "expired" | null;

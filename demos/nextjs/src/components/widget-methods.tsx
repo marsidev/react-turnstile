@@ -5,9 +5,10 @@ import { Button } from "./button";
 interface StateLabelsProps {
   turnstile: React.MutableRefObject<TurnstileInstance | null>;
   onRestartStates: () => void;
+  canExecute?: boolean;
 }
 
-const WidgetMethods: React.FC<StateLabelsProps> = ({ turnstile, onRestartStates }) => {
+const WidgetMethods: React.FC<StateLabelsProps> = ({ turnstile, onRestartStates, canExecute }) => {
   const [isGettingResponse, setIsGettingResponse] = useState(false);
 
   const onGetResponse = () => {
@@ -46,6 +47,7 @@ const WidgetMethods: React.FC<StateLabelsProps> = ({ turnstile, onRestartStates 
       <Button onClick={onReset}>Reset</Button>
       <Button onClick={onRemove}>Remove</Button>
       <Button onClick={onRender}>Render</Button>
+      {canExecute && <Button onClick={() => turnstile.current?.execute()}>Execute</Button>}
     </div>
   );
 };

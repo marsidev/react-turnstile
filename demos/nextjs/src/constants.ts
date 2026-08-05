@@ -86,5 +86,9 @@ export const pages = [
   {
     title: "Script options - nonce",
     href: "/script-options-nonce"
+  },
+  {
+    title: "Execution: execute",
+    href: "/execution-execute"
   }
 ];
