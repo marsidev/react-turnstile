@@ -105,6 +105,20 @@ export interface ComponentRenderOptions extends Pick<
    * @default true
    */
   feedbackEnabled?: Turnstile.RenderParameters["feedback-enabled"];
+
+  /**
+   * Controls whether an unbranded (Offlabel, Enterprise only) widget displays the privacy link.
+   * See {@link https://developers.cloudflare.com/turnstile/additional-configuration/offlabel/ the Offlabel docs} for more info.
+   * @default true
+   */
+  offlabelShowPrivacy?: Turnstile.RenderParameters["offlabel-show-privacy"];
+
+  /**
+   * Controls whether an unbranded (Offlabel, Enterprise only) widget displays the help link.
+   * See {@link https://developers.cloudflare.com/turnstile/additional-configuration/offlabel/ the Offlabel docs} for more info.
+   * @default true
+   */
+  offlabelShowHelp?: Turnstile.RenderParameters["offlabel-show-help"];
 }
 
 /** Custom options for the injected script. */
