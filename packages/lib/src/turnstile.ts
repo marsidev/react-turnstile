@@ -164,8 +164,8 @@ export interface RenderParameters {
 
   /**
    * Optional. The size of the Turnstile widget.
-   * Accepted values: "normal", "compact", "flexible", "invisible"
-   * Note: "invisible" is only to be used with invisible widgets
+   * Accepted values: "normal", "compact", "flexible".
+   * Note: "invisible" is a library-only convention for invisible widgets; it is omitted from the config sent to Turnstile.
    * @see WidgetSize
    * @default "normal"
    */
