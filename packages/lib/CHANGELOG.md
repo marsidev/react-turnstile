@@ -1,5 +1,17 @@
 # @marsidev/react-turnstile
 
+## 1.6.0
+
+### Minor Changes
+
+- [#254](https://github.com/marsidev/react-turnstile/pull/254) [`6896469`](https://github.com/marsidev/react-turnstile/commit/68964693075181847995320bbcde66c267c6ce17) Thanks [@marsidev](https://github.com/marsidev)! - Update server-side validation (siteverify) types to match the current Cloudflare docs: add a new `TurnstileServerValidationRequest` type, add `metadata.ephemeral_id` (Enterprise) to `TurnstileServerValidationResponse`, and mark the `invalid-widget-id` and `invalid-parsed-secret` error codes as no longer documented by Cloudflare (kept for backwards compatibility).
+
+- [#257](https://github.com/marsidev/react-turnstile/pull/257) [`673a9e0`](https://github.com/marsidev/react-turnstile/commit/673a9e001beba77110f00bd737c03c2d4287c549) Thanks [@marsidev](https://github.com/marsidev)! - Add support for the `offlabel-show-privacy` and `offlabel-show-help` widget render parameters via the new `offlabelShowPrivacy` and `offlabelShowHelp` render options. They control whether unbranded (Offlabel, Enterprise only) widgets display the privacy and help links, and default to `true` like upstream Turnstile.
+
+### Patch Changes
+
+- [#256](https://github.com/marsidev/react-turnstile/pull/256) [`b7dac4b`](https://github.com/marsidev/react-turnstile/commit/b7dac4b6cfb60cd4a9b5c381ee67c9af9b576fe5) Thanks [@marsidev](https://github.com/marsidev)! - Sync JSDoc and types with the current Cloudflare Turnstile docs: fix the documented `retry-interval` default (8000 ms), document that `language` also accepts language-country codes (e.g. `en-US`), add the missing language codes (`bg`, `vi` and language-country variants) to `TurnstileLangCode`, document the client-side error code families on `onError`, and clarify that the `"invisible"` size is a library-only convention.
+
 ## 1.5.5
 
 ### Patch Changes
