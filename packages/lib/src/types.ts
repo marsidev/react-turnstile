@@ -338,6 +338,21 @@ export type TurnstileLangCode =
   | (string & {});
 
 /**
+ * Request parameters for the Cloudflare Turnstile server-side validation (siteverify) endpoint.
+ * See {@link https://developers.cloudflare.com/turnstile/get-started/server-side-validation the docs} for more info.
+ */
+export interface TurnstileServerValidationRequest {
+  /** The widget's secret key. */
+  secret: string;
+  /** The response (token) provided by the Turnstile widget on the client side. */
+  response: string;
+  /** The visitor's IP address. */
+  remoteip?: string;
+  /** A UUID to be associated with the response, which allows the validation request to be safely retried. */
+  idempotency_key?: string;
+}
+
+/**
  * Server-side validation response from Cloudflare Turnstile.
  * See {@link https://developers.cloudflare.com/turnstile/get-started/server-side-validation the docs} for more info.
  */
@@ -354,8 +369,13 @@ export interface TurnstileServerValidationResponse {
   action?: string;
   /** The customer data passed to the widget on the client side. This can be used by the customer to convey state. It is integrity protected by modifications from an attacker. */
   cdata?: string;
-  /** Whether or not an interactive challenge was issued by Cloudflare */
-  metadata?: { interactive: boolean };
+  /** Additional metadata about the solved challenge. */
+  metadata?: {
+    /** Whether or not an interactive challenge was issued by Cloudflare. No longer documented by Cloudflare. */
+    interactive?: boolean;
+    /** An identifier shared across challenges solved on the same device (Enterprise only). See {@link https://developers.cloudflare.com/turnstile/additional-configuration/ephemeral-id/ the Ephemeral IDs docs} for more info. */
+    ephemeral_id?: string;
+  };
   /** Error messages returned */
   messages?: string[];
 }
@@ -373,9 +393,9 @@ export type TurnstileServerValidationErrorCode =
   | "missing-input-response"
   /**  The response parameter is invalid or has expired. */
   | "invalid-input-response"
-  /**  The widget ID extracted from the parsed site secret key was invalid or did not exist. */
+  /**  The widget ID extracted from the parsed site secret key was invalid or did not exist. No longer documented by Cloudflare, kept for backwards compatibility. */
   | "invalid-widget-id"
-  /**  The secret extracted from the parsed site secret key was invalid. */
+  /**  The secret extracted from the parsed site secret key was invalid. No longer documented by Cloudflare, kept for backwards compatibility. */
   | "invalid-parsed-secret"
   /**  The request was rejected because it was malformed. */
   | "bad-request"
