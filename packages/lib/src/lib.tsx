@@ -143,6 +143,8 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
       execution: options.execution || "render",
       appearance: options.appearance || "always",
       "feedback-enabled": options.feedbackEnabled ?? true,
+      "offlabel-show-privacy": options.offlabelShowPrivacy ?? true,
+      "offlabel-show-help": options.offlabelShowHelp ?? true,
       callback: token => {
         widgetSolved.current = true;
         if (rerenderOnCallbackChange) {
@@ -184,6 +186,8 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
       options.tabIndex,
       options.theme,
       options.feedbackEnabled,
+      options.offlabelShowPrivacy,
+      options.offlabelShowHelp,
       options.refreshTimeout,
       siteKey,
       widgetSize,
