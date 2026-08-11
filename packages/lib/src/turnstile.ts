@@ -58,6 +58,8 @@ export type Theme = "auto" | "light" | "dark";
 /**
  * The widget size.
  * Can take the following values: normal, compact, flexible, invisible.
+ * Note: the values officially accepted by Turnstile are "normal", "flexible" and "compact";
+ * "invisible" is a library-only convention (it is not forwarded to Turnstile).
  */
 export type WidgetSize = "normal" | "compact" | "flexible" | "invisible";
 
@@ -179,13 +181,14 @@ export interface RenderParameters {
 
   /**
    * Optional. Duration in milliseconds before the widget automatically retries.
-   * @default 2000
+   * @default 8000
    */
   "retry-interval"?: number | undefined;
 
   /**
    * Optional. The language picked by the customer (may not be supported).
-   * This must be a valid ISO 639-1 country code, or "auto".
+   * This must be a valid ISO 639-1 two-letter language code (e.g. "en"), a language-country code (e.g. "en-US"), or "auto".
+   * See {@link https://developers.cloudflare.com/turnstile/reference/supported-languages/ the supported languages} for more info.
    * @default "auto"
    */
   language?: string | undefined;
