@@ -65,3 +65,30 @@ These are the props you can pass to the `Turnstile` component.
 | `onLoadCallbackName` | string   | `"onloadTurnstileCallback"` | Custom name of the onload callback.  This option has no effect if `injectScript` is set to false.                     |
 | `onError`            | function | `undefined`                 | Callback invoked when script fails to load (e.g. Cloudflare has an outage).                                           |
 | `crossOrigin`        | string   | `undefined`                 | Custom crossOrigin for the injected script.                                                                           |
+
+#### Performance tip: preconnect to Cloudflare
+
+Cloudflare [recommends](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/) adding a `preconnect` resource hint so the browser establishes an early connection to the Turnstile servers, speeding up the widget load:
+
+```html
+<link rel="preconnect" href="https://challenges.cloudflare.com" />
+```
+
+Place it in your document `<head>`, ideally server-rendered. For example, in a Next.js (App Router) root layout:
+
+```tsx
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://challenges.cloudflare.com" />
+      </head>
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+<Info>
+  The library does not inject this hint for you: the `<Turnstile />` component injects the Turnstile script when it mounts, and a preconnect emitted from JavaScript at that same moment would provide little to no benefit. The hint is only effective when it is present in the HTML before the script loads, which only your app can guarantee.
+</Info>
