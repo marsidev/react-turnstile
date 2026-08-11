@@ -80,6 +80,8 @@ export interface ComponentRenderOptions extends Pick<
    * Accepted values: "normal", "compact", "flexible", "invisible".
    * Normal: 300x65px, compact: 150x140px, flexible: 100% width (min: 300px) x 65px.
    * Invisible will show no widget and is only to be used with invisible type widgets.
+   * Note: the values officially accepted by Turnstile are "normal", "flexible" and "compact"; "invisible" is a
+   * library-only convention (it is not forwarded to Turnstile).
    * @default "normal"
    */
   size?: Turnstile.WidgetSize;
@@ -172,7 +174,12 @@ export interface TurnstileProps extends Omit<React.HTMLAttributes<HTMLDivElement
 
   /**
    * Callback invoked when there is an error (e.g. network error or the challenge failed). The callback is passed an error code.
-   * Refer to [Client-side errors](https://developers.cloudflare.com/turnstile/troubleshooting/client-side-errors/).
+   *
+   * Common error code families: `110xxx` (invalid or unauthorized sitekey/domain), `110600` (challenge timed out),
+   * `110620` (interaction timed out), `200100` (visitor clock skew or cached page), `200500` (challenge iframe could not load),
+   * `300xxx` and `600xxx` (generic challenge failures), `400xxx` (sitekey validation issues).
+   *
+   * Refer to [Client-side error codes](https://developers.cloudflare.com/turnstile/troubleshooting/client-side-errors/error-codes/) for the full list.
    */
   onError?: Turnstile.RenderParameters["error-callback"];
 
@@ -253,41 +260,77 @@ export type ContainerSizeSet = {
 export type TurnstileLangCode =
   | "ar"
   | "ar-EG"
+  | "bg"
+  | "bg-BG"
   | "cs"
+  | "cs-CZ"
   | "da"
+  | "da-DK"
   | "de"
+  | "de-DE"
   | "el"
+  | "el-GR"
   | "en"
+  | "en-US"
   | "es"
+  | "es-ES"
   | "fa"
+  | "fa-IR"
   | "fi"
+  | "fi-FI"
   | "fr"
+  | "fr-FR"
   | "he"
+  | "he-IL"
   | "hi"
+  | "hi-IN"
   | "hr"
+  | "hr-HR"
   | "hu"
+  | "hu-HU"
   | "id"
+  | "id-ID"
   | "it"
+  | "it-IT"
   | "ja"
+  | "ja-JP"
   | "ko"
+  | "ko-KR"
   | "lt"
-  | "nl"
+  | "lt-LT"
   | "ms"
+  | "ms-MY"
   | "nb"
+  | "nb-NO"
+  | "nl"
+  | "nl-NL"
   | "pl"
+  | "pl-PL"
   | "pt"
   | "pt-BR"
   | "ro"
+  | "ro-RO"
   | "ru"
+  | "ru-RU"
   | "sk"
+  | "sk-SK"
   | "sl"
+  | "sl-SI"
   | "sr"
+  | "sr-BA"
   | "sv"
+  | "sv-SE"
   | "th"
+  | "th-TH"
   | "tl"
+  | "tl-PH"
   | "tlh"
   | "tr"
+  | "tr-TR"
   | "uk"
+  | "uk-UA"
+  | "vi"
+  | "vi-VN"
   | "zh"
   | "zh-CN"
   | "zh-TW"
