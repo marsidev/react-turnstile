@@ -194,6 +194,10 @@ export interface TurnstileProps extends Omit<React.HTMLAttributes<HTMLDivElement
    * `300xxx` and `600xxx` (generic challenge failures), `400xxx` (sitekey validation issues).
    *
    * Refer to [Client-side error codes](https://developers.cloudflare.com/turnstile/troubleshooting/client-side-errors/error-codes/) for the full list.
+   *
+   * Turnstile rejects invalid render parameters (an empty `siteKey`, an unknown `theme`, a
+   * malformed `action`, ...) before the widget is created, and reports them as a message
+   * rather than a code. In that case the callback is passed that message.
    */
   onError?: Turnstile.RenderParameters["error-callback"];
 

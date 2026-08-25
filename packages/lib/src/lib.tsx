@@ -207,6 +207,27 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
     return typeof window !== "undefined" && !!window.turnstile;
   }, []);
 
+  /* Turnstile validates the render parameters up front and throws for invalid ones
+   * (empty sitekey, unknown theme/size/appearance/execution/retry, malformed
+   * action/cData, ...) instead of reporting them through `error-callback`. Route
+   * those failures to `onError` too, so an invalid prop is not swallowed. */
+  const tryRenderWidget = useCallback(
+    (container: HTMLElement, config: RenderParameters) => {
+      try {
+        return window.turnstile!.render(container, config);
+      } catch (error) {
+        const errorCallback = rerenderOnCallbackChange ? onError : callbacksRef.current.onError;
+        if (errorCallback) {
+          errorCallback(error instanceof Error ? error.message : String(error));
+        } else {
+          console.error(error);
+        }
+        return undefined;
+      }
+    },
+    [rerenderOnCallbackChange, rerenderOnCallbackChange ? onError : null]
+  );
+
   useEffect(
     function inject() {
       if (injectScript && !turnstileLoaded) {
@@ -242,7 +263,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
 
       const render = async () => {
         if (cancelled || !containerRef.current) return;
-        const id = window.turnstile!.render(containerRef.current, renderConfig);
+        const id = tryRenderWidget(containerRef.current, renderConfig);
         widgetId.current = id;
         // A freshly (re-)rendered widget is back in its pre-execute state, so
         // re-derive the container style (invisible again in `execute` mode).
@@ -260,7 +281,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
         }
       };
     },
-    [containerId, turnstileLoaded, renderConfig, defaultContainerStyle]
+    [containerId, turnstileLoaded, renderConfig, defaultContainerStyle, tryRenderWidget]
   );
 
   useImperativeHandle(ref, () => {
@@ -351,7 +372,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
           return undefined;
         }
 
-        const id = turnstile.render(containerRef.current, renderConfig);
+        const id = tryRenderWidget(containerRef.current, renderConfig);
         widgetId.current = id;
         if (widgetId.current) onWidgetLoad?.(widgetId.current);
 
@@ -395,6 +416,7 @@ export const Turnstile = forwardRef<TurnstileInstance | undefined, TurnstileProp
     renderConfig,
     containerRef,
     checkIfTurnstileLoaded,
+    tryRenderWidget,
     turnstileLoaded,
     onWidgetLoad,
     defaultContainerStyle,

@@ -41,7 +41,8 @@ export const sizeOptions = [
 export const siteKeyOptions = [
   { label: "Always pass", value: "pass" },
   { label: "Always fail", value: "fail" },
-  { label: "Force interactive challenge", value: "interactive" }
+  { label: "Force interactive challenge", value: "interactive" },
+  { label: "Invalid site key", value: "invalid" }
 ] as const;
 
 export const secretOptions = [
@@ -53,7 +54,9 @@ export const secretOptions = [
 export enum DEMO_SITEKEY {
   pass = "1x00000000000000000000AA",
   fail = "2x00000000000000000000AB",
-  interactive = "3x00000000000000000000FF"
+  interactive = "3x00000000000000000000FF",
+  /** Not a real Turnstile site key, used to exercise the invalid site key error path. */
+  invalid = "invalid-site-key"
 }
 
 export enum DEMO_SECRET {

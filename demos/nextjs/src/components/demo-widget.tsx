@@ -34,6 +34,7 @@ export default function DemoWidget({
   const [siteKeyType, setSiteKeyType] = useState<SiteKeyType>(initialSiteKeyType ?? "pass");
   const [lang, setLang] = useState<Lang>(initialLang ?? "auto");
   const [status, setStatus] = useState<WidgetStatus>(null);
+  const [errorCode, setErrorCode] = useState<string>();
   const [token, setToken] = useState<string>();
   const [rerenderCount, setRerenderCount] = useState(0);
   const [widgetId, setWidgetId] = useState<string | null>(null);
@@ -52,6 +53,7 @@ export default function DemoWidget({
 
   const onRestartStates = () => {
     setStatus(null);
+    setErrorCode(undefined);
     incrementRerender();
   };
 
@@ -78,6 +80,7 @@ export default function DemoWidget({
   return (
     <Fragment>
       <div
+        data-error-code={errorCode ?? ""}
         data-lang={lang}
         data-status={status ?? "pending"}
         data-testid={id ? `turnstile-wrapper-${id}` : "turnstile-wrapper"}
@@ -90,7 +93,10 @@ export default function DemoWidget({
           options={{ ...options, theme, size, language: lang }}
           siteKey={testingSiteKey}
           onBeforeInteractive={() => setStatus("interactive")}
-          onError={() => setStatus("error")}
+          onError={code => {
+            setErrorCode(code);
+            setStatus("error");
+          }}
           onExpire={() => setStatus("expired")}
           onSuccess={token => {
             setToken(token);
