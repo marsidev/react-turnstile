@@ -42,7 +42,7 @@ export const siteKeyOptions = [
   { label: "Always pass", value: "pass" },
   { label: "Always fail", value: "fail" },
   { label: "Force interactive challenge", value: "interactive" },
-  { label: "Invalid site key", value: "invalid" }
+  { label: "Empty site key", value: "empty" }
 ] as const;
 
 export const secretOptions = [
@@ -55,8 +55,9 @@ export enum DEMO_SITEKEY {
   pass = "1x00000000000000000000AA",
   fail = "2x00000000000000000000AB",
   interactive = "3x00000000000000000000FF",
-  /** Not a real Turnstile site key, used to exercise the invalid site key error path. */
-  invalid = "invalid-site-key"
+  /** Rejected by `turnstile.render` before the widget is created, so the failure
+   * surfaces as a thrown validation message instead of an error code. */
+  empty = ""
 }
 
 export enum DEMO_SECRET {

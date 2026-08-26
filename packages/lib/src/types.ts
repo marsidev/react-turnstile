@@ -197,7 +197,8 @@ export interface TurnstileProps extends Omit<React.HTMLAttributes<HTMLDivElement
    *
    * Turnstile rejects invalid render parameters (an empty `siteKey`, an unknown `theme`, a
    * malformed `action`, ...) before the widget is created, and reports them as a message
-   * rather than a code. In that case the callback is passed that message.
+   * rather than a code. In that case the callback is passed that message, which is free-form
+   * English text coming from `api.js` and may change between its versions — do not parse it.
    */
   onError?: Turnstile.RenderParameters["error-callback"];
 
