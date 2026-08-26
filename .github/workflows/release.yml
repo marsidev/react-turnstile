@@ -20,7 +20,7 @@ jobs:
       id-token: write # npm OIDC trusted publishing + provenance
     outputs:
       published: ${{ steps.changesets.outputs.published }}
-      publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}
+      publishedPackages: ${{ steps.changesets.outputs.published-packages }}
     steps:
       # Mint a token from the release GitHub App. Unlike the default
       # GITHUB_TOKEN, pushes made with it DO trigger other workflows - so the
@@ -83,29 +83,29 @@ jobs:
       # Opens/updates the Version Packages PR; publishes once that PR is merged.
       - name: Create Release PR or publish
         id: changesets
-        # Pinned to v1: changesets/action v2 requires Changesets CLI v3 and
-        # aborts on CLI v2 (this repo is on 2.31.1). v2 also renamed every
-        # input below (version -> version-script, commit -> commit-message,
-        # commitMode -> push-with-git-cli, ...), so moving up means bumping
-        # the CLI major and rewriting this block together.
-        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
+        uses: changesets/action@8488615a623b1b9c987934bb89eae8af6a946ac1 # v2.1.1
         with:
-          version: pnpm run version-packages
-          publish: pnpm run release
+          # v2 no longer reads the GITHUB_TOKEN environment variable.
+          github-token: ${{ steps.app-token.outputs.token }}
+          version-script: pnpm run version-packages
+          publish-script: pnpm run release
           # Friendlier than the default "Version Packages" commit/title.
-          commit: "chore: version packages"
-          title: "chore: version packages"
-          # Create the version-bump commit (and tags) via the GitHub API
-          # instead of the git CLI: API-created commits are signed by GitHub,
-          # so the Version Packages PR passes the ruleset's required-signatures
-          # rule (a git-CLI commit is unsigned and blocks the merge).
-          commitMode: "github-api"
-          # The GitHub Release is created by the `release-notes` job below with
-          # richer notes (grouped changes, "by @user in #PR", a compare link and
-          # a contributors list) than the Changesets default.
-          createGithubReleases: false
+          commit-message: "chore: version packages"
+          pr-title: "chore: version packages"
+          # Leave push-with-git-cli at its false default: the version-bump
+          # commit then goes through the GitHub API, which signs it, so the
+          # Version Packages PR passes the ruleset's required-signatures rule
+          # (a git-CLI commit is unsigned and blocks the merge).
+          #
+          # The GitHub Release is created by the `release-notes` job below,
+          # from the changelog rather than the action's own body.
+          create-github-releases: false
+          # v2 would otherwise start pushing tags on its own. Its pushTag
+          # downgrades failures to a warning under the API push mode, which is
+          # how 1.5.4 and 1.5.5 ended up with no tag on GitHub. The guarded
+          # "Push release tags" step below keeps owning them.
+          push-git-tags: false
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           # Generates npm provenance during `changeset publish`.
           NPM_CONFIG_PROVENANCE: "true"
 
@@ -118,7 +118,7 @@ jobs:
       - name: Push release tags
         if: steps.changesets.outputs.published == 'true'
         env:
-          PUBLISHED_PACKAGES: ${{ steps.changesets.outputs.publishedPackages }}
+          PUBLISHED_PACKAGES: ${{ steps.changesets.outputs.published-packages }}
         run: |
           echo "$PUBLISHED_PACKAGES" | jq -r '.[] | "\(.name)@\(.version)"' | while read -r tag; do
             if [ -z "$(git tag -l "$tag")" ]; then
