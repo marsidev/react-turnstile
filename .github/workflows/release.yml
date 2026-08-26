@@ -20,6 +20,7 @@ jobs:
       id-token: write # npm OIDC trusted publishing + provenance
     outputs:
       published: ${{ steps.changesets.outputs.published }}
+      publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}
     steps:
       # Mint a token from the release GitHub App. Unlike the default
       # GITHUB_TOKEN, pushes made with it DO trigger other workflows - so the
@@ -127,10 +128,10 @@ jobs:
             git push origin "refs/tags/$tag"
           done
 
-  # Builds the GitHub Release from conventional commits (matching the format
-  # used before the Changesets migration). Runs only on the publish push - i.e.
-  # when a version was actually released. Deliberately a separate job so this
-  # third-party tool never runs alongside the `id-token` (OIDC) permission.
+  # Publishes the GitHub Release for each package that was just released. Runs
+  # only on the publish push - i.e. when a version was actually released - and
+  # stays a separate job so it never runs alongside the `id-token` (OIDC)
+  # permission the publish job needs.
   release-notes:
     needs: release
     if: needs.release.outputs.published == 'true'
@@ -140,18 +141,23 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          fetch-depth: 0 # full history + tags for the changelog range
+          fetch-depth: 0 # tags, so the notes can link to a compare range
           persist-credentials: false
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
 
       - name: Set node
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: .node-version
 
-      - name: Create GitHub Release notes
-        run: pnpm dlx changelogithub@14.0.0
+      # The release body is the package's CHANGELOG.md entry for the published
+      # version, which changesets builds from the changeset files (with PR
+      # links and contributor credit via @changesets/changelog-github). Keeping
+      # the notes and the changelog on the same source avoids the previous
+      # setup, where notes were derived from commit subjects and a PR title
+      # without a conventional-commit prefix produced "No significant changes".
+      - name: Create GitHub Releases from the changelog
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PUBLISHED_PACKAGES: ${{ needs.release.outputs.publishedPackages }}
+        run: node .github/scripts/release-notes.mjs
