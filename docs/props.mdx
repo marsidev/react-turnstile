@@ -14,7 +14,7 @@ These are the props you can pass to the `Turnstile` component.
 | `onWidgetLoad`        | function | Callback invoked after a successful render of the widget. The callback is passed the widget ID. It does not trigger when the widget is reset.                                                                                                                                                                       |
 | `onSuccess`           | function | Callback invoked upon success of the challenge. The callback is passed a token that can be validated.                                                                                                                                                                                                               |
 | `onExpire`            | function | Callback invoked when a challenge expires. Read the [Cloudflare docs](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#refreshing-a-widget) for more info about handling expired widgets.                                                                                             |
-| `onError`             | function | Callback invoked when there is an error (e.g. network error or the challenge failed). Refer to [Client-side errors](https://developers.cloudflare.com/turnstile/reference/client-side-errors).                                                                                                                      |
+| `onError`             | function | Callback invoked when there is an error (e.g. network error or the challenge failed). Refer to [Client-side errors](https://developers.cloudflare.com/turnstile/reference/client-side-errors). The argument is normally a Cloudflare error code, but it can also be a validation message. More info [below](/props#onerror-argument).                    |
 | `onBeforeInteractive` | function | Callback invoked before the challenge enters interactive mode.                                                                                                                                                                                                                                                      |
 | `onAfterInteractive`  | function | Callback invoked when challenge has left interactive mode.                                                                                                                                                                                                                                                          |
 | `onUnsupported`       | function | Callback invoked when a given client/browser is not supported by Turnstile.                                                                                                                                                                                                                                         |
@@ -27,6 +27,33 @@ These are the props you can pass to the `Turnstile` component.
 <Info>
   You can pass any valid HTML prop such as `className`, `id`, or `style`, based on the `as` prop.
 </Info>
+
+### `onError` argument
+
+Most failures reach `onError` as a Cloudflare [error code](https://developers.cloudflare.com/turnstile/troubleshooting/client-side-errors/error-codes/): a string of digits such as `"400020"` or `"300010"`.
+
+Invalid render parameters are the exception. Turnstile validates them before creating the widget — an empty `siteKey`, an unknown `theme`, a malformed `action`, and so on — and signals the failure by throwing instead of calling the error callback. The component forwards those failures to `onError` as well, so a misconfigured prop is not silently swallowed, but the argument is then the validation message rather than a code:
+
+```
+[Cloudflare Turnstile] Invalid input for parameter "sitekey", got "".
+```
+
+These messages are free-form English text produced by `api.js` and can change between its versions, so do not parse or match on them. If you branch on the argument or forward it to error tracking, treat anything that is not a code as an opaque message:
+
+```tsx
+<Turnstile
+  siteKey="{{ siteKey }}"
+  onError={error => {
+    if (/^\d+$/.test(error)) {
+      handleErrorCode(error) // a Cloudflare error code
+    } else {
+      reportMisconfiguration(error) // an api.js validation message
+    }
+  }}
+/>
+```
+
+When `onError` is not provided, invalid render parameters are logged with `console.error` instead.
 
 ### Render Options
 
