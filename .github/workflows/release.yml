@@ -161,3 +161,63 @@ jobs:
           REPO: ${{ github.repository }}
           PUBLISHED_PACKAGES: ${{ needs.release.outputs.publishedPackages }}
         run: node .github/scripts/release-notes.mjs
+
+  # This workflow only runs on push to main and nothing watches it, so a broken
+  # release is invisible: in August 2026 it failed on five consecutive pushes
+  # over six days before anyone noticed, and a merged changeset never reached
+  # npm. Turn that silence into an issue.
+  report-failure:
+    needs: [release, release-notes]
+    if: ${{ always() && (needs.release.result == 'failure' || needs.release-notes.result == 'failure') }}
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Open an issue for the failed release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          SHA: ${{ github.sha }}
+          FAILED_JOB: ${{ needs.release.result == 'failure' && 'release' || 'release-notes' }}
+          # Whether npm publish already went through. `release` can fail after
+          # publishing (the tag push runs later), and `release-notes` only runs
+          # once it has, so the job name alone does not say what happened.
+          PUBLISHED: ${{ needs.release.outputs.published }}
+          PUBLISHED_PACKAGES: ${{ needs.release.outputs.publishedPackages }}
+        run: |
+          set -euo pipefail
+
+          if [ "${PUBLISHED:-}" = "true" ]; then
+            packages=$(echo "${PUBLISHED_PACKAGES:-[]}" |
+              jq -r '[.[] | "\(.name)@\(.version)"] | join(", ")')
+            state="Already published to npm: \`$packages\`. The failure is after publishing, so re-running the publish is not the fix."
+          else
+            state="Nothing was versioned or published. Every later push to \`main\` fails the same way until this is fixed, and any merged changeset stays unreleased."
+          fi
+
+          body=$(cat <<EOF
+          The release workflow failed in the \`$FAILED_JOB\` job.
+
+          $state
+
+          - Commit: \`$SHA\`
+          - Run: $RUN_URL
+          EOF
+          )
+
+          gh label create release-failure \
+            --repo "$REPO" \
+            --color B60205 \
+            --description "The release workflow failed" \
+            --force
+
+          existing=$(gh issue list --repo "$REPO" --state open --label release-failure \
+            --limit 1 --json number -q '.[0].number // empty')
+
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --repo "$REPO" --body "$body"
+          else
+            gh issue create --repo "$REPO" --title "Release failed on ${SHA:0:7}" \
+              --label release-failure --body "$body"
+          fi

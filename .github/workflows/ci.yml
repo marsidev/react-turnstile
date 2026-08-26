@@ -54,6 +54,13 @@ jobs:
       - name: Check
         run: pnpm run check
 
+      # Kept out of `pnpm check` because it needs network access: it fetches
+      # each pinned action's manifest to confirm the inputs we pass exist.
+      - name: Check workflow action inputs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node .github/scripts/check-action-inputs.mjs
+
   e2e-test:
     runs-on: ubuntu-latest
 
