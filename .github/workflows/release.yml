@@ -161,3 +161,50 @@ jobs:
           REPO: ${{ github.repository }}
           PUBLISHED_PACKAGES: ${{ needs.release.outputs.publishedPackages }}
         run: node .github/scripts/release-notes.mjs
+
+  # This workflow only runs on push to main and nothing watches it, so a broken
+  # release is invisible: in August 2026 it failed on five consecutive pushes
+  # over six days before anyone noticed, and a merged changeset never reached
+  # npm. Turn that silence into an issue.
+  report-failure:
+    needs: [release, release-notes]
+    if: ${{ always() && (needs.release.result == 'failure' || needs.release-notes.result == 'failure') }}
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Open an issue for the failed release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          body=$(cat <<EOF
+          The release workflow failed, so nothing was versioned or published.
+
+          - Commit: \`$SHA\`
+          - Run: $RUN_URL
+
+          Every later push to \`main\` fails the same way until this is fixed, and
+          any merged changeset stays unreleased in the meantime.
+          EOF
+          )
+
+          gh label create release-failure \
+            --repo "$REPO" \
+            --color B60205 \
+            --description "The release workflow failed" \
+            --force
+
+          existing=$(gh issue list --repo "$REPO" --state open --label release-failure \
+            --limit 1 --json number -q '.[0].number // empty')
+
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --repo "$REPO" --body "$body"
+          else
+            gh issue create --repo "$REPO" --title "Release failed on ${SHA:0:7}" \
+              --label release-failure --body "$body"
+          fi
