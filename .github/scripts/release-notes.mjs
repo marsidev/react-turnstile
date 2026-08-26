@@ -50,6 +50,19 @@ function changelogEntry(changelog, version) {
   return (end === -1 ? rest : rest.slice(0, end)).join("\n").trim();
 }
 
+/** Whether a release already exists for this tag. */
+function exists(tag) {
+  try {
+    execFileSync("gh", ["release", "view", tag, "--repo", REPO, "--json", "tagName"], {
+      stdio: "pipe",
+      env: { ...process.env, GH_TOKEN }
+    });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 const tmp = mkdtempSync(join(tmpdir(), "release-notes-"));
 
 for (const { name, version } of published) {
@@ -78,20 +91,16 @@ for (const { name, version } of published) {
   const notes = join(tmp, `${version}.md`);
   writeFileSync(notes, body);
 
-  const args = [
-    "release",
-    "create",
-    tag,
-    "--repo",
-    REPO,
-    "--title",
-    tag,
-    "--notes-file",
-    notes,
-    "--verify-tag"
-  ];
-  if (version.includes("-")) args.push("--prerelease");
+  // Re-running the job must converge rather than fail on a release that is
+  // already there, so update an existing one instead of creating it twice.
+  const prerelease = version.includes("-");
+  const args = exists(tag)
+    ? ["release", "edit", tag, `--prerelease=${prerelease}`]
+    : ["release", "create", tag, "--verify-tag", ...(prerelease ? ["--prerelease"] : [])];
 
-  console.log(`Creating release ${tag}`);
-  execFileSync("gh", args, { stdio: "inherit", env: { ...process.env, GH_TOKEN } });
+  console.log(`${args[1] === "edit" ? "Updating" : "Creating"} release ${tag}`);
+  execFileSync("gh", [...args, "--repo", REPO, "--title", tag, "--notes-file", notes], {
+    stdio: "inherit",
+    env: { ...process.env, GH_TOKEN }
+  });
 }
