@@ -15,6 +15,11 @@ updates:
       github-actions:
         patterns:
           - "*"
+        # changesets/action's major is coupled to the Changesets CLI major
+        # (v2 requires CLI v3 and renamed every input), so it needs a manual
+        # migration. Keep it out of the batch so it arrives as its own PR.
+        exclude-patterns:
+          - "changesets/action"
 
   # npm/pnpm dependencies across the workspace.
   - package-ecosystem: "npm"
