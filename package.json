@@ -6,6 +6,8 @@
   "scripts": {
     "check": "pnpm lint:check && pnpm format:check && pnpm typecheck",
     "demo": "pnpm run --filter=nextjs-demo dev",
+    "site": "pnpm run --filter=site dev",
+    "site:dev": "concurrently \"npm:lib:build:watch\" \"npm:site\" -c auto,green",
     "dev": "concurrently \"npm:lib:build:watch\" \"npm:demo\" -c auto,cyan",
     "fix": "pnpm lint && pnpm format",
     "format": "oxfmt .",

@@ -1,0 +1,63 @@
+@import "tailwindcss";
+@import "@cloudflare/kumo/styles/tailwind";
+
+@source "../../node_modules/@cloudflare/kumo/dist/**/*.{js,jsx,ts,tsx}";
+
+@custom-variant dark ([data-mode="dark"] &);
+
+@theme {
+  /* Cloudflare's Turnstile/logo orange — the playground's live accent.
+   * Kumo's own `kumo-brand` token is the dashboard's blue action color. */
+  --color-cf-orange: #f6821f;
+}
+
+body {
+  @apply bg-kumo-base text-kumo-default antialiased;
+}
+
+/* Playground: the widget sits on a dotted test bench */
+.bench {
+  background-image: radial-gradient(var(--color-kumo-line) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+/* Playground: the lifecycle stage currently reached pulses once per second */
+@keyframes node-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklch, var(--color-cf-orange) 55%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+
+.node-live {
+  animation: node-pulse 1.6s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .node-live {
+    animation: none;
+  }
+}
+
+/* Demo content typography (the old demo used @tailwindcss/typography) */
+.demo-prose h1 {
+  @apply text-kumo-strong mb-6 text-3xl font-semibold;
+}
+
+.demo-prose h2 {
+  @apply text-kumo-strong mt-8 mb-3 text-xl font-semibold;
+}
+
+.demo-prose h3 {
+  @apply text-kumo-strong mt-8 mb-3 text-lg font-semibold;
+}
+
+.demo-prose p {
+  @apply leading-loose;
+}
+
+.demo-prose pre {
+  @apply bg-kumo-tint text-kumo-default ring-kumo-line overflow-x-auto rounded-lg p-4 text-sm ring;
+}

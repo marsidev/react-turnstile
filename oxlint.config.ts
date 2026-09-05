@@ -24,5 +24,14 @@ export default defineConfig({
     "typescript/no-non-null-assertion": "off",
     "react-hooks/exhaustive-deps": "off"
   },
-  ignorePatterns: ["**/node_modules/**", "**/dist/**", "**/.next/**", "**/coverage/**", "**/*.d.ts"]
+  ignorePatterns: [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/.next/**",
+    "**/coverage/**",
+    "**/*.d.ts",
+    "**/routeTree.gen.ts",
+    "**/.wrangler/**",
+    "**/.tanstack/**"
+  ]
 });

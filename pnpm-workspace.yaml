@@ -1,12 +1,16 @@
 packages:
   - 'packages/*'
   - 'demos/*'
+  - 'site'
 
 blockExoticSubdeps: true
 
 minimumReleaseAge: 1440
 
 trustPolicy: no-downgrade
+
+trustPolicyExclude:
+  - 'semver@6.3.1'
 
 saveExact: true
 
@@ -19,5 +23,7 @@ overrides:
   sharp: ">=0.35.0"
 
 allowBuilds:
+  esbuild: true
   sharp: false
   simple-git-hooks: false
+  workerd: true

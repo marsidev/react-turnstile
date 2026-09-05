@@ -126,7 +126,7 @@ You don't need to publish anything — **releases are cut by the maintainers**. 
 ## Resources
 
 - **[📖 Documentation](https://docs.page/marsidev/react-turnstile/)**
-- **[🚀 Live Demo](https://react-turnstile.vercel.app/)**
+- **[🕹️ Playground](https://turnstile.marsidev.com/)**
 - **[📦 NPM Package](https://npm.im/@marsidev/react-turnstile)**
 
 ## Editor Setup

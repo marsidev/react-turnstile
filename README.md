@@ -23,7 +23,7 @@
 * ⚡️ **SSR ready** - Works with Next.js, Remix, and any React SSR framework
 * 💻 **Full TypeScript support**
 
-### **[📖 Read the docs →](https://docs.page/marsidev/react-turnstile/)**    **[🚀 See the demo →](https://react-turnstile.vercel.app/)**
+### **[📖 Read the docs →](https://docs.page/marsidev/react-turnstile/)**    **[🕹️ Try the playground →](https://turnstile.marsidev.com/)**
 
 ## Getting started
 
