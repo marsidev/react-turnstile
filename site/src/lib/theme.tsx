@@ -25,7 +25,12 @@ export function ThemeProvider({ children }: React.PropsWithChildren) {
   const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>();
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
+    let stored: Theme | null = null;
+    try {
+      stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
+    } catch {
+      // Storage blocked (private mode, permissions): fall back to the system theme.
+    }
     const initial = stored === "light" || stored === "dark" ? stored : "auto";
     setThemeState(initial);
     setResolvedTheme(initial === "auto" ? systemTheme() : initial);
@@ -50,7 +55,11 @@ export function ThemeProvider({ children }: React.PropsWithChildren) {
 
   const setTheme = useCallback((value: Theme) => {
     setThemeState(value);
-    localStorage.setItem(STORAGE_KEY, value);
+    try {
+      localStorage.setItem(STORAGE_KEY, value);
+    } catch {
+      // Storage blocked: the choice still applies, it just won't persist.
+    }
     setResolvedTheme(value === "auto" ? systemTheme() : value);
   }, []);
 

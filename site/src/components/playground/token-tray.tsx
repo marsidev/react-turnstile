@@ -1,7 +1,7 @@
 import type { TurnstileServerValidationResponse } from "@marsidev/react-turnstile";
 import { Button } from "@cloudflare/kumo/components/button";
 import { ClipboardText } from "@cloudflare/kumo/components/clipboard-text";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { InlineCode } from "~/components/inline-code";
 import { DEMO_SECRET, secretOptions } from "~/lib/constants";
 import type { SecretKeyType } from "~/lib/types";
@@ -46,26 +46,38 @@ export function TokenTray({ token, expired, onValidated, validationDisabled }: T
   const [secretType, setSecretType] = useState<SecretKeyType>("pass");
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<TurnstileServerValidationResponse | null>(null);
+  const [requestError, setRequestError] = useState<string | null>(null);
+  const currentToken = useRef<string | null>(null);
   const remaining = useRemainingSeconds(token, expired);
 
   // A new (or cleared) token invalidates the previous server response.
   useEffect(() => {
+    currentToken.current = token?.value ?? null;
     setResponse(null);
+    setRequestError(null);
   }, [token]);
 
   const onValidate = async () => {
     if (!token) return;
+    const requested = token.value;
     setLoading(true);
     setResponse(null);
+    setRequestError(null);
     try {
       const res = await fetch("/api/verify", {
         method: "POST",
-        body: JSON.stringify({ token: token.value, secret: DEMO_SECRET[secretType] }),
+        body: JSON.stringify({ token: requested, secret: DEMO_SECRET[secretType] }),
         headers: { "content-type": "application/json" }
       });
       const data = (await res.json()) as TurnstileServerValidationResponse;
+      // The token may have been replaced while this request was in flight;
+      // a result for the old token would be misleading next to the new one.
+      if (currentToken.current !== requested) return;
       setResponse(data);
       onValidated(data);
+    } catch {
+      if (currentToken.current !== requested) return;
+      setRequestError("Validation request failed. Check your connection and try again.");
     } finally {
       setLoading(false);
     }
@@ -120,6 +132,12 @@ export function TokenTray({ token, expired, onValidated, validationDisabled }: T
                 Validate token
               </Button>
             </div>
+          )}
+
+          {requestError && (
+            <p className="text-kumo-danger text-sm" data-testid="validation-error">
+              {requestError}
+            </p>
           )}
 
           {response && (

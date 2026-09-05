@@ -34,7 +34,13 @@ export function Options(props: OptionsProps) {
       <Select
         aria-label={props.title}
         defaultValue={props.value ? undefined : props.options[0].value}
-        items={props.options.map(option => ({ label: option.label, value: option.value }))}
+        // The object-map form is the only `items` shape that supports per-item `disabled`.
+        items={Object.fromEntries(
+          props.options.map(option => [
+            option.value,
+            { label: option.label, disabled: option.disabled }
+          ])
+        )}
         name={props.name}
         value={props.value}
         onValueChange={(value: string | null) => {
