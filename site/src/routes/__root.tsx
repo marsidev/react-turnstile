@@ -54,7 +54,10 @@ function RootComponent() {
           Skip to content
         </a>
 
-        <Header onToggleMobileNav={() => setMobileNavExpanded(prev => !prev)} />
+        <Header
+          mobileNavExpanded={mobileNavExpanded}
+          onToggleMobileNav={() => setMobileNavExpanded(prev => !prev)}
+        />
 
         <Sidebar
           mobileNavExpanded={mobileNavExpanded}

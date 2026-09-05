@@ -2,13 +2,14 @@ import { Button } from "@cloudflare/kumo/components/button";
 import { CheckIcon, CopyIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import { CODE_COLORS, tokenizeLine } from "~/lib/highlight";
+import { copyToClipboard } from "~/lib/utils";
 
 /** A static code sample in the same slab style as the playground snippet. */
 export function CodeBlock({ code }: { code: string }) {
   const [copied, setCopied] = useState(false);
 
   const onCopy = async () => {
-    await navigator.clipboard.writeText(code);
+    if (!(await copyToClipboard(code))) return;
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };

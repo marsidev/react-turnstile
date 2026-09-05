@@ -2,8 +2,9 @@ import { Link as KumoLink } from "@cloudflare/kumo/components/link";
 import { CheckIcon, CopyIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { useMediaQuery } from "~/lib/use-media-query";
 import { navGroups } from "~/lib/constants";
-import { cn } from "~/lib/utils";
+import { cn, copyToClipboard } from "~/lib/utils";
 
 interface SidebarProps {
   mobileNavExpanded: boolean;
@@ -17,7 +18,7 @@ function InstallCommand() {
   const [copied, setCopied] = useState(false);
 
   const onCopy = async () => {
-    await navigator.clipboard.writeText(INSTALL_COMMAND);
+    if (!(await copyToClipboard(INSTALL_COMMAND))) return;
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };
@@ -40,8 +41,13 @@ function InstallCommand() {
 }
 
 export function Sidebar({ mobileNavExpanded, onClose }: SidebarProps) {
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+
   return (
     <aside
+      id="site-sidebar"
+      // Off-canvas on small screens: remove the hidden menu from the tab order.
+      inert={!isDesktop && !mobileNavExpanded}
       className={cn(
         "border-kumo-line bg-kumo-base fixed top-16 bottom-0 left-0 z-10 flex w-80 -translate-x-full flex-col justify-between overflow-y-auto border-r px-6 py-8 transition-transform lg:translate-x-0",
         { "translate-x-0 shadow-lg": mobileNavExpanded }

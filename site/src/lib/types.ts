@@ -9,5 +9,3 @@ export type WidgetSize = (typeof sizeOptions)[number]["value"];
 export type Lang = (typeof langOptions)[number]["value"];
 
 export type Theme = "light" | "dark" | "auto";
-
-export type WidgetStatus = "loaded" | "interactive" | "solved" | "error" | "expired" | null;

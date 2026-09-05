@@ -14,6 +14,8 @@ export function useGithubStars() {
   const [stars, setStars] = useState<number | null>(null);
 
   useEffect(() => {
+    let active = true;
+
     try {
       const cached = JSON.parse(localStorage.getItem(CACHE_KEY) ?? "null") as CachedStars | null;
       if (cached && Date.now() - cached.at < CACHE_TTL) {
@@ -27,7 +29,7 @@ export function useGithubStars() {
     fetch(`https://api.github.com/repos/${REPO}`)
       .then(res => (res.ok ? (res.json() as Promise<{ stargazers_count?: number }>) : null))
       .then(data => {
-        if (typeof data?.stargazers_count !== "number") return;
+        if (!active || typeof data?.stargazers_count !== "number") return;
         setStars(data.stargazers_count);
         try {
           localStorage.setItem(
@@ -41,6 +43,10 @@ export function useGithubStars() {
       .catch(() => {
         // Offline or rate limited; the pill just shows no count.
       });
+
+    return () => {
+      active = false;
+    };
   }, []);
 
   return stars;

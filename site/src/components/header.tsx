@@ -5,10 +5,11 @@ import { formatStars, useGithubStars } from "~/lib/use-github-stars";
 import { ThemeToggle } from "./theme-toggle";
 
 interface HeaderProps {
+  mobileNavExpanded: boolean;
   onToggleMobileNav: () => void;
 }
 
-export function Header({ onToggleMobileNav }: HeaderProps) {
+export function Header({ mobileNavExpanded, onToggleMobileNav }: HeaderProps) {
   const stars = useGithubStars();
 
   return (
@@ -39,6 +40,8 @@ export function Header({ onToggleMobileNav }: HeaderProps) {
 
           <div className="flex items-center lg:hidden">
             <Button
+              aria-controls="site-sidebar"
+              aria-expanded={mobileNavExpanded}
               aria-label="Toggle menu visibility"
               shape="square"
               variant="ghost"

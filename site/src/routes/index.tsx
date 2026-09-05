@@ -199,8 +199,10 @@ function Playground() {
                   }}
                   onSuccess={value => {
                     // A fresh token starts a new cycle — clear a previous expiry
-                    // (refreshExpired: "auto" re-solves right after onExpire).
+                    // (refreshExpired: "auto" re-solves right after onExpire) and a
+                    // previous error (retry: "auto" can recover after onError).
                     setStages(prev => ({ ...prev, solved: true, expired: false }));
+                    setError(undefined);
                     setToken({ value, at: Date.now() });
                     log("onSuccess", `${value.slice(0, 24)}…`);
                   }}

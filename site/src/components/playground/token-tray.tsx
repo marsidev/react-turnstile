@@ -108,7 +108,11 @@ export function TokenTray({ token, expired, onValidated, validationDisabled }: T
               {expired
                 ? "expired"
                 : remaining === 0
-                  ? "0:00 (demo tokens never expire)"
+                  ? // Real tokens (custom keys) do expire; the caveat is only true
+                    // for Cloudflare's demo tokens.
+                    validationDisabled
+                    ? "0:00"
+                    : "0:00 (demo tokens never expire)"
                   : remaining !== null && `expires in ${formatCountdown(remaining)}`}
             </span>
           </div>

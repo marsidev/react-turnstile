@@ -2,6 +2,7 @@ import { Button } from "@cloudflare/kumo/components/button";
 import { CheckIcon, CopyIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import { CODE_COLORS } from "~/lib/highlight";
+import { copyToClipboard } from "~/lib/utils";
 import type { Lang, WidgetSize } from "~/lib/types";
 
 export interface SnippetConfig {
@@ -21,8 +22,10 @@ interface Segment {
 
 const COLORS = CODE_COLORS;
 
+// Options appear only when they differ from the library's defaults.
 function optionEntries(config: SnippetConfig): Array<[string, string]> {
-  const entries: Array<[string, string]> = [["theme", config.theme]];
+  const entries: Array<[string, string]> = [];
+  if (config.theme !== "auto") entries.push(["theme", config.theme]);
   if (config.size !== "normal") entries.push(["size", config.size]);
   if (config.lang !== "auto") entries.push(["language", config.lang]);
   if (config.execution === "execute") entries.push(["execution", config.execution]);
@@ -83,7 +86,7 @@ function buildLines(config: SnippetConfig): Segment[][] {
       { text: "=" },
       { text: `"${config.siteKey || ""}"`, color: COLORS.string }
     ],
-    ...buildOptionLines(options),
+    ...(options.length > 0 ? buildOptionLines(options) : []),
     [
       { text: "  " },
       { text: "onSuccess", color: COLORS.attr },
@@ -104,7 +107,7 @@ export function CodeSnippet({ config }: { config: SnippetConfig }) {
   const raw = lines.map(line => line.map(segment => segment.text).join("")).join("\n");
 
   const onCopy = async () => {
-    await navigator.clipboard.writeText(raw);
+    if (!(await copyToClipboard(raw))) return;
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };
