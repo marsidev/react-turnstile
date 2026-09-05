@@ -47,7 +47,7 @@
     "test:integration:watch": "vitest"
   },
   "devDependencies": {
-    "@tanstack/intent": "0.3.6",
+    "@tanstack/intent": "0.3.8",
     "@testing-library/jest-dom": "7.0.1",
     "@testing-library/react": "16.3.3",
     "@types/jest": "30.0.0",
