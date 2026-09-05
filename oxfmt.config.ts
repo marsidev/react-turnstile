@@ -9,5 +9,17 @@ export default defineConfig({
   tabWidth: 2,
   arrowParens: "avoid",
   printWidth: 100,
-  ignorePatterns: [".vscode", "dist", ".next", "*.yaml", "*.yml", "*.css", "*.md", "*.mdx"]
+  ignorePatterns: [
+    ".vscode",
+    "dist",
+    ".next",
+    ".wrangler",
+    ".tanstack",
+    "routeTree.gen.ts",
+    "*.yaml",
+    "*.yml",
+    "*.css",
+    "*.md",
+    "*.mdx"
+  ]
 });

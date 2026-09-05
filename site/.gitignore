@@ -1,0 +1,5 @@
+.wrangler
+.tanstack
+dist
+worker-configuration.d.ts
+tsconfig.tsbuildinfo
