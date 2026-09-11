@@ -6,18 +6,16 @@ import { useEffect, useState } from "react";
 import { CodeBlock } from "~/components/examples/code-block";
 import { LiveWidget } from "~/components/examples/live-widget";
 import { InlineCode } from "~/components/inline-code";
+import { seo } from "~/lib/seo";
 
 export const Route = createFileRoute("/examples/script-loading")({
-  head: () => ({
-    meta: [
-      { title: "Script loading · React Turnstile" },
-      {
-        name: "description",
-        content:
-          "Control how react-turnstile loads Cloudflare's script: manual injection, custom script props, and CSP nonces."
-      }
-    ]
-  }),
+  head: () =>
+    seo({
+      title: "Script loading",
+      description:
+        "Control how react-turnstile loads Cloudflare's script: manual injection, custom script props, and CSP nonces.",
+      path: "/examples/script-loading"
+    }),
   component: ScriptLoading
 });
 
