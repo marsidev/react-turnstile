@@ -74,7 +74,14 @@ pnpm test:integration
 
 # E2E tests only
 pnpm test:e2e
+
+# One E2E suite at a time
+pnpm test:e2e --project=nextjs   # the library, through the Next.js demo
+pnpm test:e2e --project=site     # the site, built and served in workerd
 ```
+
+Playwright starts both apps itself, so the tests always run against your checkout.
+The `site` project builds the site first, which makes its first run slower.
 
 ### Pre-commit Hooks
 

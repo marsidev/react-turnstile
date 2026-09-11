@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PlaygroundRouteImport } from './routes/playground'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ApiVerifyRouteImport } from './routes/api/verify'
 import { Route as ExamplesMultipleWidgetsRouteImport } from './routes/examples/multiple-widgets'
 import { Route as ExamplesScriptLoadingRouteImport } from './routes/examples/script-loading'
@@ -23,6 +25,16 @@ const IndexRoute = IndexRouteImport.update({
 const PlaygroundRoute = PlaygroundRouteImport.update({
   id: '/playground',
   path: '/playground',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiVerifyRoute = ApiVerifyRouteImport.update({
@@ -44,6 +56,8 @@ const ExamplesScriptLoadingRoute = ExamplesScriptLoadingRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/playground': typeof PlaygroundRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/verify': typeof ApiVerifyRoute
   '/examples/multiple-widgets': typeof ExamplesMultipleWidgetsRoute
   '/examples/script-loading': typeof ExamplesScriptLoadingRoute
@@ -51,6 +65,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/playground': typeof PlaygroundRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/verify': typeof ApiVerifyRoute
   '/examples/multiple-widgets': typeof ExamplesMultipleWidgetsRoute
   '/examples/script-loading': typeof ExamplesScriptLoadingRoute
@@ -59,6 +75,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/playground': typeof PlaygroundRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/verify': typeof ApiVerifyRoute
   '/examples/multiple-widgets': typeof ExamplesMultipleWidgetsRoute
   '/examples/script-loading': typeof ExamplesScriptLoadingRoute
@@ -68,6 +86,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/playground'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/api/verify'
     | '/examples/multiple-widgets'
     | '/examples/script-loading'
@@ -75,6 +95,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/playground'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/api/verify'
     | '/examples/multiple-widgets'
     | '/examples/script-loading'
@@ -82,6 +104,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/playground'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/api/verify'
     | '/examples/multiple-widgets'
     | '/examples/script-loading'
@@ -90,6 +114,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PlaygroundRoute: typeof PlaygroundRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiVerifyRoute: typeof ApiVerifyRoute
   ExamplesMultipleWidgetsRoute: typeof ExamplesMultipleWidgetsRoute
   ExamplesScriptLoadingRoute: typeof ExamplesScriptLoadingRoute
@@ -109,6 +135,20 @@ declare module '@tanstack/react-router' {
       path: '/playground'
       fullPath: '/playground'
       preLoaderRoute: typeof PlaygroundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/verify': {
@@ -138,6 +178,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PlaygroundRoute: PlaygroundRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiVerifyRoute: ApiVerifyRoute,
   ExamplesMultipleWidgetsRoute: ExamplesMultipleWidgetsRoute,
   ExamplesScriptLoadingRoute: ExamplesScriptLoadingRoute,
