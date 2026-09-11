@@ -3,6 +3,7 @@
   Source for site/public/og.png (the social card). Edit here, then regenerate
   from the repo root:
 
+  pnpm exec playwright install chromium   # once; pnpm install does not fetch it
   pnpm exec playwright screenshot --viewport-size=1200,630 \
     "file://$PWD/site/scripts/og-image.html" site/public/og.png
 -->
