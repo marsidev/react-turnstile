@@ -19,6 +19,9 @@ test("two widgets share a single injected script", async ({ page }) => {
   await expect(page.getByTestId("live-widget-widget-1")).toContainText("solved", {
     timeout: SOLVE_TIMEOUT
   });
+  await expect(page.getByTestId("live-widget-widget-2")).toContainText("solved", {
+    timeout: SOLVE_TIMEOUT
+  });
   await expect(page.getByTestId("script-count")).toContainText("1 script tag");
 });
 

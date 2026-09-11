@@ -31,7 +31,8 @@ test("the sitemap lists every page in the nav", async ({ request }) => {
 test("every page declares its own canonical url", async ({ request }) => {
   const pages = [
     ["/", `${SITE_URL}/`],
-    ["/examples/multiple-widgets", `${SITE_URL}/examples/multiple-widgets`]
+    ["/examples/multiple-widgets", `${SITE_URL}/examples/multiple-widgets`],
+    ["/examples/script-loading", `${SITE_URL}/examples/script-loading`]
   ] as const;
 
   for (const [path, canonical] of pages) {
