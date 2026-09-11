@@ -22,7 +22,17 @@ Run from the repo root:
 
 Single test:
 - integration: `pnpm --filter @marsidev/react-turnstile exec vitest run -t "<test name>"` (tests live in `packages/lib/test/`)
-- E2E: `pnpm test:e2e test/e2e/basic.test.ts -g "<title>"` (Playwright config starts the demo as its web server)
+- E2E: `pnpm test:e2e test/e2e/basic.test.ts -g "<title>"`
+
+E2E runs two Playwright projects, each with its own locally served app:
+- `nextjs` (`test/e2e/`) drives `demos/nextjs` and proves library behaviour across the
+  public API, including App Router compatibility. Filter with `--project=nextjs`.
+- `site` (`test/site/`) drives the built site through `vite preview`, so it runs in
+  workerd like production: SSR and hydration, the playground, and the server routes
+  (`/api/verify`, `/sitemap.xml`, `/robots.txt`). Filter with `--project=site`.
+
+Keep them apart: library behaviour belongs in the `nextjs` suite, anything site-specific
+in the `site` suite. Both boot from the checkout, never from a deployment.
 
 Package quality / release:
 - `pnpm --filter @marsidev/react-turnstile run check:package` — `publint` against the built `dist/` (also runs in CI)
