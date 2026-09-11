@@ -24,20 +24,18 @@ import {
   sizeOptions,
   themeOptions
 } from "~/lib/constants";
+import { seo } from "~/lib/seo";
 import { useTheme } from "~/lib/theme";
 import type { Lang, SiteKeyType, Theme, WidgetSize } from "~/lib/types";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Playground · React Turnstile" },
-      {
-        name: "description",
-        content:
-          "Configure the Turnstile widget, watch its lifecycle fire in real time, and leave with the exact code and a validated token."
-      }
-    ]
-  }),
+  head: () =>
+    seo({
+      title: "Playground",
+      description:
+        "Configure the Turnstile widget, watch its lifecycle fire in real time, and leave with the exact code and a validated token.",
+      path: "/"
+    }),
   component: Playground
 });
 

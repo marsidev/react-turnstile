@@ -1,0 +1,110 @@
+<!doctype html>
+<!--
+  Source for site/public/og.png (the social card). Edit here, then regenerate
+  from the repo root:
+
+  pnpm exec playwright screenshot --viewport-size=1200,630 \
+    "file://$PWD/site/scripts/og-image.html" site/public/og.png
+-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1200px;
+        height: 630px;
+      }
+      body {
+        background: #171717;
+        color: #f5f5f5;
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+      /* the playground's dotted test bench */
+      .bench {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(#2e2e2e 1.5px, transparent 1.5px);
+        background-size: 24px 24px;
+        mask-image: linear-gradient(105deg, transparent 42%, #000 78%);
+      }
+      .glow {
+        position: absolute;
+        right: -80px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 620px;
+        height: 620px;
+        background: radial-gradient(circle, rgba(246, 130, 31, 0.2), transparent 62%);
+      }
+      .content {
+        position: relative;
+        padding: 0 72px;
+        max-width: 760px;
+      }
+      h1 {
+        font-size: 78px;
+        line-height: 1.02;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+      }
+      p {
+        margin-top: 26px;
+        font-size: 29px;
+        line-height: 1.45;
+        color: #a3a3a3;
+        max-width: 18em;
+      }
+      .install {
+        margin-top: 46px;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        font-size: 23px;
+        color: #d4d4d4;
+        background: #212121;
+        border: 1px solid #303030;
+        border-radius: 10px;
+        padding: 14px 20px;
+      }
+      .install span {
+        color: #f6821f;
+      }
+      .mark {
+        position: absolute;
+        right: 86px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bench"></div>
+    <div class="glow"></div>
+
+    <svg class="mark" width="310" height="310" viewBox="0 0 64 64">
+      <g stroke="#f6821f" stroke-width="6" stroke-linecap="round">
+        <line x1="32" y1="34" x2="32" y2="11" />
+        <line x1="32" y1="34" x2="12.1" y2="45.5" />
+        <line x1="32" y1="34" x2="51.9" y2="45.5" />
+      </g>
+      <circle cx="32" cy="34" r="6.5" fill="#f6821f" />
+    </svg>
+
+    <div class="content">
+      <h1>React Turnstile</h1>
+      <p>An interactive playground and examples for Cloudflare Turnstile in React.</p>
+      <div class="install"><span>$</span> npm i @marsidev/react-turnstile</div>
+    </div>
+  </body>
+</html>

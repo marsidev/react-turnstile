@@ -6,18 +6,16 @@ import { useState } from "react";
 import { CodeBlock } from "~/components/examples/code-block";
 import { LiveWidget } from "~/components/examples/live-widget";
 import { InlineCode } from "~/components/inline-code";
+import { seo } from "~/lib/seo";
 
 export const Route = createFileRoute("/examples/multiple-widgets")({
-  head: () => ({
-    meta: [
-      { title: "Multiple widgets · React Turnstile" },
-      {
-        name: "description",
-        content:
-          "Mount any number of Turnstile widgets on one page; the library loads Cloudflare's script exactly once."
-      }
-    ]
-  }),
+  head: () =>
+    seo({
+      title: "Multiple widgets",
+      description:
+        "Mount any number of Turnstile widgets on one page; the library loads Cloudflare's script exactly once.",
+      path: "/examples/multiple-widgets"
+    }),
   component: MultipleWidgets
 });
 
