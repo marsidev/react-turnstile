@@ -2,6 +2,7 @@ import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-r
 import { useState } from "react";
 import { Header } from "~/components/header";
 import { Sidebar } from "~/components/sidebar";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "~/lib/seo";
 import { themeInitScript, ThemeProvider } from "~/lib/theme";
 import appCss from "~/styles/app.css?url";
 
@@ -10,23 +11,19 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "React Turnstile" },
-      {
-        name: "description",
-        content:
-          "Interactive playground and examples for @marsidev/react-turnstile, a React wrapper for Cloudflare Turnstile."
-      },
-      { property: "og:site_name", content: "React Turnstile" },
+      // Title and description are per route (see `~/lib/seo`); these are the
+      // fallbacks for anything that renders without its own head.
+      { title: SITE_NAME },
+      { name: "description", content: SITE_DESCRIPTION },
+      { property: "og:site_name", content: SITE_NAME },
       { property: "og:type", content: "website" },
-      { property: "og:title", content: "React Turnstile" },
-      {
-        property: "og:description",
-        content:
-          "Interactive playground and examples for @marsidev/react-turnstile, a React wrapper for Cloudflare Turnstile."
-      },
-      { name: "twitter:card", content: "summary" },
-      { name: "theme-color", media: "(prefers-color-scheme: light)", content: "#ffffff" },
-      { name: "theme-color", media: "(prefers-color-scheme: dark)", content: "#171717" }
+      { property: "og:image", content: `${SITE_URL}/og.png` },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "React Turnstile" },
+      { property: "og:locale", content: "en_US" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: `${SITE_URL}/og.png` }
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -76,6 +73,8 @@ function RootDocument({ children }: React.PropsWithChildren) {
   return (
     <html suppressHydrationWarning lang="en">
       <head>
+        <meta content="#ffffff" media="(prefers-color-scheme: light)" name="theme-color" />
+        <meta content="#171717" media="(prefers-color-scheme: dark)" name="theme-color" />
         <HeadContent />
       </head>
       <body className="min-h-screen">
