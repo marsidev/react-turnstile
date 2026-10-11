@@ -114,6 +114,7 @@ What the server checks, and why:
 - **`action`.** It must match the `action` the widget was rendered with, so a token solved on one form can't be used on another.
 - **`hostname`.** It must be one of your frontend hostnames. Keep `localhost` out of the production list, even if the widget allows it.
 - **Failures.** If Siteverify can't be reached, times out or returns something unexpected, reject the request.
+- **Testing keys.** Cloudflare's [testing keys](https://developers.cloudflare.com/turnstile/troubleshooting/testing/), like the site key in this example, return `hostname: "example.com"` and no `action`, so this handler rejects them. Test the full flow with your widget's real keys; for local development, allow `localhost` on the widget and add it to `TURNSTILE_HOSTNAMES` only in that environment.
 
 Keep the secret key on the server (here in the `TURNSTILE_SECRET_KEY` environment variable), and only return what the client needs: the result of the action, not the Siteverify response.
 

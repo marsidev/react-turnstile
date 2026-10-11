@@ -22,6 +22,9 @@ export default function LoginForm() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+    // This attempt consumes the token: disable the button until a new one arrives.
+    const submittedToken = token;
+    setToken(null);
 
     try {
       const res = await fetch("/api/login", {
@@ -29,7 +32,7 @@ export default function LoginForm() {
         body: JSON.stringify({
           username: formData.get("username"),
           password: formData.get("password"),
-          token,
+          token: submittedToken,
         }),
         headers: { "content-type": "application/json" },
       });
@@ -38,8 +41,6 @@ export default function LoginForm() {
     } catch {
       setError("An unexpected error occurred. Please try again.");
     } finally {
-      // The token was consumed: get a new one for the next attempt.
-      setToken(null);
       turnstileRef.current?.reset();
     }
   }
