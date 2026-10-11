@@ -13,11 +13,11 @@ triggers:
   - 'turnstile onExpire'
   - 'validate turnstile token'
   - 'turnstile server validation'
-category: lifecycle
 metadata:
   library: '@marsidev/react-turnstile'
   library_version: '1.4.2'
   framework: React
+  category: lifecycle
 ---
 
 # Token Lifecycle
@@ -325,7 +325,7 @@ ref.current?.render() // Re-render (only if previously removed)
 **Problem:** User takes too long to submit, token expires.
 
 **Wrong:**
-```tsx
+```tsx no-check
 const [token, setToken] = useState<string | null>(null)
 
 <Turnstile onSuccess={setToken} />
@@ -345,7 +345,7 @@ ref.current?.reset() // Reset for next time
 ### ❌ Expecting Built-in Server Validation
 
 **Wrong:**
-```tsx
+```tsx no-check
 import { validateTurnstile } from '@marsidev/react-turnstile'
 // ❌ This doesn't exist!
 ```
@@ -403,6 +403,6 @@ if (result.success) {
 
 ## See Also
 
-- [basic-setup skill](./basic-setup/SKILL.md) - Basic widget setup
-- [multiple-widgets skill](./multiple-widgets/SKILL.md) - Managing tokens with multiple widgets
-- [nextjs-ssr skill](./nextjs-ssr/SKILL.md) - Server Actions validation
+- [basic-setup skill](../basic-setup/SKILL.md) - Basic widget setup
+- [multiple-widgets skill](../multiple-widgets/SKILL.md) - Managing tokens with multiple widgets
+- [nextjs-ssr skill](../nextjs-ssr/SKILL.md) - Server Actions validation

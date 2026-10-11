@@ -13,11 +13,11 @@ triggers:
   - 'window is not defined turnstile'
   - 'use client turnstile'
   - 'turnstile script nextjs'
-category: framework
 metadata:
   library: '@marsidev/react-turnstile'
   library_version: '1.4.2'
   framework: Next.js
+  category: framework
 ---
 
 # Next.js and SSR Integration
@@ -301,12 +301,14 @@ export default function Page() {
 **Correct:**
 ```tsx
 // Use next/script with proper strategy
-<Script
-  id={DEFAULT_SCRIPT_ID}
-  src={SCRIPT_URL}
-  strategy="beforeInteractive" // or "afterInteractive"
-/>
-<Turnstile siteKey="xxx" injectScript={false} />
+<>
+  <Script
+    id={DEFAULT_SCRIPT_ID}
+    src={SCRIPT_URL}
+    strategy="beforeInteractive" // or "afterInteractive"
+  />
+  <Turnstile siteKey="xxx" injectScript={false} />
+</>
 ```
 
 ## Script Loading Strategies
@@ -331,6 +333,6 @@ TURNSTILE_SECRET_KEY=0x0000000000000000000000000000000000000000000
 
 ## See Also
 
-- [basic-setup skill](./basic-setup/SKILL.md) - Getting started
-- [token-lifecycle skill](./token-lifecycle/SKILL.md) - Form integration patterns
-- [multiple-widgets skill](./multiple-widgets/SKILL.md) - Multiple widgets on same page
+- [basic-setup skill](../basic-setup/SKILL.md) - Getting started
+- [token-lifecycle skill](../token-lifecycle/SKILL.md) - Form integration patterns
+- [multiple-widgets skill](../multiple-widgets/SKILL.md) - Multiple widgets on same page

@@ -50,7 +50,7 @@ jobs:
 
             Please review and update the skills using:
             ```
-            pnpm exec intent scaffold
+            pnpm exec intent meta generate-skill
             ```
 
             Then run validation:

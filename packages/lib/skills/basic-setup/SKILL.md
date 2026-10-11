@@ -11,11 +11,11 @@ triggers:
   - 'basic turnstile example'
   - 'how to use @marsidev/react-turnstile'
   - 'turnstile widget not showing'
-category: core
 metadata:
   library: '@marsidev/react-turnstile'
   library_version: '1.4.2'
   framework: React
+  category: core
 ---
 
 # Basic Setup
@@ -79,7 +79,7 @@ Choose the size that fits your layout:
 | `flexible` | 100% width × 65px | Responsive layouts |
 | `invisible` | 0×0px | Hidden widgets (requires Invisible widget type from Cloudflare) |
 
-```tsx
+```tsx no-check
 // Compact size for mobile
 <Turnstile
   siteKey="YOUR_SITE_KEY"
@@ -185,7 +185,7 @@ The `invisible` size is **only** for the Invisible widget type from Cloudflare. 
 ```
 
 **Correct:**
-```tsx
+```tsx no-check
 // Use visible sizes for normal widgets
 <Turnstile siteKey="xxx" options={{ size: 'normal' }} />
 <Turnstile siteKey="xxx" options={{ size: 'compact' }} />
@@ -194,10 +194,10 @@ The `invisible` size is **only** for the Invisible widget type from Cloudflare. 
 
 ## Next Steps
 
-- **Customize appearance:** See [widget-customization skill](./widget-customization/SKILL.md)
-- **Handle tokens properly:** See [token-lifecycle skill](./token-lifecycle/SKILL.md)
-- **Next.js integration:** See [nextjs-ssr skill](./nextjs-ssr/SKILL.md)
-- **Multiple widgets:** See [multiple-widgets skill](./multiple-widgets/SKILL.md)
+- **Customize appearance:** See [widget-customization skill](../widget-customization/SKILL.md)
+- **Handle tokens properly:** See [token-lifecycle skill](../token-lifecycle/SKILL.md)
+- **Next.js integration:** See [nextjs-ssr skill](../nextjs-ssr/SKILL.md)
+- **Multiple widgets:** See [multiple-widgets skill](../multiple-widgets/SKILL.md)
 
 ## Testing During Development
 

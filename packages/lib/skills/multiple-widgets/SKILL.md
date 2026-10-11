@@ -12,11 +12,11 @@ triggers:
   - 'turnstile id'
   - 'multiple captcha same page'
   - 'widget not responding'
-category: core
 metadata:
   library: '@marsidev/react-turnstile'
   library_version: '1.4.2'
   framework: React
+  category: core
 ---
 
 # Multiple Widgets
@@ -312,7 +312,7 @@ export default function TabbedForms() {
 ### ❌ Script Loading Race Conditions
 
 **Wrong:**
-```tsx
+```tsx no-check
 // Each widget tries to inject the script independently
 <Turnstile siteKey="xxx" />
 <Turnstile siteKey="xxx" />
@@ -323,15 +323,17 @@ export default function TabbedForms() {
 **Correct:**
 ```tsx
 // Single script injection for all widgets
-<Script id={DEFAULT_SCRIPT_ID} src={SCRIPT_URL} />
-<Turnstile id="widget-1" siteKey="xxx" injectScript={false} />
-<Turnstile id="widget-2" siteKey="xxx" injectScript={false} />
+<>
+  <Script id={DEFAULT_SCRIPT_ID} src={SCRIPT_URL} />
+  <Turnstile id="widget-1" siteKey="xxx" injectScript={false} />
+  <Turnstile id="widget-2" siteKey="xxx" injectScript={false} />
+</>
 ```
 
 ### ❌ Sharing Refs Between Widgets
 
 **Wrong:**
-```tsx
+```tsx no-check
 const ref = useRef<TurnstileInstance>(null)
 
 <>
@@ -343,7 +345,7 @@ const ref = useRef<TurnstileInstance>(null)
 **Result:** Both widgets share state, methods don't work correctly.
 
 **Correct:**
-```tsx
+```tsx no-check
 const ref1 = useRef<TurnstileInstance>(null)
 const ref2 = useRef<TurnstileInstance>(null)
 
@@ -370,6 +372,6 @@ If widgets aren't working correctly:
 
 ## See Also
 
-- [basic-setup skill](./basic-setup/SKILL.md) - Single widget setup
-- [token-lifecycle skill](./token-lifecycle/SKILL.md) - Handling tokens with multiple widgets
-- [nextjs-ssr skill](./nextjs-ssr/SKILL.md) - Next.js integration with multiple widgets
+- [basic-setup skill](../basic-setup/SKILL.md) - Single widget setup
+- [token-lifecycle skill](../token-lifecycle/SKILL.md) - Handling tokens with multiple widgets
+- [nextjs-ssr skill](../nextjs-ssr/SKILL.md) - Next.js integration with multiple widgets
