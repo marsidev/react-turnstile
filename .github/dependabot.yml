@@ -56,7 +56,6 @@ updates:
           - "tsdown"
           - "typescript"
           - "@typescript/native-preview"
-          - "@tanstack/intent"
         update-types:
           - "minor"
           - "patch"
