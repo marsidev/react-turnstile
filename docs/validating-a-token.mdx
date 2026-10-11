@@ -67,7 +67,7 @@ const allowedHostnames = new Set(
     .filter(Boolean),
 );
 
-async function verifyTurnstile(token: unknown, expectedAction: string, remoteip?: string) {
+async function verifyTurnstile(token: unknown, expectedAction: string) {
   if (typeof token !== "string" || token.length === 0 || token.length > 2048) {
     return false;
   }
@@ -78,7 +78,6 @@ async function verifyTurnstile(token: unknown, expectedAction: string, remoteip?
       body: new URLSearchParams({
         secret: process.env.TURNSTILE_SECRET_KEY!,
         response: token,
-        ...(remoteip ? { remoteip } : {}),
       }),
       signal: AbortSignal.timeout(10_000),
     });
@@ -98,9 +97,8 @@ async function verifyTurnstile(token: unknown, expectedAction: string, remoteip?
 
 export async function POST(request: Request) {
   const { username, password, token } = await request.json();
-  const remoteip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
 
-  if (!(await verifyTurnstile(token, "login", remoteip))) {
+  if (!(await verifyTurnstile(token, "login"))) {
     return Response.json({ success: false }, { status: 403 });
   }
 
@@ -117,7 +115,9 @@ What the server checks, and why:
 - **`hostname`.** It must be one of your frontend hostnames. Keep `localhost` out of the production list, even if the widget allows it.
 - **Failures.** If Siteverify can't be reached, times out or returns something unexpected, reject the request.
 
-Keep the secret key on the server (here in the `TURNSTILE_SECRET_KEY` environment variable), and only return what the client needs: the result of the action, not the Siteverify response. `remoteip` is optional; only send it when the header comes from a proxy you trust.
+Keep the secret key on the server (here in the `TURNSTILE_SECRET_KEY` environment variable), and only return what the client needs: the result of the action, not the Siteverify response.
+
+Siteverify also accepts the visitor's IP as an optional `remoteip` parameter. Only send it when your platform gives you an IP clients can't forge, such as `CF-Connecting-IP` when all traffic goes through Cloudflare. Never send the first value of `X-Forwarded-For`, which the client can set to anything.
 
 <Info>
   Check out [Cloudflare official docs](https://developers.cloudflare.com/turnstile/get-started/server-side-validation/) for more info about server side validation.
