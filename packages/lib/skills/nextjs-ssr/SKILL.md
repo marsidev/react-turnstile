@@ -50,9 +50,9 @@ export default function ContactForm() {
 }
 ```
 
-### Manual Script Injection (Recommended)
+### Manual Script Injection (Optional)
 
-For better performance and to avoid hydration issues, manually inject the script:
+Not required: `<Turnstile />` injects the script itself once it mounts. Inject it manually only when you want to control how it loads (for example with `next/script` and its `strategy`), and set `injectScript={false}`:
 
 ```tsx
 'use client'
@@ -287,29 +287,6 @@ export default function Page() {
 **Cause:** Using Turnstile in a Server Component or during SSR.
 
 **Solution:** Always use `'use client'` directive.
-
-### ❌ Script Loading Race Condition
-
-**Error:** Widget doesn't render or shows loading indefinitely.
-
-**Wrong:**
-```tsx
-// Script loads after component renders
-<Turnstile siteKey="xxx" />
-```
-
-**Correct:**
-```tsx
-// Use next/script with proper strategy
-<>
-  <Script
-    id={DEFAULT_SCRIPT_ID}
-    src={SCRIPT_URL}
-    strategy="beforeInteractive" // or "afterInteractive"
-  />
-  <Turnstile siteKey="xxx" injectScript={false} />
-</>
-```
 
 ## Script Loading Strategies
 

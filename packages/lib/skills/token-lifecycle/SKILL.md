@@ -345,7 +345,7 @@ ref.current?.reset() // Reset for next time
 ### ❌ Expecting Built-in Server Validation
 
 **Wrong:**
-```tsx no-check
+```tsx expect-error=TS2305
 import { validateTurnstile } from '@marsidev/react-turnstile'
 // ❌ This doesn't exist!
 ```

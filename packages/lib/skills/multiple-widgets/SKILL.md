@@ -138,9 +138,9 @@ export default function MultiFormPage() {
 }
 ```
 
-## Manual Script Injection (Recommended for Multiple Widgets)
+## Manual Script Injection (Optional)
 
-When using multiple widgets, manual script injection ensures optimal loading:
+The library loads Cloudflare's script only once, however many widgets mount, so this is not required. Inject it yourself only when you want to control how it loads (for example with `next/script`), and set `injectScript={false}` on every widget:
 
 ```tsx
 import {
@@ -309,27 +309,6 @@ export default function TabbedForms() {
 </>
 ```
 
-### ❌ Script Loading Race Conditions
-
-**Wrong:**
-```tsx no-check
-// Each widget tries to inject the script independently
-<Turnstile siteKey="xxx" />
-<Turnstile siteKey="xxx" />
-```
-
-**Result:** Race conditions, widgets may fail to initialize.
-
-**Correct:**
-```tsx
-// Single script injection for all widgets
-<>
-  <Script id={DEFAULT_SCRIPT_ID} src={SCRIPT_URL} />
-  <Turnstile id="widget-1" siteKey="xxx" injectScript={false} />
-  <Turnstile id="widget-2" siteKey="xxx" injectScript={false} />
-</>
-```
-
 ### ❌ Sharing Refs Between Widgets
 
 **Wrong:**
@@ -362,13 +341,13 @@ If widgets aren't working correctly:
 1. **Check unique IDs:** Ensure all widgets have different `id` props
 2. **Check console:** Look for "Turnstile has not been loaded" warnings
 3. **Inspect DOM:** Verify containers have different IDs
-4. **Script loading:** Use manual injection with `injectScript={false}`
+4. **Manual injection:** If you load the script yourself, set `injectScript={false}` on every widget
 
 ## Performance Considerations
 
 - Each widget makes a request to Cloudflare
 - Consider if you really need multiple widgets vs. one widget protecting multiple actions
-- Manual script injection prevents duplicate script loading
+- Cloudflare's script is loaded only once, however many widgets mount
 
 ## See Also
 
