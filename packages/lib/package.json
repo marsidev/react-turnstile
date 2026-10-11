@@ -7,7 +7,6 @@
     "cloudflare",
     "cloudflare-turnstile",
     "react",
-    "tanstack-intent",
     "turnstile"
   ],
   "homepage": "https://github.com/marsidev/react-turnstile",
@@ -19,9 +18,7 @@
     "url": "git+https://github.com/marsidev/react-turnstile.git"
   },
   "files": [
-    "dist",
-    "skills",
-    "!skills/_artifacts"
+    "dist"
   ],
   "type": "module",
   "sideEffects": false,
@@ -47,7 +44,6 @@
     "test:integration:watch": "vitest"
   },
   "devDependencies": {
-    "@tanstack/intent": "0.5.4",
     "@testing-library/jest-dom": "7.0.1",
     "@testing-library/react": "16.3.3",
     "@types/jest": "30.0.0",
