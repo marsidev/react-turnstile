@@ -1,5 +1,11 @@
 # @marsidev/react-turnstile
 
+## 1.6.2
+
+### Patch Changes
+
+- [#330](https://github.com/marsidev/react-turnstile/pull/330) [`32a97e7`](https://github.com/marsidev/react-turnstile/commit/32a97e7aa5273096ecd7ee4d00cb71bdb4b18c99) Thanks [@marsidev](https://github.com/marsidev)! - Stop shipping the TanStack Intent agent skills (`skills/`) in the package. They duplicated the documentation and had drifted from it; the [docs](https://github.com/marsidev/react-turnstile/tree/main/docs) remain the reference. The runtime code is unchanged.
+
 ## 1.6.1
 
 ### Patch Changes
