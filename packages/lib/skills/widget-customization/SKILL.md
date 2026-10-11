@@ -12,11 +12,11 @@ triggers:
   - 'customize turnstile widget'
   - 'turnstile callback not working'
   - 'rerenderOnCallbackChange'
-category: core
 metadata:
   library: '@marsidev/react-turnstile'
   library_version: '1.4.2'
   framework: React
+  category: core
 ---
 
 # Widget Customization
@@ -91,7 +91,7 @@ Token is generated only when you explicitly call `execute()`. Useful for delayin
 
 Match the widget to your application's color scheme:
 
-```tsx
+```tsx no-check
 // Auto-detects from system preference
 <Turnstile siteKey="xxx" options={{ theme: 'auto' }} />
 
@@ -106,7 +106,7 @@ Match the widget to your application's color scheme:
 
 Set the widget language:
 
-```tsx
+```tsx no-check
 // Auto-detect from browser
 <Turnstile siteKey="xxx" options={{ language: 'auto' }} />
 
@@ -184,7 +184,7 @@ export default function Page() {
 
 Change the HTML element used for the widget container:
 
-```tsx
+```tsx no-check
 // Default: div
 <Turnstile siteKey="xxx" />
 
@@ -208,7 +208,7 @@ Change the HTML element used for the widget container:
 ```
 
 **Correct:**
-```tsx
+```tsx no-check
 const handleSuccess = useCallback((token: string) => {
   handleToken(token)
 }, [])
@@ -222,7 +222,7 @@ const handleSuccess = useCallback((token: string) => {
 ### ❌ Calling execute() Without Proper Setup
 
 **Wrong:**
-```tsx
+```tsx no-check
 const ref = useRef<TurnstileInstance>(null)
 
 // Button calls execute immediately
@@ -233,7 +233,7 @@ const ref = useRef<TurnstileInstance>(null)
 ```
 
 **Correct:**
-```tsx
+```tsx no-check
 const ref = useRef<TurnstileInstance>(null)
 
 <button onClick={() => ref.current?.execute()}>Verify</button>
@@ -251,6 +251,6 @@ const ref = useRef<TurnstileInstance>(null)
 
 ## See Also
 
-- [basic-setup skill](./basic-setup/SKILL.md) - Getting started
-- [token-lifecycle skill](./token-lifecycle/SKILL.md) - Handling tokens and forms
-- [nextjs-ssr skill](./nextjs-ssr/SKILL.md) - Next.js integration patterns
+- [basic-setup skill](../basic-setup/SKILL.md) - Getting started
+- [token-lifecycle skill](../token-lifecycle/SKILL.md) - Handling tokens and forms
+- [nextjs-ssr skill](../nextjs-ssr/SKILL.md) - Next.js integration patterns
