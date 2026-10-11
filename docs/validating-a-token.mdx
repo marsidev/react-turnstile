@@ -4,39 +4,48 @@ title: React Turnstile - Validating a token
 
 # Validating a token
 
-The validation of tokens needs to be done on the server. Here is an example of how to do it with [Next.js](https://nextjs.org/) 13 App Router.
+The widget only produces a token; your server decides whether to trust it. Validate the token with Cloudflare's Siteverify API **inside the handler of the action it protects** (login, signup, contact form...). Don't validate it in a separate endpoint and let the browser decide what to do next: a bot can skip that endpoint and call the protected one directly.
+
+Here is an example with the [Next.js](https://nextjs.org/) App Router.
 
 ```tsx
 "use client";
+import { useRef } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
+import type { TurnstileInstance } from "@marsidev/react-turnstile";
 
 export default function LoginForm() {
-  const formRef = React.useRef<HTMLFormElement>(null);
+  const turnstileRef = useRef<TurnstileInstance | null>(null);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const formData = new FormData(formRef.current!);
-    const token = formData.get("cf-turnstile-response");
+    const formData = new FormData(event.currentTarget);
 
-    const res = await fetch("/api/verify", {
-      method: "POST",
-      body: JSON.stringify({ token }),
-      headers: {
-        "content-type": "application/json",
-      },
-    });
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        body: JSON.stringify({
+          username: formData.get("username"),
+          password: formData.get("password"),
+          token: formData.get("cf-turnstile-response"),
+        }),
+        headers: { "content-type": "application/json" },
+      });
 
-    const data = await res.json();
-    if (data.success) {
-      // the token has been validated
+      if (res.ok) {
+        // logged in
+      }
+    } finally {
+      // Tokens are single-use: get a fresh one before the next attempt.
+      turnstileRef.current?.reset();
     }
   }
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit}>
-      <input type="text" placeholder="username" />
-      <input type="password" placeholder="password" />
-      <Turnstile siteKey="{{ siteKey }}" />
+    <form onSubmit={handleSubmit}>
+      <input type="text" name="username" placeholder="username" />
+      <input type="password" name="password" placeholder="password" />
+      <Turnstile ref={turnstileRef} siteKey="{{ siteKey }}" options={{ action: "login" }} />
       <button type="submit">Login</button>
     </form>
   );
@@ -44,32 +53,72 @@ export default function LoginForm() {
 ```
 
 ```ts
+// app/api/login/route.ts
 import type { TurnstileServerValidationResponse } from "@marsidev/react-turnstile";
 
 const verifyEndpoint = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
-const secret = "{{ secretKey }}";
+
+// Frontend hostnames this deployment serves, e.g. "example.com,www.example.com".
+// Don't include `localhost` in production.
+const allowedHostnames = new Set(
+  (process.env.TURNSTILE_HOSTNAMES ?? "")
+    .split(",")
+    .map((hostname) => hostname.trim())
+    .filter(Boolean),
+);
+
+async function verifyTurnstile(token: unknown, expectedAction: string) {
+  if (typeof token !== "string" || token.length === 0 || token.length > 2048) {
+    return false;
+  }
+
+  try {
+    const res = await fetch(verifyEndpoint, {
+      method: "POST",
+      body: new URLSearchParams({
+        secret: process.env.TURNSTILE_SECRET_KEY!,
+        response: token,
+      }),
+      signal: AbortSignal.timeout(10_000),
+    });
+    if (!res.ok) return false;
+
+    const data = (await res.json()) as TurnstileServerValidationResponse;
+    return (
+      data.success &&
+      data.action === expectedAction &&
+      allowedHostnames.has(data.hostname ?? "")
+    );
+  } catch {
+    // Network error, timeout or a non-JSON response: fail closed.
+    return false;
+  }
+}
 
 export async function POST(request: Request) {
-  const { token } = (await request.json()) as { token: string };
+  const { username, password, token } = await request.json();
 
-  const res = await fetch(verifyEndpoint, {
-    method: "POST",
-    body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(token)}`,
-    headers: {
-      "content-type": "application/x-www-form-urlencoded",
-    },
-  });
+  if (!(await verifyTurnstile(token, "login"))) {
+    return Response.json({ success: false }, { status: 403 });
+  }
 
-  const data = (await res.json()) as TurnstileServerValidationResponse;
-
-  return new Response(JSON.stringify(data), {
-    status: data.success ? 200 : 400,
-    headers: {
-      "content-type": "application/json",
-    },
-  });
+  // The visitor passed the challenge: run your login logic here.
+  return Response.json({ success: true });
 }
 ```
+
+What the server checks, and why:
+
+- **The token itself.** It must be a non-empty string of at most 2048 characters before it's sent to Cloudflare.
+- **`success`.** Cloudflare accepted the token. Tokens are single-use and expire after 300 seconds, so a replayed or stale token fails here.
+- **`action`.** It must match the `action` the widget was rendered with, so a token solved on one form can't be used on another.
+- **`hostname`.** It must be one of your frontend hostnames. Keep `localhost` out of the production list, even if the widget allows it.
+- **Failures.** If Siteverify can't be reached, times out or returns something unexpected, reject the request.
+- **Testing keys.** Cloudflare's [testing keys](https://developers.cloudflare.com/turnstile/troubleshooting/testing/), like the site key in this example, return `hostname: "example.com"` and no `action`, so this handler rejects them. Test the full flow with your widget's real keys; for local development, allow `localhost` on the widget and add it to `TURNSTILE_HOSTNAMES` only in that environment.
+
+Keep the secret key on the server (here in the `TURNSTILE_SECRET_KEY` environment variable), and only return what the client needs: the result of the action, not the Siteverify response.
+
+Siteverify also accepts the visitor's IP as an optional `remoteip` parameter. Only send it when your platform gives you an IP clients can't forge, such as `CF-Connecting-IP` when all traffic goes through Cloudflare. Never send the first value of `X-Forwarded-For`, which the client can set to anything.
 
 <Info>
   Check out [Cloudflare official docs](https://developers.cloudflare.com/turnstile/get-started/server-side-validation/) for more info about server side validation.
