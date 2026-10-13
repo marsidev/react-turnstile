@@ -2,9 +2,16 @@ import type { MockInstance } from "vitest";
 import { vi } from "vitest";
 import { createRef } from "react";
 import { cleanup, render, waitFor } from "@testing-library/react";
-import { DEFAULT_CONTAINER_ID, DEFAULT_SCRIPT_ID, SCRIPT_URL, Turnstile } from "../src";
+import {
+  DEFAULT_CONTAINER_ID,
+  DEFAULT_ONLOAD_NAME,
+  DEFAULT_SCRIPT_ID,
+  SCRIPT_URL,
+  Turnstile
+} from "../src";
 import type { RenderParameters } from "../src/turnstile";
 import type { TurnstileInstance } from "../src/types";
+import { injectTurnstileScript } from "../src/utils";
 import { DEMO_SITEKEY } from "./constants";
 
 function resetDom() {
@@ -51,6 +58,31 @@ describe("Manual script injection", () => {
   it("does not injects the script", async () => {
     const script = document.querySelector("script");
     expect(script).toBeFalsy();
+  });
+});
+
+describe("Script onError", () => {
+  const globals = window as unknown as Record<string, unknown>;
+
+  afterEach(() => {
+    resetDom();
+    delete globals[DEFAULT_ONLOAD_NAME];
+  });
+
+  it("keeps the onload callback while the script loads", () => {
+    const onload = vi.fn();
+    globals[DEFAULT_ONLOAD_NAME] = onload;
+    injectTurnstileScript({ scriptOptions: { onError: vi.fn() } });
+    expect(globals[DEFAULT_ONLOAD_NAME]).toBe(onload);
+  });
+
+  it("calls onError and removes the onload callback when the script fails to load", () => {
+    const onError = vi.fn();
+    globals[DEFAULT_ONLOAD_NAME] = vi.fn();
+    injectTurnstileScript({ scriptOptions: { onError } });
+    document.getElementById(DEFAULT_SCRIPT_ID)!.dispatchEvent(new Event("error"));
+    expect(onError).toHaveBeenCalledTimes(1);
+    expect(globals[DEFAULT_ONLOAD_NAME]).toBeUndefined();
   });
 });
 
