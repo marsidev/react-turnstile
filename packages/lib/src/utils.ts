@@ -62,9 +62,11 @@ export const injectTurnstileScript = ({
   }
 
   if (onError) {
-    script.onerror = onError;
-    // @ts-expect-error implicit any
-    delete window[onLoadCallbackName];
+    script.onerror = () => {
+      // @ts-expect-error implicit any
+      delete window[onLoadCallbackName];
+      onError();
+    };
   }
 
   const parentEl = appendTo === "body" ? document.body : document.getElementsByTagName("head")[0];
