@@ -22,6 +22,7 @@ overrides:
   postcss: ">=8.5.10"
   sharp: ">=0.35.0"
   shell-quote: ">=1.11.0"
+  launch-editor: ">=2.14.2"
   "@tailwindcss/typography>postcss-selector-parser": "7.1.6"
 
 allowBuilds:
