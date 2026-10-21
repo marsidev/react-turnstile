@@ -1,6 +1,6 @@
 {
   "name": "@marsidev/react-turnstile",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "private": false,
   "description": "Cloudflare Turnstile integration for React.",
   "keywords": [
