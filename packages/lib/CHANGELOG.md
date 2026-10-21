@@ -1,5 +1,11 @@
 # @marsidev/react-turnstile
 
+## 1.6.3
+
+### Patch Changes
+
+- [#317](https://github.com/marsidev/react-turnstile/pull/317) [`2e22ba4`](https://github.com/marsidev/react-turnstile/commit/2e22ba435a45a567cab53dd78fe4203c2863cbc9) Thanks [@l0st0](https://github.com/l0st0)! - Keep the `onloadTurnstileCallback` global while the script loads when `scriptOptions.onError` is set, so `api.js` no longer warns that it cannot find the onload callback. The callback is now removed only if the script fails to load.
+
 ## 1.6.2
 
 ### Patch Changes
