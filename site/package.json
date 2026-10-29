@@ -12,7 +12,7 @@
     "typecheck": "tsgo --noEmit"
   },
   "dependencies": {
-    "@cloudflare/kumo": "2.14.0",
+    "@cloudflare/kumo": "2.15.0",
     "@marsidev/react-turnstile": "workspace:*",
     "@phosphor-icons/react": "2.1.10",
     "@tanstack/react-router": "1.170.45",
@@ -21,11 +21,11 @@
     "react-dom": "19.3.1"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.64.0",
+    "@cloudflare/vite-plugin": "1.65.0",
     "@tailwindcss/vite": "4.3.3",
     "@vitejs/plugin-react": "6.1.2",
     "tailwindcss": "4.3.3",
-    "vite": "8.3.4",
-    "wrangler": "4.151.1"
+    "vite": "8.3.5",
+    "wrangler": "4.152.0"
   }
 }
