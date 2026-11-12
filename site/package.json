@@ -12,20 +12,20 @@
     "typecheck": "tsgo --noEmit"
   },
   "dependencies": {
-    "@cloudflare/kumo": "2.16.0",
+    "@cloudflare/kumo": "2.17.0",
     "@marsidev/react-turnstile": "workspace:*",
     "@phosphor-icons/react": "2.1.10",
     "@tanstack/react-router": "1.170.46",
-    "@tanstack/react-start": "1.169.4",
+    "@tanstack/react-start": "1.169.5",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.66.0",
-    "@tailwindcss/vite": "4.3.3",
-    "@vitejs/plugin-react": "6.1.2",
-    "tailwindcss": "4.3.3",
-    "vite": "8.3.5",
-    "wrangler": "4.156.0"
+    "@cloudflare/vite-plugin": "1.67.0",
+    "@tailwindcss/vite": "4.3.5",
+    "@vitejs/plugin-react": "6.2.1",
+    "tailwindcss": "4.3.5",
+    "vite": "8.3.6",
+    "wrangler": "4.158.0"
   }
 }
